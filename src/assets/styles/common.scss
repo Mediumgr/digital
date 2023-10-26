@@ -1,0 +1,51 @@
+@font-face {
+    font-family: "Onest";
+    src: url("../fonts/Onest-Medium.ttf");
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* input:active {
+  font-size: 16px; // disable iphone zoom
+} */
+
+html,
+body {
+    scroll-behavior: smooth;
+    /* Firefox scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgb(225, 104, 5);
+    background: #ffffff;
+
+    &::-webkit-scrollbar {
+        width: 3px;
+        overflow: auto;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background: rgb(225, 104, 5);
+    }
+}
+
+body {
+    font-family: "Onest";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+:root {
+    --color-white: rgba(255, 255, 255, 1);
+}
