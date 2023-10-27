@@ -150,7 +150,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
-// const videoSource = ref('../assets/video/meet.mp4');
+// const videoSource = ref('../assets/video/about.mp4');
+// const videoPlayer = ref(null);
 const showBlur = ref(false);
 const menuList = ref(null);
 const showNavbar = ref(false);
@@ -165,15 +166,17 @@ const titlePsb = ref(false);
 const titleLab = ref(false);
 const loadingTime = ref(800);
 
-const changeVideoSource = () => {
-  console.log('changeVideoSource');
+/* const changeVideoSource = () => {
+  console.log('videoSource', videoSource.value);
+  videoPlayer.value.play();
+  videoPlayer.value.load(); */
   /* switch (num) {
     case '1':
       videoSource.value = '../assets/video/about.mp4';
       videoPlayer.value.load();
       break;
   } */
-};
+/* }; */
 
 const checked = () => {
   menuList.value.classList.add('section__links_active');
@@ -258,9 +261,7 @@ onMounted(async () => {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(
-      -10px
-    ); /* Выберите желаемое расстояние для движения вверх */
+    transform: translateY(-10px);
   }
   100% {
     transform: translateY(0);
@@ -435,6 +436,7 @@ onMounted(async () => {
     }
   }
   &__projects {
+    min-width: 162px;
     height: 52px;
     position: relative;
     left: -39px;
@@ -477,6 +479,7 @@ onMounted(async () => {
     }
   }
   &__life {
+    min-width: 180px;
     height: 52px;
     position: relative;
     left: 16px;
