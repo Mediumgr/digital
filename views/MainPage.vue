@@ -1,13 +1,15 @@
 <template>
   <MainBlock />
-  <SpecialistsInfo></SpecialistsInfo>>
-  <WorkingSection>></WorkingSection>
+  <SpecialistsInfo />
+  <WorkingSection />
+  <FormVacancy />
 </template>
 
 <script>
 import MainBlock from '@/components/MainBlock.vue';
 import SpecialistsInfo from '@/components/SpecialistsInfo.vue';
 import WorkingSection from '@/components/WorkingSection.vue';
+import FormVacancy from '@/components/FormVacancy.vue';
 
 export default {
   name: 'MainPage',
@@ -15,6 +17,7 @@ export default {
     MainBlock,
     SpecialistsInfo,
     WorkingSection,
+    FormVacancy,
   },
 };
 </script>

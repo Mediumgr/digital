@@ -115,28 +115,42 @@
         loop="loop"
         poster="../assets/images/poster_1.png"
       >
-        <source src="../assets/video/meet.mp4" type="video/mp4" />
-        <!-- <source :src="videoSource" type="video/mp4" /> -->
+        <source :src="videoSrc" type="video/mp4" />
       </video>
       <div class="wrapper">
         <h1 class="wrapper__title">Давай знакомиться</h1>
         <div class="wrapper__content">
-          <button class="wrapper__about" @mouseover="changeVideoSource">
+          <button
+            class="wrapper__about"
+            @mouseover="changeVideoSource('about')"
+          >
             О нас
           </button>
-          <button class="wrapper__projects" @mouseover="changeVideoSource">
+          <button
+            class="wrapper__projects"
+            @mouseover="changeVideoSource('projects')"
+          >
             Проекты и стек
           </button>
-          <button class="wrapper__office" @mouseover="changeVideoSource">
+          <button
+            class="wrapper__office"
+            @mouseover="changeVideoSource('office')"
+          >
             Офисы
           </button>
-          <button class="wrapper__work" @mouseover="changeVideoSource">
+          <button
+            class="wrapper__work"
+            @mouseover="changeVideoSource('working')"
+          >
             Работа с нами
           </button>
-          <button class="wrapper__life" @mouseover="changeVideoSource">
+          <button class="wrapper__life" @mouseover="changeVideoSource('life')">
             Жизнь вне офиса
           </button>
-          <button class="wrapper__develop" @mouseover="changeVideoSource">
+          <button
+            class="wrapper__develop"
+            @mouseover="changeVideoSource('develop')"
+          >
             Развитие
           </button>
         </div>
@@ -150,8 +164,17 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
-// const videoSource = ref('../assets/video/about.mp4');
-// const videoPlayer = ref(null);
+const videoSrc = ref('');
+const videoPlayer = ref(null);
+const videoSources = ref({
+  about: 'about.mp4',
+  projects: 'projects.mp4',
+  office: 'office.mp4',
+  working: 'working.mp4',
+  life: 'life.mp4',
+  develop: 'develop.mp4',
+});
+
 const showBlur = ref(false);
 const menuList = ref(null);
 const showNavbar = ref(false);
@@ -166,17 +189,14 @@ const titlePsb = ref(false);
 const titleLab = ref(false);
 const loadingTime = ref(800);
 
-/* const changeVideoSource = () => {
-  console.log('videoSource', videoSource.value);
-  videoPlayer.value.play();
-  videoPlayer.value.load(); */
-  /* switch (num) {
-    case '1':
-      videoSource.value = '../assets/video/about.mp4';
-      videoPlayer.value.load();
-      break;
-  } */
-/* }; */
+const changeVideoSource = (chapter) => {
+  const source = videoSources.value[chapter];
+  videoPlayer.value.pause();
+  if (source) {
+    videoSrc.value = require(`@/assets/video/${source}`);
+    videoPlayer.value.load();
+  }
+};
 
 const checked = () => {
   menuList.value.classList.add('section__links_active');
@@ -243,6 +263,9 @@ const contentLoad = (ms) => {
 };
 
 onMounted(async () => {
+  videoSrc.value = require('@/assets/video/meet.mp4');
+  videoPlayer.value.load();
+
   showNavbar.value = true;
   await contentLoad(loadingTime.value);
   showContent.value = true;

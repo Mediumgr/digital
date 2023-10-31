@@ -140,7 +140,7 @@ onMounted(() => {
   margin: 0 auto; */
   &__wrapper {
     margin: 0 auto;
-    background: url('../assets/images/canvas_375.png') no-repeat center;
+    background: url('../assets/images/canvas-common.png') no-repeat center;
     background-color: rgb(224, 110, 110);
     height: 488px;
     width: auto;
