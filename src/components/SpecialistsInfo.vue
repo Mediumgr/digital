@@ -182,7 +182,6 @@ onMounted(() => {
     padding: 0 210px;
   }
   @media screen and (min-width: 1920px) {
-    width: 1920px;
     margin: 120px auto;
   }
   &__number {

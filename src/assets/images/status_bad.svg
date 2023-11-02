@@ -1,0 +1,12 @@
+<svg width="152" height="152" viewBox="0 0 152 152" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Union">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28.5 152L76 104.5L123.5 152L152 123.5L123.5 95L104.5 76L123.5 57L152 28.5L123.5 0L76 47.5L28.5 0L0 28.5L28.5 57L47.5 76L28.5 95L0 123.5L28.5 152Z" fill="#EC3C63"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28.5 152L76 104.5L123.5 152L152 123.5L123.5 95L104.5 76L123.5 57L152 28.5L123.5 0L76 47.5L28.5 0L0 28.5L28.5 57L47.5 76L28.5 95L0 123.5L28.5 152Z" fill="url(#paint0_linear_148_18170)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_148_18170" x1="76" y1="0" x2="76" y2="152" gradientUnits="userSpaceOnUse">
+<stop stop-color="#A451D1"/>
+<stop offset="1" stop-color="#FF4A39"/>
+</linearGradient>
+</defs>
+</svg>
