@@ -10,86 +10,136 @@
       классные специалисты,которые усилят команду
     </p>
   </div>
-  <!--   <div class="canvas__wrapper">
+  <div class="canvas__wrapper">
     <canvas class="canvas" id="canvas"></canvas>
-  </div> -->
-  <div class="canvas__wrapper"></div>
+  </div>
 </template>
 
-<!-- <script setup>
+<script setup>
 import { onMounted } from 'vue';
 
 const canvasAnimation = () => {
   const show = 5; // Количество точек
+  const labels = [
+    'Экспертизу',
+    'Личную ответственность',
+    'Гибкость',
+    'Потенциал',
+    'Свободу идей',
+  ];
+  const labelSpacing = 20; // Увеличил расстояние между точкой и названием
+  const labelOffset = 2; // Сдвиг надписи вперед
   const canvas = document.getElementById('canvas');
-  const scene = canvas.getContext('2d');
-  let canvasWidth = 335; // Максимальная ширина canvas
-  let canvasHeight = (canvas.height = window.innerHeight);
+  let scene = canvas.getContext('2d');
+  let canvasWidth = (canvas.width = window.innerWidth);
+  let canvasHeight = (canvas.height = window.innerWidth);
 
   // Создаем точку
   class Dot {
-    constructor() {
-      this.size = 6;
-      this.dx = Math.random() * 2 - 1; // Рандомное начальное движение по X от -1 до 1
-      this.dy = Math.random() * 2 - 1; // Рандомное начальное движение по Y от -1 до 1
-      this.px = Math.random() * canvasWidth;
-      this.py = Math.random() * canvasHeight;
-      this.targetX = this.px;
-      this.targetY = this.py;
-      this.animationTimeout = 2000;
+    constructor(x, y, label) {
+      this.size = 4;
+      this.px = x;
+      this.py = y;
+      this.startX = x;
+      this.startY = y;
+      this.speed = 25; // Расстояние 25px за 1 секунду
+      this.animationTimeout = 3000; // Время движения и остановки в 3 секунды
+      this.lastPauseTime = Date.now();
+      this.paused = false;
+      this.direction = 1;
       this.randomizeMovement();
+      this.rotation = (180 * Math.PI) / 180; // Поворот на 180 градусов
+      this.label = label;
+      this.labelOffset = labelOffset;
     }
 
-    // Обновляем положение точки и рисуем
     update() {
-      this.bounds();
-
-      if (this.animationTimeElapsed()) {
+      if (
+        this.paused &&
+        Date.now() - this.lastPauseTime >= this.animationTimeout
+      ) {
+        this.paused = false;
         this.randomizeMovement();
+        this.lastPauseTime = Date.now();
       }
 
-      this.px += this.dx;
-      this.py += this.dy;
+      if (!this.paused) {
+        this.bounds();
+        this.px += (this.speed / 100) * this.direction; // Скорость пересчитана в пикселях в миллисекунду
+        this.py = this.startY + 25 * Math.sin(this.px * 0.1); // Пересчет Y позиции для плавного вертикального движения
+      }
 
       this.draw();
     }
 
-    // Рисуем точку
     draw() {
+      scene.save();
+      scene.translate(this.px, this.py);
+      scene.rotate(this.rotation);
       scene.beginPath();
-      scene.arc(this.px, this.py, this.size, 0, Math.PI * 2);
+      scene.arc(0, 0, this.size, 0, Math.PI * 2);
       scene.closePath();
-      scene.fillStyle = '#a8ffd6';
+      scene.fillStyle = '#fff';
       scene.fill();
+      scene.restore();
+
+      // Стиль надписи
+      scene.font = '500 18px Onest';
+      scene.fillStyle = '#fff';
+      scene.textAlign = 'center';
+      scene.textBaseline = 'bottom';
+
+      // Вычисление позиции надписи
+      let labelX =
+        this.px +
+        (this.size + labelSpacing + this.labelOffset) *
+          Math.cos(this.rotation - Math.PI / 2);
+      let labelY = this.py;
+
+      if (this.label === 'Потенциал') {
+        labelX -= labelSpacing + 40;
+        labelY -= labelSpacing - 30;
+      } else if (this.label === 'Свободу идей') {
+        labelX += labelSpacing;
+        labelY -= labelSpacing - 10;
+      } else if (this.label === 'Экспертизу') {
+        labelX += labelSpacing + 40;
+        labelY -= labelSpacing - 30;
+      } else if (this.label === 'Гибкость') {
+        labelX -= labelSpacing + 30;
+        labelY += labelSpacing - 10;
+      } else if (this.label === 'Личную ответственность') {
+        labelX -= labelSpacing-20;
+        labelY += labelSpacing + 10;
+      }
+
+      scene.fillText(this.label, labelX, labelY);
     }
 
-    // Проверяем, не ударились ли о стенку и меняем направление
     bounds() {
-      if (this.px < 0 || this.px > canvasWidth) this.dx *= -1;
-      if (this.py < 0 || this.py > canvasHeight) this.dy *= -1;
+      if (this.px > this.startX + 25 || this.px < this.startX - 25) {
+        this.paused = true;
+        this.direction = -this.direction;
+        this.lastPauseTime = Date.now();
+      }
     }
 
-    // Проверяем, наступило ли время для случайного движения
-    animationTimeElapsed() {
-      return Date.now() - this.lastAnimationTime >= this.animationTimeout;
-    }
-
-    // Создаем случайное движение
     randomizeMovement() {
-      this.dx = Math.random() * 2 - 1; // Рандомное движение по X от -1 до 1
-      this.dy = Math.random() * 2 - 1; // Рандомное движение по Y от -1 до 1
-      this.lastAnimationTime = Date.now();
+      this.direction = Math.random() < 0.5 ? 1 : -1; // Случайное направление движения
     }
   }
 
-  // Создаем точки
-  const dots = [
-    ...Array(show)
-      .fill()
-      .map(() => new Dot()),
-  ];
+  const dots = [];
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
+  const space = 100;
 
-  // Рисуем сцену
+  for (let i = 0; i < show; i++) {
+    const x = centerX + space * Math.cos((i / show) * Math.PI * 2);
+    const y = centerY + space * Math.sin((i / show) * Math.PI * 2);
+    dots.push(new Dot(x, y, labels[i]));
+  }
+
   function draw() {
     scene.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -102,67 +152,63 @@ const canvasAnimation = () => {
     requestAnimationFrame(draw);
   }
 
-  // Соединяем точки для образования пятиугольника
   function connectDots() {
     scene.beginPath();
     scene.lineWidth = 1;
-    scene.strokeStyle = 'rgba(168, 255, 214, 0.5)';
+    scene.strokeStyle = '#fff';
+
     dots.forEach((dot, index) => {
       const nextDot = dots[(index + 1) % show];
       scene.moveTo(dot.px, dot.py);
       scene.lineTo(nextDot.px, nextDot.py);
     });
+
     scene.stroke();
   }
 
   draw();
 
-  // Меняем размер canvas
   window.addEventListener('resize', () => {
-    canvasHeight = canvas.height = window.innerHeight;
-    if (window.innerWidth < 335) {
-      canvasWidth = canvas.width = window.innerWidth;
-    } else {
-      canvasWidth = canvas.width = 335;
-    }
+    canvasWidth = canvas.width = window.innerWidth;
+    canvasHeight = canvas.height = window.innerWidth;
   });
 };
 
 onMounted(() => {
   canvasAnimation();
 });
-</script> -->
+</script>
 
 <style lang="scss" scoped>
 .canvas {
-  /*   height: 200px;
+  /*   height: 600px; */
   color: var(--color-white);
-  margin: 0 auto; */
+  margin: 0 auto;
   &__wrapper {
     margin: 0 auto;
-    background: url('../assets/images/canvas-common.png') no-repeat center;
-    background-color: rgb(224, 110, 110);
-    height: 488px;
-    width: auto;
+    // background: url('../assets/images/canvas-common.png') no-repeat center;
+    background-color: rgb(230, 134, 134);
+    /*     height: 488px; */
+    /*    width: auto; */
     @media screen and (min-width: 425px) {
-      height: 588px;
-      background-size: cover;
+      /*   height: 588px; */
+      /*   background-size: cover; */
     }
     @media screen and (min-width: 768px) {
-      height: 500px;
-      background: url('../assets/images/canvas.png') no-repeat center;
-      background-size: cover;
+      /*   height: 500px; */
+      // background: url('../assets/images/canvas.png') no-repeat center;
+      /*    background-size: cover; */
     }
     @media screen and (min-width: 1024px) {
-      height: 800px;
+      /*    height: 800px; */
     }
     @media screen and (min-width: 1440px) {
       height: 1200px;
-      background: url('../assets/images/canvas_1440.png') no-repeat center;
+      // background: url('../assets/images/canvas_1440.png') no-repeat center;
     }
     @media screen and (min-width: 1920px) {
-      height: 1900px;
-      background-size: cover;
+      /*  height: 1900px; */
+      /*     background-size: cover; */
     }
   }
 }
