@@ -12,17 +12,18 @@
   </div>
   <div class="canvas__wrapper">
     <canvas class="canvas" id="canvas"></canvas>
+    <span class="text">Для тех,<br />кто ценит</span>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue';
-
+/*     'Личную\nответственность', */
 const canvasAnimation = () => {
   const show = 5; // Количество точек
   const labels = [
     'Экспертизу',
-    'Личную ответственность',
+    'Личную\nответственность',
     'Гибкость',
     'Потенциал',
     'Свободу идей',
@@ -31,9 +32,29 @@ const canvasAnimation = () => {
   const labelOffset = 2; // Сдвиг надписи вперед
   const canvas = document.getElementById('canvas');
   let scene = canvas.getContext('2d');
-  let canvasWidth = (canvas.width = window.innerWidth);
-  let canvasHeight = (canvas.height = window.innerWidth);
+  /*   let clientWidth = document.documentElement.clientWidth;
 
+  let canvasWidth = (canvas.width = clientWidth);
+  let canvasHeight = (canvas.height = clientWidth); */
+  let canvasWidth;
+  let canvasHeight;
+
+  function updateCanvasSize() {
+    canvasWidth = canvas.width = document.documentElement.clientWidth;
+    canvasHeight = canvas.height = document.documentElement.clientWidth;
+  }
+
+  window.addEventListener('load', updateCanvasSize);
+  window.addEventListener('resize', updateCanvasSize);
+
+  /*   if (clientWidth > 767.98) {
+    canvasWidth = canvas.width = 688;
+    canvasHeight = canvas.height = 500;
+  }
+  if (clientWidth > 1439.98) {
+    canvasWidth = canvas.width = 1420;
+    canvasHeight = canvas.height = 900;
+  } */
   // Создаем точку
   class Dot {
     constructor(x, y, label) {
@@ -45,15 +66,25 @@ const canvasAnimation = () => {
       this.speed = 25; // Расстояние 25px за 1 секунду
       this.animationTimeout = 3000; // Время движения и остановки в 3 секунды
       this.lastPauseTime = Date.now();
-      this.paused = false;
+      this.paused = true; // Начнем с паузы
       this.direction = 1;
       this.randomizeMovement();
-      this.rotation = (180 * Math.PI) / 180; // Поворот на 180 градусов
+      this.rotation = (180 * Math.PI) / 10; // Поворот на 180 градусов
       this.label = label;
       this.labelOffset = labelOffset;
+      this.animationStarted = false;
     }
 
     update() {
+      if (!this.animationStarted) {
+        // Синхронный старт
+        setTimeout(() => {
+          this.paused = false;
+          this.animationStarted = true;
+          this.lastPauseTime = Date.now();
+        }, Math.random() * this.animationTimeout); // Рандомизированный старт
+      }
+
       if (
         this.paused &&
         Date.now() - this.lastPauseTime >= this.animationTimeout
@@ -61,6 +92,14 @@ const canvasAnimation = () => {
         this.paused = false;
         this.randomizeMovement();
         this.lastPauseTime = Date.now();
+        this.animationStarted = false; // Устанавливаем флаг остановки анимации
+
+        // Задержка в 2 секунды перед следующим синхронным стартом всех точек
+        setTimeout(() => {
+          for (const dot of dots) {
+            dot.animationStarted = false;
+          }
+        }, 2000);
       }
 
       if (!this.paused) {
@@ -84,7 +123,7 @@ const canvasAnimation = () => {
       scene.restore();
 
       // Стиль надписи
-      scene.font = '500 18px Onest';
+      scene.font = '500 14px Onest';
       scene.fillStyle = '#fff';
       scene.textAlign = 'center';
       scene.textBaseline = 'bottom';
@@ -97,22 +136,25 @@ const canvasAnimation = () => {
       let labelY = this.py;
 
       if (this.label === 'Потенциал') {
-        labelX -= labelSpacing + 40;
-        labelY -= labelSpacing - 30;
+        labelX -= labelSpacing + 25;
+        labelY -= labelSpacing - 25;
       } else if (this.label === 'Свободу идей') {
         labelX += labelSpacing;
-        labelY -= labelSpacing - 10;
+        labelY -= labelSpacing - 15;
       } else if (this.label === 'Экспертизу') {
-        labelX += labelSpacing + 40;
-        labelY -= labelSpacing - 30;
+        labelX += labelSpacing + 28;
+        labelY -= labelSpacing - 27;
       } else if (this.label === 'Гибкость') {
-        labelX -= labelSpacing + 30;
-        labelY += labelSpacing - 10;
-      } else if (this.label === 'Личную ответственность') {
-        labelX -= labelSpacing-20;
-        labelY += labelSpacing + 10;
+        labelX -= labelSpacing + 20;
+        labelY += labelSpacing - 12;
+      } else if (this.label === 'Личную\nответственность') {
+        // Разбиваем на две строки
+        const lines = this.label.split('\n');
+        scene.fillText(lines[0], labelX, labelY + 24);
+        scene.fillText(lines[1], labelX, labelY + 37);
+        return; // Выходим, чтобы избежать дублирования надписи
       }
-
+      scene.font = '500 14px Onest'; // Возвращаем настройки стиля
       scene.fillText(this.label, labelX, labelY);
     }
 
@@ -134,9 +176,14 @@ const canvasAnimation = () => {
   const centerY = canvasHeight / 2;
   const space = 100;
 
+  // Определите расстояние в зависимости от ширины экрана
+  // const distanceFromCenter = Math.min(canvasWidth, canvasHeight) * 0.4;
+
   for (let i = 0; i < show; i++) {
     const x = centerX + space * Math.cos((i / show) * Math.PI * 2);
     const y = centerY + space * Math.sin((i / show) * Math.PI * 2);
+    /*     const x = centerX + distanceFromCenter * Math.cos((i / labels.length) * Math.PI * 2);
+    const y = centerY + distanceFromCenter * Math.sin((i / labels.length) * Math.PI * 2); */
     dots.push(new Dot(x, y, labels[i]));
   }
 
@@ -168,10 +215,11 @@ const canvasAnimation = () => {
 
   draw();
 
-  window.addEventListener('resize', () => {
-    canvasWidth = canvas.width = window.innerWidth;
-    canvasHeight = canvas.height = window.innerWidth;
-  });
+  /*   window.addEventListener('resize', () => {
+    let clientWidth = document.documentElement.clientWidth;
+    canvasWidth = canvas.width = clientWidth;
+    canvasHeight = canvas.height = clientWidth;
+  }); */
 };
 
 onMounted(() => {
@@ -183,9 +231,11 @@ onMounted(() => {
 .canvas {
   /*   height: 600px; */
   color: var(--color-white);
+  display: flex;
   margin: 0 auto;
   &__wrapper {
     margin: 0 auto;
+    position: relative;
     // background: url('../assets/images/canvas-common.png') no-repeat center;
     background-color: rgb(230, 134, 134);
     /*     height: 488px; */
@@ -209,6 +259,26 @@ onMounted(() => {
     @media screen and (min-width: 1920px) {
       /*  height: 1900px; */
       /*     background-size: cover; */
+    }
+    & > .text {
+      position: absolute;
+      top: 150px;
+      left: 125px;
+      text-align: center;
+      color: var(--color-white, #fff);
+      font-family: Onest;
+      font-size: 28px;
+      line-height: 100%;
+      letter-spacing: -1.2px;
+      @media screen and (min-width: 425px) {
+        top: 170px;
+        left: 160px;
+      }
+      @media screen and (min-width: 768px) {
+        top: 350px;
+        left: 320px;
+        font-size: 30px;
+      }
     }
   }
 }
