@@ -4,6 +4,7 @@
 
 <script>
 import '@/assets/styles/common.scss';
+import '@/assets/styles/keyframes.css'
 import MainPage from '/views/MainPage.vue';
 
 export default {

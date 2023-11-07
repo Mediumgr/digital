@@ -12,7 +12,7 @@
   </div>
   <div class="canvas__wrapper">
     <canvas class="canvas" id="canvas"></canvas>
-    <span class="text">Для тех,<br />кто ценит</span>
+    <!-- <span class="text">Для тех,<br />кто ценит</span> -->
   </div>
 </template>
 
@@ -32,49 +32,39 @@ const canvasAnimation = () => {
   const labelOffset = 2; // Сдвиг надписи вперед
   const canvas = document.getElementById('canvas');
   let scene = canvas.getContext('2d');
-  /*   let clientWidth = document.documentElement.clientWidth;
-
+  let clientWidth = document.documentElement.clientWidth;
   let canvasWidth = (canvas.width = clientWidth);
-  let canvasHeight = (canvas.height = clientWidth); */
-  let canvasWidth;
-  let canvasHeight;
+  let canvasHeight = (canvas.height = clientWidth);
 
-  function updateCanvasSize() {
-    canvasWidth = canvas.width = document.documentElement.clientWidth;
-    canvasHeight = canvas.height = document.documentElement.clientWidth;
-  }
-
-  window.addEventListener('load', updateCanvasSize);
-  window.addEventListener('resize', updateCanvasSize);
-
-  /*   if (clientWidth > 767.98) {
-    canvasWidth = canvas.width = 688;
-    canvasHeight = canvas.height = 500;
+  if (clientWidth > 767.98) {
+    canvasWidth = canvas.width = 545;
+    canvasHeight = canvas.height = 545;
   }
   if (clientWidth > 1439.98) {
-    canvasWidth = canvas.width = 1420;
-    canvasHeight = canvas.height = 900;
-  } */
+    canvasWidth = canvas.width = 800;
+    canvasHeight = canvas.height = 800;
+  }
+
   // Создаем точку
   class Dot {
     constructor(x, y, label) {
-      this.size = 4;
+      this.size = 3;
       this.px = x;
       this.py = y;
       this.startX = x;
       this.startY = y;
-      this.speed = 25; // Расстояние 25px за 1 секунду
+      this.speed = 18; // Расстояние 15px за 1 секунду
       this.animationTimeout = 3000; // Время движения и остановки в 3 секунды
       this.lastPauseTime = Date.now();
       this.paused = true; // Начнем с паузы
-      this.direction = 1;
+      this.direction = 40;
       this.randomizeMovement();
-      this.rotation = (180 * Math.PI) / 10; // Поворот на 180 градусов
+      // this.rotation = (150 * Math.PI) / 10; // Поворот на 150 градусов
+      this.rotation = (150 * Math.PI) / 15; // Поворот на 150 градусов
       this.label = label;
       this.labelOffset = labelOffset;
       this.animationStarted = false;
     }
-
     update() {
       if (!this.animationStarted) {
         // Синхронный старт
@@ -104,8 +94,8 @@ const canvasAnimation = () => {
 
       if (!this.paused) {
         this.bounds();
-        this.px += (this.speed / 100) * this.direction; // Скорость пересчитана в пикселях в миллисекунду
-        this.py = this.startY + 25 * Math.sin(this.px * 0.1); // Пересчет Y позиции для плавного вертикального движения
+        this.px += (this.speed / 120) * this.direction; // Скорость пересчитана в пикселях в миллисекунду
+        this.py = this.startY + 18 * Math.sin(this.px * 0.2); // Пересчет Y позиции для плавного вертикального движения
       }
 
       this.draw();
@@ -116,14 +106,14 @@ const canvasAnimation = () => {
       scene.translate(this.px, this.py);
       scene.rotate(this.rotation);
       scene.beginPath();
-      scene.arc(0, 0, this.size, 0, Math.PI * 2);
+      scene.arc(0, 0, this.size, 0, Math.PI * 8);
       scene.closePath();
       scene.fillStyle = '#fff';
       scene.fill();
       scene.restore();
 
       // Стиль надписи
-      scene.font = '500 14px Onest';
+      scene.font = '500 16px Onest';
       scene.fillStyle = '#fff';
       scene.textAlign = 'center';
       scene.textBaseline = 'bottom';
@@ -136,30 +126,44 @@ const canvasAnimation = () => {
       let labelY = this.py;
 
       if (this.label === 'Потенциал') {
-        labelX -= labelSpacing + 25;
+        labelX -= labelSpacing + 30;
         labelY -= labelSpacing - 25;
       } else if (this.label === 'Свободу идей') {
-        labelX += labelSpacing;
-        labelY -= labelSpacing - 15;
+        labelX += labelSpacing + 40;
+        labelY -= labelSpacing - 25;
       } else if (this.label === 'Экспертизу') {
-        labelX += labelSpacing + 28;
-        labelY -= labelSpacing - 27;
+        labelX += labelSpacing + 30;
+        labelY -= labelSpacing - 30;
       } else if (this.label === 'Гибкость') {
-        labelX -= labelSpacing + 20;
-        labelY += labelSpacing - 12;
+        labelX -= labelSpacing + 25;
+        labelY += labelSpacing - 15;
       } else if (this.label === 'Личную\nответственность') {
-        // Разбиваем на две строки
         const lines = this.label.split('\n');
-        scene.fillText(lines[0], labelX, labelY + 24);
-        scene.fillText(lines[1], labelX, labelY + 37);
-        return; // Выходим, чтобы избежать дублирования надписи
+        scene.fillText(lines[0], labelX, labelY + 20);
+        scene.fillText(lines[1], labelX, labelY + 33);
+        return;
       }
-      scene.font = '500 14px Onest'; // Возвращаем настройки стиля
+      scene.font = '500 16px Onest'; // Возвращаем настройки стиля
       scene.fillText(this.label, labelX, labelY);
+
+      // Стиль для фразы "Для тех, кто ценит"
+      scene.font = 'normal 500 22px Onest';
+      scene.fillStyle = '#fff';
+      scene.textAlign = 'center';
+      scene.textBaseline = 'middle';
+
+      // Координаты центра холста
+      const centerX = canvasWidth / 2;
+      const centerY = canvasHeight / 2;
+
+      // Отобразить фразу "Для тех, кто ценит" в центре холста
+      scene.fillText('Для тех,', centerX-10, centerY);
+      scene.fillText('кто ценит', centerX-10, centerY + 20);
     }
 
     bounds() {
-      if (this.px > this.startX + 25 || this.px < this.startX - 25) {
+      // ограничивает расстояние которое может пройти точка, предел ее
+      if (this.px > this.startX + 14 || this.px < this.startX - 14) {
         this.paused = true;
         this.direction = -this.direction;
         this.lastPauseTime = Date.now();
@@ -172,24 +176,26 @@ const canvasAnimation = () => {
   }
 
   const dots = [];
-  const centerX = canvasWidth / 2;
+  /*   const centerX = canvasWidth / 2;
   const centerY = canvasHeight / 2;
-  const space = 100;
-
-  // Определите расстояние в зависимости от ширины экрана
-  // const distanceFromCenter = Math.min(canvasWidth, canvasHeight) * 0.4;
+  const space = 90; // увеличивает размер всей фигуры
 
   for (let i = 0; i < show; i++) {
-    const x = centerX + space * Math.cos((i / show) * Math.PI * 2);
-    const y = centerY + space * Math.sin((i / show) * Math.PI * 2);
-    /*     const x = centerX + distanceFromCenter * Math.cos((i / labels.length) * Math.PI * 2);
-    const y = centerY + distanceFromCenter * Math.sin((i / labels.length) * Math.PI * 2); */
+    const x = centerX + space * Math.cos((i / show) * Math.PI * 2) - 12;
+    const y = centerY + space * Math.sin((i / show) * Math.PI * 2) - 20; // меняет положение по вертикали канвас
+    dots.push(new Dot(x, y, labels[i]));
+  } */
+
+  for (let i = 0; i < show; i++) {
+    const angle = (i / show) * Math.PI * 2;
+    const radius = 90;
+    const x = canvasWidth / 2 + radius * Math.cos(angle) - 9; // меняет канвас положение по горизонтали
+    const y = canvasHeight / 2 + radius * Math.sin(angle); // меняет канвас положение по вертикали
     dots.push(new Dot(x, y, labels[i]));
   }
 
   function draw() {
     scene.clearRect(0, 0, canvasWidth, canvasHeight);
-
     dots.forEach((dot) => {
       dot.update();
     });
@@ -201,7 +207,7 @@ const canvasAnimation = () => {
 
   function connectDots() {
     scene.beginPath();
-    scene.lineWidth = 1;
+    scene.lineWidth = 0.5;
     scene.strokeStyle = '#fff';
 
     dots.forEach((dot, index) => {
@@ -215,11 +221,10 @@ const canvasAnimation = () => {
 
   draw();
 
-  /*   window.addEventListener('resize', () => {
-    let clientWidth = document.documentElement.clientWidth;
-    canvasWidth = canvas.width = clientWidth;
-    canvasHeight = canvas.height = clientWidth;
-  }); */
+  window.addEventListener('resize', () => {
+    canvasWidth = canvas.width = 400;
+    canvasHeight = canvas.height = 400;
+  });
 };
 
 onMounted(() => {

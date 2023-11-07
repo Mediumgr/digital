@@ -1,6 +1,6 @@
 <template>
   <div class="working__section">
-    <h2 class="working__title">Вот над чем мы сейчас работаем</h2>
+    <h2 class="working__title">Вот над чем мы&nbsp;сейчас работаем</h2>
     <div class="frame__wrapper">
       <div class="commonStyle working__support">Поддержка подразделений</div>
       <div class="commonStyle working__eco">Экосистема сервисов</div>
@@ -92,6 +92,18 @@
     font-style: normal;
     line-height: 90%;
     letter-spacing: -2.88px;
+    @media screen and (min-width: 375px) {
+      padding: 0 30px;
+    }
+    @media screen and (min-width: 425px) {
+      padding: 0 50px;
+    }
+    @media screen and (min-width: 568px) {
+      padding: 0 138px;
+    }
+    @media screen and (min-width: 595px) {
+      padding: 0 153px;
+    }
     @media screen and (min-width: 768px) {
       padding: 0 100px;
       font-family: Onest;
