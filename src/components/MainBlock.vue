@@ -116,7 +116,7 @@
               {{ counterPsb }}
             </div>
           </section>
-          <section class="section__text-lab">
+          <section ref="textLab" class="section__text-lab">
             <p class="section__title-lab" v-show="titleLab">лаборатория</p>
             <div class="section__counter-lab" ref="labNode">
               {{ counterLab }}
@@ -126,62 +126,55 @@
         <p class="section__sub-title-lab" v-if="showSubTitle">
           Cоздавай будущее с нами
         </p>
-        <div class="video__section" v-show="showVideo">
-          <video
-            ref="videoPlayer"
-            autoplay
-            muted
-            playsinline
-            loop="loop"
-            poster="../assets/images/poster_1.png"
-          >
-            <source :src="videoSrc" type="video/mp4" />
-          </video>
-          <div class="wrapper">
-            <h1 class="wrapper__title">Давай знакомиться</h1>
-            <div class="wrapper__content">
-              <button
-                class="wrapper__about"
-                @mouseover="changeVideoSource('about')"
-              >
-                О нас
-              </button>
-              <button
-                class="wrapper__projects"
-                @mouseover="changeVideoSource('projects')"
-              >
-                Проекты и стек
-              </button>
-              <button
-                class="wrapper__office"
-                @mouseover="changeVideoSource('office')"
-              >
-                Офисы
-              </button>
-              <button
-                class="wrapper__work"
-                @mouseover="changeVideoSource('working')"
-              >
-                Работа с нами
-              </button>
-              <button
-                class="wrapper__life"
-                @mouseover="changeVideoSource('life')"
-              >
-                Жизнь вне офиса
-              </button>
-              <button
-                class="wrapper__develop"
-                @mouseover="changeVideoSource('develop')"
-              >
-                Развитие
-              </button>
-            </div>
-            <button class="wrapper__arrow"></button>
-          </div>
-        </div>
         <div class="substrate" v-if="showBlur" @click="close()"></div>
       </div>
+    </div>
+  </div>
+
+  <div class="video__section" v-show="showVideo">
+    <video
+      ref="videoPlayer"
+      class="videoPlayer"
+      autoplay
+      muted
+      playsinline
+      loop="loop"
+      poster="../assets/images/poster_1.png"
+    >
+      <source :src="videoSrc" type="video/mp4" />
+    </video>
+    <div class="wrapper">
+      <h1 class="wrapper__title">Давай знакомиться</h1>
+      <div class="wrapper__content">
+        <button class="wrapper__about" @mouseover="changeVideoSource('about')">
+          О нас
+        </button>
+        <button
+          class="wrapper__projects"
+          @mouseover="changeVideoSource('projects')"
+        >
+          Проекты и стек
+        </button>
+        <button
+          class="wrapper__office"
+          @mouseover="changeVideoSource('office')"
+        >
+          Офисы
+        </button>
+        <button class="wrapper__work" @mouseover="changeVideoSource('working')">
+          Работа с нами
+        </button>
+        <button class="wrapper__life" @mouseover="changeVideoSource('life')">
+          Жизнь вне офиса
+        </button>
+        <button
+          class="wrapper__develop"
+          @mouseover="changeVideoSource('develop')"
+        >
+          Развитие
+        </button>
+      </div>
+      <button class="wrapper__arrow"></button>
     </div>
   </div>
 </template>
@@ -213,6 +206,7 @@ const gradientGroup = ref(null);
 const counterLab = ref(null);
 const titlePsb = ref(false);
 const titleLab = ref(false);
+const textLab = ref(null);
 const loadingTime = ref(800);
 
 const changeVideoSource = (chapter) => {
@@ -288,6 +282,50 @@ const contentLoad = (ms) => {
   });
 };
 
+const intersectionAnimation = () => {
+  let title = document.querySelector('.wrapper__title');
+  let content = document.querySelector('.wrapper__content');
+  let arrow = document.querySelector('.wrapper__arrow');
+  title.style.opacity = content.style.opacity = arrow.style.opacity = '0';
+  let options = {
+    threshold: [0.2, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+  };
+  let opacity = [1, 0.9, 0.8, 0.6, 0.5, 0.2];
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const { target, isIntersecting, intersectionRatio } = entry;
+      let array = options.threshold;
+      if (isIntersecting && intersectionRatio === 1) {
+        target.classList.add('transformVideo');
+        gradientGroup.value.style.opacity = '0.1';
+        title.style.opacity = content.style.opacity = arrow.style.opacity = '1';
+      }
+      for (let i = 0; i < array.length - 1; i++) {
+        if (intersectionRatio > array[i] && intersectionRatio < array[i + 1]) {
+          if (!target.classList.contains('transformVideo')) {
+            gradientGroup.value.style.opacity = opacity[i];
+            gradientGroup.value.style.transition = 'all 200ms ease-out';
+          }
+        }
+      }
+    });
+  }, options);
+
+  let lastScrollPos = 0;
+  window.addEventListener('scroll', () => {
+    const currentScrollPos = window.scrollY;
+    if (currentScrollPos > lastScrollPos) {
+      // Прокрутка вниз
+      observer.observe(videoPlayer.value);
+    } else {
+      // Прокрутка вверх (или без изменений)
+      gradientGroup.value.style.opacity = '1';
+      observer.unobserve(videoPlayer.value);
+    }
+    lastScrollPos = currentScrollPos;
+  });
+};
+
 onMounted(async () => {
   videoSrc.value = require('@/assets/video/meet.mp4');
   videoPlayer.value.load();
@@ -301,6 +339,8 @@ onMounted(async () => {
   setTimeout(() => {
     generateLab(delay);
   }, delay);
+
+  intersectionAnimation();
 });
 </script>
 
@@ -324,6 +364,7 @@ onMounted(async () => {
     letter-spacing: -2.88px;
     padding-bottom: 30px;
     text-align: center;
+    transition: opacity 2s ease;
     @media screen and (min-width: 768px) {
       font-size: 96px;
       letter-spacing: -5.76px;
@@ -341,6 +382,7 @@ onMounted(async () => {
     grid-template-rows: 1fr 1fr 1fr;
     height: 176px;
     margin-bottom: 110px;
+    transition: opacity 3s ease;
     @media screen and (min-width: 768px) {
       width: 626px;
       grid-template-columns: repeat(3, auto);
@@ -487,6 +529,7 @@ onMounted(async () => {
     background-image: url('../assets/images/arrow_down.svg');
     background-position: center center;
     background-repeat: no-repeat;
+    transition: opacity 4s ease;
     @media screen and (min-width: 768px) {
       width: 64px;
       height: 64px;
@@ -750,7 +793,7 @@ onMounted(async () => {
     position: absolute;
     z-index: 2;
     left: 2px;
-    top: 680px;
+    top: 880px;
     background: #fff;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -911,11 +954,27 @@ onMounted(async () => {
   }
 }
 .video__section {
-  position: relative;
+  margin-top: -430px;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   animation: slideInVideo 1s ease-out forwards;
+
+  @media screen and (min-width: 768px) {
+    margin-top: -545px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    margin-top: -370px;
+  }
+  @media screen and (min-width: 1440px) {
+    margin-top: -292px;
+  }
+
+  @media screen and (min-width: 1920px) {
+    margin-top: -403px;
+  }
 
   video {
     object-fit: cover;
@@ -1029,7 +1088,6 @@ header {
   }
 }
 
-
 .gradient-group .blue {
   background-color: #733ff5;
   position: absolute;
@@ -1040,15 +1098,6 @@ header {
   margin: 0 auto;
   animation: gradientBlue 1.5s ease forwards;
 }
-
-
-/* .overlay {
-  background: radial-gradient(
-    26.01% 26.01% at 50% 50%,
-    rgba(248, 248, 248, 0) 33.85%,
-    #f8f8f8 100%
-  );
-} */
 
 .gradient-group .purple {
   background: radial-gradient(
@@ -1126,7 +1175,6 @@ header {
   }
 }
 
-
 .gradient-group .red {
   background: radial-gradient(
     50% 50% at 50% 50%,
@@ -1200,7 +1248,6 @@ header {
       gradientRed_2560 8s ease infinite;
   }
 }
-
 
 .gradient-group .yellow {
   background: radial-gradient(
@@ -1278,4 +1325,12 @@ header {
   }
 }
 
+.transformVideo {
+  transform: scale(1.2, 1.2);
+  height: 110vh !important;
+  width: 110vw !important;
+}
+.videoPlayer {
+  transition: all 0.8s ease-out;
+}
 </style>

@@ -1,24 +1,37 @@
 <template>
   <div class="specialists">
-    <h1 class="specialists__number">3000+</h1>
-    <h1 class="specialists__title">специалистов</h1>
-    <p class="specialists__info_title">
+    <h1 ref="number" class="specialists__number">3000+</h1>
+    <h1 ref="specialists" class="specialists__title">специалистов</h1>
+    <p ref="info" class="specialists__info_title">
       С&nbsp;нами ты&nbsp;можешь создавать финтех-сервисы и&nbsp;не&nbsp;только.
     </p>
-    <p class="specialists__info_text">
+    <p ref="text" class="specialists__info_text">
       Нашими продуктами пользуются миллионы людей. И&nbsp;нам всегда нужны
       классные специалисты,которые усилят команду
     </p>
   </div>
-  <div class="canvas__wrapper">
-    <canvas class="canvas" id="canvas"></canvas>
-    <!-- <span class="text">Для тех,<br />кто ценит</span> -->
+  <div ref="gradientCanvas" class="gradient-group__canvas">
+    <div class="blue"></div>
+    <div class="purple"></div>
+    <div class="red"></div>
+    <div class="yellow"></div>
+    <div class="canvas__wrapper">
+      <canvas class="canvas" id="canvas"></canvas>
+      <!-- <span class="text">Для тех,<br />кто ценит</span> -->
+    </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+let number = ref(null);
+let specialists = ref(null);
+let info = ref(null);
+let text = ref(null);
+let gradientCanvas = ref(null);
+
 /*     'Личную\nответственность', */
+
 const canvasAnimation = () => {
   const show = 5; // Количество точек
   const labels = [
@@ -157,8 +170,8 @@ const canvasAnimation = () => {
       const centerY = canvasHeight / 2;
 
       // Отобразить фразу "Для тех, кто ценит" в центре холста
-      scene.fillText('Для тех,', centerX-10, centerY);
-      scene.fillText('кто ценит', centerX-10, centerY + 20);
+      scene.fillText('Для тех,', centerX - 10, centerY);
+      scene.fillText('кто ценит', centerX - 10, centerY + 20);
     }
 
     bounds() {
@@ -227,43 +240,354 @@ const canvasAnimation = () => {
   });
 };
 
+const intersection = () => {
+  number.value.style.opacity =
+    specialists.value.style.opacity =
+    info.value.style.opacity =
+    text.value.style.opacity =
+      '0';
+  let options = {
+    rootMargin: '0px 0px -100px 0px',
+  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const { target, isIntersecting } = entry;
+      if (isIntersecting) {
+        target.style.opacity = '1';
+      }
+    });
+  }, options);
+
+  observer.observe(number.value);
+  observer.observe(specialists.value);
+  observer.observe(text.value);
+  observer.observe(info.value);
+};
+
+const intersectionCanvas = () => {
+  let options = {
+    threshold: 0.9,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const { target, isIntersecting, intersectionRatio } = entry;
+      if (isIntersecting && intersectionRatio > 0.9) {
+        target.classList.add('active');
+      }
+    });
+  }, options);
+  observer.observe(gradientCanvas.value);
+};
+
 onMounted(() => {
   canvasAnimation();
+  intersection();
+  intersectionCanvas();
 });
 </script>
 
 <style lang="scss" scoped>
+.gradient-group__canvas {
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  opacity: 0.6;
+  transform: scale(0.6, 0.6);
+  transition: all 1s ease;
+
+/*   @media screen and (min-width: 375px) {
+    height: 375px;
+  } */
+
+  @media screen and (min-width: 425px) {
+    height: 425px;
+  }
+  @media screen and (min-width: 768px) {
+    height: 545px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    height: 750px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    height: 1100px;
+  }
+  @media screen and (min-width: 1920px) {
+    height: 1200px;
+    width: 1706px;
+  }
+}
+
+.active {
+  transform: scale(1, 1);
+  opacity: 1;
+}
+
+.gradient-group__canvas .blue {
+  background-color: #733ff5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3000px;
+  width: 3000px;
+  margin: 0 auto;
+  animation: gradientBlue 1.5s ease forwards;
+}
+
+.gradient-group__canvas .purple {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgb(143, 20, 186) 0%,
+    rgba(143, 20, 186, 0.99) 11.79%,
+    rgba(143, 20, 186, 0.97) 21.38%,
+    rgba(143, 20, 186, 0.93) 29.12%,
+    rgba(143, 20, 186, 0.88) 35.34%,
+    rgba(143, 20, 186, 0.82) 40.37%,
+    rgba(143, 20, 186, 0.75) 44.56%,
+    rgba(143, 20, 186, 0.67) 48.24%,
+    rgba(143, 20, 186, 0.59) 51.76%,
+    rgba(143, 20, 186, 0.5) 55.44%,
+    rgba(143, 20, 186, 0.41) 59.63%,
+    rgba(143, 20, 186, 0.33) 64.66%,
+    rgba(143, 20, 186, 0.24) 70.88%,
+    rgba(143, 20, 186, 0.15) 78.62%,
+    rgba(143, 20, 186, 0.07) 88.21%,
+    rgba(143, 20, 186, 0) 100%
+  );
+  border-radius: 130px;
+  position: absolute;
+
+  @media screen and (min-width: 375px) {
+    height: 1300px;
+    width: 1300px;
+    top: -400px;
+    left: -400px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientPurple_375 8s ease infinite;
+  }
+
+  @media screen and (min-width: 768px) {
+    height: 1600px;
+    width: 1600px;
+    top: -400px;
+    left: -350px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientPurple_768 8s ease infinite;
+  }
+
+  @media screen and (min-width: 1024px) {
+    height: 2000px;
+    width: 2000px;
+    top: -700px;
+    left: -350px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientPurple_1024 8s ease infinite;
+  }
+
+  @media screen and (min-width: 1440px) {
+    height: 2500px;
+    width: 2500px;
+    top: -800px;
+    left: -500px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientPurple_1440 8s ease infinite;
+  }
+
+  @media screen and (min-width: 1920px) {
+    height: 3000px;
+    width: 3000px;
+    top: -800px;
+    left: -300px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientPurple_1920 8s ease infinite;
+  }
+
+  @media screen and (min-width: 2560px) {
+    top: -1100px;
+    left: -600px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientPurple_2560 8s ease infinite;
+  }
+}
+
+.gradient-group__canvas .red {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgb(255, 80, 48) 0%,
+    rgba(254.66, 79.88, 48.43, 0.99) 11.3%,
+    rgba(253.67, 79.55, 49.67, 0.97) 21.16%,
+    rgba(252.1, 79.01, 51.63, 0.93) 29.76%,
+    rgba(250.01, 78.3, 54.24, 0.89) 37.27%,
+    rgba(247.46, 77.43, 57.42, 0.83) 43.87%,
+    rgba(244.53, 76.43, 61.09, 0.76) 49.76%,
+    rgba(241.26, 75.32, 65.17, 0.69) 55.1%,
+    rgba(237.73, 74.11, 69.58, 0.61) 60.08%,
+    rgba(234.01, 72.84, 74.24, 0.52) 64.88%,
+    rgba(230.14, 71.53, 79.07, 0.44) 69.68%,
+    rgba(226.21, 70.18, 83.99, 0.35) 74.66%,
+    rgba(222.26, 68.84, 88.92, 0.26) 80%,
+    rgba(218.37, 67.51, 93.79, 0.17) 85.88%,
+    rgba(214.59, 66.22, 98.51, 0.08) 92.49%,
+    rgba(211, 65, 103, 0) 100%
+  );
+  border-radius: 130px;
+  position: absolute;
+
+  @media screen and (min-width: 375px) {
+    width: 850px;
+    height: 850px;
+    top: -250px;
+    left: -150px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientRed_375 8s ease infinite;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 1100px;
+    height: 1100px;
+    top: -300px;
+    left: 50px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientRed_768 8s ease infinite;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 1500px;
+    height: 1500px;
+    top: -350px;
+    left: 0;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientRed_1024 8s ease infinite;
+  }
+
+  @media screen and (min-width: 1440px) {
+    top: -450px;
+    left: 350px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientRed_1440 8s ease infinite;
+  }
+
+  @media screen and (min-width: 1920px) {
+    width: 2400px;
+    height: 2400px;
+    top: -600px;
+    left: 100px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientRed_1920 8s ease infinite;
+  }
+
+  @media screen and (min-width: 2560px) {
+    top: -700px;
+    left: 800px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientRed_2560 8s ease infinite;
+  }
+}
+
+.gradient-group__canvas .yellow {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgb(255, 168, 72) 0%,
+    rgba(255, 167.23, 71.79, 0.99) 11.31%,
+    rgba(255, 165.19, 71.23, 0.97) 21.19%,
+    rgba(255, 162, 70.36, 0.93) 29.81%,
+    rgba(255, 157.8, 69.22, 0.88) 37.35%,
+    rgba(255, 152.71, 67.83, 0.83) 44%,
+    rgba(255, 146.84, 66.23, 0.76) 49.92%,
+    rgba(255, 140.33, 64.45, 0.69) 55.29%,
+    rgba(255, 133.3, 62.54, 0.61) 60.3%,
+    rgba(255, 125.88, 60.51, 0.52) 65.12%,
+    rgba(255, 118.18, 58.41, 0.43) 69.92%,
+    rgba(255, 110.34, 56.27, 0.34) 74.89%,
+    rgba(255, 102.47, 54.13, 0.26) 80.21%,
+    rgba(255, 94.71, 52.01, 0.17) 86.05%,
+    rgba(255, 87.18, 49.96, 0.08) 92.59%,
+    rgba(255, 80, 48, 0) 100%
+  );
+  border-radius: 130px;
+  position: absolute;
+
+  @media screen and (min-width: 375px) {
+    width: 400px;
+    height: 400px;
+    top: 400px;
+    left: 180px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientYellow_375 8s ease infinite;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 700px;
+    height: 700px;
+    top: 450px;
+    left: 350px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientYellow_768 8s ease infinite;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 800px;
+    height: 800px;
+    top: 350px;
+    left: 550px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientYellow_1024 8s ease infinite;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: 1000px;
+    height: 1000px;
+    top: 200px;
+    left: 950px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientYellow_1440 8s ease infinite;
+  }
+
+  @media screen and (min-width: 1920px) {
+    width: 1500px;
+    height: 1500px;
+    top: 300px;
+    left: 1000px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientYellow_1920 8s ease infinite;
+  }
+
+  @media screen and (min-width: 2560px) {
+    top: 300px;
+    left: 1700px;
+    animation: slideInGradient 1.5s ease forwards,
+      gradientYellow_2560 8s ease infinite;
+  }
+}
 .canvas {
-  /*   height: 600px; */
   color: var(--color-white);
   display: flex;
   margin: 0 auto;
   &__wrapper {
     margin: 0 auto;
     position: relative;
-    // background: url('../assets/images/canvas-common.png') no-repeat center;
-    background-color: rgb(230, 134, 134);
-    /*     height: 488px; */
-    /*    width: auto; */
-    @media screen and (min-width: 425px) {
-      /*   height: 588px; */
-      /*   background-size: cover; */
-    }
+    background: radial-gradient(
+      54.01% 50.01% at 50% 50%,
+      rgba(248, 248, 248, 0) 33.85%,
+      #ffffff 100%
+    );
     @media screen and (min-width: 768px) {
-      /*   height: 500px; */
-      // background: url('../assets/images/canvas.png') no-repeat center;
-      /*    background-size: cover; */
+      background: radial-gradient(
+        38.01% 50.01% at 50% 50%,
+        rgba(248, 248, 248, 0) 33.85%,
+        #ffffff 100%
+      );
     }
     @media screen and (min-width: 1024px) {
-      /*    height: 800px; */
+      height: 750px;
     }
     @media screen and (min-width: 1440px) {
-      height: 1200px;
-      // background: url('../assets/images/canvas_1440.png') no-repeat center;
+      height: 1100px;
     }
     @media screen and (min-width: 1920px) {
-      /*  height: 1900px; */
-      /*     background-size: cover; */
+      height: 1200px;
     }
     & > .text {
       position: absolute;
@@ -292,18 +616,27 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 120px;
+  margin: 120px 0 60px;
   @media screen and (min-width: 375px) {
     padding: 0 20px;
   }
   @media screen and (min-width: 768px) {
     padding: 0 40px;
+    margin: 120px 0 80px;
+  }
+  @media screen and (min-width: 1024px) {
+    padding: 0 145px;
+    margin: 120px 0 200px;
   }
   @media screen and (min-width: 1440px) {
     padding: 0 210px;
   }
   @media screen and (min-width: 1920px) {
-    margin: 120px auto;
+    margin: 120px auto 260px;
+  }
+  @media screen and (min-width: 2056px) {
+    padding: 0;
+    width: 1260px;
   }
   &__number {
     background: var(
@@ -317,6 +650,7 @@ onMounted(() => {
     line-height: 90%;
     letter-spacing: -2.88px;
     text-align: center;
+    transition: opacity 2.5s ease;
     @media screen and (min-width: 768px) {
       font-size: 96px;
       letter-spacing: -5.76px;
@@ -336,6 +670,7 @@ onMounted(() => {
     letter-spacing: -2.88px;
     text-align: center;
     padding-bottom: 20px;
+    transition: opacity 2.5s ease;
     @media screen and (min-width: 768px) {
       font-size: 96px;
       letter-spacing: -5.76px;
@@ -361,6 +696,7 @@ onMounted(() => {
       font-size: 18px;
       line-height: 120%;
       letter-spacing: -0.36px;
+      transition: opacity 2.5s ease;
       @media screen and (min-width: 768px) {
         font-size: 24px;
         letter-spacing: -0.48px;
@@ -382,6 +718,7 @@ onMounted(() => {
       font-size: 18px;
       line-height: 120%;
       letter-spacing: -0.36px;
+      transition: opacity 2.5s ease;
       @media screen and (min-width: 768px) {
         font-size: 24px;
         letter-spacing: -0.48px;
