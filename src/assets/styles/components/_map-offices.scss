@@ -84,7 +84,7 @@
     width: 64.3rem;
     height: 56.9rem;
     //padding-top: 169.850746%;
-    background: url('../assets/img/map/map-mobile.svg') no-repeat bottom left;
+    background: url('@/assets/images/map/map-mobile.svg') no-repeat bottom left;
     background-size: auto 100%;
     pointer-events: none;
 
@@ -94,7 +94,7 @@
       width: 127.8rem;
       height: 113.1rem;
       //padding-top: 164.389535%;
-      background-image: url('../assets/img/map/map-tablet.svg');
+      background-image: url('@/assets/images/map/map-tablet.svg');
     }
 
     @include mq(1200) {
@@ -103,7 +103,7 @@
       width: 191.9rem;
       height: 169.8rem;
       //padding-top: 132.65625%;
-      background-image: url('../assets/img/map/map-desktop.svg');
+      background-image: url('@/assets/images/map/map-desktop.svg');
     }
   }
 
@@ -190,7 +190,7 @@
         @include mq(768) {
           width: 13.2rem;
           height: 19rem;
-          background-image: url('../assets/img/map/lable/moscow.svg');
+          background-image: url('@/assets/images/map/lable/moscow.svg');
         }
 
         @include mq(1200) {
@@ -233,7 +233,7 @@
         @include mq(768) {
           width: 12.4rem;
           height: 11.6rem;
-          background-image: url('../assets/img/map/lable/san-petersburg.svg');
+          background-image: url('@/assets/images/map/lable/san-petersburg.svg');
         }
 
         @include mq(1200) {
@@ -278,7 +278,7 @@
         @include mq(768) {
           width: 13.4rem;
           height: 15.6rem;
-          background-image: url('../assets/img/map/lable/izhevsk.svg');
+          background-image: url('@/assets/images/map/lable/izhevsk.svg');
         }
 
         @include mq(1200) {
@@ -323,7 +323,7 @@
         @include mq(768) {
           width: 14.5rem;
           height: 12.8rem;
-          background-image: url('../assets/img/map/lable/yaroslavl.svg');
+          background-image: url('@/assets/images/map/lable/yaroslavl.svg');
           border-bottom-left-radius: 2rem;
         }
 
@@ -369,7 +369,7 @@
         @include mq(768) {
           width: 10.8rem;
           height: 13.6rem;
-          background-image: url('../assets/img/map/lable/sevastopol.svg');
+          background-image: url('@/assets/images/map/lable/sevastopol.svg');
         }
 
         @include mq(1200) {
@@ -412,7 +412,7 @@
         @include mq(768) {
           width: 16.1rem;
           height: 14.4rem;
-          background-image: url('../assets/img/map/lable/tolyatti.svg');
+          background-image: url('@/assets/images/map/lable/tolyatti.svg');
         }
 
         @include mq(1200) {
@@ -457,7 +457,7 @@
         @include mq(768) {
           width: 15.1rem;
           height: 14.8rem;
-          background-image: url('../assets/img/map/lable/samara.svg');
+          background-image: url('@/assets/images/map/lable/samara.svg');
         }
 
         @include mq(1200) {

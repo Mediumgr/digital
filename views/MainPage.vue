@@ -3,8 +3,8 @@
   <SpecialistsInfo/>
   <!--   <WorkingSection />
     <FormVacancy /> -->
-  <!--  <MapSection/>-->
   <WhichStackToUseSection/>
+  <MapSection/>
   <EducationSection/>
 </template>
 
@@ -14,7 +14,7 @@ import SpecialistsInfo from '@/components/SpecialistsInfo.vue';
 /* import WorkingSection from '@/components/WorkingSection.vue';
 import FormVacancy from '@/components/FormVacancy.vue'; */
 import EducationSection from "@/components/EducationSection.vue";
-// import MapSection from "@/components/MapSection.vue";
+import MapSection from "@/components/MapSection.vue";
 import WhichStackToUseSection from "@/components/WhichStackToUseSection.vue";
 
 export default {
@@ -24,9 +24,9 @@ export default {
     SpecialistsInfo,
     /*     WorkingSection,
         FormVacancy, */
-    // MapSection,
-    EducationSection,
-    WhichStackToUseSection
+    WhichStackToUseSection,
+    MapSection,
+    EducationSection
   },
 };
 </script>

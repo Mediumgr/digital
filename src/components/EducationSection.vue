@@ -10,7 +10,7 @@
     <div class="education__card">
       <div class="js-education-corp">
         <div class="education__hero education__hero--corp">
-          <video class="education__video" src="/pexels-shvets-production-9057681-(1080p).12cf8340.mp4" type="video/mp4"
+          <video class="education__video" src="@/assets/video/education/pexels-shvets-production-9057681-(720p).mp4" type="video/mp4"
                  autoplay="" loop="" muted=""></video>
           <div class="education__card-text-wrapper">
             <h3 class="education__card-title heading-h2">
@@ -80,7 +80,7 @@
       </div>
       <div class="education__card js-education-school">
         <div class="education__hero education__hero--school">
-          <video class="education__video" src="/pexels-tea-oebel-6804109-(1080p).d57013a5.mp4" type="video/mp4"
+          <video class="education__video" src="@/assets/video/education/pexels-tea-oebel-6804109-(720p).mp4" type="video/mp4"
                  autoplay="" loop="" muted=""></video>
           <div class="education__card-text-wrapper">
             <h3 class="education__card-title heading-h2">
@@ -182,9 +182,117 @@
 
 <script setup>
 import { onMounted } from 'vue';
+import { gsap } from "@/helpers/gsap";
+
+function init() {
+  const educationContainerEl = document.querySelector('.js-education')
+  if (!educationContainerEl) {
+    return;
+  }
+
+  const educationHeadingEl = educationContainerEl.querySelectorAll('.education__heading, .education__subtitle')
+
+  const educationCorpContainerEl = educationContainerEl.querySelector('.js-education-corp')
+  const educationCorpEl = educationCorpContainerEl.querySelector('.education__hero--corp')
+  const titlesCorpEl = educationCorpContainerEl.querySelectorAll('.education__card-title, .education__card-subtitle')
+
+  const educationSchoolContainerEl = educationContainerEl.querySelector('.js-education-school')
+  const educationSchoolEl = educationSchoolContainerEl.querySelector('.education__hero--school')
+  const titlesSchoolEl = educationSchoolContainerEl.querySelectorAll('.education__card-title, .education__card-subtitle')
+
+  const accordionsEl = Array.from(educationContainerEl.querySelectorAll('.education-card__item--accordion'))
+
+  if (accordionsEl.length) {
+    accordionsEl.forEach(accordion => {
+      accordion.addEventListener('click', (event) => {
+        if (!event.target.classList.contains('education-card__title')) return;
+
+        accordion.classList.toggle('_open')
+      })
+    })
+  }
+
+  function initializeAnimation() {
+    // заголовки Блока
+    gsap.from(educationHeadingEl, {
+      autoAlpha: 0,
+      stagger: 0.3,
+      scrollTrigger: {
+        trigger: educationHeadingEl,
+        start: "center 80%", // when the top of the trigger hits the top of the viewport
+        end: "+=500px",
+        scrub: 1,
+      },
+    })
+
+
+    // заголовки Корпоративное обучение
+    gsap.from(titlesCorpEl, {
+      autoAlpha: 0,
+      scrollTrigger: {
+        trigger: educationCorpEl,
+        start: "top 50%", // when the top of the trigger hits the top of the viewport
+        end: "clamp(center +=300px)",
+        scrub: 1,
+      },
+    })
+
+    gsap.to(educationCorpEl, {
+      width: '100%',
+      height: window.innerHeight,
+      maxWidth: '100%',
+      borderRadius: 0,
+      scrollTrigger: {
+        trigger: educationCorpEl,
+        start: "top 30%", // when the top of the trigger hits the top of the viewport
+        end: "clamp(center +=300px)",
+        scrub: 1,
+      },
+    })
+
+    // скрыть Корпоративное обучение
+    gsap.to(educationCorpEl, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: educationSchoolEl,
+        start: "top bottom", // when the top of the trigger hits the top of the viewport
+        end: "+=500",
+        scrub: 1,
+      },
+    })
+
+    // заголовки школы
+    gsap.from([...titlesSchoolEl], {
+      autoAlpha: 0,
+      scrollTrigger: {
+        trigger: educationSchoolEl,
+        start: "center 50%", // when the top of the trigger hits the top of the viewport
+        end: "clamp(bottom +=500px)",
+        scrub: 1,
+      },
+    })
+
+    gsap.to(educationSchoolEl, {
+      width: '100%',
+      height: window.innerHeight,
+      maxWidth: '100%',
+      borderRadius: 0,
+      scrollTrigger: {
+        trigger: educationSchoolEl,
+        start: "center 40%", // when the top of the trigger hits the top of the viewport
+        end: "clamp(bottom center)",
+        scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+        debug: true,
+      },
+    })
+  }
+
+  initializeAnimation()
+}
 
 onMounted(() => {
-  console.log('onMounted')
+  init()
+  console.log('EducationSection')
 });
 </script>
 

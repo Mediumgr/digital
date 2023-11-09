@@ -12,19 +12,18 @@ a {
 
 html,
 body {
-  scroll-behavior: smooth;
   /* Firefox scrollbar */
   scrollbar-width: thin;
   scrollbar-color: rgb(225, 104, 5);
   background: #ffffff;
 
   &::-webkit-scrollbar {
-    width: 3px;
+    width: 0.3rem;
     overflow: auto;
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: 3px;
+    border-radius: 0.3rem;
     background: rgb(225, 104, 5);
   }
 }
@@ -68,6 +67,7 @@ body {
   font-weight: 500;
   line-height: 120%; /* 15.6px */
   letter-spacing: -0.026rem;
+  margin: 0;
   background-color: var(--bg);
   color: var(--eggplant);
 

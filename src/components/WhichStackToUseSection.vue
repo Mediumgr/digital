@@ -123,7 +123,6 @@ function init() {
   }
 
   let mql = window.matchMedia("(min-width: 1200px)");
-  console.log(mql)
   if (mql.matches) {
     mql.matches && cardsEl[1]?.classList.add(ACTIVE_ClASS)
     changeClassesByIndex(1)
@@ -135,8 +134,8 @@ function init() {
 }
 
 onMounted(() => {
-  console.log('onMounted')
   init()
+  console.log('WhichStackToUseSection')
 });
 </script>
 
