@@ -1,0 +1,35 @@
+@mixin mq($first, $to: false) {
+  @if $to {
+    @media screen and (min-width: $first + 0px) and (max-width: $to + 0px) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: $first + 0px) {
+      @content;
+    }
+  }
+}
+
+@mixin mqh($from, $to: false) {
+  @if $to {
+    @media screen and (min-height: $from + 0px) and (max-height: $to + 0px) {
+      @content;
+    }
+  } @else {
+    @media screen and (max-height: $from + 0px) {
+      @content;
+    }
+  }
+}
+
+@mixin hover($isActive: false) {
+  @if $isActive {
+    body.is-no-touch &:hover, &:active {
+      @content;
+    }
+  } @else {
+    body.is-no-touch &:hover {
+      @content;
+    }
+  }
+}

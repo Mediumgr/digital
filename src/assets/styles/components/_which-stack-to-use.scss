@@ -1,0 +1,32 @@
+.which-stack-to-use {
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 12rem 1.8rem;
+
+  @include mq(768) {
+    padding: 16rem 2rem;
+  }
+
+  @include mq(1200) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20rem 2rem;
+  }
+
+  &__title {
+    color: #fff;
+    margin-bottom: 6rem;
+
+    @include mq(768) {
+      margin-bottom: 8rem;
+    }
+
+    @include mq(1200) {
+      margin-bottom: 10rem;
+    }
+  }
+}

@@ -1,0 +1,494 @@
+.map-offices {
+  min-height: 100vh;
+  padding: 12rem 2rem;
+  background-color: var(--bg-eggplant);
+  overflow: hidden;
+
+  @include mq(768) {
+    padding: 16rem 4rem;
+  }
+
+  @include mq(1200) {
+    padding: 20rem 8rem;
+  }
+
+  &__title {
+    position: relative;
+    z-index: 1;
+    color: var(--white);
+  }
+
+  &__subtitle {
+    position: relative;
+    z-index: 1;
+    max-width: 68.8rem;
+    text-align: center;
+    color: var(--white);
+    opacity: 0.8;
+    margin: 2rem auto;
+
+    @include mq(720) {
+      margin: 4rem auto;
+    }
+
+    @include mq(1200) {
+      max-width: 96rem;
+      margin: 6rem auto;
+    }
+  }
+
+  &__map {
+    position: relative;
+    width: 100%;
+    max-width: 60rem;
+    //min-height: 52.1rem;
+    margin: 0 auto;
+
+    @include mq(768) {
+      max-width: 90rem;
+      //min-height: 90rem;
+    }
+
+    @include mq(1200) {
+      max-width: 128rem;
+      //min-height: 120.6rem;
+    }
+  }
+
+  &__map-wrapper {
+    width: 33.5rem;
+    height: 52.1rem;
+    position: relative;
+    //padding-top: 155.522388%;
+
+    @include mq(768) {
+      width: 68.8rem;
+      height: 90rem;
+
+      //padding-top: 130.813953%;
+    }
+
+    @include mq(1200) {
+      width: 128rem;
+      height: 120.6rem;
+      //min-height: 120.6rem;
+      //padding-top: 94.21875%;
+    }
+  }
+
+  &__bg {
+    position: absolute;
+    //width: 100%;
+    bottom: 0;
+    left: 0;
+    width: 64.3rem;
+    height: 56.9rem;
+    //padding-top: 169.850746%;
+    background: url('../assets/img/map/map-mobile.svg') no-repeat bottom left;
+    background-size: auto 100%;
+    pointer-events: none;
+
+    @include mq(768) {
+      left: 9.5rem;
+      bottom: 1.5rem;
+      width: 127.8rem;
+      height: 113.1rem;
+      //padding-top: 164.389535%;
+      background-image: url('../assets/img/map/map-tablet.svg');
+    }
+
+    @include mq(1200) {
+      left: 23.8rem;
+      bottom: 0.3rem;
+      width: 191.9rem;
+      height: 169.8rem;
+      //padding-top: 132.65625%;
+      background-image: url('../assets/img/map/map-desktop.svg');
+    }
+  }
+
+  &__pointers {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &__pointer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 1.5rem;
+    border-radius: 2rem;
+    background-color: var(--white);
+
+    @include mq(768) {
+      width: 16rem;
+      height: 18rem;
+      padding: 1rem;
+    }
+
+    @include mq(1200) {
+      width: 22.3rem;
+      height: 24.6rem;
+      padding: 2rem;
+      cursor: pointer;
+    }
+
+    &::before {
+      border-bottom-right-radius: 2rem;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: bottom right;
+      pointer-events: none;
+
+      @include mq(768) {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        right: 0;
+        bottom: 0;
+        width: 13.2rem;
+        height: 19rem;
+      }
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 4.2rem;
+      height: 4.2rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='none' viewBox='0 0 40 40'%3E%3Cpath fill='%23fff' d='M0 37.172V2a2 2 0 0 1 2-2h35.172c1.781 0 2.674 2.154 1.414 3.414L3.414 38.586C2.154 39.846 0 38.953 0 37.172Z'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-repeat: no-repeat;
+      pointer-events: none;
+    }
+
+    &--moscow {
+      bottom: 25.1rem;
+      left: 2.6rem;
+      padding: 1.5rem 2rem;
+
+      @include mq(768) {
+        bottom: 32.2rem;
+        left: 3rem;
+        width: 18.2rem;
+        height: 20rem;
+        padding: 1rem 1.2rem;
+      }
+
+      @include mq(1200) {
+        width: 22.3rem;
+        height: 24.6rem;
+        bottom: 45.7rem;
+        left: 25.2rem;
+        padding: 2rem;
+      }
+
+      &::before {
+        @include mq(768) {
+          width: 13.2rem;
+          height: 19rem;
+          background-image: url('../assets/img/map/lable/moscow.svg');
+        }
+
+        @include mq(1200) {
+          width: 16.4rem;
+          height: 23.4rem;
+        }
+      }
+
+      &::after {
+        bottom: -1.8rem;
+        left: 5.9rem;
+
+        @include mq(768) {
+          bottom: 10.5rem;
+          left: 15.6rem;
+        }
+
+        @include mq(1200) {
+          bottom: 11.5rem;
+          left: 20.1rem
+        }
+      }
+    }
+
+    &--san-petersburg {
+      bottom: 33.6rem;
+      left: 0.3rem;
+
+      @include mq(768) {
+        left: 0;
+        bottom: 61.8rem;
+      }
+
+      @include mq(1200) {
+        bottom: 85rem;
+        left: 11.4rem;
+      }
+
+      &::before {
+        @include mq(768) {
+          width: 12.4rem;
+          height: 11.6rem;
+          background-image: url('../assets/img/map/lable/san-petersburg.svg');
+        }
+
+        @include mq(1200) {
+          width: 18.6rem;
+          height: 16.4rem;
+        }
+      }
+
+
+      &::after {
+        left: 5.4rem;
+        bottom: -2.2rem;
+
+        @include mq(768) {
+          bottom: -1.6rem;
+          left: 10.4rem;
+          transform: rotate(90deg);
+        }
+
+        @include mq(1200) {
+          bottom: -2rem;
+          left: 16.4rem;
+        }
+      }
+    }
+
+    &--izhevsk {
+      left: 25rem;
+      bottom: 20.5rem;
+
+      @include mq(768) {
+        bottom: 51.6rem;
+        left: 47.9rem;
+      }
+
+      @include mq(1200) {
+        bottom: 69rem;
+        left: 92rem;
+      }
+
+      &::before {
+        @include mq(768) {
+          width: 13.4rem;
+          height: 15.6rem;
+          background-image: url('../assets/img/map/lable/izhevsk.svg');
+        }
+
+        @include mq(1200) {
+          width: 19.5rem;
+          height: 21.9rem;
+        }
+      }
+
+      &::after {
+        left: 1.9rem;
+        bottom: 1.5rem;
+        transform: rotate(-90deg);
+
+        @include mq(768) {
+          bottom: -1.7rem;
+          left: 3.7rem;
+          transform: none;
+        }
+
+        @include mq(1200) {
+          bottom: -1.9rem;
+          left: 1.6rem;
+        }
+      }
+    }
+
+    &--yaroslavl {
+      left: 16.2rem;
+      bottom: 27.6rem;
+
+      @include mq(768) {
+        bottom: 54.2rem;
+        left: 26.8rem;
+      }
+
+      @include mq(1200) {
+        bottom: 72.6rem;
+        left: 55.5rem;
+      }
+
+      &::before {
+        @include mq(768) {
+          width: 14.5rem;
+          height: 12.8rem;
+          background-image: url('../assets/img/map/lable/yaroslavl.svg');
+          border-bottom-left-radius: 2rem;
+        }
+
+        @include mq(1200) {
+          width: 21.7rem;
+          height: 17.6rem;
+        }
+      }
+
+      &::after {
+        left: 5.1rem;
+        bottom: -1.2rem;
+        transform: scale(-1) rotate(-90deg);
+
+        @include mq(768) {
+          bottom: -1.5rem;
+          left: 3.7rem;
+          transform: none;
+        }
+
+        @include mq(1200) {
+          bottom: -1.7rem;
+          left: 2.1rem;
+        }
+      }
+    }
+
+    &--sevastopol {
+      left: 0;
+      bottom: 6.7rem;
+
+      @include mq(768) {
+        bottom: 3.5rem;
+        left: 4rem;
+      }
+
+      @include mq(1200) {
+        bottom: 9.1rem;
+        left: 17.1rem;
+      }
+
+      &::before {
+        @include mq(768) {
+          width: 10.8rem;
+          height: 13.6rem;
+          background-image: url('../assets/img/map/lable/sevastopol.svg');
+        }
+
+        @include mq(1200) {
+          width: 17rem;
+          height: 18.8rem;
+        }
+      }
+
+      &::after {
+        bottom: -1.2rem;
+        left: 6.5rem;
+
+        @include mq(768) {
+          bottom: 3.7rem;
+          left: 13.4rem;
+        }
+
+        @include mq(1200) {
+          bottom: 1.5rem;
+          left: 20.2rem;
+        }
+      }
+    }
+
+    &--tolyatti {
+      bottom: 12.5rem;
+      left: 8.7rem;
+
+      @include mq(768) {
+        bottom: 13.9rem;
+        left: 27.3rem;
+      }
+
+      @include mq(1200) {
+        bottom: 27.9rem;
+        left: 56.9rem;
+      }
+
+      &::before {
+        @include mq(768) {
+          width: 16.1rem;
+          height: 14.4rem;
+          background-image: url('../assets/img/map/lable/tolyatti.svg');
+        }
+
+        @include mq(1200) {
+          width: 22.3rem;
+          height: 18.8rem;
+        }
+      }
+
+      &::after {
+        bottom: 1.6rem;
+        left: 4.2rem;
+        transform: scaleY(-1) rotate(90deg);
+
+        @include mq(768) {
+          bottom: 15.8rem;
+          left: 8rem;
+        }
+
+        @include mq(1200) {
+          bottom: 18.4rem;
+          left: 20.2rem;
+          transform: none;
+        }
+      }
+    }
+
+    &--samara {
+      bottom: 10rem;
+      left: 20.5rem;
+
+      @include mq(768) {
+        bottom: 11.8rem;
+        left: 48.9rem;
+      }
+
+      @include mq(1200) {
+        bottom: 26rem;
+        left: 88.8rem;
+      }
+
+      &::before {
+        @include mq(768) {
+          width: 15.1rem;
+          height: 14.8rem;
+          background-image: url('../assets/img/map/lable/samara.svg');
+        }
+
+        @include mq(1200) {
+          width: 22.4rem;
+          height: 19.9rem;
+        }
+      }
+
+      &::after {
+        bottom: 1.9rem;
+        left: 1.7rem;
+        transform: scale(-1) rotate(90deg);
+
+        @include mq(768) {
+          bottom: 15.9rem;
+          left: 3.4rem;
+        }
+
+        @include mq(1200) {
+          bottom: 17.8rem;
+          left: -1.9rem;
+          transform: scale(1) rotate(90deg);
+        }
+      }
+    }
+  }
+
+  &__pointer-name {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+    pointer-events: none;
+  }
+}

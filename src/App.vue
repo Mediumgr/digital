@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import '@/assets/styles/common.scss';
+import '@/assets/styles/main.scss';
 import MainPage from '/views/MainPage.vue';
 
 export default {

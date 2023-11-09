@@ -1,20 +1,9 @@
-@font-face {
-    font-family: "Onest";
-    src: url("../fonts/Onest-Medium.ttf");
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 li {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 /* input:active {
@@ -23,29 +12,75 @@ a {
 
 html,
 body {
-    scroll-behavior: smooth;
-    /* Firefox scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: rgb(225, 104, 5);
-    background: #ffffff;
+  scroll-behavior: smooth;
+  /* Firefox scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgb(225, 104, 5);
+  background: #ffffff;
 
-    &::-webkit-scrollbar {
-        width: 3px;
-        overflow: auto;
-    }
-    &::-webkit-scrollbar-thumb {
-        border-radius: 3px;
-        background: rgb(225, 104, 5);
-    }
+  &::-webkit-scrollbar {
+    width: 3px;
+    overflow: auto;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgb(225, 104, 5);
+  }
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: none;
+
+  @include mq(376, 767) {
+    font-size: calc(10px + 13 * (100vw - 375px) / 447)
+  }
+
+  @include mq(769, 1023) {
+    font-size: calc(10px + 4 * (100vw - 768px) / 255)
+  }
+
+  @include mq(1024, 1359) {
+    font-size: calc(8px + 2 * (100vw - 1024px) / 336)
+  }
+
+  @include mq(1360, 1599) {
+    font-size: 10px
+  }
+
+  @include mq(1600, 9999) {
+    font-size: calc(10px + 1 * (100vw - 1600px) / 240)
+  }
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 body {
-    font-family: "Onest";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-}
+  /* Text/Phone */
+  font-family: Onest, Helvetica, serif;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 15.6px */
+  letter-spacing: -0.026rem;
+  background-color: var(--bg);
+  color: var(--eggplant);
 
-:root {
-    --color-white: rgba(255, 255, 255, 1);
+  @include mq(768) {
+    /* Text/Tablet */
+    font-size: 1.6rem;
+    letter-spacing: -0.032rem;
+  }
+
+  @include mq(1200) {
+    /* Text/Desktop */
+    font-size: 1.6rem;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: -0.064rem;
+  }
 }

@@ -1,0 +1,134 @@
+.education {
+  background-color: var(--bg);
+  padding: 12rem 0;
+
+  @include mq(768) {
+    padding: 16rem 0;
+  }
+
+  @include mq(1200) {
+    padding: 20rem 0;
+  }
+
+  &__heading {
+    margin-bottom: 2rem;
+
+    @include mq(768) {
+      margin-bottom: 4rem;
+    }
+
+    @include mq(1200) {
+      margin-bottom: 6rem;
+    }
+  }
+
+  &__subtitle {
+    //margin-bottom: 4rem;
+    //
+    //@include mq(768) {
+    //  margin-bottom: 6rem;
+    //}
+    //
+    //@include mq(1200) {
+    //  margin-bottom: 10rem;
+    //}
+  }
+
+  &__card {
+    position: relative;
+    margin-top: 4rem;
+
+    @include mq(768) {
+      margin-top: 6rem;
+    }
+
+    @include mq(1200) {
+      margin-top: 10rem;
+    }
+  }
+
+  &__hero {
+    top: 0;
+    position: sticky;
+    width: calc(100% - 4rem);
+    max-width: 128rem;
+    min-height: 35rem;
+    padding: 2rem;
+    border-radius: 4rem;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #30352c; //1
+
+    @include mq(768) {
+      width: calc(100% - 8rem);
+      min-height: 46.6rem;
+    }
+
+    @include mq(1200) {
+      width: calc(100% - 16rem);
+      min-height: 64rem;
+    }
+
+    &--school {
+      background-color: #32353b; //2
+    }
+  }
+
+  &__list {
+    position: relative;
+    z-index: 1;
+    padding: 4rem 2rem;
+    max-width: 144rem;
+    margin: 0 auto;
+
+    @include mq(768) {
+      padding: 4rem;
+    }
+
+    @include mq(1200) {
+      padding: 8rem;
+    }
+  }
+
+  &__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__card-text-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 58.51%);
+  }
+
+  &__card-title {
+    color: var(--white);
+
+    //@include mq(1200) {
+    //  font-size: 15rem;
+    //  line-height: 90%;
+    //  letter-spacing: -0.9rem;
+    //}
+  }
+
+  &__card-subtitle {
+    opacity: 0.6;
+    color: var(--white);
+    margin-top: 2rem;
+
+    @include mq(768) {
+      margin-top: 4rem;
+    }
+  }
+}
