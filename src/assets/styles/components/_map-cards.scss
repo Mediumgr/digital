@@ -1,0 +1,289 @@
+.map-cards {
+  position: fixed;
+  z-index: -11;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+
+  &__overlay {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgba(19, 20, 75, 0.8);
+    backdrop-filter: blur(40px) brightness(100%);
+    pointer-events: none;
+  }
+
+  &__item {
+    position: fixed;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 auto;
+    //position: relative;
+    flex: 0 0 auto;
+    opacity: 0;
+    border-radius: 2rem;
+    overflow: hidden;
+    //display: none;
+
+    @include mq(768) {
+      border-radius: 2rem;
+    }
+
+    //&:first-of-type {
+    //  display: flex;
+    //}
+  }
+
+  &__item-inner {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 60rem;
+    border-radius: 2rem;
+    background-color: var(--white);
+
+    @include mq(768) {
+      width: 60rem;
+    }
+  }
+
+  &__btn-close {
+    position: absolute;
+    z-index: 1;
+    top: -4.4rem;
+    right: 0;
+    width: 3.6rem;
+    height: 3.6rem;
+    padding: 0;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-width='3' d='m2 2 12 12m0-12L2 14'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 1.6rem 1.6rem;
+    background-position: center;
+    border: 0.1rem solid rgba(255, 255, 255, 0.20);
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+
+    @include mq(768) {
+      top: -1.1rem;
+      right: -6rem;
+      width: 4rem;
+      height: 4rem;
+      color: red;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='13' fill='none' viewBox='0 0 12 13'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-width='2' d='m1 1.5 10 10m0-10-10 10'/%3E%3C/svg%3E");
+      background-size: 1.2rem 1.3rem;
+    }
+
+    @include mq(1200) {
+      top: 0;
+      cursor: pointer;
+    }
+  }
+
+  &__header {
+    width: 100%;
+    overflow: hidden;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 12.4rem;
+    object-fit: cover;
+
+    @include mq(768) {
+      height: 24.6rem;
+    }
+
+    @include mq(1200) {
+      height: 25rem;
+    }
+  }
+
+  &__name {
+    position: absolute;
+    z-index: 1;
+    top: 2rem;
+    left: 2rem;
+    color: var(--white);
+
+    @include mq(768) {
+      top: 2.2rem;
+      left: 3rem;
+      font-size: 2.4rem;
+    }
+
+    @include mq(1200) {
+      font-size: 3.2rem;
+    }
+  }
+
+  &__content {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--white);
+    padding: 2rem;
+    opacity: 0;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+
+    @include mq(768) {
+      padding: 4rem;
+    }
+
+    @include mq(1200) {
+      padding: 2rem 3rem 3rem;
+    }
+  }
+
+  &__tabs-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+
+    @include mq(768) {
+      gap: 1rem;
+      margin-bottom: 4rem
+    }
+
+    @include mq(1200) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__tabs-button {
+    padding: 0.9rem 1.5rem;
+    font-family: Onest, Helvetica, serif;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.026rem;
+    background: transparent;
+    border-radius: 2rem;
+    border: 0.1rem solid rgba(19, 20, 75, 0.20);
+    box-shadow: 0 0.4rem 2.6rem 0 rgba(0, 0, 0, 0.03);
+    transition: 0.3s ease-in-out;
+
+    @include mq(768) {
+      padding: 1rem 2rem;
+      font-size: 1.6rem;
+      letter-spacing: -0.032rem;
+    }
+
+    @include mq(1200) {
+      font-size: 1.3rem;
+      cursor: pointer;
+      letter-spacing: initial;
+
+      &:hover {
+        border: 1px solid rgba(19, 20, 75, 0.40);
+      }
+    }
+
+    &._active {
+      color: var(--white);
+      background-color: var(--eggplant);
+      pointer-events: none;
+
+      @include mq(768) {
+        background-color: var(--accent);
+      }
+    }
+  }
+
+  &__tabs-content {
+    display: none;
+
+    &._active {
+      display: block;
+    }
+  }
+
+  &__tabs-title {
+    text-align: left;
+    margin-bottom: 1rem;
+
+    @include mq(768) {
+    }
+
+    @include mq(1200) {
+      font-size: 2.4rem;
+      letter-spacing: -0.048rem;
+      line-height: 120%;
+    }
+  }
+
+  &__tabs-list {
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.036rem;
+    opacity: 0.8;
+    padding-left: 2.2rem;
+
+    @include mq(768) {
+      font-size: 1.6rem;
+      line-height: 130%;
+      letter-spacing: -0.048rem;
+      opacity: 0.6;
+    }
+
+    @include mq(1200) {
+      font-size: 1.5rem;
+      line-height: 140%;
+      letter-spacing: -0.03rem;
+    }
+
+    & + .map-cards__tabs-title {
+      padding-top: 1.5rem;
+      margin-top: 2.4rem;
+      border-top: 0.1rem solid rgba(126, 126, 126, 0.2);
+
+      @include mq(768) {
+        padding-top: 2rem;
+        margin-top: 4.5rem;
+      }
+
+      @include mq(1200) {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  &__link {
+    display: block;
+    color: var(--white);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 2rem;
+    background: var(--accent);
+    margin-top: 2rem;
+
+    @include mq(768) {
+      background-color: var(--eggplant);
+    }
+
+    @include mq(1200) {
+      line-height: 120%
+    }
+  }
+}

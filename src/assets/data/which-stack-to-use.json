@@ -1,0 +1,90 @@
+{
+  "title": "Какой стек <br> используем",
+  "items": [
+    {
+      "name": "OS\n& Virtualization Systems",
+      "stack": [
+        "Astra Linux",
+        "Альт Сервер",
+        "Ред ОС",
+        "zVirt",
+        "Скала-Р"
+      ]
+    },
+    {
+      "name": "Development",
+      "stack": [
+        ".NET",
+        "Java",
+        "Kotlin",
+        "Spring Boot",
+        "Nginx",
+        "HAProxy",
+        "LiberCat",
+        "Python",
+        "Angular"
+      ]
+    },
+    {
+      "name": "Low-code platforms & PM",
+      "stack": [
+        "Greendata",
+        "FIS",
+        "JMIX",
+        "Camunda"
+      ]
+    },
+    {
+      "name": "CI/CD",
+      "stack": [
+        "Gitlab",
+        "Nexus",
+        "Hashicorp Vault",
+        "Hashicorp Consul",
+        "Ansible",
+        "Terraform",
+        "Gradle"
+      ]
+    },
+    {
+      "name": "Testing",
+      "stack": [
+        "TestIT",
+        "Selenium",
+        "Selenide",
+        "Flanium",
+        "Cucmber",
+        "Appium",
+        "REST Assured",
+        "jmeter"
+      ]
+    },
+    {
+      "name": "Logging, Monitoring, Tracing",
+      "stack": [
+        "Opensearch",
+        "Logstash",
+        "Vector",
+        "Prometheus",
+        "Zabbix",
+        "Grafana",
+        "Jaeger",
+        "OpenTelemetry"
+      ]
+    },
+    {
+      "name": "Data & Analytics",
+      "stack": [
+        "PostgresPro",
+        "ArenaDataDB",
+        "Factor-ESB",
+        "Kafka",
+        "ArenaData Streaming",
+        "Apache Airflow",
+        "Arenadata QuickMarts",
+        "Polymatica",
+        "Loginom"
+      ]
+    }
+  ]
+}

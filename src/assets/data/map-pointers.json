@@ -1,0 +1,39 @@
+{
+  "pointers": [
+    {
+      "id": "san-petersburg",
+      "name": "Санкт-Петербург",
+      "img": "san-petersburg"
+    },
+    {
+      "id": "yaroslavl",
+      "name": "Ярославль",
+      "img": "yaroslavl"
+    },
+    {
+      "id": "izhevsk",
+      "name": "Ижевск",
+      "img": "izhevsk"
+    },
+    {
+      "id": "moscow",
+      "name": "Москва",
+      "img": "moscow"
+    },
+    {
+      "id": "tolyatti",
+      "name": "Тольятти",
+      "img": "tolyatti"
+    },
+    {
+      "id": "samara",
+      "name": "Самара",
+      "img": "samara"
+    },
+    {
+      "id": "sevastopol",
+      "name": "Севастополь",
+      "img": "sevastopol"
+    }
+  ]
+}

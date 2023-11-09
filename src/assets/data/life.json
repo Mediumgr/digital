@@ -1,0 +1,120 @@
+{
+  "chat": [
+    {
+      "type": "left",
+      "name": "PSB heart",
+      "time": "10 мин",
+      "messages": [
+        "Уже очень ждем тебя в нашей команде :)",
+        "Кстати, не о работе. Мы часто собираемся вне офиса на разные мероприятия от компании"
+      ]
+    },
+    {
+      "type": "right",
+      "name": "Будущий сотрудник (ты)",
+      "time": "5 мин",
+      "messages": [
+        "И какие же?"
+      ]
+    },
+    {
+      "type": "left",
+      "name": "PSB heart",
+      "time": "1 мин",
+      "messages": [
+        "О, сейчас покажу! Мы и спортом занимаемся, и людям помогаем"
+      ]
+    }
+  ],
+  "gallery": [
+      {
+        "name": "Спорт",
+        "code": "sport",
+        "items": [
+          {
+            "avatar" : "gallery-sport-avatar.png",
+            "name" : "Андрей Гуляев",
+            "pos" : "Python разработчик",
+            "desc" : "ПСБ поддерживает здоровый образ жизни сотрудников",
+            "img" : ""
+          },
+          {
+            "avatar" : "",
+            "name" : "",
+            "pos" : "",
+            "desc" : "",
+            "img" : "gallery-sport-2.png"
+          },
+          {
+            "avatar" : "",
+            "name" : "",
+            "pos" : "",
+            "desc" : "",
+            "img" : "gallery-sport-3.png"
+          },
+          {
+            "avatar" : "",
+            "name" : "",
+            "pos" : "",
+            "desc" : "",
+            "img" : "gallery-sport-4.png"
+          }
+        ]
+      },
+      {
+        "name": "Социальные проекты",
+        "code": "social",
+        "items": [
+          {
+            "avatar" : "gallery-social-avatar.png",
+            "name" : "Анна Винокурова",
+            "pos" : "Project manager",
+            "desc" : "Сделай мир лучше и добрее вместе с нами</br> </br>Прими участие в организации и проведении городских мероприятий",
+            "img" : ""
+          },
+          {
+            "avatar" : "",
+            "name" : "",
+            "pos" : "",
+            "desc" : "",
+            "img" : "gallery-social-1.png"
+          },
+          {
+            "avatar" : "",
+            "name" : "",
+            "pos" : "",
+            "desc" : "",
+            "img" : "gallery-social-2.png"
+          },
+          {
+            "avatar" : "",
+            "name" : "",
+            "pos" : "",
+            "desc" : "",
+            "img" : "gallery-social-3.png"
+          },
+          {
+            "avatar" : "",
+            "name" : "",
+            "pos" : "",
+            "desc" : "",
+            "img" : "gallery-social-4.png"
+          },
+          {
+            "avatar" : "",
+            "name" : "",
+            "pos" : "",
+            "desc" : "",
+            "img" : "gallery-social-5.png"
+          },
+          {
+            "avatar" : "",
+            "name" : "",
+            "pos" : "",
+            "desc" : "",
+            "img" : "gallery-social-6.png"
+          }
+        ]
+      }
+  ]
+}

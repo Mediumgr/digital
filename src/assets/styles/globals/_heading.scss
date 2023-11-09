@@ -1,0 +1,131 @@
+.heading-h1 {
+  /* H1/Phone */
+  font-size: 4.8rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 90%; /* 4.32rem */
+  letter-spacing: -0.288rem;
+  text-align: center;
+
+  @include mq(768) {
+    /* H1/Tablet */
+    font-size: 9.6rem;
+    letter-spacing: -0.576rem;
+  }
+
+  @include mq(1200) {
+    /* H1/Desktop */
+    font-size: 15rem;
+    letter-spacing: -0.9rem;
+  }
+}
+
+.heading-h2 {
+  /* H2/Phone */
+  font-size: 4.8rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 90%; /* 4.32rem */
+  letter-spacing: -0.288rem;
+  text-align: center;
+
+  @include mq(768) {
+    /* H2/Tablet */
+    font-size: 9.6rem;
+    letter-spacing: -0.576rem;
+  }
+
+  @include mq(1200) {
+    /* H2/Desktop */
+    font-size: 15rem;
+    letter-spacing: -0.9rem;
+  }
+}
+
+.heading-h3 {
+  /* H3/Phone */
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%; /* 3rem */
+  letter-spacing: -0.12rem;
+  text-align: center;
+
+  @include mq(768) {
+    /* H3/Tablet */
+    font-size: 4.8rem;
+    letter-spacing: -0.096rem;
+  }
+
+  @include mq(1200) {
+    /* H3/Desktop */
+    font-size: 6.4rem;
+    letter-spacing: -0.256rem;
+  }
+}
+
+.heading-h4 {
+  /* H4/Phone */
+  font-size: 2.4rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%; /* 2.6399999999999997rem */
+  letter-spacing: -0.048rem;
+  text-align: center;
+
+  @include mq(768) {
+    /* H4/Tablet */
+    font-size: 3.6rem;
+    letter-spacing: -0.072rem;
+  }
+
+  @include mq(1200) {
+    /* H4/Desktop */
+    font-size: 4.8rem;
+    letter-spacing: -0.144rem;
+  }
+}
+
+.heading-h5 {
+  /* H5/Phone */
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 2.16rem */
+  letter-spacing: -0.036rem;
+  text-align: center;
+
+  @include mq(768) {
+    /* H5/Tablet */
+    font-size: 2.4rem;
+    letter-spacing: -0.048rem;
+  }
+
+  @include mq(1200) {
+    /* H5/Desktop */
+    font-size: 3.2rem;
+    letter-spacing: -0.096rem;
+  }
+}
+
+.heading-h6 {
+  /* H6/Phone */
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 1.92rem */
+  letter-spacing: -0.048rem;
+  text-align: center;
+
+  @include mq(768) {
+    /* H6/Tablet */
+    font-size: 2rem;
+    letter-spacing: -0.06rem;
+  }
+
+  @include mq(1200) {
+    /* H6/Desktop */
+    font-size: 2.4rem;
+    letter-spacing: -0.072rem;
+  }
+}
