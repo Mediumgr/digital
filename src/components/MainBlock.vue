@@ -579,7 +579,6 @@ onMounted(async () => {
 
 .section {
   &__text-psb {
-    overflow: hidden;
     position: relative;
     padding: 70px 0 0;
     color: var(--color-white);
@@ -674,7 +673,6 @@ onMounted(async () => {
     }
   }
   &__text-lab {
-    overflow: hidden;
     position: relative;
     color: var(--color-white);
     margin: 0 auto;
