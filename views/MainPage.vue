@@ -6,6 +6,7 @@
   <ProcessBlock />
   <FormVacancy />
   <MapSection />
+  <RecommendFriend />
   <LifeOutsideOffice />
   <EducationSection />
 </template>
@@ -20,6 +21,7 @@ import LifeOutsideOffice from "@/components/LifeOutsideOffice.vue";
 import EducationSection from "@/components/EducationSection.vue";
 import MapSection from "@/components/MapSection.vue";
 import WhichStackToUseSection from "@/components/WhichStackToUseSection.vue";
+import RecommendFriend from "@/components/RecommendFriend.vue";
 
 export default {
   name: "MainPage",
@@ -33,6 +35,7 @@ export default {
     WhichStackToUseSection,
     MapSection,
     EducationSection,
+    RecommendFriend
   },
 };
 </script>
