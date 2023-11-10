@@ -6,6 +6,7 @@
   line-height: 90%; /* 4.32rem */
   letter-spacing: -0.288rem;
   text-align: center;
+  margin: 0;
 
   @include mq(768) {
     /* H1/Tablet */
@@ -28,6 +29,7 @@
   line-height: 90%; /* 4.32rem */
   letter-spacing: -0.288rem;
   text-align: center;
+  margin: 0;
 
   @include mq(768) {
     /* H2/Tablet */
@@ -50,6 +52,7 @@
   line-height: 100%; /* 3rem */
   letter-spacing: -0.12rem;
   text-align: center;
+  margin: 0;
 
   @include mq(768) {
     /* H3/Tablet */
@@ -72,6 +75,7 @@
   line-height: 110%; /* 2.6399999999999997rem */
   letter-spacing: -0.048rem;
   text-align: center;
+  margin: 0;
 
   @include mq(768) {
     /* H4/Tablet */
@@ -94,6 +98,7 @@
   line-height: 120%; /* 2.16rem */
   letter-spacing: -0.036rem;
   text-align: center;
+  margin: 0;
 
   @include mq(768) {
     /* H5/Tablet */
@@ -116,6 +121,7 @@
   line-height: 120%; /* 1.92rem */
   letter-spacing: -0.048rem;
   text-align: center;
+  margin: 0;
 
   @include mq(768) {
     /* H6/Tablet */

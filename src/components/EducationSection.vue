@@ -10,7 +10,8 @@
     <div class="education__card">
       <div class="js-education-corp">
         <div class="education__hero education__hero--corp">
-          <video class="education__video" src="@/assets/video/education/pexels-shvets-production-9057681-(720p).mp4" type="video/mp4"
+          <video class="education__video" src="@/assets/video/education/pexels-shvets-production-9057681-(720p).mp4"
+                 type="video/mp4"
                  autoplay="" loop="" muted=""></video>
           <div class="education__card-text-wrapper">
             <h3 class="education__card-title heading-h2">
@@ -80,7 +81,8 @@
       </div>
       <div class="education__card js-education-school">
         <div class="education__hero education__hero--school">
-          <video class="education__video" src="@/assets/video/education/pexels-tea-oebel-6804109-(720p).mp4" type="video/mp4"
+          <video class="education__video" src="@/assets/video/education/pexels-tea-oebel-6804109-(720p).mp4"
+                 type="video/mp4"
                  autoplay="" loop="" muted=""></video>
           <div class="education__card-text-wrapper">
             <h3 class="education__card-title heading-h2">
@@ -182,7 +184,8 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import { gsap } from "@/helpers/gsap";
+import { gsap, scrollTriggerRefresh } from "@/helpers/gsap";
+import { refreshScrollTriggerByElement } from "@/helpers";
 
 function init() {
   const educationContainerEl = document.querySelector('.js-education')
@@ -219,7 +222,7 @@ function init() {
       stagger: 0.3,
       scrollTrigger: {
         trigger: educationHeadingEl,
-        start: "center 80%", // when the top of the trigger hits the top of the viewport
+        start: "center 80%",
         end: "+=500px",
         scrub: 1,
       },
@@ -231,7 +234,7 @@ function init() {
       autoAlpha: 0,
       scrollTrigger: {
         trigger: educationCorpEl,
-        start: "top 50%", // when the top of the trigger hits the top of the viewport
+        start: "top 50%",
         end: "clamp(center +=300px)",
         scrub: 1,
       },
@@ -244,7 +247,7 @@ function init() {
       borderRadius: 0,
       scrollTrigger: {
         trigger: educationCorpEl,
-        start: "top 30%", // when the top of the trigger hits the top of the viewport
+        start: "top 30%",
         end: "clamp(center +=300px)",
         scrub: 1,
       },
@@ -255,7 +258,7 @@ function init() {
       opacity: 0,
       scrollTrigger: {
         trigger: educationSchoolEl,
-        start: "top bottom", // when the top of the trigger hits the top of the viewport
+        start: "top bottom",
         end: "+=500",
         scrub: 1,
       },
@@ -266,33 +269,41 @@ function init() {
       autoAlpha: 0,
       scrollTrigger: {
         trigger: educationSchoolEl,
-        start: "center 50%", // when the top of the trigger hits the top of the viewport
-        end: "clamp(bottom +=500px)",
+        start: "center 50%",
+        end: "clamp(bottom +=600px)",
         scrub: 1,
       },
     })
 
     gsap.to(educationSchoolEl, {
       width: '100%',
-      height: window.innerHeight,
+      height: () => window.innerHeight,
       maxWidth: '100%',
       borderRadius: 0,
       scrollTrigger: {
         trigger: educationSchoolEl,
-        start: "center 40%", // when the top of the trigger hits the top of the viewport
+        start: "center 40%",
         end: "clamp(bottom center)",
-        scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+        scrub: 1,
         debug: true,
       },
     })
   }
 
   initializeAnimation()
+
+  refreshScrollTriggerByElement(educationContainerEl)
 }
+
 
 onMounted(() => {
   init()
+
   console.log('EducationSection')
+
+  setTimeout(() => {
+    scrollTriggerRefresh()
+  }, 150)
 });
 </script>
 

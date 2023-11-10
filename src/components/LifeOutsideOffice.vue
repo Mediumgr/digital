@@ -351,7 +351,6 @@ onMounted(async () => {
                 const x = e.pageX - item.offsetLeft;
                 const walk = (x - startX) * 2; //scroll-fast
                 item.scrollLeft = scrollLeft - walk;
-                console.log(walk);
             });
         })
     }

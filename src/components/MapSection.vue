@@ -80,7 +80,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { gsap } from '@/helpers/gsap';
-import { getScrollbarWidth } from '@/helpers';
+import { getScrollbarWidth, refreshScrollTriggerByElement } from '@/helpers';
 
 import mapData from '@/assets/data/map.json';
 import mapPointers from '@/assets/data/map-pointers.json';
@@ -131,7 +131,6 @@ function init() {
         start: "top 70%",
         end: "clamp(+=100px)",
         // scrub: 1,
-        // markers: true,
       },
     })
   }
@@ -248,6 +247,8 @@ function init() {
   mapPointerContainerEl.addEventListener('click', clickMapHandler)
 
   initializeAnimation()
+
+  refreshScrollTriggerByElement(mapContainerEl)
 }
 
 onMounted(() => {

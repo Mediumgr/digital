@@ -1,6 +1,6 @@
 <template>
-  <section class="which-stack-to-use">
-    <div class="_gradient"></div>
+  <section class="which-stack-to-use js-stack-use">
+    <GradientBG/>
 
     <h2 class="which-stack-to-use__title heading-h2" v-html="whichStackToUse.title"></h2>
 
@@ -25,6 +25,9 @@
 <script setup>
 import { onMounted } from 'vue';
 import whichStackToUse from '@/assets/data/which-stack-to-use.json';
+import GradientBG from "@/components/GradientBG.vue";
+import { gsap, scrollTriggerRefresh } from "@/helpers/gsap";
+import { refreshScrollTriggerByElement } from "@/helpers";
 
 const CLASS_PREFIX = '_stack-';
 
@@ -41,14 +44,52 @@ const classes = [
 
 
 function init() {
-  const cardsEl = document.querySelectorAll('.cards-stack__wrapper-item');
-  if (!cardsEl.length) {
+  const stackContainerEl = document.querySelector('.js-stack-use');
+  if (!stackContainerEl) {
     return;
   }
 
-  const cardsStackContainerEl = document.querySelector('.cards-stack')
-  const cardsStackWrapperEl = Array.from(document.querySelectorAll('.cards-stack__wrapper-item'))
-  const cardsStackItemEl = Array.from(document.querySelectorAll('.cards-stack__item'))
+  const titleEl = stackContainerEl.querySelector('.which-stack-to-use__title')
+  const gradientEl = stackContainerEl.querySelector('.gradient')
+
+  const cardsStackContainerEl = stackContainerEl.querySelector('.cards-stack')
+  const cardsEl = stackContainerEl.querySelectorAll('.cards-stack__wrapper-item');
+  const cardsStackWrapperEl = Array.from(stackContainerEl.querySelectorAll('.cards-stack__wrapper-item'))
+  const cardsStackItemEl = Array.from(stackContainerEl.querySelectorAll('.cards-stack__item'))
+
+
+  function animation() {
+    // заголовки
+    gsap.from(titleEl, {
+      autoAlpha: 0,
+      scrollTrigger: {
+        trigger: stackContainerEl,
+        start: "top 50%",
+        end: "clamp(center +=300px)",
+        scrub: 1,
+      },
+    })
+
+    gsap.from(cardsStackContainerEl, {
+      autoAlpha: 0,
+      scrollTrigger: {
+        trigger: stackContainerEl,
+        start: "top 50%",
+        end: "clamp(center +=300px)",
+        scrub: 1,
+      },
+    })
+
+    gsap.from(gradientEl, {
+      autoAlpha: 0.2,
+      scrollTrigger: {
+        trigger: stackContainerEl,
+        start: "top 70%",
+        end: "clamp(center +=300px)",
+        scrub: 1,
+      },
+    })
+  }
 
   function handleClick(event) {
     const card = event.target;
@@ -131,11 +172,18 @@ function init() {
   }
 
   cardsStackContainerEl.addEventListener('click', handleClick)
+
+  animation()
+  refreshScrollTriggerByElement(stackContainerEl)
 }
 
 onMounted(() => {
   init()
   console.log('WhichStackToUseSection')
+
+  setTimeout(() => {
+    scrollTriggerRefresh()
+  }, 150)
 });
 </script>
 
