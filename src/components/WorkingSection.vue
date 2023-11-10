@@ -31,6 +31,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
+
 const frame = ref(null);
 const title = ref(null);
 
@@ -73,17 +74,18 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+
 .frame__wrapper {
-  grid-gap: 10px;
+  grid-gap: 1rem;
   display: flex;
-  margin-top: 20px;
+  margin-top: 2rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
-  @media screen and (min-width: 768px) {
+  @include mq(768) {
     display: grid;
-    grid-gap: 15px;
+    grid-gap: 1.5rem;
     grid-template-columns: repeat(2, auto);
     grid-template-areas:
       'support eco'
@@ -92,8 +94,8 @@ onMounted(() => {
       'services clients'
       'substitution credits';
   }
-  @media screen and (min-width: 1440px) {
-    grid-gap: 28px;
+  @include mq(1440) {
+    grid-gap: 2.8rem;
     grid-template-columns: repeat(3, auto);
     grid-template-areas:
       'support eco projects'
@@ -102,181 +104,193 @@ onMounted(() => {
       'substitution credits credits';
   }
 }
+
 .commonStyle {
-  padding: 15px 20px;
-  border-radius: 120px;
+  padding: 1.5rem 2rem;
+  border-radius: 12rem;
   text-align: center;
   background: var(--color-white);
-  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.07);
   line-height: 120%;
-  letter-spacing: -0.48px;
+  letter-spacing: -0.048rem;
   color: #13144b;
   position: relative;
   z-index: 1;
   opacity: 0;
   transition: opacity 1.2s ease;
 
-  @media screen and (min-width: 768px) {
-    font-size: 20px;
-    letter-spacing: -0.6px;
-    padding: 30px;
+  @include mq(768) {
+    font-size: 2rem;
+    letter-spacing: -0.06rem;
+    padding: 3rem;
   }
-  @media screen and (min-width: 1440px) {
-    font-size: 24px;
-    letter-spacing: -0.72px;
-    padding: 40px;
+  @include mq(1440) {
+    font-size: 2.4rem;
+    letter-spacing: -0.072rem;
+    padding: 4rem;
   }
 }
+
 .working {
   &__section {
-    padding: 200px 20px;
+    padding: 20rem 2rem;
   }
+
   &__title {
     position: sticky;
-    top: 290px;
+    top: 29rem;
     opacity: 0;
     transition: opacity 1.2s ease;
 
     color: #13144b;
     text-align: center;
-    font-size: 48px;
+    font-size: 4.8rem;
     font-style: normal;
     line-height: 90%;
-    letter-spacing: -2.88px;
+    letter-spacing: -0.288rem;
 
-    @media screen and (min-width: 375px) {
+    @include mq(375) {
       margin: 0 auto;
-      width: 335px;
+      width: 33.5rem;
     }
-    @media screen and (min-width: 768px) {
-      width: 728px;
-      font-size: 96px;
+    @include mq(768) {
+      width: 72.8rem;
+      font-size: 9.6rem;
       font-weight: 500;
-      letter-spacing: -5.76px;
+      letter-spacing: -0.576rem;
     }
-    @media screen and (min-width: 1440px) {
-      width: 900px;
+    @include mq(1440) {
+      width: 90rem;
     }
   }
+
   &__support {
-    width: 248px;
-    @media screen and (min-width: 768px) {
-      width: 320px;
+    width: 24.8rem;
+    @include mq(768) {
+      width: 32rem;
       justify-self: end;
       grid-area: support;
       position: relative;
-      right: -90px;
+      right: -9rem;
     }
-    @media screen and (min-width: 1440px) {
+    @include mq(1440) {
       position: static;
-      width: 391px;
+      width: 39.1rem;
     }
   }
+
   &__eco {
-    width: 130px;
-    @media screen and (min-width: 768px) {
-      width: 173px;
+    width: 13rem;
+    @include mq(768) {
+      width: 17.3rem;
       grid-area: eco;
       justify-self: center;
     }
-    @media screen and (min-width: 1440px) {
-      width: 216px;
+    @include mq(1440) {
+      width: 21.6rem;
     }
   }
+
   &__projects {
-    width: 247px;
-    @media screen and (min-width: 768px) {
-      width: 318px;
+    width: 24.7rem;
+    @include mq(768) {
+      width: 31.8rem;
       justify-self: end;
       grid-area: projects;
       position: relative;
-      right: -60px;
+      right: -6rem;
     }
-    @media screen and (min-width: 1440px) {
+    @include mq(1440) {
       position: static;
       justify-self: start;
-      width: 390px;
+      width: 39rem;
     }
   }
+
   &__platform {
-    width: 177px;
-    @media screen and (min-width: 768px) {
-      width: 231px;
+    width: 17.7rem;
+    @include mq(768) {
+      width: 23.1rem;
       position: relative;
-      right: -60px;
+      right: -6rem;
     }
-    @media screen and (min-width: 1440px) {
+    @include mq(1440) {
       position: relative;
-      right: -85px;
-      width: 415px;
+      right: -8.5rem;
+      width: 41.5rem;
     }
   }
+
   &__bank {
-    width: 272px;
-    @media screen and (min-width: 768px) {
-      width: 350px;
+    width: 27.2rem;
+    @include mq(768) {
+      width: 35rem;
       justify-self: center;
       grid-area: bank;
     }
-    @media screen and (min-width: 1440px) {
+    @include mq(1440) {
       position: relative;
-      right: 15px;
-      width: 428px;
+      right: 1.5rem;
+      width: 42.8rem;
     }
   }
+
   &__services {
-    width: 262px;
-    @media screen and (min-width: 768px) {
-      width: 338px;
+    width: 26.2rem;
+    @include mq(768) {
+      width: 33.8rem;
       grid-area: services;
       position: relative;
-      right: -50px;
+      right: -5rem;
     }
-    @media screen and (min-width: 1440px) {
-      right: -135px;
-      width: 413px;
+    @include mq(1440) {
+      right: -13.5rem;
+      width: 41.3rem;
     }
   }
+
   &__substitution {
-    width: 220px;
-    @media screen and (min-width: 768px) {
-      width: 284px;
+    width: 22rem;
+    @include mq(768) {
+      width: 28.4rem;
       justify-self: end;
       grid-area: substitution;
       position: relative;
-      right: 20px;
+      right: 2rem;
     }
-    @media screen and (min-width: 1440px) {
+    @include mq(1440) {
       position: relative;
-      right: -55px;
-      width: 348px;
+      right: -5.5rem;
+      width: 34.8rem;
     }
   }
+
   &__clients {
-    width: 194px;
-    @media screen and (min-width: 768px) {
-      width: 253px;
+    width: 19.4rem;
+    @include mq(768) {
+      width: 25.3rem;
       grid-area: clients;
       justify-self: center;
     }
-    @media screen and (min-width: 1440px) {
+    @include mq(1440) {
       position: relative;
-      right: 25px;
-      width: 311px;
+      right: 2.5rem;
+      width: 31.1rem;
     }
   }
+
   &__credits {
-    width: 280px;
-    @media screen and (min-width: 768px) {
-      width: 358px;
+    width: 28rem;
+    @include mq(768) {
+      width: 35.8rem;
       grid-area: credits;
       position: relative;
-      right: 20px;
+      right: 2rem;
     }
-    @media screen and (min-width: 1440px) {
-      width: 438px;
+    @include mq(1440) {
+      width: 43.8rem;
       position: relative;
-      right: -55px;
+      right: -5.5rem;
     }
   }
 }
@@ -284,4 +298,5 @@ onMounted(() => {
 .active {
   opacity: 1;
 }
+
 </style>

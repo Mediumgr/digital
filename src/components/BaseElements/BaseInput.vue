@@ -69,65 +69,63 @@ const onInput = (event) => {
 input {
   color: #13144b;
   font-family: 'Onest';
-  font-size: 16px;
+  font-size: 1.6rem;
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
-  letter-spacing: -0.64px;
-  padding: 15px 20px;
-  width: 295px;
-  height: 46px;
-  border-radius: 20px;
-  border: 1px solid rgba(19, 20, 75, 0.2);
-  margin-bottom: 10px;
+  letter-spacing: -0.064rem;
+  padding: 1.5rem 2rem;
+  width: 29.5rem;
+  height: 4.6rem;
+  border-radius: 2rem;
+  border: 0.1rem solid rgba(19, 20, 75, 0.2);
+  margin-bottom: 1rem;
   outline: none;
-  @media screen and (min-width: 768px) {
-    padding: 20px;
-    width: 608px;
-    height: 59px;
+  @include mq(76.8) {
+    padding: 2rem;
+    width: 60.8rem;
+    height: 5.9rem;
   }
-  @media screen and (min-width: 1440px) {
-    padding: 15px 20px;
-    width: 434px;
-    height: 52px;
+  @include mq(144) {
+    padding: 1.5rem 2rem;
+    width: 43.4rem;
+    height: 5.2rem;
     margin-bottom: 0;
   }
-  @media screen and (min-width: 1920px) {
-    padding: 20px 27px;
-    width: 579px;
-    height: 60px;
+  @include mq(192) {
+    padding: 2rem 2.7rem;
+    width: 57.9rem;
+    height: 6rem;
   }
 }
 
 ::placeholder {
   color: #13144b;
-  font-family: 'Onest';
-  font-size: 13px;
+  font-family: 'Onest', serif;
+  font-size: 1.3rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 120%;
-  letter-spacing: -0.26px;
   opacity: 0.5;
   line-height: 140%;
-  letter-spacing: -0.64px;
-  @media screen and (min-width: 768px) {
-    font-size: 16px;
-    letter-spacing: -0.32px;
+  letter-spacing: -0.064rem;
+  @include mq(76.8) {
+    font-size: 1.6rem;
+    letter-spacing: -0.032rem;
   }
-  @media screen and (min-width: 1440px) {
-    letter-spacing: -0.64px;
+  @include mq(144) {
+    letter-spacing: -0.064rem;
   }
-  @media screen and (min-width: 1920px) {
-    font-size: 21px;
-    letter-spacing: -0.853px;
+  @include mq(192) {
+    font-size: 2.1rem;
+    letter-spacing: -0.0853rem;
   }
 }
 
 .errorClass {
-  border: 1px solid #f00;
+  border: 0.1rem solid #f00;
   color: #f00;
-  @media screen and (min-width: 1920px) {
-    font-size: 24px;
+  @include mq(192) {
+    font-size: 2.4rem;
   }
 }
 </style>

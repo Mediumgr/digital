@@ -6,16 +6,12 @@ a {
   text-decoration: none;
 }
 
-/* input:active {
-  font-size: 16px; // disable iphone zoom
-} */
-
 html,
 body {
   /* Firefox scrollbar */
   scrollbar-width: thin;
   scrollbar-color: rgb(225, 104, 5);
-  background: #ffffff;
+  background: var(--bg);
 
   &::-webkit-scrollbar {
     width: 0.3rem;

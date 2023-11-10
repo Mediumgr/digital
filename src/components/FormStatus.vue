@@ -45,56 +45,59 @@
 <script setup>
 /* eslint-disable */
 import { defineProps } from 'vue';
+
 const props = defineProps({
   status: {
     type: Object,
-    default: () => {},
+    default: () => {
+    },
   },
 });
 </script>
 
 <style lang="scss" scoped>
+
 .btn {
-  width: 255px;
-  padding: 20px;
-  border-radius: 20px;
+  width: 25.5rem;
+  padding: 2rem;
+  border-radius: 2rem;
   outline: none;
   border: none;
   background-color: #13144b;
   color: var(--color-white);
-  font-size: 13px;
-  letter-spacing: -0.26px;
+  font-size: 1.3rem;
+  letter-spacing: -0.026000000000000002rem;
   cursor: pointer;
   transition: background-color 200ms linear;
 
   &:hover {
-    border-radius: 27px;
+    border-radius: 2.7rem;
     background: radial-gradient(
         35.04% 88.6% at 85.5% 50.85%,
         #ff4236 0%,
         rgba(142, 84, 245, 0) 155%
-      ),
-      #424ed1;
+    ),
+    #424ed1;
   }
 
-  @media screen and (min-width: 768px) {
-    font-size: 16px;
-    width: 608px;
+  @include mq(768) {
+    font-size: 1.6rem;
+    width: 60.8rem;
     line-height: 120%;
-    letter-spacing: -0.32px;
+    letter-spacing: -0.032rem;
   }
 
-  @media screen and (min-width: 1440px) {
-    width: 434px;
+  @include mq(1440) {
+    width: 43.4rem;
     line-height: 140%;
-    letter-spacing: -0.64px;
+    letter-spacing: -0.064rem;
   }
 
-  @media screen and (min-width: 1920px) {
-    border-radius: 27px;
-    font-size: 21px;
-    width: 579px;
-    letter-spacing: -0.85px;
+  @include mq(1920) {
+    border-radius: 2.7rem;
+    font-size: 2.1rem;
+    width: 57.9rem;
+    letter-spacing: -0.08499999999999999rem;
   }
 }
 
@@ -104,46 +107,49 @@ const props = defineProps({
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    row-gap: 40px;
-    padding: 40px;
-    border-radius: 20px;
+    row-gap: 4rem;
+    padding: 4rem;
+    border-radius: 2rem;
     background: var(--color-white);
-    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.07);
 
-    @media screen and (min-width: 1440px) {
-      height: 664px;
-      width: 514px;
+    @include mq(1440) {
+      height: 66.4rem;
+      width: 51.4rem;
       row-gap: 0;
     }
-    @media screen and (min-width: 1920px) {
-      height: 885px;
-      width: 685px;
+    @include mq(1920) {
+      height: 88.5rem;
+      width: 68.5rem;
     }
   }
+
   &__connection {
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
-    @media screen and (min-width: 1024px) {
-      row-gap: 60px;
+    row-gap: 2rem;
+    @include mq(1024) {
+      row-gap: 6rem;
     }
   }
+
   &__text {
     color: #13144b;
-    font-size: 30px;
+    font-size: 3rem;
     line-height: 100%;
-    letter-spacing: -1.2px;
+    letter-spacing: -0.12rem;
 
-    @media screen and (min-width: 1024px) {
-      font-size: 48px;
+    @include mq(1024) {
+      font-size: 4.8rem;
       line-height: 110%;
-      letter-spacing: -1.44px;
+      letter-spacing: -0.144rem;
     }
   }
+
   &__image {
-    width: 105px;
-    @media screen and (min-width: 1440px) {
-      width: 152px;
+    width: 10.5rem;
+    @include mq(1440) {
+      width: 15.2rem;
     }
   }
 }
@@ -154,37 +160,37 @@ const props = defineProps({
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 40px;
-    row-gap: 40px;
-    border-radius: 20px;
+    padding: 4rem;
+    row-gap: 4rem;
+    border-radius: 2rem;
     background: var(--color-white);
-    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.07);
 
-    @media screen and (min-width: 1024px) {
-      row-gap: 60px;
+    @include mq(1024) {
+      row-gap: 6rem;
     }
 
-    @media screen and (min-width: 1440px) {
-      height: 664px;
-      width: 514px;
+    @include mq(1440) {
+      height: 66.4rem;
+      width: 51.4rem;
     }
 
-    @media screen and (min-width: 1920px) {
-      height: 885px;
-      width: 685px;
+    @include mq(1920) {
+      height: 88.5rem;
+      width: 68.5rem;
     }
   }
 
   &__text {
     color: #13144b;
-    font-size: 30px;
+    font-size: 3rem;
     line-height: 100%;
-    letter-spacing: -1.2px;
+    letter-spacing: -0.12rem;
 
-    @media screen and (min-width: 1024px) {
-      font-size: 48px;
+    @include mq(1024) {
+      font-size: 4.8rem;
       line-height: 110%;
-      letter-spacing: -1.44px;
+      letter-spacing: -0.144rem;
     }
   }
 }

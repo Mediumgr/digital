@@ -11,7 +11,7 @@
           <header v-show="showNavbar">
             <nav class="navbar">
               <div class="navbar__container">
-                <img src="@/assets/images/logo_1.svg" alt="logo" />
+                <img src="@/assets/images/logo_1.svg" alt="logo"/>
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@
                     fill="white"
                   />
                 </svg>
-                <img src="@/assets/images/logo_2.svg" alt="logo" />
+                <img src="@/assets/images/logo_2.svg" alt="logo"/>
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@
                     fill="white"
                   />
                 </svg>
-                <img src="@/assets/images/logo_3.svg" alt="logo" />
+                <img src="@/assets/images/logo_3.svg" alt="logo"/>
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -84,17 +84,17 @@
               <span class="section__links-line"></span>
               <li class="section__links-item">
                 <a class="link" target="_blank" href="https://habr.com/"
-                  >Хабр</a
+                >Хабр</a
                 >
               </li>
               <li class="section__links-item">
                 <a class="link" target="_blank" href="https://rutube.ru/"
-                  >Rutube</a
+                >Rutube</a
                 >
               </li>
               <li class="section__links-item">
                 <a class="link" target="_blank" href="https://web.telegram.org/"
-                  >Телеграм</a
+                >Телеграм</a
                 >
               </li>
               <li class="section__links-item">
@@ -102,7 +102,7 @@
                   class="link"
                   target="_blank"
                   href="https://360.yandex.ru/mail/"
-                  >Почта</a
+                >Почта</a
                 >
               </li>
             </ul>
@@ -141,7 +141,7 @@
       loop="loop"
       poster="../assets/images/poster_1.png"
     >
-      <source :src="videoSrc" type="video/mp4" />
+      <source :src="videoSrc" type="video/mp4"/>
     </video>
     <div class="wrapper">
       <h1 class="wrapper__title">Давай знакомиться</h1>
@@ -347,192 +347,205 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .wrapper {
   position: absolute;
-  width: 335px;
-  @media screen and (min-width: 768px) {
-    width: 688px;
+  width: 33.5rem;
+  @include mq(768) {
+    width: 68.8rem;
   }
-  @media screen and (min-width: 1440px) {
-    width: 1200px;
+  @include mq(1440) {
+    width: 120rem;
   }
+
   &__arrow {
     animation: moveButton 2s linear infinite;
   }
+
   &__title {
     color: var(--color-white);
-    font-size: 48px;
+    font-size: 4.8rem;
     line-height: 90%;
-    letter-spacing: -2.88px;
-    padding-bottom: 30px;
+    letter-spacing: -0.288rem;
+    padding-bottom: 3rem;
     text-align: center;
     transition: opacity 2s ease;
-    @media screen and (min-width: 768px) {
-      font-size: 96px;
-      letter-spacing: -5.76px;
-      padding-bottom: 60px;
+    @include mq(768) {
+      font-size: 9.6rem;
+      letter-spacing: -0.576rem;
+      padding-bottom: 6rem;
     }
-    @media screen and (min-width: 1440px) {
-      font-size: 150px;
-      letter-spacing: -9px;
+    @include mq(1440) {
+      font-size: 15rem;
+      letter-spacing: -0.9rem;
     }
   }
+
   &__content {
     display: grid;
-    width: 335px;
-    grid-template-columns: 177px auto;
+    width: 33.5rem;
+    grid-template-columns: 17.7rem auto;
     grid-template-rows: 1fr 1fr 1fr;
-    height: 176px;
-    margin-bottom: 110px;
+    height: 17.6rem;
+    margin-bottom: 11rem;
     transition: opacity 3s ease;
-    @media screen and (min-width: 768px) {
-      width: 626px;
+    @include mq(768) {
+      width: 62.6rem;
       grid-template-columns: repeat(3, auto);
       grid-template-rows: 1fr 1fr;
-      height: 194px;
-      margin: 0 auto 195px;
+      height: 19.4rem;
+      margin: 0 auto 19.5rem;
       grid-template-areas:
         'about projects work'
         'office life develop';
     }
-    @media screen and (min-width: 1440px) {
-      grid-row-gap: 16px;
+    @include mq(1440) {
+      grid-row-gap: 1.6rem;
       width: auto;
       height: auto;
-      margin-bottom: 90px;
+      margin-bottom: 9rem;
       grid-template-columns: repeat(4, auto);
       grid-template-rows: 1fr 1fr;
       grid-template-areas:
         'about projects work office'
         '. life develop .';
     }
+
     > button {
-      border-radius: 160px;
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16rem;
+      border: 0.2rem solid rgba(255, 255, 255, 0.2);
       background: transparent;
-      backdrop-filter: blur(3px);
-      padding: 15px;
-      font-size: 18px;
+      backdrop-filter: blur(0.3rem);
+      padding: 1.5rem;
+      font-size: 1.8rem;
       line-height: 120%;
-      letter-spacing: -0.36px;
+      letter-spacing: -0.036rem;
       color: var(--color-white);
       transition: 0.2s;
+
       &:hover {
         background: #424ed1;
         cursor: pointer;
       }
-      @media screen and (min-width: 768px) {
-        font-size: 24px;
+
+      @include mq(768) {
+        font-size: 2.4rem;
         line-height: 120%;
-        letter-spacing: -0.48px;
-        padding: 30px;
+        letter-spacing: -0.048rem;
+        padding: 3rem;
       }
-      @media screen and (min-width: 1440px) {
-        font-size: 32px;
+      @include mq(1440) {
+        font-size: 3.2rem;
         line-height: 120%;
-        letter-spacing: -0.96px;
-        padding: 40px 60px;
+        letter-spacing: -0.096rem;
+        padding: 4rem 6rem;
       }
     }
   }
+
   &__about {
-    height: 52px;
+    height: 5.2rem;
     justify-self: center;
-    @media screen and (min-width: 768px) {
-      height: 90px;
+    @include mq(768) {
+      height: 9rem;
       grid-area: about;
     }
-    @media screen and (min-width: 1440px) {
-      height: 118px;
-      width: 205px;
+    @include mq(1440) {
+      height: 11.8rem;
+      width: 20.5rem;
     }
   }
+
   &__projects {
-    min-width: 162px;
-    height: 52px;
+    min-width: 16.2rem;
+    height: 5.2rem;
     position: relative;
-    left: -39px;
-    @media screen and (min-width: 768px) {
-      height: 90px;
+    left: -3.9rem;
+    @include mq(768) {
+      height: 9rem;
       position: static;
-      width: 236px;
+      width: 23.6rem;
       grid-area: projects;
     }
-    @media screen and (min-width: 1440px) {
-      height: 118px;
-      width: 350px;
+    @include mq(1440) {
+      height: 11.8rem;
+      width: 35rem;
       justify-self: center;
     }
   }
+
   &__office {
     justify-self: center;
-    height: 52px;
-    @media screen and (min-width: 768px) {
-      height: 90px;
+    height: 5.2rem;
+    @include mq(768) {
+      height: 9rem;
       grid-area: office;
     }
-    @media screen and (min-width: 1440px) {
-      height: 118px;
+    @include mq(1440) {
+      height: 11.8rem;
     }
   }
+
   &__work {
-    height: 52px;
+    height: 5.2rem;
     position: relative;
-    left: -33px;
-    @media screen and (min-width: 768px) {
-      height: 90px;
+    left: -3.3rem;
+    @include mq(768) {
+      height: 9rem;
       position: static;
-      width: 223px;
+      width: 22.3rem;
       grid-area: work;
     }
-    @media screen and (min-width: 1440px) {
-      height: 118px;
-      width: 333px;
+    @include mq(1440) {
+      height: 11.8rem;
+      width: 33.3rem;
     }
   }
+
   &__life {
-    min-width: 180px;
-    height: 52px;
+    min-width: 18rem;
+    height: 5.2rem;
     position: relative;
-    left: 16px;
-    @media screen and (min-width: 768px) {
-      height: 90px;
-      width: 260px;
+    left: 1.6rem;
+    @include mq(768) {
+      height: 9rem;
+      width: 26rem;
       grid-area: life;
     }
-    @media screen and (min-width: 1440px) {
-      height: 118px;
-      width: 380px;
+    @include mq(1440) {
+      height: 11.8rem;
+      width: 38rem;
     }
   }
+
   &__develop {
-    height: 52px;
+    height: 5.2rem;
     justify-self: center;
-    @media screen and (min-width: 768px) {
-      height: 90px;
-      padding: 30px;
+    @include mq(768) {
+      height: 9rem;
+      padding: 3rem;
       grid-area: develop;
     }
-    @media screen and (min-width: 1440px) {
-      height: 118px;
+    @include mq(1440) {
+      height: 11.8rem;
     }
   }
+
   &__arrow {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48px;
-    height: 48px;
+    width: 4.8rem;
+    height: 4.8rem;
     margin: 0 auto;
-    padding: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50px;
+    padding: 2rem;
+    border: 0.1rem solid rgba(255, 255, 255, 0.2);
+    border-radius: 5rem;
     background-color: rgba(255, 255, 255, 0.2);
     background-image: url('../assets/images/arrow_down.svg');
     background-position: center center;
     background-repeat: no-repeat;
     transition: opacity 4s ease;
-    @media screen and (min-width: 768px) {
-      width: 64px;
-      height: 64px;
+    @include mq(768) {
+      width: 6.4rem;
+      height: 6.4rem;
       background-image: url('../assets/images/arrow_down_768.svg');
     }
   }
@@ -543,33 +556,35 @@ onMounted(async () => {
   justify-content: space-between;
   align-items: center;
   animation: slideInFromTop 1200ms ease-out forwards;
-  @media screen and (min-width: 375px) {
-    width: 335px;
+  @include mq(375) {
+    width: 33.5rem;
   }
-  @media screen and (min-width: 425px) {
-    width: 384px;
+  @include mq(425) {
+    width: 38.4rem;
   }
-  @media screen and (min-width: 768px) {
+  @include mq(768) {
     width: auto;
   }
+
   &__container {
     display: grid;
     grid-template-columns: repeat(2, auto);
     grid-template-rows: repeat(3, auto);
     align-items: center;
-    grid-gap: 3px;
+    grid-gap: 0.3rem;
 
-    @media screen and (min-width: 1440px) {
+    @include mq(1440) {
       grid-gap: 0;
     }
 
-    @media screen and (min-width: 1920px) {
-      grid-gap: 3px;
+    @include mq(1920) {
+      grid-gap: 0.3rem;
     }
   }
 }
 
 .container__main {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -580,261 +595,271 @@ onMounted(async () => {
 .section {
   &__text-psb {
     position: relative;
-    padding: 70px 0 0;
+    padding: 7rem 0 0;
     color: var(--color-white);
     margin: 0 auto;
-    @media screen and (min-width: 375px) {
-      width: 310px;
-      height: 113px;
+    @include mq(375) {
+      width: 31rem;
+      height: 11.3rem;
     }
 
-    @media screen and (min-width: 768px) {
+    @include mq(768) {
       width: fit-content;
-      height: 212px;
-      padding: 125px 0 0;
+      height: 21.2rem;
+      padding: 12.5rem 0 0;
     }
 
-    @media screen and (min-width: 1440px) {
-      padding: 80px 0 0;
+    @include mq(1440) {
+      padding: 8rem 0 0;
     }
 
-    @media screen and (min-width: 1920px) {
-      padding: 106px 0 0;
-      height: 287px;
+    @include mq(1920) {
+      padding: 10.6rem 0 0;
+      height: 28.7rem;
     }
   }
+
   &__counter-psb {
     position: relative;
     left: 0;
     opacity: 0.6;
     animation: startFeading_psb 1100ms ease-out forwards;
 
-    @media screen and (min-width: 375px) {
-      font-size: 48px;
-      top: -11px;
+    @include mq(375) {
+      font-size: 4.8rem;
+      top: -1.1rem;
     }
-    @media screen and (min-width: 768px) {
-      width: 615px;
-      font-size: 96px;
-      top: -14px;
+    @include mq(768) {
+      width: 61.5rem;
+      font-size: 9.6rem;
+      top: -1.4rem;
     }
-    @media screen and (min-width: 1440px) {
-      width: 968px;
-      font-size: 150px;
+    @include mq(1440) {
+      width: 96.8rem;
+      font-size: 15rem;
     }
   }
+
   &__counter-psb_active {
     position: relative;
     right: 0;
     left: auto;
 
-    @media screen and (min-width: 375px) {
-      top: -54px;
+    @include mq(375) {
+      top: -5.4rem;
       animation: animateToRight 10000ms ease-out forwards;
     }
-    @media screen and (min-width: 768px) {
-      top: -100px;
+    @include mq(768) {
+      top: -10rem;
       animation: animateToRight 4900ms ease-out forwards;
     }
-    @media screen and (min-width: 1440px) {
-      top: -150px;
+    @include mq(1440) {
+      top: -15rem;
       animation: animateToRight 3000ms ease-out forwards;
     }
 
-    @media screen and (min-width: 1920px) {
-      top: -180px;
+    @include mq(1920) {
+      top: -18rem;
       animation: animateToRight 2100ms ease-out forwards;
     }
   }
+
   &__title-psb {
-    font-size: 48px;
+    font-size: 4.8rem;
     line-height: 90%;
-    letter-spacing: -2.88px;
+    letter-spacing: -0.288rem;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     animation: fadeInText 2100ms ease-out forwards;
 
-    @media screen and (min-width: 768px) {
-      font-size: 96px;
-      letter-spacing: -5.76px;
+    @include mq(768) {
+      font-size: 9.6rem;
+      letter-spacing: -0.576rem;
     }
 
-    @media screen and (min-width: 1440px) {
-      font-size: 150px;
+    @include mq(1440) {
+      font-size: 15rem;
       line-height: 90%;
-      letter-spacing: -9px;
+      letter-spacing: -0.9rem;
     }
 
-    @media screen and (min-width: 1920px) {
-      font-size: 200px;
+    @include mq(1920) {
+      font-size: 20rem;
       line-height: 90%;
-      letter-spacing: -12px;
+      letter-spacing: -1.2rem;
     }
   }
+
   &__text-lab {
     position: relative;
     color: var(--color-white);
     margin: 0 auto;
 
-    @media screen and (min-width: 375px) {
-      height: 44px;
-      width: 270px;
+    @include mq(375) {
+      height: 4.4rem;
+      width: 27rem;
     }
-    @media screen and (min-width: 768px) {
-      height: 86px;
+    @include mq(768) {
+      height: 8.6rem;
       width: fit-content;
     }
-    @media screen and (min-width: 1024px) {
-      height: 136px;
+    @include mq(1024) {
+      height: 13.6rem;
     }
-    @media screen and (min-width: 1920px) {
-      height: 180px;
+    @include mq(1920) {
+      height: 18rem;
     }
   }
+
   &__counter-lab {
     position: relative;
     left: 0;
     opacity: 0.6;
     animation: startFeading_lab 1100ms ease-out forwards;
 
-    @media screen and (min-width: 375px) {
-      top: -7px;
-      font-size: 48px;
+    @include mq(375) {
+      top: -0.7rem;
+      font-size: 4.8rem;
     }
-    @media screen and (min-width: 768px) {
-      width: 540px;
-      top: -14px;
-      font-size: 96px;
+    @include mq(768) {
+      width: 54rem;
+      top: -1.4rem;
+      font-size: 9.6rem;
     }
-    @media screen and (min-width: 1440px) {
-      width: 846px;
-      font-size: 150px;
+    @include mq(1440) {
+      width: 84.6rem;
+      font-size: 15rem;
     }
   }
+
   &__counter-lab_active {
     position: relative;
     right: 0;
     left: auto;
-    @media screen and (min-width: 375px) {
-      top: -54px;
+    @include mq(375) {
+      top: -5.4rem;
       animation: animateToRight 11450ms ease-out forwards;
     }
-    @media screen and (min-width: 768px) {
-      top: -104px;
+    @include mq(768) {
+      top: -10.4rem;
       animation: animateToRight 5600ms ease-out forwards;
     }
-    @media screen and (min-width: 1440px) {
-      top: -152px;
+    @include mq(1440) {
+      top: -15.2rem;
       animation: animateToRight 3500ms ease-out forwards;
     }
-    @media screen and (min-width: 1920px) {
-      top: -170px;
+    @include mq(1920) {
+      top: -17rem;
       animation: animateToRight 2500ms ease-out forwards;
     }
   }
+
   &__title-lab {
-    font-size: 48px;
+    font-size: 4.8rem;
     line-height: 90%;
-    letter-spacing: -2.88px;
+    letter-spacing: -0.288rem;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     animation: fadeInText 2100ms ease-out forwards;
 
-    @media screen and (min-width: 768px) {
-      font-size: 96px;
-      letter-spacing: -5.76px;
+    @include mq(768) {
+      font-size: 9.6rem;
+      letter-spacing: -0.576rem;
     }
 
-    @media screen and (min-width: 1440px) {
-      font-size: 150px;
+    @include mq(1440) {
+      font-size: 15rem;
       line-height: 90%;
-      letter-spacing: -9px;
+      letter-spacing: -0.9rem;
     }
 
-    @media screen and (min-width: 1920px) {
-      font-size: 200px;
+    @include mq(1920) {
+      font-size: 20rem;
       line-height: 90%;
-      letter-spacing: -12px;
+      letter-spacing: -1.2rem;
     }
   }
+
   &__sub-title-lab {
     text-align: center;
-    padding-top: 30px;
-    padding-bottom: 90px;
-    font-size: 18px;
+    padding-top: 3rem;
+    padding-bottom: 9rem;
+    font-size: 1.8rem;
     line-height: 120%;
-    letter-spacing: -0.36px;
+    letter-spacing: -0.036rem;
     opacity: 0.6;
     color: var(--color-white);
 
-    @media screen and (min-width: 768px) {
-      font-size: 24px;
-      letter-spacing: -0.48px;
-      padding-bottom: 60px;
+    @include mq(768) {
+      font-size: 2.4rem;
+      letter-spacing: -0.048rem;
+      padding-bottom: 6rem;
     }
 
-    @media screen and (min-width: 1440px) {
-      font-size: 32px;
-      letter-spacing: -0.96px;
-      padding-bottom: 110px;
+    @include mq(1440) {
+      font-size: 3.2rem;
+      letter-spacing: -0.096rem;
+      padding-bottom: 11rem;
     }
 
-    @media screen and (min-width: 1920px) {
-      font-size: 42px;
-      letter-spacing: -1.28px;
-      padding-bottom: 145px;
+    @include mq(1920) {
+      font-size: 4.2rem;
+      letter-spacing: -0.128rem;
+      padding-bottom: 14.5rem;
     }
   }
+
   &__links {
     position: absolute;
     z-index: 2;
-    left: 2px;
-    top: 880px;
+    left: 0.2rem;
+    top: 88rem;
     background: #fff;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
     transition: top 1s ease-out;
 
-    @media screen and (min-width: 375px) {
-      width: 372px;
+    @include mq(375) {
+      width: 37.2rem;
     }
 
-    @media screen and (min-width: 390px) {
-      width: 385px;
+    @include mq(390) {
+      width: 38.5rem;
     }
 
-    @media screen and (min-width: 425px) {
-      width: 420px;
+    @include mq(425) {
+      width: 42rem;
     }
 
-    @media screen and (min-width: 768px) {
+    @include mq(768) {
       position: static;
       width: auto;
       background: none;
     }
 
     &_active {
-      top: 310px;
+      top: 31rem;
     }
 
     &-item {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 295px;
-      border-radius: 20px;
-      border: 1px solid rgba(0, 0, 0, 0.2);
+      width: 29.5rem;
+      border-radius: 2rem;
+      border: 0.1rem solid rgba(0, 0, 0, 0.2);
       background: var(--color-white, rgba(255, 255, 255, 0.01));
-      padding: 15px 20px;
-      margin: 20px auto 20px;
+      padding: 1.5rem 2rem;
+      margin: 2rem auto 2rem;
       text-align: center;
       cursor: pointer;
       animation: slideInFromTop 700ms ease-out forwards;
 
       &:hover {
         background: #fff;
+
         .link {
           color: #13144b;
           font-weight: 400;
@@ -859,56 +884,57 @@ onMounted(async () => {
         animation-delay: 800ms;
       }
 
-      @media screen and (min-width: 768px) {
+      @include mq(768) {
         width: auto;
         background: none;
-        border: 1px solid var(--color-white, rgba(255, 255, 255, 0.2));
-        padding: 10px 20px;
+        border: 0.1rem solid var(--color-white, rgba(255, 255, 255, 0.2));
+        padding: 1rem 2rem;
         margin: 0;
       }
 
-      @media screen and (min-width: 1920px) {
-        border-radius: 27px;
+      @include mq(1920) {
+        border-radius: 2.7rem;
       }
 
       &:last-child {
-        margin-bottom: 60px;
+        margin-bottom: 6rem;
 
-        @media screen and (min-width: 768px) {
+        @include mq(768) {
           margin: 0;
         }
       }
 
       > .link {
         line-height: 120%;
-        letter-spacing: -0.48px;
+        letter-spacing: -0.048rem;
         color: #3a3a54;
 
-        @media screen and (min-width: 768px) {
+        @include mq(768) {
           color: var(--color-white);
         }
 
-        @media screen and (min-width: 1440px) {
+        @include mq(1440) {
           line-height: 120%;
-          letter-spacing: -0.64px;
+          letter-spacing: -0.064rem;
         }
 
-        @media screen and (min-width: 1920px) {
+        @include mq(1920) {
           line-height: 140%;
-          font-size: 21px;
-          letter-spacing: -0.853px;
+          font-size: 2.1rem;
+          letter-spacing: -0.0853rem;
         }
       }
     }
+
     &-line {
       display: block;
-      width: 54px;
-      height: 6px;
-      border-radius: 30px;
+      width: 5.4rem;
+      height: 0.6rem;
+      border-radius: 3rem;
       background: #d9d9d9;
-      margin: 15px auto 0;
+      margin: 1.5rem auto 0;
 
-      @media screen and (min-width: 768px) {
+      @include mq(768) {
         display: none;
       }
     }
@@ -917,15 +943,15 @@ onMounted(async () => {
 
 .menu {
   &__list {
-    @media screen and (min-width: 768px) {
+    @include mq(768) {
       display: grid;
       grid-template-columns: repeat(4, auto);
       align-content: start;
-      grid-column-gap: 10px;
+      grid-column-gap: 1rem;
     }
 
-    @media screen and (min-width: 1920px) {
-      grid-column-gap: 13px;
+    @include mq(1920) {
+      grid-column-gap: 1.3rem;
     }
   }
 }
@@ -935,116 +961,117 @@ onMounted(async () => {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  @media screen and (min-width: 425px) {
+  @include mq(425) {
     flex-direction: column;
     justify-content: center;
   }
-  @media screen and (min-width: 768px) {
+  @include mq(768) {
     flex-direction: row;
     justify-content: space-between;
-    width: 688px;
+    width: 68.8rem;
   }
-  @media screen and (min-width: 1440px) {
-    width: 1280px;
+  @include mq(1440) {
+    width: 128rem;
   }
-  @media screen and (min-width: 1920px) {
-    width: 1706px;
+  @include mq(1920) {
+    width: 170.6rem;
   }
 }
+
 .video__section {
-  margin-top: -430px;
+  margin-top: -43rem;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   animation: slideInVideo 1s ease-out forwards;
 
-  @media screen and (min-width: 768px) {
-    margin-top: -545px;
+  @include mq(768) {
+    margin-top: -54.5rem;
   }
 
-  @media screen and (min-width: 1024px) {
-    margin-top: -370px;
+  @include mq(1024) {
+    margin-top: -37rem;
   }
-  @media screen and (min-width: 1440px) {
-    margin-top: -292px;
+  @include mq(1440) {
+    margin-top: -29.2rem;
   }
 
-  @media screen and (min-width: 1920px) {
-    margin-top: -403px;
+  @include mq(1920) {
+    margin-top: -40.3rem;
   }
 
   video {
     object-fit: cover;
-    width: 335px;
-    height: 500px;
-    border-radius: 40px;
+    width: 33.5rem;
+    height: 50rem;
+    border-radius: 4rem;
 
-    @media screen and (min-width: 390px) {
-      width: 349px;
+    @include mq(390) {
+      width: 34.9rem;
     }
 
-    @media screen and (min-width: 425px) {
-      width: 384px;
+    @include mq(425) {
+      width: 38.4rem;
     }
 
-    @media screen and (min-width: 768px) {
-      width: 688px;
-      height: 774px;
-      border-radius: 50px;
+    @include mq(768) {
+      width: 68.8rem;
+      height: 77.4rem;
+      border-radius: 5rem;
     }
 
-    @media screen and (min-width: 1440px) {
-      width: 1280px;
-      height: 1200px;
+    @include mq(1440) {
+      width: 128rem;
+      height: 120rem;
     }
 
-    @media screen and (min-width: 1920px) {
-      width: 1706px;
-      height: 933px;
-      border-radius: 67px;
+    @include mq(1920) {
+      width: 170.6rem;
+      height: 93.3rem;
+      border-radius: 6.7rem;
     }
   }
 }
 
 header {
   margin: 0 auto;
-  @media screen and (min-width: 768px) {
+  @include mq(768) {
     margin: 0;
   }
 }
 
 .main {
-  @media screen and (min-width: 375px) {
-    padding: 40px 20px;
+  @include mq(375) {
+    padding: 4rem 2rem;
   }
 
-  @media screen and (min-width: 768px) {
-    padding: 20px 40px 0;
+  @include mq(768) {
+    padding: 2rem 4rem 0;
   }
 
-  @media screen and (min-width: 1024px) {
-    padding: 20px 166px 0;
+  @include mq(1024) {
+    padding: 2rem 16.6rem 0;
   }
 
-  @media screen and (min-width: 1440px) {
-    padding: 40px 80px 0;
+  @include mq(1440) {
+    padding: 4rem 8rem 0;
   }
 
-  @media screen and (min-width: 1920px) {
-    padding: 53px 107px 0;
+  @include mq(1920) {
+    padding: 5.3rem 10.7rem 0;
   }
 
-  @media screen and (min-width: 2560px) {
-    padding: 53px 320px 0;
+  @include mq(2560) {
+    padding: 5.3rem 32rem 0;
   }
 }
 
 .switcher {
   display: block;
-  height: 36px;
+  height: 3.6rem;
 
-  @media screen and (min-width: 768px) {
+  @include mq(768) {
     display: none;
   }
 }
@@ -1058,31 +1085,32 @@ header {
   bottom: 0;
   width: 100vw;
   background: rgba(24, 24, 34, 0.4);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(0.5rem);
 }
 
 .gradient-group {
   overflow: hidden;
   position: relative;
   margin: 0 auto;
+  pointer-events: none;
 
-  @media screen and (min-width: 375px) {
-    height: 812px;
+  @include mq(375) {
+    height: 81.2rem;
   }
 
-  @media screen and (min-width: 768px) {
-    height: 1024px;
+  @include mq(768) {
+    height: 102.4rem;
   }
 
-  @media screen and (min-width: 1024px) {
-    height: 900px;
+  @include mq(1024) {
+    height: 90rem;
   }
 
-  @media screen and (min-width: 1920px) {
-    height: 1200px;
+  @include mq(1920) {
+    height: 120rem;
   }
 
-  @media screen and (min-width: 2560px) {
+  @include mq(2560) {
   }
 }
 
@@ -1091,235 +1119,235 @@ header {
   position: absolute;
   top: 0;
   left: 0;
-  height: 3000px;
-  width: 3000px;
+  height: 300rem;
+  width: 300rem;
   margin: 0 auto;
   animation: gradientBlue 1.5s ease forwards;
 }
 
 .gradient-group .purple {
   background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgb(143, 20, 186) 0%,
-    rgba(143, 20, 186, 0.99) 11.79%,
-    rgba(143, 20, 186, 0.97) 21.38%,
-    rgba(143, 20, 186, 0.93) 29.12%,
-    rgba(143, 20, 186, 0.88) 35.34%,
-    rgba(143, 20, 186, 0.82) 40.37%,
-    rgba(143, 20, 186, 0.75) 44.56%,
-    rgba(143, 20, 186, 0.67) 48.24%,
-    rgba(143, 20, 186, 0.59) 51.76%,
-    rgba(143, 20, 186, 0.5) 55.44%,
-    rgba(143, 20, 186, 0.41) 59.63%,
-    rgba(143, 20, 186, 0.33) 64.66%,
-    rgba(143, 20, 186, 0.24) 70.88%,
-    rgba(143, 20, 186, 0.15) 78.62%,
-    rgba(143, 20, 186, 0.07) 88.21%,
-    rgba(143, 20, 186, 0) 100%
+      50% 50% at 50% 50%,
+      rgb(143, 20, 186) 0%,
+      rgba(143, 20, 186, 0.99) 11.79%,
+      rgba(143, 20, 186, 0.97) 21.38%,
+      rgba(143, 20, 186, 0.93) 29.12%,
+      rgba(143, 20, 186, 0.88) 35.34%,
+      rgba(143, 20, 186, 0.82) 40.37%,
+      rgba(143, 20, 186, 0.75) 44.56%,
+      rgba(143, 20, 186, 0.67) 48.24%,
+      rgba(143, 20, 186, 0.59) 51.76%,
+      rgba(143, 20, 186, 0.5) 55.44%,
+      rgba(143, 20, 186, 0.41) 59.63%,
+      rgba(143, 20, 186, 0.33) 64.66%,
+      rgba(143, 20, 186, 0.24) 70.88%,
+      rgba(143, 20, 186, 0.15) 78.62%,
+      rgba(143, 20, 186, 0.07) 88.21%,
+      rgba(143, 20, 186, 0) 100%
   );
-  border-radius: 130px;
+  border-radius: 13rem;
   position: absolute;
 
-  @media screen and (min-width: 375px) {
-    height: 1300px;
-    width: 1300px;
-    top: -400px;
-    left: -400px;
+  @include mq(375) {
+    height: 130rem;
+    width: 130rem;
+    top: -40rem;
+    left: -40rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_375 8s ease infinite;
+    gradientPurple_375 8s ease infinite;
   }
 
-  @media screen and (min-width: 768px) {
-    height: 1600px;
-    width: 1600px;
-    top: -400px;
-    left: -350px;
+  @include mq(768) {
+    height: 160rem;
+    width: 160rem;
+    top: -40rem;
+    left: -35rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_768 8s ease infinite;
+    gradientPurple_768 8s ease infinite;
   }
 
-  @media screen and (min-width: 1024px) {
-    height: 2000px;
-    width: 2000px;
-    top: -700px;
-    left: -350px;
+  @include mq(1024) {
+    height: 200rem;
+    width: 200rem;
+    top: -70rem;
+    left: -35rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_1024 8s ease infinite;
+    gradientPurple_1024 8s ease infinite;
   }
 
-  @media screen and (min-width: 1440px) {
-    height: 2500px;
-    width: 2500px;
-    top: -800px;
-    left: -500px;
+  @include mq(1440) {
+    height: 250rem;
+    width: 250rem;
+    top: -80rem;
+    left: -50rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_1440 8s ease infinite;
+    gradientPurple_1440 8s ease infinite;
   }
 
-  @media screen and (min-width: 1920px) {
-    height: 3000px;
-    width: 3000px;
-    top: -800px;
-    left: -300px;
+  @include mq(1920) {
+    height: 300rem;
+    width: 300rem;
+    top: -80rem;
+    left: -30rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_1920 8s ease infinite;
+    gradientPurple_1920 8s ease infinite;
   }
 
-  @media screen and (min-width: 2560px) {
-    top: -1100px;
-    left: -600px;
+  @include mq(2560) {
+    top: -110rem;
+    left: -60rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_2560 8s ease infinite;
+    gradientPurple_2560 8s ease infinite;
   }
 }
 
 .gradient-group .red {
   background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgb(255, 80, 48) 0%,
-    rgba(254.66, 79.88, 48.43, 0.99) 11.3%,
-    rgba(253.67, 79.55, 49.67, 0.97) 21.16%,
-    rgba(252.1, 79.01, 51.63, 0.93) 29.76%,
-    rgba(250.01, 78.3, 54.24, 0.89) 37.27%,
-    rgba(247.46, 77.43, 57.42, 0.83) 43.87%,
-    rgba(244.53, 76.43, 61.09, 0.76) 49.76%,
-    rgba(241.26, 75.32, 65.17, 0.69) 55.1%,
-    rgba(237.73, 74.11, 69.58, 0.61) 60.08%,
-    rgba(234.01, 72.84, 74.24, 0.52) 64.88%,
-    rgba(230.14, 71.53, 79.07, 0.44) 69.68%,
-    rgba(226.21, 70.18, 83.99, 0.35) 74.66%,
-    rgba(222.26, 68.84, 88.92, 0.26) 80%,
-    rgba(218.37, 67.51, 93.79, 0.17) 85.88%,
-    rgba(214.59, 66.22, 98.51, 0.08) 92.49%,
-    rgba(211, 65, 103, 0) 100%
+      50% 50% at 50% 50%,
+      rgb(255, 80, 48) 0%,
+      rgba(254.66, 79.88, 48.43, 0.99) 11.3%,
+      rgba(253.67, 79.55, 49.67, 0.97) 21.16%,
+      rgba(252.1, 79.01, 51.63, 0.93) 29.76%,
+      rgba(250.01, 78.3, 54.24, 0.89) 37.27%,
+      rgba(247.46, 77.43, 57.42, 0.83) 43.87%,
+      rgba(244.53, 76.43, 61.09, 0.76) 49.76%,
+      rgba(241.26, 75.32, 65.17, 0.69) 55.1%,
+      rgba(237.73, 74.11, 69.58, 0.61) 60.08%,
+      rgba(234.01, 72.84, 74.24, 0.52) 64.88%,
+      rgba(230.14, 71.53, 79.07, 0.44) 69.68%,
+      rgba(226.21, 70.18, 83.99, 0.35) 74.66%,
+      rgba(222.26, 68.84, 88.92, 0.26) 80%,
+      rgba(218.37, 67.51, 93.79, 0.17) 85.88%,
+      rgba(214.59, 66.22, 98.51, 0.08) 92.49%,
+      rgba(211, 65, 103, 0) 100%
   );
-  border-radius: 130px;
+  border-radius: 13rem;
   position: absolute;
 
-  @media screen and (min-width: 375px) {
-    width: 850px;
-    height: 850px;
-    top: -250px;
-    left: -150px;
+  @include mq(375) {
+    width: 85rem;
+    height: 85rem;
+    top: -25rem;
+    left: -15rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_375 8s ease infinite;
+    gradientRed_375 8s ease infinite;
   }
 
-  @media screen and (min-width: 768px) {
-    width: 1100px;
-    height: 1100px;
-    top: -300px;
-    left: 50px;
+  @include mq(768) {
+    width: 110rem;
+    height: 110rem;
+    top: -30rem;
+    left: 5rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_768 8s ease infinite;
+    gradientRed_768 8s ease infinite;
   }
 
-  @media screen and (min-width: 1024px) {
-    width: 1500px;
-    height: 1500px;
-    top: -350px;
+  @include mq(1024) {
+    width: 150rem;
+    height: 150rem;
+    top: -35rem;
     left: 0;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_1024 8s ease infinite;
+    gradientRed_1024 8s ease infinite;
   }
 
-  @media screen and (min-width: 1440px) {
-    top: -450px;
-    left: 350px;
+  @include mq(1440) {
+    top: -45rem;
+    left: 35rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_1440 8s ease infinite;
+    gradientRed_1440 8s ease infinite;
   }
 
-  @media screen and (min-width: 1920px) {
-    width: 2400px;
-    height: 2400px;
-    top: -600px;
-    left: 100px;
+  @include mq(1920) {
+    width: 240rem;
+    height: 240rem;
+    top: -60rem;
+    left: 10rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_1920 8s ease infinite;
+    gradientRed_1920 8s ease infinite;
   }
 
-  @media screen and (min-width: 2560px) {
-    top: -700px;
-    left: 800px;
+  @include mq(2560) {
+    top: -70rem;
+    left: 80rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_2560 8s ease infinite;
+    gradientRed_2560 8s ease infinite;
   }
 }
 
 .gradient-group .yellow {
   background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgb(255, 168, 72) 0%,
-    rgba(255, 167.23, 71.79, 0.99) 11.31%,
-    rgba(255, 165.19, 71.23, 0.97) 21.19%,
-    rgba(255, 162, 70.36, 0.93) 29.81%,
-    rgba(255, 157.8, 69.22, 0.88) 37.35%,
-    rgba(255, 152.71, 67.83, 0.83) 44%,
-    rgba(255, 146.84, 66.23, 0.76) 49.92%,
-    rgba(255, 140.33, 64.45, 0.69) 55.29%,
-    rgba(255, 133.3, 62.54, 0.61) 60.3%,
-    rgba(255, 125.88, 60.51, 0.52) 65.12%,
-    rgba(255, 118.18, 58.41, 0.43) 69.92%,
-    rgba(255, 110.34, 56.27, 0.34) 74.89%,
-    rgba(255, 102.47, 54.13, 0.26) 80.21%,
-    rgba(255, 94.71, 52.01, 0.17) 86.05%,
-    rgba(255, 87.18, 49.96, 0.08) 92.59%,
-    rgba(255, 80, 48, 0) 100%
+      50% 50% at 50% 50%,
+      rgb(255, 168, 72) 0%,
+      rgba(255, 167.23, 71.79, 0.99) 11.31%,
+      rgba(255, 165.19, 71.23, 0.97) 21.19%,
+      rgba(255, 162, 70.36, 0.93) 29.81%,
+      rgba(255, 157.8, 69.22, 0.88) 37.35%,
+      rgba(255, 152.71, 67.83, 0.83) 44%,
+      rgba(255, 146.84, 66.23, 0.76) 49.92%,
+      rgba(255, 140.33, 64.45, 0.69) 55.29%,
+      rgba(255, 133.3, 62.54, 0.61) 60.3%,
+      rgba(255, 125.88, 60.51, 0.52) 65.12%,
+      rgba(255, 118.18, 58.41, 0.43) 69.92%,
+      rgba(255, 110.34, 56.27, 0.34) 74.89%,
+      rgba(255, 102.47, 54.13, 0.26) 80.21%,
+      rgba(255, 94.71, 52.01, 0.17) 86.05%,
+      rgba(255, 87.18, 49.96, 0.08) 92.59%,
+      rgba(255, 80, 48, 0) 100%
   );
-  border-radius: 130px;
+  border-radius: 13rem;
   position: absolute;
 
-  @media screen and (min-width: 375px) {
-    width: 400px;
-    height: 400px;
-    top: 400px;
-    left: 180px;
+  @include mq(375) {
+    width: 40rem;
+    height: 40rem;
+    top: 40rem;
+    left: 18rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_375 8s ease infinite;
+    gradientYellow_375 8s ease infinite;
   }
 
-  @media screen and (min-width: 768px) {
-    width: 700px;
-    height: 700px;
-    top: 450px;
-    left: 350px;
+  @include mq(768) {
+    width: 70rem;
+    height: 70rem;
+    top: 45rem;
+    left: 35rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_768 8s ease infinite;
+    gradientYellow_768 8s ease infinite;
   }
 
-  @media screen and (min-width: 1024px) {
-    width: 800px;
-    height: 800px;
-    top: 350px;
-    left: 550px;
+  @include mq(1024) {
+    width: 80rem;
+    height: 80rem;
+    top: 35rem;
+    left: 55rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_1024 8s ease infinite;
+    gradientYellow_1024 8s ease infinite;
   }
 
-  @media screen and (min-width: 1440px) {
-    width: 1000px;
-    height: 1000px;
-    top: 200px;
-    left: 950px;
+  @include mq(1440) {
+    width: 100rem;
+    height: 100rem;
+    top: 20rem;
+    left: 95rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_1440 8s ease infinite;
+    gradientYellow_1440 8s ease infinite;
   }
 
-  @media screen and (min-width: 1920px) {
-    width: 1500px;
-    height: 1500px;
-    top: 300px;
-    left: 1000px;
+  @include mq(1920) {
+    width: 150rem;
+    height: 150rem;
+    top: 30rem;
+    left: 100rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_1920 8s ease infinite;
+    gradientYellow_1920 8s ease infinite;
   }
 
-  @media screen and (min-width: 2560px) {
-    top: 300px;
-    left: 1700px;
+  @include mq(2560) {
+    top: 30rem;
+    left: 170rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_2560 8s ease infinite;
+    gradientYellow_2560 8s ease infinite;
   }
 }
 
@@ -1328,7 +1356,9 @@ header {
   height: 110vh !important;
   width: 110vw !important;
 }
+
 .videoPlayer {
   transition: all 0.8s ease-out;
 }
+
 </style>
