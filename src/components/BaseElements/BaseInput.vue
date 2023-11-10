@@ -81,18 +81,21 @@ input {
   border: 0.1rem solid rgba(19, 20, 75, 0.2);
   margin-bottom: 1rem;
   outline: none;
-  @include mq(76.8) {
+
+  @include mq(768) {
     padding: 2rem;
     width: 60.8rem;
     height: 5.9rem;
   }
-  @include mq(144) {
+
+  @include mq(1440) {
     padding: 1.5rem 2rem;
     width: 43.4rem;
     height: 5.2rem;
     margin-bottom: 0;
   }
-  @include mq(192) {
+
+  @include mq(1920) {
     padding: 2rem 2.7rem;
     width: 57.9rem;
     height: 6rem;
@@ -108,14 +111,14 @@ input {
   opacity: 0.5;
   line-height: 140%;
   letter-spacing: -0.064rem;
-  @include mq(76.8) {
+  @include mq(768) {
     font-size: 1.6rem;
     letter-spacing: -0.032rem;
   }
-  @include mq(144) {
+  @include mq(1440) {
     letter-spacing: -0.064rem;
   }
-  @include mq(192) {
+  @include mq(1920) {
     font-size: 2.1rem;
     letter-spacing: -0.0853rem;
   }
@@ -124,7 +127,7 @@ input {
 .errorClass {
   border: 0.1rem solid #f00;
   color: #f00;
-  @include mq(192) {
+  @include mq(1920) {
     font-size: 2.4rem;
   }
 }
