@@ -1,28 +1,30 @@
 <template>
-  <MainBlock/>
-  <SpecialistsInfo/>
-  <WhichStackToUseSection/>
-  <WorkingSection/>
-  <FormVacancy/>
-  <MapSection/>
-  <ProcessBlock/>
-  <LifeOutsideOffice/>
-  <EducationSection/>
+  <MainBlock />
+  <SpecialistsInfo />
+  <WorkingSection />
+  <WhichStackToUseSection />
+  <ProcessBlock />
+  <FormVacancy />
+  <MapSection />
+  <RecommendFriend />
+  <LifeOutsideOffice />
+  <EducationSection />
 </template>
 
 <script>
-import MainBlock from '@/components/MainBlock.vue';
-import SpecialistsInfo from '@/components/SpecialistsInfo.vue';
-import WorkingSection from '@/components/WorkingSection.vue';
-import FormVacancy from '@/components/FormVacancy.vue';
-import ProcessBlock from '@/components/ProcessBlock.vue';
-import LifeOutsideOffice from '@/components/LifeOutsideOffice.vue';
+import MainBlock from "@/components/MainBlock.vue";
+import SpecialistsInfo from "@/components/SpecialistsInfo.vue";
+import WorkingSection from "@/components/WorkingSection.vue";
+import FormVacancy from "@/components/FormVacancy.vue";
+import ProcessBlock from "@/components/ProcessBlock.vue";
+import LifeOutsideOffice from "@/components/LifeOutsideOffice.vue";
 import EducationSection from "@/components/EducationSection.vue";
 import MapSection from "@/components/MapSection.vue";
 import WhichStackToUseSection from "@/components/WhichStackToUseSection.vue";
+import RecommendFriend from "@/components/RecommendFriend.vue";
 
 export default {
-  name: 'MainPage',
+  name: "MainPage",
   components: {
     MainBlock,
     SpecialistsInfo,
@@ -32,7 +34,8 @@ export default {
     LifeOutsideOffice,
     WhichStackToUseSection,
     MapSection,
-    EducationSection
+    EducationSection,
+    RecommendFriend
   },
 };
 </script>
