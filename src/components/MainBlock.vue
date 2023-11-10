@@ -11,7 +11,7 @@
           <header v-show="showNavbar">
             <nav class="navbar">
               <div class="navbar__container">
-                <img src="@/assets/images/logo_1.svg" alt="logo"/>
+                <img src="@/assets/images/logo_1.svg" alt="logo" />
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@
                     fill="white"
                   />
                 </svg>
-                <img src="@/assets/images/logo_2.svg" alt="logo"/>
+                <img src="@/assets/images/logo_2.svg" alt="logo" />
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@
                     fill="white"
                   />
                 </svg>
-                <img src="@/assets/images/logo_3.svg" alt="logo"/>
+                <img src="@/assets/images/logo_3.svg" alt="logo" />
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -84,17 +84,17 @@
               <span class="section__links-line"></span>
               <li class="section__links-item">
                 <a class="link" target="_blank" href="https://habr.com/"
-                >Хабр</a
+                  >Хабр</a
                 >
               </li>
               <li class="section__links-item">
                 <a class="link" target="_blank" href="https://rutube.ru/"
-                >Rutube</a
+                  >Rutube</a
                 >
               </li>
               <li class="section__links-item">
                 <a class="link" target="_blank" href="https://web.telegram.org/"
-                >Телеграм</a
+                  >Телеграм</a
                 >
               </li>
               <li class="section__links-item">
@@ -102,7 +102,7 @@
                   class="link"
                   target="_blank"
                   href="https://360.yandex.ru/mail/"
-                >Почта</a
+                  >Почта</a
                 >
               </li>
             </ul>
@@ -141,7 +141,7 @@
       loop="loop"
       poster="../assets/images/poster_1.png"
     >
-      <source :src="videoSrc" type="video/mp4"/>
+      <source :src="videoSrc" type="video/mp4" />
     </video>
     <div class="wrapper">
       <h1 class="wrapper__title">Давай знакомиться</h1>
@@ -180,17 +180,17 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from "vue";
 
-const videoSrc = ref('');
+const videoSrc = ref("");
 const videoPlayer = ref(null);
 const videoSources = ref({
-  about: 'about.mp4',
-  projects: 'projects.mp4',
-  office: 'office.mp4',
-  working: 'working.mp4',
-  life: 'life.mp4',
-  develop: 'develop.mp4',
+  about: "about.mp4",
+  projects: "projects.mp4",
+  office: "office.mp4",
+  working: "working.mp4",
+  life: "life.mp4",
+  develop: "develop.mp4",
 });
 
 const showBlur = ref(false);
@@ -208,6 +208,7 @@ const titlePsb = ref(false);
 const titleLab = ref(false);
 const textLab = ref(null);
 const loadingTime = ref(800);
+let clientWidth = ref(document.documentElement.clientWidth);
 
 const changeVideoSource = (chapter) => {
   const source = videoSources.value[chapter];
@@ -219,19 +220,19 @@ const changeVideoSource = (chapter) => {
 };
 
 const checked = () => {
-  menuList.value.classList.add('section__links_active');
+  menuList.value.classList.add("section__links_active");
   showBlur.value = true;
 };
 
 const close = () => {
-  menuList.value.classList.remove('section__links_active');
+  menuList.value.classList.remove("section__links_active");
   showBlur.value = false;
 };
 
 const generatePsb = () => {
   let counterInterval = setInterval(() => {
-    const characters = 'abcdefhiklmnorstuvwxz0123456789';
-    let counter = '';
+    const characters = "abcdefhiklmnorstuvwxz0123456789";
+    let counter = "";
     const length = 11;
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * characters.length);
@@ -242,19 +243,20 @@ const generatePsb = () => {
 
   setTimeout(() => {
     titlePsb.value = true;
-    psbNode.value.classList.add('section__counter-psb_active');
+    calculateTimeAnimation(clientWidth.value);
+    psbNode.value.classList.add("section__counter-psb_active");
   }, 2000);
 
   setTimeout(() => {
     clearInterval(counterInterval);
-    psbNode.value.remove();
+    // psbNode.value.remove();
   }, 4000);
 };
 
 const generateLab = (ms) => {
   let counterInterval = setInterval(() => {
-    const characters = 'abcdefhiklmnorstuvwxz0123456789';
-    let counter = '';
+    const characters = "abcdefhiklmnorstuvwxz0123456789";
+    let counter = "";
     const length = 10;
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * characters.length);
@@ -267,12 +269,12 @@ const generateLab = (ms) => {
     titleLab.value = true;
     showSubTitle.value = true;
     showVideo.value = true;
-    labNode.value.classList.add('section__counter-lab_active');
+    labNode.value.classList.add("section__counter-lab_active");
   }, 2000 + ms);
 
   setTimeout(() => {
     clearInterval(counterInterval);
-    labNode.value.remove();
+    // labNode.value.remove();
   }, 5000);
 };
 
@@ -283,10 +285,10 @@ const contentLoad = (ms) => {
 };
 
 const intersectionAnimation = () => {
-  let title = document.querySelector('.wrapper__title');
-  let content = document.querySelector('.wrapper__content');
-  let arrow = document.querySelector('.wrapper__arrow');
-  title.style.opacity = content.style.opacity = arrow.style.opacity = '0';
+  let title = document.querySelector(".wrapper__title");
+  let content = document.querySelector(".wrapper__content");
+  let arrow = document.querySelector(".wrapper__arrow");
+  title.style.opacity = content.style.opacity = arrow.style.opacity = "0";
   let options = {
     threshold: [0.2, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
   };
@@ -296,15 +298,15 @@ const intersectionAnimation = () => {
       const { target, isIntersecting, intersectionRatio } = entry;
       let array = options.threshold;
       if (isIntersecting && intersectionRatio === 1) {
-        target.classList.add('transformVideo');
-        gradientGroup.value.style.opacity = '0.1';
-        title.style.opacity = content.style.opacity = arrow.style.opacity = '1';
+        target.classList.add("transformVideo");
+        gradientGroup.value.style.opacity = "0.1";
+        title.style.opacity = content.style.opacity = arrow.style.opacity = "1";
       }
       for (let i = 0; i < array.length - 1; i++) {
         if (intersectionRatio > array[i] && intersectionRatio < array[i + 1]) {
-          if (!target.classList.contains('transformVideo')) {
+          if (!target.classList.contains("transformVideo")) {
             gradientGroup.value.style.opacity = opacity[i];
-            gradientGroup.value.style.transition = 'all 200ms ease-out';
+            gradientGroup.value.style.transition = "all 200ms ease-out";
           }
         }
       }
@@ -312,22 +314,38 @@ const intersectionAnimation = () => {
   }, options);
 
   let lastScrollPos = 0;
-  window.addEventListener('scroll', () => {
+  window.addEventListener("scroll", () => {
     const currentScrollPos = window.scrollY;
     if (currentScrollPos > lastScrollPos) {
       // Прокрутка вниз
       observer.observe(videoPlayer.value);
     } else {
       // Прокрутка вверх (или без изменений)
-      gradientGroup.value.style.opacity = '1';
+      gradientGroup.value.style.opacity = "1";
       observer.unobserve(videoPlayer.value);
     }
     lastScrollPos = currentScrollPos;
   });
 };
 
+const calculateTimeAnimation = (clientWidth) => {
+  let nominalMediaQuery = 768;
+  let gap = clientWidth - nominalMediaQuery;
+  if (gap > 0 && !!psbNode.value) {
+    let step = 30;
+    let interval = Math.floor(gap / step);
+    if (interval >= 1) {
+      let duration;
+      let nominalDuration = 2.9;
+      duration = +(nominalDuration - Number(`0.${interval}`)).toFixed(1);
+      psbNode.value.style.animation = `animateToRight_768 ${duration}s ease-out forwards`;
+      console.log("psbNode", psbNode.value.style, interval);
+    }
+  }
+};
+
 onMounted(async () => {
-  videoSrc.value = require('@/assets/video/meet.mp4');
+  videoSrc.value = require("@/assets/video/meet.mp4");
   videoPlayer.value.load();
 
   showNavbar.value = true;
@@ -393,8 +411,8 @@ onMounted(async () => {
       height: 19.4rem;
       margin: 0 auto 19.5rem;
       grid-template-areas:
-        'about projects work'
-        'office life develop';
+        "about projects work"
+        "office life develop";
     }
     @include mq(1440) {
       grid-row-gap: 1.6rem;
@@ -404,8 +422,8 @@ onMounted(async () => {
       grid-template-columns: repeat(4, auto);
       grid-template-rows: 1fr 1fr;
       grid-template-areas:
-        'about projects work office'
-        '. life develop .';
+        "about projects work office"
+        ". life develop .";
     }
 
     > button {
@@ -539,14 +557,14 @@ onMounted(async () => {
     border: 0.1rem solid rgba(255, 255, 255, 0.2);
     border-radius: 5rem;
     background-color: rgba(255, 255, 255, 0.2);
-    background-image: url('../assets/images/arrow_down.svg');
+    background-image: url("../assets/images/arrow_down.svg");
     background-position: center center;
     background-repeat: no-repeat;
     transition: opacity 4s ease;
     @include mq(768) {
       width: 6.4rem;
       height: 6.4rem;
-      background-image: url('../assets/images/arrow_down_768.svg');
+      background-image: url("../assets/images/arrow_down_768.svg");
     }
   }
 }
@@ -558,9 +576,6 @@ onMounted(async () => {
   animation: slideInFromTop 1200ms ease-out forwards;
   @include mq(375) {
     width: 33.5rem;
-  }
-  @include mq(425) {
-    width: 38.4rem;
   }
   @include mq(768) {
     width: auto;
@@ -598,6 +613,7 @@ onMounted(async () => {
     padding: 7rem 0 0;
     color: var(--color-white);
     margin: 0 auto;
+    overflow: hidden; //
     @include mq(375) {
       width: 31rem;
       height: 11.3rem;
@@ -620,23 +636,29 @@ onMounted(async () => {
   }
 
   &__counter-psb {
-    position: relative;
+    position: absolute;
     left: 0;
     opacity: 0.6;
     animation: startFeading_psb 1100ms ease-out forwards;
+    /*   height: 0; // */
+    top: 8.4rem; //
+    font-size: 4.8rem;
 
-    @include mq(375) {
-      font-size: 4.8rem;
-      top: -1.1rem;
-    }
+    /*  @include mq(375) {
+
+    } */
     @include mq(768) {
       width: 61.5rem;
       font-size: 9.6rem;
-      top: -1.4rem;
+      top: 15.8rem;
     }
     @include mq(1440) {
       width: 96.8rem;
       font-size: 15rem;
+      top: 13.4rem;
+    }
+    @include mq(1920) {
+      top: 20rem;
     }
   }
 
@@ -646,12 +668,28 @@ onMounted(async () => {
     left: auto;
 
     @include mq(375) {
-      top: -5.4rem;
-      animation: animateToRight 10000ms ease-out forwards;
+      top: -3rem;
+      animation: animateToRight_375 2.5s ease-out forwards;
+    }
+    @include mq(425) {
+      top: -3rem;
+      animation: animateToRight_425 2.6s ease-out forwards;
     }
     @include mq(768) {
-      top: -10rem;
-      animation: animateToRight 4900ms ease-out forwards;
+      top: -5.3rem;
+      animation: animateToRight_768 3s ease-out forwards;
+    }
+    /*     @include mq(800) {
+      animation: animateToRight_768 2.7s ease-out forwards;
+    }
+    @include mq(830) {
+      animation: animateToRight_768 2.6s ease-out forwards;
+    }
+    @include mq(860) {
+      animation: animateToRight_768 2.5s ease-out forwards;
+    } */
+    @include mq(1024) {
+      animation: animateToRight 6500ms ease-out forwards;
     }
     @include mq(1440) {
       top: -15rem;
@@ -671,6 +709,7 @@ onMounted(async () => {
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
+    margin: 0;
     animation: fadeInText 2100ms ease-out forwards;
 
     @include mq(768) {
@@ -695,6 +734,7 @@ onMounted(async () => {
     position: relative;
     color: var(--color-white);
     margin: 0 auto;
+    overflow: hidden;
 
     @include mq(375) {
       height: 4.4rem;
@@ -713,23 +753,26 @@ onMounted(async () => {
   }
 
   &__counter-lab {
-    position: relative;
+    position: absolute;
     left: 0;
     opacity: 0.6;
     animation: startFeading_lab 1100ms ease-out forwards;
-
-    @include mq(375) {
-      top: -0.7rem;
-      font-size: 4.8rem;
-    }
+    top: 1.4rem;
+    font-size: 4.8rem;
     @include mq(768) {
       width: 54rem;
-      top: -1.4rem;
+      top: 3.4rem;
       font-size: 9.6rem;
     }
     @include mq(1440) {
       width: 84.6rem;
       font-size: 15rem;
+      top: 5.4rem;
+    }
+    @include mq(1920) {
+      width: 84.6rem;
+      font-size: 15rem;
+      top: 9.4rem;
     }
   }
 
@@ -738,20 +781,29 @@ onMounted(async () => {
     right: 0;
     left: auto;
     @include mq(375) {
-      top: -5.4rem;
-      animation: animateToRight 11450ms ease-out forwards;
+      top: -3rem;
+      animation: animateToRight 11750ms ease-out forwards;
+    }
+    @include mq(425) {
+      animation: animateToRight 10000ms ease-out forwards;
     }
     @include mq(768) {
-      top: -10.4rem;
-      animation: animateToRight 5600ms ease-out forwards;
+      top: -5.4rem;
+      animation: animateToRight 5700ms ease-out forwards;
+    }
+    @include mq(1024) {
+      animation: animateToRight 7000ms ease-out forwards;
     }
     @include mq(1440) {
-      top: -15.2rem;
+      top: -8rem;
       animation: animateToRight 3500ms ease-out forwards;
     }
     @include mq(1920) {
-      top: -17rem;
-      animation: animateToRight 2500ms ease-out forwards;
+      top: -9rem;
+      animation: animateToRight 2150ms ease-out forwards;
+    }
+    @include mq(2056) {
+      animation: animateToRight 2000ms ease-out forwards;
     }
   }
 
@@ -762,6 +814,7 @@ onMounted(async () => {
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
+    margin: 0;
     animation: fadeInText 2100ms ease-out forwards;
 
     @include mq(768) {
@@ -812,25 +865,16 @@ onMounted(async () => {
   }
 
   &__links {
-    position: absolute;
+    position: fixed;
     z-index: 2;
-    left: 0.2rem;
-    top: 88rem;
+    bottom: -80rem;
     background: #fff;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
-    transition: top 1s ease-out;
+    transition: all 1s ease-out;
 
     @include mq(375) {
-      width: 37.2rem;
-    }
-
-    @include mq(390) {
-      width: 38.5rem;
-    }
-
-    @include mq(425) {
-      width: 42rem;
+      width: 100%;
     }
 
     @include mq(768) {
@@ -840,7 +884,7 @@ onMounted(async () => {
     }
 
     &_active {
-      top: 31rem;
+      bottom: 0;
     }
 
     &-item {
@@ -974,7 +1018,7 @@ onMounted(async () => {
     width: 128rem;
   }
   @include mq(1920) {
-    width: 170.6rem;
+    width: 143.5rem;
   }
 }
 
@@ -1011,10 +1055,6 @@ onMounted(async () => {
       width: 34.9rem;
     }
 
-    @include mq(425) {
-      width: 38.4rem;
-    }
-
     @include mq(768) {
       width: 68.8rem;
       height: 77.4rem;
@@ -1027,7 +1067,7 @@ onMounted(async () => {
     }
 
     @include mq(1920) {
-      width: 170.6rem;
+      width: 143.5rem;
       height: 93.3rem;
       border-radius: 6.7rem;
     }
@@ -1092,7 +1132,7 @@ header {
   overflow: hidden;
   position: relative;
   margin: 0 auto;
-  pointer-events: none;
+  width: 100%;
 
   @include mq(375) {
     height: 81.2rem;
@@ -1104,6 +1144,7 @@ header {
 
   @include mq(1024) {
     height: 90rem;
+    // position: static;
   }
 
   @include mq(1920) {
@@ -1127,23 +1168,23 @@ header {
 
 .gradient-group .purple {
   background: radial-gradient(
-      50% 50% at 50% 50%,
-      rgb(143, 20, 186) 0%,
-      rgba(143, 20, 186, 0.99) 11.79%,
-      rgba(143, 20, 186, 0.97) 21.38%,
-      rgba(143, 20, 186, 0.93) 29.12%,
-      rgba(143, 20, 186, 0.88) 35.34%,
-      rgba(143, 20, 186, 0.82) 40.37%,
-      rgba(143, 20, 186, 0.75) 44.56%,
-      rgba(143, 20, 186, 0.67) 48.24%,
-      rgba(143, 20, 186, 0.59) 51.76%,
-      rgba(143, 20, 186, 0.5) 55.44%,
-      rgba(143, 20, 186, 0.41) 59.63%,
-      rgba(143, 20, 186, 0.33) 64.66%,
-      rgba(143, 20, 186, 0.24) 70.88%,
-      rgba(143, 20, 186, 0.15) 78.62%,
-      rgba(143, 20, 186, 0.07) 88.21%,
-      rgba(143, 20, 186, 0) 100%
+    50% 50% at 50% 50%,
+    rgb(143, 20, 186) 0%,
+    rgba(143, 20, 186, 0.99) 11.79%,
+    rgba(143, 20, 186, 0.97) 21.38%,
+    rgba(143, 20, 186, 0.93) 29.12%,
+    rgba(143, 20, 186, 0.88) 35.34%,
+    rgba(143, 20, 186, 0.82) 40.37%,
+    rgba(143, 20, 186, 0.75) 44.56%,
+    rgba(143, 20, 186, 0.67) 48.24%,
+    rgba(143, 20, 186, 0.59) 51.76%,
+    rgba(143, 20, 186, 0.5) 55.44%,
+    rgba(143, 20, 186, 0.41) 59.63%,
+    rgba(143, 20, 186, 0.33) 64.66%,
+    rgba(143, 20, 186, 0.24) 70.88%,
+    rgba(143, 20, 186, 0.15) 78.62%,
+    rgba(143, 20, 186, 0.07) 88.21%,
+    rgba(143, 20, 186, 0) 100%
   );
   border-radius: 13rem;
   position: absolute;
@@ -1154,7 +1195,7 @@ header {
     top: -40rem;
     left: -40rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_375 8s ease infinite;
+      gradientPurple_375 8s ease infinite;
   }
 
   @include mq(768) {
@@ -1163,7 +1204,7 @@ header {
     top: -40rem;
     left: -35rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_768 8s ease infinite;
+      gradientPurple_768 8s ease infinite;
   }
 
   @include mq(1024) {
@@ -1172,7 +1213,7 @@ header {
     top: -70rem;
     left: -35rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_1024 8s ease infinite;
+      gradientPurple_1024 8s ease infinite;
   }
 
   @include mq(1440) {
@@ -1181,7 +1222,7 @@ header {
     top: -80rem;
     left: -50rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_1440 8s ease infinite;
+      gradientPurple_1440 8s ease infinite;
   }
 
   @include mq(1920) {
@@ -1190,36 +1231,36 @@ header {
     top: -80rem;
     left: -30rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_1920 8s ease infinite;
+      gradientPurple_1920 8s ease infinite;
   }
 
   @include mq(2560) {
     top: -110rem;
     left: -60rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_2560 8s ease infinite;
+      gradientPurple_2560 8s ease infinite;
   }
 }
 
 .gradient-group .red {
   background: radial-gradient(
-      50% 50% at 50% 50%,
-      rgb(255, 80, 48) 0%,
-      rgba(254.66, 79.88, 48.43, 0.99) 11.3%,
-      rgba(253.67, 79.55, 49.67, 0.97) 21.16%,
-      rgba(252.1, 79.01, 51.63, 0.93) 29.76%,
-      rgba(250.01, 78.3, 54.24, 0.89) 37.27%,
-      rgba(247.46, 77.43, 57.42, 0.83) 43.87%,
-      rgba(244.53, 76.43, 61.09, 0.76) 49.76%,
-      rgba(241.26, 75.32, 65.17, 0.69) 55.1%,
-      rgba(237.73, 74.11, 69.58, 0.61) 60.08%,
-      rgba(234.01, 72.84, 74.24, 0.52) 64.88%,
-      rgba(230.14, 71.53, 79.07, 0.44) 69.68%,
-      rgba(226.21, 70.18, 83.99, 0.35) 74.66%,
-      rgba(222.26, 68.84, 88.92, 0.26) 80%,
-      rgba(218.37, 67.51, 93.79, 0.17) 85.88%,
-      rgba(214.59, 66.22, 98.51, 0.08) 92.49%,
-      rgba(211, 65, 103, 0) 100%
+    50% 50% at 50% 50%,
+    rgb(255, 80, 48) 0%,
+    rgba(254.66, 79.88, 48.43, 0.99) 11.3%,
+    rgba(253.67, 79.55, 49.67, 0.97) 21.16%,
+    rgba(252.1, 79.01, 51.63, 0.93) 29.76%,
+    rgba(250.01, 78.3, 54.24, 0.89) 37.27%,
+    rgba(247.46, 77.43, 57.42, 0.83) 43.87%,
+    rgba(244.53, 76.43, 61.09, 0.76) 49.76%,
+    rgba(241.26, 75.32, 65.17, 0.69) 55.1%,
+    rgba(237.73, 74.11, 69.58, 0.61) 60.08%,
+    rgba(234.01, 72.84, 74.24, 0.52) 64.88%,
+    rgba(230.14, 71.53, 79.07, 0.44) 69.68%,
+    rgba(226.21, 70.18, 83.99, 0.35) 74.66%,
+    rgba(222.26, 68.84, 88.92, 0.26) 80%,
+    rgba(218.37, 67.51, 93.79, 0.17) 85.88%,
+    rgba(214.59, 66.22, 98.51, 0.08) 92.49%,
+    rgba(211, 65, 103, 0) 100%
   );
   border-radius: 13rem;
   position: absolute;
@@ -1230,7 +1271,7 @@ header {
     top: -25rem;
     left: -15rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_375 8s ease infinite;
+      gradientRed_375 8s ease infinite;
   }
 
   @include mq(768) {
@@ -1239,7 +1280,7 @@ header {
     top: -30rem;
     left: 5rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_768 8s ease infinite;
+      gradientRed_768 8s ease infinite;
   }
 
   @include mq(1024) {
@@ -1248,14 +1289,14 @@ header {
     top: -35rem;
     left: 0;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_1024 8s ease infinite;
+      gradientRed_1024 8s ease infinite;
   }
 
   @include mq(1440) {
     top: -45rem;
     left: 35rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_1440 8s ease infinite;
+      gradientRed_1440 8s ease infinite;
   }
 
   @include mq(1920) {
@@ -1264,36 +1305,36 @@ header {
     top: -60rem;
     left: 10rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_1920 8s ease infinite;
+      gradientRed_1920 8s ease infinite;
   }
 
   @include mq(2560) {
     top: -70rem;
     left: 80rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_2560 8s ease infinite;
+      gradientRed_2560 8s ease infinite;
   }
 }
 
 .gradient-group .yellow {
   background: radial-gradient(
-      50% 50% at 50% 50%,
-      rgb(255, 168, 72) 0%,
-      rgba(255, 167.23, 71.79, 0.99) 11.31%,
-      rgba(255, 165.19, 71.23, 0.97) 21.19%,
-      rgba(255, 162, 70.36, 0.93) 29.81%,
-      rgba(255, 157.8, 69.22, 0.88) 37.35%,
-      rgba(255, 152.71, 67.83, 0.83) 44%,
-      rgba(255, 146.84, 66.23, 0.76) 49.92%,
-      rgba(255, 140.33, 64.45, 0.69) 55.29%,
-      rgba(255, 133.3, 62.54, 0.61) 60.3%,
-      rgba(255, 125.88, 60.51, 0.52) 65.12%,
-      rgba(255, 118.18, 58.41, 0.43) 69.92%,
-      rgba(255, 110.34, 56.27, 0.34) 74.89%,
-      rgba(255, 102.47, 54.13, 0.26) 80.21%,
-      rgba(255, 94.71, 52.01, 0.17) 86.05%,
-      rgba(255, 87.18, 49.96, 0.08) 92.59%,
-      rgba(255, 80, 48, 0) 100%
+    50% 50% at 50% 50%,
+    rgb(255, 168, 72) 0%,
+    rgba(255, 167.23, 71.79, 0.99) 11.31%,
+    rgba(255, 165.19, 71.23, 0.97) 21.19%,
+    rgba(255, 162, 70.36, 0.93) 29.81%,
+    rgba(255, 157.8, 69.22, 0.88) 37.35%,
+    rgba(255, 152.71, 67.83, 0.83) 44%,
+    rgba(255, 146.84, 66.23, 0.76) 49.92%,
+    rgba(255, 140.33, 64.45, 0.69) 55.29%,
+    rgba(255, 133.3, 62.54, 0.61) 60.3%,
+    rgba(255, 125.88, 60.51, 0.52) 65.12%,
+    rgba(255, 118.18, 58.41, 0.43) 69.92%,
+    rgba(255, 110.34, 56.27, 0.34) 74.89%,
+    rgba(255, 102.47, 54.13, 0.26) 80.21%,
+    rgba(255, 94.71, 52.01, 0.17) 86.05%,
+    rgba(255, 87.18, 49.96, 0.08) 92.59%,
+    rgba(255, 80, 48, 0) 100%
   );
   border-radius: 13rem;
   position: absolute;
@@ -1304,7 +1345,7 @@ header {
     top: 40rem;
     left: 18rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_375 8s ease infinite;
+      gradientYellow_375 8s ease infinite;
   }
 
   @include mq(768) {
@@ -1313,7 +1354,7 @@ header {
     top: 45rem;
     left: 35rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_768 8s ease infinite;
+      gradientYellow_768 8s ease infinite;
   }
 
   @include mq(1024) {
@@ -1322,7 +1363,7 @@ header {
     top: 35rem;
     left: 55rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_1024 8s ease infinite;
+      gradientYellow_1024 8s ease infinite;
   }
 
   @include mq(1440) {
@@ -1331,7 +1372,7 @@ header {
     top: 20rem;
     left: 95rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_1440 8s ease infinite;
+      gradientYellow_1440 8s ease infinite;
   }
 
   @include mq(1920) {
@@ -1340,14 +1381,14 @@ header {
     top: 30rem;
     left: 100rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_1920 8s ease infinite;
+      gradientYellow_1920 8s ease infinite;
   }
 
   @include mq(2560) {
     top: 30rem;
     left: 170rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_2560 8s ease infinite;
+      gradientYellow_2560 8s ease infinite;
   }
 }
 
@@ -1360,5 +1401,4 @@ header {
 .videoPlayer {
   transition: all 0.8s ease-out;
 }
-
 </style>

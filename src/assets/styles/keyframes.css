@@ -1,5 +1,3 @@
-/* MainBlock */
-
 @keyframes moveButton {
     0% {
         transform: translateY(0);
@@ -12,12 +10,28 @@
     }
 }
 
-@keyframes animateToRight {
+@keyframes animateToRight_375 {
     0% {
         right: 0;
     }
     100% {
-        right: -1300px;
+        right: -350px;
+    }
+}
+@keyframes animateToRight_425 {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: -420px;
+    }
+}
+@keyframes animateToRight_768 {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: -850px;
     }
 }
 
@@ -32,7 +46,7 @@
 
 @keyframes startFeading_lab {
     0% {
-        left: -560px;
+        left: -1060px;
     }
     100% {
         left: 0;
@@ -101,8 +115,6 @@
     opacity: 1;
   }
 }
-
-
 
 @keyframes gradientPurple_375 {
   0% {
