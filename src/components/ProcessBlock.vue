@@ -2,7 +2,7 @@
   <div class="process">
     <div class="process-wrapper">
       <div class="process_item process_item_video show">
-        <video id="background-video" autoplay loop muted>
+        <video id="background-video" autoplay loop muted playsinline>
           <source src="../assets/video/process/process-b1.mp4" type="video/mp4"/>
         </video>
         <div class="process_item_video-header">
@@ -74,7 +74,7 @@
         <div class="process_item_bonuses-header">Какие есть бонусы</div>
         <div class="process_item_bonuses-block">
           <div class="process_item_bonuses-video">
-            <video id="background-video" autoplay loop muted>
+            <video id="background-video" autoplay loop muted playsinline>
               <source
                 src="../assets/video/process/process-bonuses.mp4"
                 type="video/mp4"
@@ -720,6 +720,10 @@ onMounted(async () => {
   font-weight: 500;
   font-style: normal;
   padding-bottom: 2rem;
+}
+
+ul {
+  padding: 0;
 }
 
 .process .process_item_join_description {
