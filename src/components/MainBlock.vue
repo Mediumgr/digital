@@ -233,7 +233,8 @@ const generatePsb = () => {
   let counterInterval = setInterval(() => {
     const characters = "abcdefhiklmnorstuvwxz0123456789";
     let counter = "";
-    const length = 11;
+    let length = 0;
+    clientWidth.value < 1920 ? (length = 11) : (length = 15);
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * characters.length);
       counter += characters.charAt(randomIndex);
@@ -243,7 +244,7 @@ const generatePsb = () => {
 
   setTimeout(() => {
     titlePsb.value = true;
-    calculateTimeAnimation(clientWidth.value);
+    // calculateTimeAnimation(clientWidth.value);
     psbNode.value.classList.add("section__counter-psb_active");
   }, 2000);
 
@@ -257,7 +258,8 @@ const generateLab = (ms) => {
   let counterInterval = setInterval(() => {
     const characters = "abcdefhiklmnorstuvwxz0123456789";
     let counter = "";
-    const length = 10;
+    let length = 0;
+    clientWidth.value < 1920 ? (length = 11) : (length = 12);
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * characters.length);
       counter += characters.charAt(randomIndex);
@@ -290,17 +292,31 @@ const intersectionAnimation = () => {
   let arrow = document.querySelector(".wrapper__arrow");
   title.style.opacity = content.style.opacity = arrow.style.opacity = "0";
   let options = {
-    threshold: [0.2, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    threshold: [0.2, 0.5, 0.6, 0.7, 0.8],
   };
-  let opacity = [1, 0.9, 0.8, 0.6, 0.5, 0.2];
+  let opacity = [1, 0.6, 0.3, 0.2];
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const { target, isIntersecting, intersectionRatio } = entry;
+
       let array = options.threshold;
-      if (isIntersecting && intersectionRatio === 1) {
+      if (
+        isIntersecting &&
+        intersectionRatio > 0.7 &&
+        scrolledUp.value === false
+      ) {
         target.classList.add("transformVideo");
         gradientGroup.value.style.opacity = "0.1";
         title.style.opacity = content.style.opacity = arrow.style.opacity = "1";
+      }
+      if (
+        isIntersecting &&
+        intersectionRatio > 0.5 &&
+        scrolledUp.value === true
+      ) {
+        target.classList.remove("transformVideo");
+        title.style.opacity = content.style.opacity = arrow.style.opacity = "0";
+        // observer.unobserve(videoPlayer.value);
       }
       for (let i = 0; i < array.length - 1; i++) {
         if (intersectionRatio > array[i] && intersectionRatio < array[i + 1]) {
@@ -314,35 +330,49 @@ const intersectionAnimation = () => {
   }, options);
 
   let lastScrollPos = 0;
+  let scrolledUp = ref(false);
   window.addEventListener("scroll", () => {
     const currentScrollPos = window.scrollY;
+    scrolledUp.value = false;
     if (currentScrollPos > lastScrollPos) {
       // Прокрутка вниз
-      observer.observe(videoPlayer.value);
     } else {
       // Прокрутка вверх (или без изменений)
       gradientGroup.value.style.opacity = "1";
-      observer.unobserve(videoPlayer.value);
+      scrolledUp.value = true;
     }
+    observer.observe(videoPlayer.value);
     lastScrollPos = currentScrollPos;
   });
 };
-
-const calculateTimeAnimation = (clientWidth) => {
+/*  768px 960 992px 1200px 1400px 1440 1600 */
+/* const calculateTimeAnimation = (clientWidth) => {
   let nominalMediaQuery = 768;
-  let gap = clientWidth - nominalMediaQuery;
-  if (gap > 0 && !!psbNode.value) {
-    let step = 30;
-    let interval = Math.floor(gap / step);
-    if (interval >= 1) {
-      let duration;
-      let nominalDuration = 2.9;
-      duration = +(nominalDuration - Number(`0.${interval}`)).toFixed(1);
-      psbNode.value.style.animation = `animateToRight_768 ${duration}s ease-out forwards`;
-      console.log("psbNode", psbNode.value.style, interval);
+  if (clientWidth >= 768 && clientWidth < 1024) {
+    let gap = clientWidth - nominalMediaQuery;
+    if (gap > 0 && !!psbNode.value) {
+      let step = 40;
+      // debugger
+      let interval = Math.floor(gap / step);
+      if (interval >= 1) {
+        let nominalDuration = 2.9;
+        if (clientWidth >= 888) {
+          nominalDuration = 2.7;
+        }
+        if (clientWidth >= 968) {
+          nominalDuration = 2.6;
+        }
+        if (clientWidth >= 1008) {
+          nominalDuration = 2.5;
+        }
+        let duration = +(nominalDuration + Number(`0.${interval}`)).toFixed(1);
+        psbNode.value.style.animation = `animateToRight_768 ${duration}s ease-out forwards`;
+        // psbNode.value.style.animation = `animateToRight_768 ${ 3.1}s ease-out forwards`;
+        console.log("psbNode", psbNode.value.style, interval);
+      }
     }
   }
-};
+}; */
 
 onMounted(async () => {
   videoSrc.value = require("@/assets/video/meet.mp4");
@@ -613,23 +643,25 @@ onMounted(async () => {
     padding: 7rem 0 0;
     color: var(--color-white);
     margin: 0 auto;
-    overflow: hidden; //
+    overflow: hidden;
     @include mq(375) {
       width: 31rem;
       height: 11.3rem;
     }
 
     @include mq(768) {
-      width: fit-content;
+      width: 62rem;
       height: 21.2rem;
       padding: 12.5rem 0 0;
     }
 
     @include mq(1440) {
+      width: 96.8rem;
       padding: 8rem 0 0;
     }
 
     @include mq(1920) {
+      width: 128.8rem;
       padding: 10.6rem 0 0;
       height: 28.7rem;
     }
@@ -639,18 +671,13 @@ onMounted(async () => {
     position: absolute;
     left: 0;
     opacity: 0.6;
-    animation: startFeading_psb 1100ms ease-out forwards;
-    /*   height: 0; // */
-    top: 8.4rem; //
+    top: 8.4rem;
     font-size: 4.8rem;
-
-    /*  @include mq(375) {
-
-    } */
+    animation: startFeading_psb 1100ms ease-out forwards;
     @include mq(768) {
       width: 61.5rem;
       font-size: 9.6rem;
-      top: 15.8rem;
+      top: 15.9rem;
     }
     @include mq(1440) {
       width: 96.8rem;
@@ -658,10 +685,12 @@ onMounted(async () => {
       top: 13.4rem;
     }
     @include mq(1920) {
+      width: 129rem;
       top: 20rem;
     }
   }
 
+  /*  375 425 768px 960 992px 1200px 1400px 1440  1600  1920 2056*/
   &__counter-psb_active {
     position: relative;
     right: 0;
@@ -673,32 +702,23 @@ onMounted(async () => {
     }
     @include mq(425) {
       top: -3rem;
-      animation: animateToRight_425 2.6s ease-out forwards;
     }
     @include mq(768) {
       top: -5.3rem;
-      animation: animateToRight_768 3s ease-out forwards;
+      animation: animateToRight_768 3.1s ease-out forwards;
     }
-    /*     @include mq(800) {
-      animation: animateToRight_768 2.7s ease-out forwards;
-    }
-    @include mq(830) {
-      animation: animateToRight_768 2.6s ease-out forwards;
-    }
-    @include mq(860) {
-      animation: animateToRight_768 2.5s ease-out forwards;
-    } */
     @include mq(1024) {
-      animation: animateToRight 6500ms ease-out forwards;
+      animation: animateToRight_1024 5s ease-out forwards;
     }
     @include mq(1440) {
-      top: -15rem;
-      animation: animateToRight 3000ms ease-out forwards;
+      top: -8rem;
+      animation: animateToRight_1024 3.1s ease-out forwards;
     }
-
+    /*  @include mq(1600) {
+    } */
     @include mq(1920) {
-      top: -18rem;
-      animation: animateToRight 2100ms ease-out forwards;
+      top: -8.5rem;
+      animation: animateToRight_1920 2.5s ease-out forwards;
     }
   }
 
@@ -742,13 +762,18 @@ onMounted(async () => {
     }
     @include mq(768) {
       height: 8.6rem;
-      width: fit-content;
+      width: 54rem;
     }
     @include mq(1024) {
+      height: 8.9rem;
+    }
+    @include mq(1440) {
       height: 13.6rem;
+      width: 84.6rem;
     }
     @include mq(1920) {
       height: 18rem;
+      width: 112.6rem;
     }
   }
 
@@ -770,40 +795,34 @@ onMounted(async () => {
       top: 5.4rem;
     }
     @include mq(1920) {
-      width: 84.6rem;
+      width: 112.7rem;
       font-size: 15rem;
       top: 9.4rem;
     }
   }
-
+  /*  375 425 768px 960 992px 1200px 1400px 1440  1600  1920 2056*/
   &__counter-lab_active {
     position: relative;
     right: 0;
     left: auto;
     @include mq(375) {
       top: -3rem;
-      animation: animateToRight 11750ms ease-out forwards;
-    }
-    @include mq(425) {
-      animation: animateToRight 10000ms ease-out forwards;
+      animation: animateToRight_375 2.9s ease-out forwards;
     }
     @include mq(768) {
       top: -5.4rem;
-      animation: animateToRight 5700ms ease-out forwards;
+      animation: animateToRight_768 3.5s ease-out forwards;
     }
     @include mq(1024) {
-      animation: animateToRight 7000ms ease-out forwards;
+      animation: animateToRight_1024 5.7s ease-out forwards;
     }
     @include mq(1440) {
       top: -8rem;
-      animation: animateToRight 3500ms ease-out forwards;
+      animation: animateToRight_1024 3.5s ease-out forwards;
     }
     @include mq(1920) {
       top: -9rem;
-      animation: animateToRight 2150ms ease-out forwards;
-    }
-    @include mq(2056) {
-      animation: animateToRight 2000ms ease-out forwards;
+      animation: animateToRight_1920 2.9s ease-out forwards;
     }
   }
 
@@ -837,8 +856,8 @@ onMounted(async () => {
 
   &__sub-title-lab {
     text-align: center;
-    padding-top: 3rem;
-    padding-bottom: 9rem;
+    padding-top: 1rem;
+    padding-bottom: 6rem;
     font-size: 1.8rem;
     line-height: 120%;
     letter-spacing: -0.036rem;
@@ -848,7 +867,7 @@ onMounted(async () => {
     @include mq(768) {
       font-size: 2.4rem;
       letter-spacing: -0.048rem;
-      padding-bottom: 6rem;
+      padding-bottom: 9rem;
     }
 
     @include mq(1440) {
@@ -868,6 +887,7 @@ onMounted(async () => {
     position: fixed;
     z-index: 2;
     bottom: -80rem;
+    left: 0;
     background: #fff;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
@@ -987,6 +1007,7 @@ onMounted(async () => {
 
 .menu {
   &__list {
+    padding: 0;
     @include mq(768) {
       display: grid;
       grid-template-columns: repeat(4, auto);
@@ -1023,26 +1044,29 @@ onMounted(async () => {
 }
 
 .video__section {
-  margin-top: -43rem;
+  margin-top: -48.1rem;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   animation: slideInVideo 1s ease-out forwards;
 
+  @include mq(425) {
+    margin-top: -48.6rem;
+  }
   @include mq(768) {
-    margin-top: -54.5rem;
+    margin-top: -50.4rem;
   }
 
   @include mq(1024) {
-    margin-top: -37rem;
+    margin-top: -37.7rem;
   }
   @include mq(1440) {
-    margin-top: -29.2rem;
+    margin-top: -28.1rem;
   }
 
   @include mq(1920) {
-    margin-top: -40.3rem;
+    margin-top: -39.1rem;
   }
 
   video {
@@ -1100,10 +1124,6 @@ header {
 
   @include mq(1920) {
     padding: 5.3rem 10.7rem 0;
-  }
-
-  @include mq(2560) {
-    padding: 5.3rem 32rem 0;
   }
 }
 

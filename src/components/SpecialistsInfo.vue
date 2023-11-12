@@ -299,10 +299,6 @@ onMounted(() => {
   transform: scale(0.6, 0.6);
   transition: all 1s ease;
 
-  /*   @include mq(375) {
-      height: 37.5rem;
-    } */
-
   @include mq(425) {
     height: 42.5rem;
   }
@@ -319,7 +315,7 @@ onMounted(() => {
   }
   @include mq(1920) {
     height: 120rem;
-    width: 170.6rem;
+    width: 168rem;
   }
 }
 

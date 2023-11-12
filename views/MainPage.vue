@@ -35,7 +35,7 @@ export default {
     WhichStackToUseSection,
     MapSection,
     EducationSection,
-    RecommendFriend
+    RecommendFriend,
   },
 };
 </script>
