@@ -1182,7 +1182,7 @@ onMounted(async () => {
   }
 
   .process .process-wrapper {
-    width: 170.6667rem;
+
   }
 
   .process .process_item {

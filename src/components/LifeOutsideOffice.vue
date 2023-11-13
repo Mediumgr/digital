@@ -297,7 +297,7 @@ onMounted(async () => {
 
   // Отслеживаем вхождение в блок диалогов
   if (dialogs.length) {
-    let observerDialogs = new IntersectionObserver(dialogAnima, {root: null, threshold: [1]});
+    let observerDialogs = new IntersectionObserver(dialogAnima, {rootMargin: '0px'});
     dialogs.forEach((item) => {
       observerDialogs.observe(item);
     });
@@ -305,7 +305,7 @@ onMounted(async () => {
 
   // Отслеживаем вхождение в блок галерегии
   if (gallery) {
-    let observerGallery = new IntersectionObserver(galleryAnima, {root: null, threshold: [1]});
+    let observerGallery = new IntersectionObserver(galleryAnima, {rootMargin: '0px'});
     observerGallery.observe(gallery);
   }
 
@@ -1003,7 +1003,6 @@ onMounted(async () => {
 
   .life_messages {
     display: flex;
-    width: 170.6rem;
     flex-direction: column;
     align-items: flex-start;
     gap: 2.77rem;
