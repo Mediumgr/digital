@@ -305,7 +305,7 @@ onMounted(async () => {
 
   // Отслеживаем вхождение в блок галерегии
   if (gallery) {
-    let observerGallery = new IntersectionObserver(galleryAnima, {rootMargin: '0px'});
+    let observerGallery = new IntersectionObserver(galleryAnima, {rootMargin: '0px',  threshold: [0.5]});
     observerGallery.observe(gallery);
   }
 
