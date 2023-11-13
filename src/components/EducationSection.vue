@@ -307,7 +307,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/styles/components/education";
 @import "@/assets/styles/components/education-card";
 </style>

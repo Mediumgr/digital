@@ -122,6 +122,7 @@
     padding: 1.5rem;
     border-radius: 2rem;
     background-color: var(--white);
+    transition: transform 0.3s;
 
     @include mq(768) {
       width: 16rem;
@@ -134,6 +135,10 @@
       height: 24.6rem;
       padding: 2rem;
       cursor: pointer;
+    }
+
+    @include hover() {
+      transform: scale(1.1);
     }
 
     &::before {

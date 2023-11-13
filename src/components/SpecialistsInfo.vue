@@ -10,16 +10,17 @@
       классные специалисты,которые усилят команду
     </p>
   </div>
-  <div ref="gradientCanvas" class="gradient-group__canvas">
-    <div class="blue"></div>
-    <div class="purple"></div>
-    <div class="red"></div>
-    <div class="yellow"></div>
-    <div class="canvas__wrapper">
-      <canvas class="canvas" id="canvas"></canvas>
-      <!-- <span class="text">Для тех,<br />кто ценит</span> -->
-    </div>
-  </div>
+
+<!--  <div ref="gradientCanvas" class="gradient-group__canvas">-->
+<!--    <div class="blue"></div>-->
+<!--    <div class="purple"></div>-->
+<!--    <div class="red"></div>-->
+<!--    <div class="yellow"></div>-->
+<!--    <div class="canvas__wrapper">-->
+<!--      <canvas class="canvas" id="canvas"></canvas>-->
+<!--      &lt;!&ndash; <span class="text">Для тех,<br />кто ценит</span> &ndash;&gt;-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script setup>
@@ -29,218 +30,218 @@ let number = ref(null);
 let specialists = ref(null);
 let info = ref(null);
 let text = ref(null);
-let gradientCanvas = ref(null);
+// let gradientCanvas = ref(null);
 
 /*     'Личную\nответственность', */
 
-const canvasAnimation = () => {
-  const show = 5; // Количество точек
-  const labels = [
-    'Экспертизу',
-    'Личную\nответственность',
-    'Гибкость',
-    'Потенциал',
-    'Свободу идей',
-  ];
-  const labelSpacing = 20; // Увеличил расстояние между точкой и названием
-  const labelOffset = 2; // Сдвиг надписи вперед
-  const canvas = document.getElementById('canvas');
-  let scene = canvas.getContext('2d');
-  let clientWidth = document.documentElement.clientWidth;
-  let canvasWidth = (canvas.width = clientWidth);
-  let canvasHeight = (canvas.height = clientWidth);
-
-  if (clientWidth > 767.98) {
-    canvasWidth = canvas.width = 545;
-    canvasHeight = canvas.height = 545;
-  }
-  if (clientWidth > 1439.98) {
-    canvasWidth = canvas.width = 800;
-    canvasHeight = canvas.height = 800;
-  }
-
-  // Создаем точку
-  class Dot {
-    constructor(x, y, label) {
-      this.size = 3;
-      this.px = x;
-      this.py = y;
-      this.startX = x;
-      this.startY = y;
-      this.speed = 18; // Расстояние 15px за 1 секунду
-      this.animationTimeout = 3000; // Время движения и остановки в 3 секунды
-      this.lastPauseTime = Date.now();
-      this.paused = true; // Начнем с паузы
-      this.direction = 40;
-      this.randomizeMovement();
-      // this.rotation = (150 * Math.PI) / 10; // Поворот на 150 градусов
-      this.rotation = (150 * Math.PI) / 15; // Поворот на 150 градусов
-      this.label = label;
-      this.labelOffset = labelOffset;
-      this.animationStarted = false;
-    }
-
-    update() {
-      if (!this.animationStarted) {
-        // Синхронный старт
-        setTimeout(() => {
-          this.paused = false;
-          this.animationStarted = true;
-          this.lastPauseTime = Date.now();
-        }, Math.random() * this.animationTimeout); // Рандомизированный старт
-      }
-
-      if (
-        this.paused &&
-        Date.now() - this.lastPauseTime >= this.animationTimeout
-      ) {
-        this.paused = false;
-        this.randomizeMovement();
-        this.lastPauseTime = Date.now();
-        this.animationStarted = false; // Устанавливаем флаг остановки анимации
-
-        // Задержка в 2 секунды перед следующим синхронным стартом всех точек
-        setTimeout(() => {
-          for (const dot of dots) {
-            dot.animationStarted = false;
-          }
-        }, 2000);
-      }
-
-      if (!this.paused) {
-        this.bounds();
-        this.px += (this.speed / 120) * this.direction; // Скорость пересчитана в пикселях в миллисекунду
-        this.py = this.startY + 18 * Math.sin(this.px * 0.2); // Пересчет Y позиции для плавного вертикального движения
-      }
-
-      this.draw();
-    }
-
-    draw() {
-      scene.save();
-      scene.translate(this.px, this.py);
-      scene.rotate(this.rotation);
-      scene.beginPath();
-      scene.arc(0, 0, this.size, 0, Math.PI * 8);
-      scene.closePath();
-      scene.fillStyle = '#fff';
-      scene.fill();
-      scene.restore();
-
-      // Стиль надписи
-      scene.font = '500 16px Onest';
-      scene.fillStyle = '#fff';
-      scene.textAlign = 'center';
-      scene.textBaseline = 'bottom';
-
-      // Вычисление позиции надписи
-      let labelX =
-        this.px +
-        (this.size + labelSpacing + this.labelOffset) *
-        Math.cos(this.rotation - Math.PI / 2);
-      let labelY = this.py;
-
-      if (this.label === 'Потенциал') {
-        labelX -= labelSpacing + 30;
-        labelY -= labelSpacing - 25;
-      } else if (this.label === 'Свободу идей') {
-        labelX += labelSpacing + 40;
-        labelY -= labelSpacing - 25;
-      } else if (this.label === 'Экспертизу') {
-        labelX += labelSpacing + 30;
-        labelY -= labelSpacing - 30;
-      } else if (this.label === 'Гибкость') {
-        labelX -= labelSpacing + 25;
-        labelY += labelSpacing - 15;
-      } else if (this.label === 'Личную\nответственность') {
-        const lines = this.label.split('\n');
-        scene.fillText(lines[0], labelX, labelY + 20);
-        scene.fillText(lines[1], labelX, labelY + 33);
-        return;
-      }
-      scene.font = '500 16px Onest'; // Возвращаем настройки стиля
-      scene.fillText(this.label, labelX, labelY);
-
-      // Стиль для фразы "Для тех, кто ценит"
-      scene.font = 'normal 500 22px Onest';
-      scene.fillStyle = '#fff';
-      scene.textAlign = 'center';
-      scene.textBaseline = 'middle';
-
-      // Координаты центра холста
-      const centerX = canvasWidth / 2;
-      const centerY = canvasHeight / 2;
-
-      // Отобразить фразу "Для тех, кто ценит" в центре холста
-      scene.fillText('Для тех,', centerX - 10, centerY);
-      scene.fillText('кто ценит', centerX - 10, centerY + 20);
-    }
-
-    bounds() {
-      // ограничивает расстояние которое может пройти точка, предел ее
-      if (this.px > this.startX + 14 || this.px < this.startX - 14) {
-        this.paused = true;
-        this.direction = -this.direction;
-        this.lastPauseTime = Date.now();
-      }
-    }
-
-    randomizeMovement() {
-      this.direction = Math.random() < 0.5 ? 1 : -1; // Случайное направление движения
-    }
-  }
-
-  const dots = [];
-  /*   const centerX = canvasWidth / 2;
-  const centerY = canvasHeight / 2;
-  const space = 90; // увеличивает размер всей фигуры
-
-  for (let i = 0; i < show; i++) {
-    const x = centerX + space * Math.cos((i / show) * Math.PI * 2) - 12;
-    const y = centerY + space * Math.sin((i / show) * Math.PI * 2) - 20; // меняет положение по вертикали канвас
-    dots.push(new Dot(x, y, labels[i]));
-  } */
-
-  for (let i = 0; i < show; i++) {
-    const angle = (i / show) * Math.PI * 2;
-    const radius = 90;
-    const x = canvasWidth / 2 + radius * Math.cos(angle) - 9; // меняет канвас положение по горизонтали
-    const y = canvasHeight / 2 + radius * Math.sin(angle); // меняет канвас положение по вертикали
-    dots.push(new Dot(x, y, labels[i]));
-  }
-
-  function draw() {
-    scene.clearRect(0, 0, canvasWidth, canvasHeight);
-    dots.forEach((dot) => {
-      dot.update();
-    });
-
-    connectDots();
-
-    requestAnimationFrame(draw);
-  }
-
-  function connectDots() {
-    scene.beginPath();
-    scene.lineWidth = 0.5;
-    scene.strokeStyle = '#fff';
-
-    dots.forEach((dot, index) => {
-      const nextDot = dots[(index + 1) % show];
-      scene.moveTo(dot.px, dot.py);
-      scene.lineTo(nextDot.px, nextDot.py);
-    });
-
-    scene.stroke();
-  }
-
-  draw();
-
-  window.addEventListener('resize', () => {
-    canvasWidth = canvas.width = 400;
-    canvasHeight = canvas.height = 400;
-  });
-};
+// const canvasAnimation = () => {
+//   const show = 5; // Количество точек
+//   const labels = [
+//     'Экспертизу',
+//     'Личную\nответственность',
+//     'Гибкость',
+//     'Потенциал',
+//     'Свободу идей',
+//   ];
+//   const labelSpacing = 20; // Увеличил расстояние между точкой и названием
+//   const labelOffset = 2; // Сдвиг надписи вперед
+//   const canvas = document.getElementById('canvas');
+//   let scene = canvas.getContext('2d');
+//   let clientWidth = document.documentElement.clientWidth;
+//   let canvasWidth = (canvas.width = clientWidth);
+//   let canvasHeight = (canvas.height = clientWidth);
+//
+//   if (clientWidth > 767.98) {
+//     canvasWidth = canvas.width = 545;
+//     canvasHeight = canvas.height = 545;
+//   }
+//   if (clientWidth > 1439.98) {
+//     canvasWidth = canvas.width = 800;
+//     canvasHeight = canvas.height = 800;
+//   }
+//
+//   // Создаем точку
+//   class Dot {
+//     constructor(x, y, label) {
+//       this.size = 3;
+//       this.px = x;
+//       this.py = y;
+//       this.startX = x;
+//       this.startY = y;
+//       this.speed = 18; // Расстояние 15px за 1 секунду
+//       this.animationTimeout = 3000; // Время движения и остановки в 3 секунды
+//       this.lastPauseTime = Date.now();
+//       this.paused = true; // Начнем с паузы
+//       this.direction = 40;
+//       this.randomizeMovement();
+//       // this.rotation = (150 * Math.PI) / 10; // Поворот на 150 градусов
+//       this.rotation = (150 * Math.PI) / 15; // Поворот на 150 градусов
+//       this.label = label;
+//       this.labelOffset = labelOffset;
+//       this.animationStarted = false;
+//     }
+//
+//     update() {
+//       if (!this.animationStarted) {
+//         // Синхронный старт
+//         setTimeout(() => {
+//           this.paused = false;
+//           this.animationStarted = true;
+//           this.lastPauseTime = Date.now();
+//         }, Math.random() * this.animationTimeout); // Рандомизированный старт
+//       }
+//
+//       if (
+//         this.paused &&
+//         Date.now() - this.lastPauseTime >= this.animationTimeout
+//       ) {
+//         this.paused = false;
+//         this.randomizeMovement();
+//         this.lastPauseTime = Date.now();
+//         this.animationStarted = false; // Устанавливаем флаг остановки анимации
+//
+//         // Задержка в 2 секунды перед следующим синхронным стартом всех точек
+//         setTimeout(() => {
+//           for (const dot of dots) {
+//             dot.animationStarted = false;
+//           }
+//         }, 2000);
+//       }
+//
+//       if (!this.paused) {
+//         this.bounds();
+//         this.px += (this.speed / 120) * this.direction; // Скорость пересчитана в пикселях в миллисекунду
+//         this.py = this.startY + 18 * Math.sin(this.px * 0.2); // Пересчет Y позиции для плавного вертикального движения
+//       }
+//
+//       this.draw();
+//     }
+//
+//     draw() {
+//       scene.save();
+//       scene.translate(this.px, this.py);
+//       scene.rotate(this.rotation);
+//       scene.beginPath();
+//       scene.arc(0, 0, this.size, 0, Math.PI * 8);
+//       scene.closePath();
+//       scene.fillStyle = '#fff';
+//       scene.fill();
+//       scene.restore();
+//
+//       // Стиль надписи
+//       scene.font = '500 16px Onest';
+//       scene.fillStyle = '#fff';
+//       scene.textAlign = 'center';
+//       scene.textBaseline = 'bottom';
+//
+//       // Вычисление позиции надписи
+//       let labelX =
+//         this.px +
+//         (this.size + labelSpacing + this.labelOffset) *
+//         Math.cos(this.rotation - Math.PI / 2);
+//       let labelY = this.py;
+//
+//       if (this.label === 'Потенциал') {
+//         labelX -= labelSpacing + 30;
+//         labelY -= labelSpacing - 25;
+//       } else if (this.label === 'Свободу идей') {
+//         labelX += labelSpacing + 40;
+//         labelY -= labelSpacing - 25;
+//       } else if (this.label === 'Экспертизу') {
+//         labelX += labelSpacing + 30;
+//         labelY -= labelSpacing - 30;
+//       } else if (this.label === 'Гибкость') {
+//         labelX -= labelSpacing + 25;
+//         labelY += labelSpacing - 15;
+//       } else if (this.label === 'Личную\nответственность') {
+//         const lines = this.label.split('\n');
+//         scene.fillText(lines[0], labelX, labelY + 20);
+//         scene.fillText(lines[1], labelX, labelY + 33);
+//         return;
+//       }
+//       scene.font = '500 16px Onest'; // Возвращаем настройки стиля
+//       scene.fillText(this.label, labelX, labelY);
+//
+//       // Стиль для фразы "Для тех, кто ценит"
+//       scene.font = 'normal 500 22px Onest';
+//       scene.fillStyle = '#fff';
+//       scene.textAlign = 'center';
+//       scene.textBaseline = 'middle';
+//
+//       // Координаты центра холста
+//       const centerX = canvasWidth / 2;
+//       const centerY = canvasHeight / 2;
+//
+//       // Отобразить фразу "Для тех, кто ценит" в центре холста
+//       scene.fillText('Для тех,', centerX - 10, centerY);
+//       scene.fillText('кто ценит', centerX - 10, centerY + 20);
+//     }
+//
+//     bounds() {
+//       // ограничивает расстояние которое может пройти точка, предел ее
+//       if (this.px > this.startX + 14 || this.px < this.startX - 14) {
+//         this.paused = true;
+//         this.direction = -this.direction;
+//         this.lastPauseTime = Date.now();
+//       }
+//     }
+//
+//     randomizeMovement() {
+//       this.direction = Math.random() < 0.5 ? 1 : -1; // Случайное направление движения
+//     }
+//   }
+//
+//   const dots = [];
+//   /*   const centerX = canvasWidth / 2;
+//   const centerY = canvasHeight / 2;
+//   const space = 90; // увеличивает размер всей фигуры
+//
+//   for (let i = 0; i < show; i++) {
+//     const x = centerX + space * Math.cos((i / show) * Math.PI * 2) - 12;
+//     const y = centerY + space * Math.sin((i / show) * Math.PI * 2) - 20; // меняет положение по вертикали канвас
+//     dots.push(new Dot(x, y, labels[i]));
+//   } */
+//
+//   for (let i = 0; i < show; i++) {
+//     const angle = (i / show) * Math.PI * 2;
+//     const radius = 90;
+//     const x = canvasWidth / 2 + radius * Math.cos(angle) - 9; // меняет канвас положение по горизонтали
+//     const y = canvasHeight / 2 + radius * Math.sin(angle); // меняет канвас положение по вертикали
+//     dots.push(new Dot(x, y, labels[i]));
+//   }
+//
+//   function draw() {
+//     scene.clearRect(0, 0, canvasWidth, canvasHeight);
+//     dots.forEach((dot) => {
+//       dot.update();
+//     });
+//
+//     connectDots();
+//
+//     requestAnimationFrame(draw);
+//   }
+//
+//   function connectDots() {
+//     scene.beginPath();
+//     scene.lineWidth = 0.5;
+//     scene.strokeStyle = '#fff';
+//
+//     dots.forEach((dot, index) => {
+//       const nextDot = dots[(index + 1) % show];
+//       scene.moveTo(dot.px, dot.py);
+//       scene.lineTo(nextDot.px, nextDot.py);
+//     });
+//
+//     scene.stroke();
+//   }
+//
+//   draw();
+//
+//   window.addEventListener('resize', () => {
+//     canvasWidth = canvas.width = 400;
+//     canvasHeight = canvas.height = 400;
+//   });
+// };
 
 const intersection = () => {
   number.value.style.opacity =
@@ -266,26 +267,26 @@ const intersection = () => {
   observer.observe(info.value);
 };
 
-const intersectionCanvas = () => {
-  let options = {
-    threshold: 0.9,
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      const { target, isIntersecting, intersectionRatio } = entry;
-      if (isIntersecting && intersectionRatio > 0.9) {
-        target.classList.add('active');
-      }
-    });
-  }, options);
-  observer.observe(gradientCanvas.value);
-};
+// const intersectionCanvas = () => {
+//   let options = {
+//     threshold: 0.9,
+//   };
+//
+//   const observer = new IntersectionObserver((entries) => {
+//     entries.forEach((entry) => {
+//       const { target, isIntersecting, intersectionRatio } = entry;
+//       if (isIntersecting && intersectionRatio > 0.9) {
+//         target.classList.add('active');
+//       }
+//     });
+//   }, options);
+//   observer.observe(gradientCanvas.value);
+// };
 
 onMounted(() => {
-  canvasAnimation();
+  // canvasAnimation();
   intersection();
-  intersectionCanvas();
+  // intersectionCanvas();
 });
 </script>
 
@@ -615,11 +616,14 @@ onMounted(() => {
 }
 
 .specialists {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 12rem 0 6rem;
+
   @include mq(375) {
     padding: 0 2rem;
   }

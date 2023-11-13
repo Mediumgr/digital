@@ -23,4 +23,39 @@ function refreshScrollTriggerByElement(element) {
   observer.observe(element);
 }
 
-export { getScrollbarWidth, refreshScrollTriggerByElement };
+// // Браузер и ОС
+// function cth(c) { document.documentElement.classList.add(c) }
+// 'ontouchstart' in window ? cth('touch') : cth('no-touch');
+// if (typeof InstallTrigger !== 'undefined') cth('firefox');
+// if (/constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]" })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification))) cth('safari');
+// if (!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)) cth('chrome');
+// if (~navigator.appVersion.indexOf("Win")) cth('windows');
+// if (~navigator.appVersion.indexOf("Mac")) cth('osx');
+// if (~['iPad', 'iPhone', 'iPod'].indexOf(navigator.platform)) cth('ios');
+// if (~navigator.appVersion.indexOf("Linux")) cth('linux');
+
+
+const heightVH =  () => {
+  // Добавление 1vh (использование: height: 100vh; height: calc(var(--vh, 1vh) * 100);) для фикса 100vh на мобилках
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', vh + 'px');
+  window.addEventListener('resize', function () {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', vh + 'px');
+  });
+}
+
+
+const isMobile = () => {
+  return window.matchMedia(`(min-width: 0px) and (max-width: 767px)`).matches
+}
+
+const isTablet = () => {
+  return window.matchMedia(`(min-width: 768px) and (max-width: 1199px)`).matches
+}
+const isDesktop = () => {
+  return window.matchMedia(`(min-width: 1200px)`).matches
+}
+
+
+export { getScrollbarWidth, refreshScrollTriggerByElement, isMobile, isTablet, isDesktop, heightVH };

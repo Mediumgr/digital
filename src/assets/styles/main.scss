@@ -1,8 +1,10 @@
 @import "mixins";
 
-@import "fonts";
-@import "colors";
-@import "common";
+//@import "normalize.css";
 
 @import "globals/heading";
 @import "globals/gradient";
+
+@import "fonts";
+@import "colors";
+@import "common";

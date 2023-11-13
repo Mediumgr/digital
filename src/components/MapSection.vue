@@ -29,7 +29,9 @@
 
     <div class="map-cards">
       <template v-for="city in mapData.cities" :key="city.id">
-        <div class="map-cards__item" :data-id-city="city.id">
+        <div class="map-cards__item"
+             :class="'map-cards__item--' + city.id"
+             :data-id-city="city.id">
           <button class="map-cards__btn-close js-map-close-btn"></button>
 
           <div class="map-cards__item-inner">
@@ -252,12 +254,11 @@ function init() {
 }
 
 onMounted(() => {
-  console.log('MapSection')
   init()
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/styles/components/map-offices";
 @import "@/assets/styles/components/map-cards";
 </style>

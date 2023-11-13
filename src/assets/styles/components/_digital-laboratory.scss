@@ -1,0 +1,39 @@
+.digital-laboratory {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: calc(var(--vh, 1vh) * 100);
+  color: var(--white);
+
+  &__title {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 144rem;
+    justify-content: space-between;
+    padding: 2rem;
+
+    @include mq(768) {
+      padding: 2rem 4rem;
+    }
+
+    @include mq(1200) {
+      padding: 6rem 8rem;
+    }
+  }
+
+  &__link {
+    color: var(--white);
+  }
+}

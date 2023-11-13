@@ -23,12 +23,9 @@
 }
 
 @mixin hover($isActive: false) {
-  @if $isActive {
-    body.is-no-touch &:hover, &:active {
-      @content;
-    }
-  } @else {
-    body.is-no-touch &:hover {
+  @media (hover: hover) {
+    /* when hover is supported */
+    &:hover, {
       @content;
     }
   }

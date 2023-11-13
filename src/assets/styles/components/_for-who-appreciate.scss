@@ -1,0 +1,106 @@
+.for-who-appreciate {
+  position: relative;
+  z-index: 1;
+  //background-color: var(--eggplant);
+  margin: -6rem auto;
+
+  @include mq(1200) {
+    margin: -20rem auto 0;
+  }
+
+  &__wrapper {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 6rem 0;
+    margin: 0 auto;
+    background-image: radial-gradient(26.01% 26.01% at 50% 50%, rgba(248, 248, 248, 0.00) 34.38%, #F8F8F8 100%), radial-gradient(26.01% 26.01% at 50% 50%, rgba(248, 248, 248, 0.00) 34.38%, #F8F8F8 100%);
+    background-size: 99rem 99rem, 126.6rem 126.6rem;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    @include mq(768) {
+      padding: 0;
+      background-image: radial-gradient(26.01% 26.01% at 50% 50%, rgba(248, 248, 248, 0.00) 34.38%, #F8F8F8 100%), radial-gradient(26.01% 26.01% at 50% 50%, rgba(248, 248, 248, 0.00) 34.38%, #F8F8F8 100%);
+      background-size: 190rem 190rem, 150rem 150rem;
+    }
+
+    @include mq(1200) {
+      width: 100%;
+      padding: 12rem 0;
+      max-width: none;
+      background-image: radial-gradient(26.01% 26.01% at 50% 50%, rgba(248, 248, 248, 0.00) 33.85%, #F8F8F8 100%), radial-gradient(26.01% 26.01% at 50% 50%, rgba(248, 248, 248, 0.00) 38.02%, #F8F8F8 100%);;
+      background-size: 194rem 194rem, 321.7rem 321.7rem;
+    }
+  }
+
+  &__heading-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  &__heading {
+    margin-top: -0.4rem;
+    color: var(--white, #FFF);
+
+    @include mq(1200) {
+      margin-top: -2.2rem;
+    }
+  }
+
+  &__svg {
+    width: 100%;
+    max-width: 90rem;
+    height: auto;
+    margin: 0 auto;
+
+    @include mq(1200) {
+      max-width: 120rem;
+    }
+
+    &--mobile {
+      display: block;
+
+      @include mq(1200) {
+        display: none;
+      }
+    }
+
+    &--desktop {
+      display: none;
+
+      @include mq(1200) {
+        display: block;
+      }
+    }
+  }
+
+  &__text-svg {
+    font-family: Onest, serif;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.036rem;
+    fill: var(--white, #FFF);
+
+    @include mq(768) {
+      font-size: 1.4rem;
+      letter-spacing: -0.048rem;
+    }
+
+    @include mq(1200) {
+      font-size: 3.2rem;
+      letter-spacing: -0.096rem;
+    }
+  }
+}

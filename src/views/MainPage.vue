@@ -1,6 +1,7 @@
 <template>
   <MainBlock />
   <SpecialistsInfo />
+  <ForWhoAppreciate />
   <WorkingSection />
   <WhichStackToUseSection />
   <ProcessBlock />
@@ -9,6 +10,7 @@
   <RecommendFriend />
   <LifeOutsideOffice />
   <EducationSection />
+  <DigitalLaboratorySection />
 </template>
 
 <script>
@@ -22,10 +24,13 @@ import EducationSection from "@/components/EducationSection.vue";
 import MapSection from "@/components/MapSection.vue";
 import WhichStackToUseSection from "@/components/WhichStackToUseSection.vue";
 import RecommendFriend from "@/components/RecommendFriend.vue";
+import DigitalLaboratorySection from "@/components/DigitalLaboratorySection.vue";
+import ForWhoAppreciate from "@/components/ForWhoAppreciate.vue";
 
 export default {
   name: "MainPage",
   components: {
+    ForWhoAppreciate,
     MainBlock,
     SpecialistsInfo,
     WorkingSection,
@@ -36,6 +41,7 @@ export default {
     MapSection,
     EducationSection,
     RecommendFriend,
+    DigitalLaboratorySection,
   },
 };
 </script>

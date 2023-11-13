@@ -187,7 +187,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/styles/components/which-stack-to-use";
 @import "@/assets/styles/components/cards-stack";
 </style>

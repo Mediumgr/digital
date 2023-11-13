@@ -3,15 +3,19 @@
 </template>
 
 <script>
+import MainPage from '@/views/MainPage.vue';
 import '@/assets/styles/main.scss';
 import '@/assets/styles/keyframes.css'
-import MainPage from '/views/MainPage.vue';
+import { heightVH } from "@/helpers";
 
 export default {
   name: 'App',
   components: {
     MainPage,
   },
+  mounted() {
+    heightVH()
+  }
 };
 </script>
 

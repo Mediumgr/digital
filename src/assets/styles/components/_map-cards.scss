@@ -19,7 +19,7 @@
     height: 100%;
     opacity: 0;
     background-color: rgba(19, 20, 75, 0.8);
-    backdrop-filter: blur(40px) brightness(100%);
+    backdrop-filter: blur(4rem) brightness(100%);
     pointer-events: none;
   }
 
@@ -30,20 +30,22 @@
     flex-direction: column;
     align-items: flex-start;
     margin: 0 auto;
-    //position: relative;
     flex: 0 0 auto;
     opacity: 0;
     border-radius: 2rem;
     overflow: hidden;
-    //display: none;
 
     @include mq(768) {
       border-radius: 2rem;
     }
 
-    //&:first-of-type {
-    //  display: flex;
-    //}
+    &--moscow {
+      .map-cards__name {
+        @include mq(1200) {
+          font-size: 3.2rem;
+        }
+      }
+    }
   }
 
   &__item-inner {
@@ -129,7 +131,9 @@
     }
 
     @include mq(1200) {
-      font-size: 3.2rem;
+      top: 2rem;
+      left: 2rem;
+      font-size: 2.4rem;
     }
   }
 
@@ -193,7 +197,7 @@
       letter-spacing: initial;
 
       &:hover {
-        border: 1px solid rgba(19, 20, 75, 0.40);
+        border: 0.1rem solid rgba(19, 20, 75, 0.40);
       }
     }
 
@@ -239,6 +243,10 @@
     opacity: 0.8;
     padding-left: 2.2rem;
 
+    li {
+      list-style: disc;
+    }
+
     @include mq(768) {
       font-size: 1.6rem;
       line-height: 130%;
@@ -273,7 +281,7 @@
     color: var(--white);
     text-align: center;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: 2rem;
     padding: 2rem;
     background: var(--accent);
     margin-top: 2rem;
