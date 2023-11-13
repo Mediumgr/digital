@@ -255,7 +255,7 @@ const scrollTo = (value) => {
       break;
   }
   let scrollToElement = offsetElement + window.scrollY;
-  window.scrollIntoView({
+  window.scrollTo({
     top: scrollToElement,
     behavior: "smooth",
   });
