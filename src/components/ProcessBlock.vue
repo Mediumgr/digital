@@ -2,7 +2,7 @@
   <div class="process">
     <div class="process-wrapper">
       <div class="process_item process_item_video show">
-        <video id="background-video" autoplay loop muted>
+        <video id="background-video" autoplay loop muted playsinline>
           <source src="../assets/video/process/process-b1.mp4" type="video/mp4"/>
         </video>
         <div class="process_item_video-header">
@@ -14,9 +14,9 @@
         <div class="process_item_header-num">01</div>
         <div class="process_item_description">
           <div class="process_item_header">Оставь отклик</div>
-          <ul>
+          <ul class="process_item-ul">
             <li>
-              Посмотри актуальные вакансии на Хабр Карьере или заполни анкету
+              Посмотри актуальные вакансии на <a class="process_item-href" href="">Хабр Карьере</a> или заполни <a class="process_item-href" href="">анкету</a>
               ниже
             </li>
             <li>Дождись нашего звонка</li>
@@ -27,7 +27,7 @@
         <div class="process_item_header-num">02</div>
         <div class="process_item_description">
           <div class="process_item_header">Пройди интервью</div>
-          <ul>
+          <ul class="process_item-ul">
             <li>Обычно мы проводим его онлайн</li>
             <li>Спросим про твой опыт работы и знания</li>
             <li>Расскажем об открытых направлениях работы у нас</li>
@@ -39,7 +39,7 @@
         <div class="process_item_header-num">03</div>
         <div class="process_item_description">
           <div class="process_item_header">Получи обратную связь</div>
-          <ul>
+          <ul class="process_item-ul">
             <li>Мы свяжемся с тобой, если интервью прошло успешно</li>
             <li>Уточним твои впечатления от встречи</li>
             <li>Расскажем о командах, которые тебе подойдут</li>
@@ -50,7 +50,7 @@
         <div class="process_item_header-num">04</div>
         <div class="process_item_description">
           <div class="process_item_header">Познакомься с командой</div>
-          <ul>
+          <ul class="process_item-ul">
             <li>Проведем короткую встречу с будущими коллегами</li>
             <li>Уточним твои впечатления от встречи</li>
             <li>Расскажем о командах, которые тебе подойдут</li>
@@ -59,10 +59,10 @@
       </div>
       <div class="process_item process_item_join">
         <div class="process_item_join-gradient"></div>
-        <div class="process_item_join-vector"></div>
+        <img class="process_item_join-vector" src="../assets/images/process/vector.svg">
         <div class="process_item_join_description">
           <div class="process_item_join_header">Присоединяйся к нам</div>
-          <ul>
+          <ul class="process_item-ul">
             <li>Получи приглашение на работу</li>
             <li>Дай свое согласие, и мы начнем оформление</li>
             <li>Если живешь в другом регионе, ехать в Москву не придется</li>
@@ -74,7 +74,7 @@
         <div class="process_item_bonuses-header">Какие есть бонусы</div>
         <div class="process_item_bonuses-block">
           <div class="process_item_bonuses-video">
-            <video id="background-video" autoplay loop muted>
+            <video id="background-video" autoplay loop muted playsinline>
               <source
                 src="../assets/video/process/process-bonuses.mp4"
                 type="video/mp4"
@@ -259,6 +259,7 @@ function getIntegerFromProperty(element) {
 }
 
 function animateStackCards() {
+  console.log('1-',this.marginY);
   if (isNaN(this.marginY)) {
     // --stack-cards-gap not defined - do not trigger the effect
     this.scrolling = false;
@@ -282,16 +283,13 @@ function animateStackCards() {
   }
 
   let previousElement = '';
-
   for (var i = 0; i < this.items.length; i++) {
     // use only scale
     var scrolling = this.cardTop - top - i * (this.cardHeight + this.marginY);
 
     if (scrolling > 0) {
-      var scaling =
-        i == this.items.length - 1
-          ? 1
-          : (this.cardHeight - scrolling * 0.05) / this.cardHeight;
+
+      var scaling = i == this.items.length - 1 ? 1 : (this.cardHeight - scrolling * 0.05) / this.cardHeight;
 
       if ((previousElement = this.items[i - 1])) {
 
@@ -302,19 +300,22 @@ function animateStackCards() {
 
         let opacity = previousElement.style.opacity;
 
-        if (!opacity && diff <= 12 && lastDirection.value == 'down') {
+        if (!opacity && diff == this.marginY && lastDirection.value == 'down') {
           previousElement.style.opacity = this.opacity;
+          previousElement.style.backdropFilter = 'blur(20px)';
+          previousElement.style.background = 'rgba(255, 255, 255, 0.50)';
           this.opacity -= 0.1;
         }
 
-        if (opacity && diff >= 12 && lastDirection.value == 'up') {
+        if (opacity && diff == this.marginY && lastDirection.value == 'up') {
           previousElement.style.removeProperty('opacity');
+          previousElement.style.removeProperty('backdropFilter');
+          previousElement.style.removeProperty('background');
           this.opacity += 0.1;
         }
       }
 
-      this.items[i].style.transform =
-        'translateY(' + this.marginY * i + 'px) scale(' + scaling + ')';
+      this.items[i].style.transform = 'translateY(' + this.marginY * i + 'px) scale(' + scaling + ')';
     } else {
       this.items[i].style.transform = 'translateY(' + this.marginY * i + 'px)';
     }
@@ -460,6 +461,10 @@ onMounted(async () => {
   padding-bottom: 50%;
   -webkit-transform-origin: center top;
   transform-origin: center top;
+}
+
+.process .process_item-href{
+  color: #DE745A;
 }
 
 .process .process_item_description {
@@ -722,6 +727,10 @@ onMounted(async () => {
   padding-bottom: 2rem;
 }
 
+.process_item-ul {
+  padding: 0;
+}
+
 .process .process_item_join_description {
   z-index: 1;
 }
@@ -756,8 +765,6 @@ onMounted(async () => {
 .process .process_item_join-vector {
   width: 10.4rem;
   height: 23.2rem;
-  background-image: url("data:image/svg+xml,%3Csvg width='104' height='104' viewBox='0 0 104 104' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath id='Vector 42' d='M39 104L0 65L19.5 45.5L39 65L104 0V39L39 104Z' fill='white'/%3E%3C/svg%3E%0A");
-  background-repeat: repeat-x;
   z-index: 1;
 }
 
@@ -943,7 +950,6 @@ onMounted(async () => {
   .process .process_item_join-vector {
     width: 16rem;
     height: 16rem;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160' fill='none'%3E%3Cpath d='M60 160L0 100L30 70L60 100L160 0V60L60 160Z' fill='white'/%3E%3C/svg%3E");
   }
 }
 
@@ -1167,7 +1173,6 @@ onMounted(async () => {
   .process .process_item_join-vector {
     width: 20rem;
     height: 20rem;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200' fill='none'%3E%3Cpath d='M75 200L0 125L37.5 87.5L75 125L200 0V75L75 200Z' fill='white'/%3E%3C/svg%3E");
   }
 }
 

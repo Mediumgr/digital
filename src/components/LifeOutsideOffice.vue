@@ -89,7 +89,7 @@
 <script setup>
 import json from '../assets/data/life.json';
 
-import { onMounted, ref } from 'vue';
+import {onMounted, ref} from 'vue';
 
 const data = json;
 var slider = ref('');
@@ -139,7 +139,7 @@ const showGallery = (event, code) => {
 
   galleryItem.forEach((item) => {
 
-    item.animate({ opacity: '1', 'transform': 'translateX(0rem)' }, {
+    item.animate({opacity: '1', 'transform': 'translateX(0rem)'}, {
       duration: 500,
       delay: sliderItemsDelay,
       iterations: 1,
@@ -150,25 +150,28 @@ const showGallery = (event, code) => {
   });
 }
 const getEventType = (e) => {
+
+  const result = {};
+
   if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') {
     var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
     var touch = evt.touches[0] || evt.changedTouches[0];
-    e.pageX = touch.pageX;
+    result.pageX = touch.pageX;
   } else if (e.type == 'mousedown' || e.type == 'mouseup' || e.type == 'mousemove' || e.type == 'mouseover' || e.type == 'mouseout' || e.type == 'mouseenter' || e.type == 'mouseleave') {
-    e.pageX = e.clientX;
+    result.pageX = e.clientX;
   }
-  return e;
+  return result;
 }
 
 const headerTextAnima = (entries, observer) => {
   entries.forEach((entry) => {
 
     // получаем свойства, которые доступны в объекте entry
-    const { target, isIntersecting } = entry;
+    const {target, isIntersecting} = entry;
 
     if (isIntersecting) {
 
-      target.animate({ opacity: '1' }, {
+      target.animate({opacity: '1'}, {
         duration: 2000,
         iterations: 1,
         fill: 'forwards'
@@ -185,11 +188,11 @@ const galleryAnima = (entries, observer) => {
   entries.forEach((entry) => {
 
     // получаем свойства, которые доступны в объекте entry
-    const { target, isIntersecting } = entry;
+    const {target, isIntersecting} = entry;
 
     if (isIntersecting) {
 
-      target.animate({ opacity: '1' }, {
+      target.animate({opacity: '1'}, {
         duration: 1000,
         iterations: 1,
         fill: 'forwards'
@@ -213,7 +216,7 @@ const dialogAnima = (entries, observer) => {
   entries.forEach((entry) => {
 
     // получаем свойства, которые доступны в объекте entry
-    const { target, isIntersecting } = entry;
+    const {target, isIntersecting} = entry;
 
     if (isIntersecting) {
 
@@ -236,7 +239,7 @@ const dialogAnima = (entries, observer) => {
 
       let msg = target.querySelectorAll('.life_messages_msg-group');
 
-      target.animate({ opacity: '1' }, {
+      target.animate({opacity: '1'}, {
         duration: 750,
         iterations: 1,
         delay: timingDialog.value,
@@ -250,14 +253,14 @@ const dialogAnima = (entries, observer) => {
         let loader = item.querySelector('.life_messages_loader');
         let msg = item.querySelector('.life_messages-msg');
 
-        loader.animate({ opacity: '1' }, {
+        loader.animate({opacity: '1'}, {
           duration: 750,
           iterations: 1,
           delay: timingDialog.value,
           fill: 'forwards'
         });
         timingDialog.value += 750;
-        msg.animate({ opacity: '1' }, {
+        msg.animate({opacity: '1'}, {
           duration: 750,
           iterations: 1,
           delay: timingDialog.value,
@@ -286,7 +289,7 @@ onMounted(async () => {
 
   // Отслеживаем вхождение в блок заголовков
   if (headerTextAnima.length) {
-    let observerHeaderText = new IntersectionObserver(headerTextAnima, { rootMargin: '0px' });
+    let observerHeaderText = new IntersectionObserver(headerTextAnima, {rootMargin: '0px'});
     headerText.forEach((item) => {
       observerHeaderText.observe(item);
     })
@@ -294,7 +297,7 @@ onMounted(async () => {
 
   // Отслеживаем вхождение в блок диалогов
   if (dialogs.length) {
-    let observerDialogs = new IntersectionObserver(dialogAnima, { root: null, threshold: [1] });
+    let observerDialogs = new IntersectionObserver(dialogAnima, {root: null, threshold: [1]});
     dialogs.forEach((item) => {
       observerDialogs.observe(item);
     });
@@ -302,7 +305,7 @@ onMounted(async () => {
 
   // Отслеживаем вхождение в блок галерегии
   if (gallery) {
-    let observerGallery = new IntersectionObserver(galleryAnima, { root: null, threshold: [1] });
+    let observerGallery = new IntersectionObserver(galleryAnima, {root: null, threshold: [1]});
     observerGallery.observe(gallery);
   }
 
@@ -339,21 +342,21 @@ onMounted(async () => {
       item.addEventListener('touchstart', (e) => {
         isDown = true;
 
-        e = getEventType(e);
+        let ePage = getEventType(e);
         item.classList.add('active');
-        startX = e.pageX - item.offsetLeft;
+        startX = ePage.pageX - item.offsetLeft;
         scrollLeft = item.scrollLeft;
       });
 
       item.addEventListener('touchmove', (e) => {
 
-                e = getEventType(e);
-                const x = e.pageX - item.offsetLeft;
-                const walk = (x - startX) * 2; //scroll-fast
-                item.scrollLeft = scrollLeft - walk;
-            });
-        })
-    }
+        let ePage = getEventType(e);
+        const x = ePage.pageX - item.offsetLeft;
+        const walk = (x - startX) * 2; //scroll-fast
+        item.scrollLeft = scrollLeft - walk;
+      });
+    })
+  }
 
 });
 </script>
