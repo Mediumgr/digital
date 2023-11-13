@@ -146,30 +146,45 @@
     <div class="wrapper">
       <h1 class="wrapper__title">Давай знакомиться</h1>
       <div class="wrapper__content">
-        <button class="wrapper__about" @mouseover="changeVideoSource('about')">
+        <button
+          class="wrapper__about"
+          @mouseover="changeVideoSource('about')"
+          @click.stop="scrollTo('aboutUs')"
+        >
           О нас
         </button>
         <button
           class="wrapper__projects"
           @mouseover="changeVideoSource('projects')"
+          @click.stop="scrollTo('stack')"
         >
           Проекты и стек
         </button>
         <button
           class="wrapper__office"
           @mouseover="changeVideoSource('office')"
+          @click.stop="scrollTo('offices')"
         >
           Офисы
         </button>
-        <button class="wrapper__work" @mouseover="changeVideoSource('working')">
+        <button
+          class="wrapper__work"
+          @mouseover="changeVideoSource('working')"
+          @click.stop="scrollTo('work')"
+        >
           Работа с нами
         </button>
-        <button class="wrapper__life" @mouseover="changeVideoSource('life')">
+        <button
+          class="wrapper__life"
+          @mouseover="changeVideoSource('life')"
+          @click.stop="scrollTo('life')"
+        >
           Жизнь вне офиса
         </button>
         <button
           class="wrapper__develop"
           @mouseover="changeVideoSource('develop')"
+          @click.stop="scrollTo('education')"
         >
           Развитие
         </button>
@@ -209,6 +224,42 @@ const titleLab = ref(false);
 const textLab = ref(null);
 const loadingTime = ref(800);
 let clientWidth = ref(document.documentElement.clientWidth);
+
+const scrollTo = (value) => {
+  let element;
+  let offsetElement;
+  switch (value) {
+    case "life":
+      element = document.querySelector(".life_header");
+      offsetElement = element.getBoundingClientRect().top;
+      break;
+    case "offices":
+      element = document.querySelector(".map-offices");
+      offsetElement = element.getBoundingClientRect().top;
+      break;
+    case "work":
+      element = document.querySelector(".process_item.process_item_video");
+      offsetElement = element.getBoundingClientRect().top;
+      break;
+    case "stack":
+      element = document.querySelector(".which-stack-to-use__title");
+      offsetElement = element.getBoundingClientRect().top;
+      break;
+    case "education":
+      element = document.querySelector(".education__heading");
+      offsetElement = element.getBoundingClientRect().top;
+      break;
+    case "aboutUs":
+      element = document.querySelector(".specialists__number");
+      offsetElement = element.getBoundingClientRect().top;
+      break;
+  }
+  let scrollToElement = offsetElement + window.scrollY;
+  window.scrollIntoView({
+    top: scrollToElement,
+    behavior: "smooth",
+  });
+};
 
 const changeVideoSource = (chapter) => {
   const source = videoSources.value[chapter];
@@ -250,7 +301,7 @@ const generatePsb = () => {
 
   setTimeout(() => {
     clearInterval(counterInterval);
-    // psbNode.value.remove();
+    psbNode.value.remove();
   }, 4000);
 };
 
@@ -276,7 +327,7 @@ const generateLab = (ms) => {
 
   setTimeout(() => {
     clearInterval(counterInterval);
-    // labNode.value.remove();
+    labNode.value.remove();
   }, 5000);
 };
 

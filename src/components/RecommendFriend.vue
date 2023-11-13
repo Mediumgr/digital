@@ -9,12 +9,14 @@
         <h1 class="recommend__title">Получи 100&nbsp;000&nbsp;₽</h1>
         <p class="recommend__sub-title">Рекомендуй друга в IT</p>
         <button class="recommend__button">
-          <p class="recommend__button_text">Заполнить заявку</p>
-          <img
-            class="recommend__button_img"
-            alt="Frame"
-            src="../assets/images/arrow_right.svg"
-          />
+          <a href="https://work.psblab.ru/" class="recommend__link" target="_blank">
+            <span class="recommend__button_text">Заполнить заявку</span>
+            <img
+              class="recommend__button_img"
+              alt="Frame"
+              src="../assets/images/arrow_right.svg"
+            />
+          </a>
         </button>
       </div>
     </div>
@@ -108,9 +110,6 @@
   }
 
   &__button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 23.3rem;
     height: 6rem;
     padding: 1rem 1rem 1rem 2rem;
@@ -159,6 +158,12 @@
         width: 6.9rem;
       }
     }
+  }
+  &__link {
+    color: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
