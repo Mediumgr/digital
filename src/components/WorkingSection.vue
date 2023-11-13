@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from "vue";
 
 const frame = ref(null);
 const title = ref(null);
@@ -38,34 +38,34 @@ const title = ref(null);
 const handleScroll = () => {
   const viewportTop = frame.value.getBoundingClientRect().top;
   if (viewportTop > 400 && viewportTop < 500) {
-    title.value.style.opacity = '1';
+    title.value.style.opacity = "1";
   } else if (viewportTop > 300 && viewportTop <= 400) {
-    title.value.style.opacity = '0.4';
+    title.value.style.opacity = "0.4";
   } else if (viewportTop <= 300) {
-    title.value.style.opacity = '0';
+    title.value.style.opacity = "0";
   }
 };
 
 const intersection = () => {
   let options = {
-    rootMargin: '0px 0px -250px 0px',
+    rootMargin: "0px 0px -250px 0px",
   };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const { target, isIntersecting } = entry;
       if (isIntersecting) {
-        target.classList.add('active');
+        target.classList.add("active");
       }
     });
   }, options);
 
-  let commonStyle = document.querySelectorAll('.commonStyle');
+  let commonStyle = document.querySelectorAll(".commonStyle");
   observer.observe(title.value);
   commonStyle.forEach((el) => observer.observe(el));
 };
 
 onMounted(() => {
-  document.addEventListener('scroll', () => {
+  document.addEventListener("scroll", () => {
     handleScroll();
   });
 
@@ -74,7 +74,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
 .frame__wrapper {
   grid-gap: 1rem;
   display: flex;
@@ -88,20 +87,20 @@ onMounted(() => {
     grid-gap: 1.5rem;
     grid-template-columns: repeat(2, auto);
     grid-template-areas:
-      'support eco'
-      'projects platform'
-      'bank bank'
-      'services clients'
-      'substitution credits';
+      "support eco"
+      "projects platform"
+      "bank bank"
+      "services clients"
+      "substitution credits";
   }
   @include mq(1440) {
     grid-gap: 2.8rem;
     grid-template-columns: repeat(3, auto);
     grid-template-areas:
-      'support eco projects'
-      'platform bank bank'
-      'services clients clients'
-      'substitution credits credits';
+      "support eco projects"
+      "platform bank bank"
+      "services clients clients"
+      "substitution credits credits";
   }
 }
 
@@ -140,7 +139,7 @@ onMounted(() => {
     position: sticky;
     top: 29rem;
     opacity: 0;
-    transition: opacity 1.2s ease;
+    transition: opacity 1s ease-out;
 
     color: #13144b;
     text-align: center;
@@ -148,6 +147,7 @@ onMounted(() => {
     font-style: normal;
     line-height: 90%;
     letter-spacing: -0.288rem;
+    padding-bottom: 2rem;
 
     @include mq(375) {
       margin: 0 auto;
@@ -158,6 +158,7 @@ onMounted(() => {
       font-size: 9.6rem;
       font-weight: 500;
       letter-spacing: -0.576rem;
+      padding-bottom: 4rem;
     }
     @include mq(1440) {
       width: 90rem;
@@ -298,5 +299,4 @@ onMounted(() => {
 .active {
   opacity: 1;
 }
-
 </style>
