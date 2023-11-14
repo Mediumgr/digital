@@ -16,7 +16,8 @@
           <div class="process_item_header">Оставь отклик</div>
           <ul class="process_item-ul">
             <li>
-              Посмотри актуальные вакансии на <a class="process_item-href" href="">Хабр Карьере</a> или заполни <a class="process_item-href" href="">анкету</a>
+              Посмотри актуальные вакансии на <a class="process_item-href" href="">Хабр Карьере</a> или заполни <a
+              class="process_item-href" href="">анкету</a>
               ниже
             </li>
             <li>Дождись нашего звонка</li>
@@ -129,7 +130,7 @@
                 </div>
               </div>
               <div class="bonuses_advantages_var2-text">
-                Компенсация билетов<br/>в путешествиях
+                Компенсация билетов в путешествиях
               </div>
             </div>
           </div>
@@ -140,7 +141,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import {onMounted, ref} from 'vue';
 
 let lastDirection = ref('');
 
@@ -259,7 +260,7 @@ function getIntegerFromProperty(element) {
 }
 
 function animateStackCards() {
-  console.log('1-',this.marginY);
+  console.log('1-', this.marginY);
   if (isNaN(this.marginY)) {
     // --stack-cards-gap not defined - do not trigger the effect
     this.scrolling = false;
@@ -463,7 +464,7 @@ onMounted(async () => {
   transform-origin: center top;
 }
 
-.process .process_item-href{
+.process .process_item-href {
   color: #DE745A;
 }
 
@@ -1073,11 +1074,12 @@ onMounted(async () => {
 
   .process .bonuses_advantages_var1 img {
     position: absolute;
-    width: 29.4rem;
-    height: 26.9rem;
-    top: 0;
-    left: 28.8rem;
     object-fit: cover;
+    right: 0px;
+    top: 0px;
+    height: unset;
+    width: 30rem;
+    left: unset;
   }
 
   .process .bonuses_advantages_var2 {
@@ -1186,52 +1188,52 @@ onMounted(async () => {
   }
 
   .process .process_item {
-    height: 86.6667rem;
+    height: 65rem;
   }
 
   .process .process_item_video-text {
-    font-size: 20rem;
+
     letter-spacing: -1.2rem;
   }
 
   .process .process_item_video-text2 {
-    font-size: 4.16rem;
+
   }
 
   .process .process_item_header-num {
-    font-size: 52rem;
+
   }
 
   .process .process_item_header {
-    font-size: 8.32rem;
+
   }
 
   .process .process_item_description li {
-    font-size: 3.12rem;
+
   }
 
   .process .process_item_join_description li {
-    font-size: 3.12rem;
+
   }
 
   .process .process_item_bonuses-header {
-    font-size: 8.32rem;
+
   }
 
   .process .process_item_bonuses-video-title {
-    font-size: 6.24rem;
+
   }
 
   .process .bonuses_advantages_var1-text {
-    font-size: 4.16rem;
+
   }
 
   .process .bonuses_advantages_var2-text {
-    font-size: 2.08rem;
+
   }
 
   .process .process_item_join_header {
-    font-size: 8.32rem;
+
   }
 
   .process .process_item_join-gradient {
@@ -1256,7 +1258,7 @@ onMounted(async () => {
   }
 
   .process .bonuses_advantages_var1 img {
-    left: 48.8rem;
+    width: 25rem;
   }
 
   .process .bonuses_advantages_var1-background {
@@ -1277,10 +1279,10 @@ onMounted(async () => {
   }
 
   .process .bonuses_advantages_var1 {
-    height: 57.7%;
+    height: calc(59% - 0.5rem);
   }
   .process .bonuses_advantages_var2 {
-    height: 42.3%;
+    height: calc(41% - 0.5rem);
   }
 }
 
