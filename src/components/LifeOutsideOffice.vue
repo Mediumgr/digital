@@ -702,7 +702,7 @@ onMounted(async () => {
   box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: row;
-  padding: 1rem;
+  padding: 0.5rem;
   max-width: 7.5rem;
   position: absolute;
   opacity: 0;
@@ -710,8 +710,8 @@ onMounted(async () => {
 
 .life_messages_loader-element {
   border-radius: 100%;
-  border: 0.5rem solid #d1d1d1;
-  margin: 0.5rem;
+  border: 0.2rem solid #d1d1d1;
+  margin: 0.2rem;
 }
 
 .life_messages_loader-element:nth-child(1) {
@@ -898,6 +898,25 @@ onMounted(async () => {
     padding: 16rem 4rem;
     gap: 8rem;
   }
+
+  /* -------------------- Лоадер -------------------- */
+  .life_messages_loader {
+    border-radius: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: row;
+    padding: 0.7rem;
+    max-width: 7.5rem;
+    position: absolute;
+    opacity: 0;
+  }
+
+  .life_messages_loader-element {
+    border-radius: 100%;
+    border: 0.3rem solid #d1d1d1;
+    margin: 0.3rem;
+  }
 }
 
 @include mq(1440) {
@@ -986,6 +1005,25 @@ onMounted(async () => {
     font-size: 2.4rem;
     line-height: 120%;
     letter-spacing: -0.072rem;
+  }
+
+  /* -------------------- Лоадер -------------------- */
+  .life_messages_loader {
+    border-radius: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    max-width: 8rem;
+    position: absolute;
+    opacity: 0;
+  }
+
+  .life_messages_loader-element {
+    border-radius: 100%;
+    border: 0.5rem solid #d1d1d1;
+    margin: 0.5rem;
   }
 }
 

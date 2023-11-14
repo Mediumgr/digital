@@ -5,6 +5,7 @@
         <video id="background-video" autoplay loop muted playsinline>
           <source src="../assets/video/process/process-b1.mp4" type="video/mp4"/>
         </video>
+        <div class="process_item-overlay50"></div>
         <div class="process_item_video-header">
           <div class="process_item_video-text">Давай работать вместе</div>
           <div class="process_item_video-text2">Как принимаем в команду</div>
@@ -81,6 +82,7 @@
                 type="video/mp4"
               />
             </video>
+            <div class="process_item-overlay30"></div>
             <p class="process_item_bonuses-video-title">
               Льготные условия<br/>для сотрудников <br/>по продуктам банка
             </p>
@@ -141,228 +143,105 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue';
+import { onMounted } from 'vue';
 
-let lastDirection = ref('');
+var cards = '';
+var list = '';
 
-const osHasReducedMotion = () => {
-  if (!window.matchMedia) return false;
-  var matchMediaObj = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (matchMediaObj) return matchMediaObj.matches;
-  return false;
-};
-
-const StackCards = function (element) {
-  this.element = element;
-  this.items = this.element.getElementsByClassName('process_item');
-  this.scrollingFn = false;
-  this.scrolling = false;
-  this.opacity = 1;
-  initStackCardsEffect(this);
-  initStackCardsResize(this);
-};
+function moduleAnimation() {
+  console.log(list);
+  console.log('scroll event');
 
 
-function initStackCardsEffect(element) {
-  // use Intersection Observer to trigger animation
-  setStackCards(element); // store cards CSS properties
-  var observer = new IntersectionObserver(stackCardsCallback.bind(element), {
-    threshold: [0, 1],
-  });
-  observer.observe(element.element);
-}
+  var opacity = '1';
 
-function initStackCardsResize(element) {
-  // detect resize to reset gallery
-  element.element.addEventListener('resize-stack-cards', function () {
-    setStackCards(element);
-    animateStackCards.bind(element);
-  });
-}
+  var top = list.getBoundingClientRect().top;
+  var height = list.offsetHeight;
+  console.log(height);
+  cards[cards.length - 1].style.transform = 'translateY(60px)';
+  cards.forEach((card, i) => {
 
-function stackCardsCallback(entries) {
-  // Intersection Observer callback
-  if (entries[0].isIntersecting) {
-    if (this.scrollingFn) return; // listener for scroll event already added
-    stackCardsInitEvent(this);
-  } else {
-    if (!this.scrollingFn) return; // listener for scroll event already removed
-    window.removeEventListener('scroll', this.scrollingFn);
-    this.scrollingFn = false;
-  }
-}
+    var cardTop = Math.floor(parseFloat(getComputedStyle(card).getPropertyValue('top')));
+    console.log(cardTop);
+    var height = card.offsetHeight;
+    var scrolling = cardTop - top - i * (height);
 
-function stackCardsInitEvent(element) {
-  element.scrollingFn = stackCardsScrolling.bind(element);
-  window.addEventListener('scroll', element.scrollingFn);
-}
 
-function handleScroll() {
-  if (window.scrollY > this.lastScrollTop || 0) {
-    lastDirection.value = 'down';
-  } else if (window.scrollY < this.lastScrollTop) {
-    lastDirection.value = 'up';
-  }
-  this.lastScrollTop = window.scrollY;
-}
+    var scaling = i == cards.length - 1 ? 1 : (height - scrolling * 0.05) / height;
+     scaling = (scaling > 1 ? 1 : scaling);
 
-function stackCardsScrolling() {
-  if (this.scrolling) return;
-  this.scrolling = true;
-  window.requestAnimationFrame(animateStackCards.bind(this));
-}
+    let ele2 = card.nextElementSibling;
 
-function setStackCards(element) {
-  // store wrapper properties
-  element.marginY = getComputedStyle(element.element).getPropertyValue(
-    '--stack-cards-gap'
-  );
-  getIntegerFromProperty(element); // convert element.marginY to integer (px value)
-  element.elementHeight = element.element.offsetHeight;
+    const boundings1 = card.getBoundingClientRect();
+    if(ele2) {
+      const boundings2 = ele2.getBoundingClientRect();
 
-  // store card properties
-  var cardStyle = getComputedStyle(element.items[0]);
-  element.cardTop = Math.floor(parseFloat(cardStyle.getPropertyValue('top')));
-  element.cardHeight = Math.floor(
-    parseFloat(cardStyle.getPropertyValue('height'))
-  );
+      const card1 = parseInt(boundings1.top);
+      const height1 = parseInt(boundings1.height);
 
-  // store window property
-  element.windowHeight = window.innerHeight;
+      const top2 = parseInt(boundings2.top);
 
-  // reset margin + translate values
-  if (isNaN(element.marginY)) {
-    element.element.style.paddingBottom = '0px';
-  } else {
-    element.element.style.paddingBottom =
-      element.marginY * (element.items.length - 1) + 'px';
-  }
+      const overlap = 1 - (top2 - card1) / height1;
+      console.log('overlap-', overlap);
 
-  for (var i = 0; i < element.items.length; i++) {
-    if (isNaN(element.marginY)) {
-      element.items[i].style.transform = 'none;';
-    } else {
-      element.items[i].style.transform =
-        'translateY(' + element.marginY * i + 'px)';
+      card.style.transform = card.style.transform = 'translateY(' + 10 * i + 'px) scale(' + scaling + ')';
+
+      if (overlap >= 0.95) {
+        card.style.opacity = opacity;
+        card.style.backdropFilter = 'blur(20px)';
+        card.style.background = 'rgba(255, 255, 255, 0.50)';
+        opacity-= '0.1';
+      }else{
+        card.style.opacity = '1';
+        card.style.removeProperty('backdropFilter');
+        card.style.removeProperty('background');
+      }
     }
-  }
+
+
+
+
+    /*
+    const scale = clamp((list.scrollTop + i * 72) / 100, 0, 1);
+    const opacity = clamp((list.scrollTop + i * 72) / 60, 0, 1);
+    card.style.transform = `scale(${scale})`;
+    card.style.opacity = `${opacity}`;
+
+     */
+  });
 }
+onMounted(async () => {
 
-function getIntegerFromProperty(element) {
-  var node = document.createElement('div');
-  node.setAttribute(
-    'style',
-    'opacity:0; visbility: hidden;position: absolute; height:' + element.marginY
-  );
-  element.element.appendChild(node);
-  element.marginY = parseInt(getComputedStyle(node).getPropertyValue('height'));
-  element.element.removeChild(node);
-}
+  cards = document.querySelectorAll(".process_item");
+  list = document.querySelector(".process-wrapper");
+  let observerGallery = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
 
-function animateStackCards() {
-  console.log('1-', this.marginY);
-  if (isNaN(this.marginY)) {
-    // --stack-cards-gap not defined - do not trigger the effect
-    this.scrolling = false;
-    return;
-  }
+      // получаем свойства, которые доступны в объекте entry
+      const { target, isIntersecting } = entry;
 
-  var top = this.element.getBoundingClientRect().top;
+      console.log(isIntersecting);
+      if (entry.isIntersecting) {
+        window.addEventListener('scroll', moduleAnimation, true);
+        console.log('if');
+      } else {
+        window.removeEventListener('scroll', moduleAnimation, true);
+        console.log('else');
+      }
+      if (isIntersecting) {
 
-  if (
-    this.cardTop -
-    top +
-    this.element.windowHeight -
-    this.elementHeight -
-    this.cardHeight +
-    this.marginY +
-    this.marginY * this.items.length >
-    0
-  ) {
-    this.scrolling = false;
-    return;
-  }
 
-  let previousElement = '';
-  for (var i = 0; i < this.items.length; i++) {
-    // use only scale
-    var scrolling = this.cardTop - top - i * (this.cardHeight + this.marginY);
+        console.log(target);
 
-    if (scrolling > 0) {
-
-      var scaling = i == this.items.length - 1 ? 1 : (this.cardHeight - scrolling * 0.05) / this.cardHeight;
-
-      if ((previousElement = this.items[i - 1])) {
-
-        var scaleX = this.items[i].getBoundingClientRect().top;
-        var scaleX1 = previousElement.getBoundingClientRect().top;
-
-        let diff = scaleX - scaleX1;
-
-        let opacity = previousElement.style.opacity;
-
-        if (!opacity && diff == this.marginY && lastDirection.value == 'down') {
-          previousElement.style.opacity = this.opacity;
-          previousElement.style.backdropFilter = 'blur(20px)';
-          previousElement.style.background = 'rgba(255, 255, 255, 0.50)';
-          this.opacity -= 0.1;
-        }
-
-        if (opacity && diff == this.marginY && lastDirection.value == 'up') {
-          previousElement.style.removeProperty('opacity');
-          previousElement.style.removeProperty('backdropFilter');
-          previousElement.style.removeProperty('background');
-          this.opacity += 0.1;
-        }
+        // Убираем отслеживание
+        // observer.unobserve(entry.target);
       }
 
-      this.items[i].style.transform = 'translateY(' + this.marginY * i + 'px) scale(' + scaling + ')';
-    } else {
-      this.items[i].style.transform = 'translateY(' + this.marginY * i + 'px)';
-    }
-  }
-
-  this.scrolling = false;
-}
-
-onMounted(async () => {
-  var stackCards = document.getElementsByClassName('process-wrapper'),
-    intersectionObserverSupported =
-      'IntersectionObserver' in window &&
-      'IntersectionObserverEntry' in window &&
-      'intersectionRatio' in window.IntersectionObserverEntry.prototype,
-    reducedMotion = osHasReducedMotion();
-
-  if (
-    stackCards.length > 0 &&
-    intersectionObserverSupported &&
-    !reducedMotion
-  ) {
-    var stackCardsArray = [];
-    for (var i = 0; i < stackCards.length; i++) {
-      (function (i) {
-        stackCardsArray.push(new StackCards(stackCards[i]));
-      })(i);
-    }
-
-    var resizingId = false,
-      customEvent = new CustomEvent('resize-stack-cards');
-
-    window.addEventListener('resize', function () {
-      clearTimeout(resizingId);
-      resizingId = setTimeout(doneResizing, 500);
     });
-  }
+  }, {   rootMargin: "0px",
+    threshold: 0.1, });
+  observerGallery.observe(document.querySelector(".process-wrapper"));
 
-  function doneResizing() {
-    for (var i = 0; i < stackCardsArray.length; i++) {
-      (function (i) {
-        stackCardsArray[i].element.dispatchEvent(customEvent);
-      })(i);
-    }
-  }
-
-  window.addEventListener('scroll', handleScroll);
 });
 </script>
 
@@ -409,6 +288,24 @@ onMounted(async () => {
   width: 100%;
   height: 100%;
   object-position: left;
+}
+
+.process .process_item .process_item-overlay50,
+.process .process_item .process_item-overlay30{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.process .process_item .process_item-overlay50 {
+  background: rgba(0, 0, 0, 0.50);
+}
+
+.process .process_item .process_item-overlay30 {
+  background: rgba(0, 0, 0, 0.30);
 }
 
 .process .process_item_video-header {
@@ -462,6 +359,8 @@ onMounted(async () => {
   padding-bottom: 50%;
   -webkit-transform-origin: center top;
   transform-origin: center top;
+
+  max-height: calc(var(--vh, 1vh) * 90);
 }
 
 .process .process_item-href {
@@ -713,7 +612,7 @@ onMounted(async () => {
   align-items: flex-start;
   padding: 4rem 3rem !important;
   position: relative;
-  border-radius: 5rem;
+  border-radius: 4rem;
   overflow: hidden;
 }
 
