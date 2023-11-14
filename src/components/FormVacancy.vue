@@ -578,10 +578,10 @@ onMounted(() => {
       margin-bottom: 20rem;
     }
 
-    @include mq(1920) {
+ /*    @include mq(1920) {
       width: 145rem;
       margin-bottom: 26.7rem;
-    }
+    } */
   }
 
   &__title {
@@ -605,11 +605,11 @@ onMounted(() => {
       padding: 20rem 0 10rem;
     }
 
-    @include mq(1920) {
+  /*   @include mq(1920) {
       font-size: 20rem;
       letter-spacing: -1.2rem;
       padding: 26.7rem 0 13.3rem;
-    }
+    } */
   }
 
   &__card {
@@ -634,12 +634,12 @@ onMounted(() => {
       width: 51.4rem;
       margin-bottom: 0;
     }
-
+/*
     @include mq(1920) {
       padding: 5.3rem;
       height: 88.5rem;
       width: 68.5rem;
-    }
+    } */
   }
 
   &__look {
@@ -656,10 +656,6 @@ onMounted(() => {
     @include mq(1440) {
       font-size: 6.4rem;
       line-height: 100%;
-      letter-spacing: -0.256rem;
-    }
-
-    @include mq(1920) {
       letter-spacing: -0.256rem;
     }
   }
@@ -694,6 +690,11 @@ onMounted(() => {
       width: 2.9rem;
       height: 2.9rem;
       background: url("../assets/images/vacancies/arrow_765.svg") no-repeat;
+    }
+
+    @include mq(1024) {
+      height: 3.5rem;
+      width: 3.5rem;
     }
 
     @include mq(1440) {
@@ -732,11 +733,11 @@ onMounted(() => {
     justify-content: space-between;
   }
 
-  @include mq(1920) {
+/*   @include mq(1920) {
     padding: 5.3rem;
     height: 88.5rem;
     width: 68.5rem;
-  }
+  } */
 
   & .title {
     color: #13144b;
@@ -757,11 +758,11 @@ onMounted(() => {
       margin-bottom: 2.5rem;
     }
 
-    @include mq(1920) {
+/*     @include mq(1920) {
       font-size: 6.4rem;
       letter-spacing: -0.192rem;
       margin-bottom: 3.5rem;
-    }
+    } */
   }
 }
 
@@ -785,13 +786,13 @@ onMounted(() => {
     height: 9.4rem;
   }
 
-  @include mq(1920) {
+/*   @include mq(1920) {
     width: 57.9rem;
     height: 12.7rem;
     padding: 2.7rem;
     border-radius: 2.7rem;
     border: 0.13rem dashed rgba(19, 20, 75, 0.2);
-  }
+  } */
 
   &.active {
     background-color: #f9f9f9;
@@ -815,10 +816,10 @@ onMounted(() => {
       letter-spacing: -0.064rem;
     }
 
-    @include mq(1920) {
+/*     @include mq(1920) {
       font-size: 2.1rem;
       letter-spacing: -0.0853rem;
-    }
+    } */
   }
 
   &__placeholder {
@@ -840,10 +841,10 @@ onMounted(() => {
       letter-spacing: -0.064rem;
     }
 
-    @include mq(1920) {
+ /*    @include mq(1920) {
       font-size: 2.1rem;
       letter-spacing: -0.0853rem;
-    }
+    } */
   }
 
   &__text {
@@ -866,11 +867,11 @@ onMounted(() => {
       padding: 0 0 2rem;
     }
 
-    @include mq(1920) {
+/*     @include mq(1920) {
       padding: 0.3rem 0 2.5rem;
       font-size: 2.1rem;
       letter-spacing: -0.0853rem;
-    }
+    } */
   }
 
   &__btn {
@@ -909,7 +910,7 @@ onMounted(() => {
       width: var(--size);
       height: var(--size);
       background: radial-gradient(
-          15% 88.6% at 50.5% 25.85%,
+          15% 88.6% at 40.5% 25.85%,
           #ff4236 0%,
           rgba(142, 84, 245, 0) 155%
         ),
@@ -932,13 +933,6 @@ onMounted(() => {
       width: 43.4rem;
       line-height: 140%;
       letter-spacing: -0.064rem;
-    }
-
-    @include mq(1920) {
-      border-radius: 2.7rem;
-      font-size: 2.1rem;
-      width: 57.9rem;
-      letter-spacing: -0.08499999999999999rem;
     }
   }
 }

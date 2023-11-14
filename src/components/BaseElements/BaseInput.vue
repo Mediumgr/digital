@@ -87,7 +87,7 @@ const onBlur = () => {
   line-height: 140%;
   letter-spacing: -0.064rem;
   padding: 1.5rem 2rem;
-  width: 29.5rem;
+  width: 100%;
   height: 4.6rem;
   border-radius: 2rem;
   border: 0.1rem solid rgba(19, 20, 75, 0.2);
@@ -95,23 +95,14 @@ const onBlur = () => {
   outline: none;
   @include mq(768) {
     padding: 2rem;
-    width: 60.8rem;
     height: 5.9rem;
     font-size: 1.6rem;
   }
 
   @include mq(1440) {
     padding: 1.5rem 2rem;
-    width: 43.4rem;
     height: 5.2rem;
     margin-bottom: 0;
-  }
-
-  @include mq(1920) {
-    padding: 2rem 2.7rem;
-    width: 57.9rem;
-    height: 6rem;
-    font-size: 2.1rem;
   }
 }
 

@@ -8,8 +8,12 @@
       <div class="recommend__content">
         <h1 class="recommend__title">Получи 100&nbsp;000&nbsp;₽</h1>
         <p class="recommend__sub-title">Рекомендуй друга в IT</p>
-        <button class="recommend__button">
-          <a href="https://work.psblab.ru/" class="recommend__link" target="_blank">
+        <button class="recommend__button" @mousemove="mousemove($event)">
+          <a
+            href="https://work.psblab.ru/"
+            class="recommend__link"
+            target="_blank"
+          >
             <span class="recommend__button_text">Заполнить заявку</span>
             <img
               class="recommend__button_img"
@@ -23,7 +27,15 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const mousemove = (e) => {
+  let btn = document.querySelector(".recommend__button");
+  let x = e.pageX - btn.offsetLeft;
+  let y = e.pageY - btn.offsetTop;
+  btn.style.setProperty("--x", x / 10 + "rem");
+  btn.style.setProperty("--y", y / 1000 + "rem");
+};
+</script>
 
 <style lang="scss" scoped>
 .recommend {
@@ -34,9 +46,6 @@
     }
     @include mq(1440) {
       margin: 20rem 8rem;
-    }
-    @include mq(1920) {
-      margin: 26.7rem 10.7rem;
     }
   }
 
@@ -53,15 +62,13 @@
     @include mq(1440) {
       padding: 0 30rem;
     }
-    @include mq(1920) {
-      padding: 0 40rem;
-    }
   }
 
   &__title {
     color: var(--color-white);
     text-align: center;
     font-size: 4.8rem;
+    font-weight: 500;
     line-height: 100%;
     letter-spacing: -0.288rem;
     margin: 0;
@@ -75,11 +82,6 @@
       font-size: 15rem;
       letter-spacing: -0.9rem;
       padding-bottom: 4rem;
-    }
-    @include mq(1920) {
-      font-size: 20rem;
-      letter-spacing: -1.2rem;
-      padding-bottom: 5.3rem;
     }
   }
 
@@ -102,14 +104,12 @@
       letter-spacing: -0.36rem;
       opacity: 0.7;
     }
-    @include mq(1920) {
-      font-size: 8rem;
-      letter-spacing: -0.48rem;
-      padding-bottom: 10.6rem;
-    }
   }
 
   &__button {
+    transition: all 200ms ease;
+    position: relative;
+    overflow: hidden;
     width: 23.3rem;
     height: 6rem;
     padding: 1rem 1rem 1rem 2rem;
@@ -119,6 +119,37 @@
     color: var(--color-white);
     background: #4958ff;
     cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 1.1rem 3rem rgba(25, 25, 25, 0.25);
+      background: #424ed1;
+
+      &::before {
+        --size: 70vw;
+      }
+    }
+
+    &::before {
+      --size: 0;
+      content: "";
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: var(--size);
+      height: var(--size);
+      background: radial-gradient(
+          15% 88.6% at 35.5% 55.85%,
+          #ff4236 0%,
+          rgba(142, 84, 245, 0) 155%
+        ),
+        #424ed1;
+      transform: translate(-50%, -50%);
+    }
+
+    & > .recommend__link {
+      position: relative;
+    }
+
     @include mq(768) {
       width: 34.3rem;
       height: 8.9rem;
@@ -128,11 +159,6 @@
       width: 40.6rem;
       height: 10.1rem;
       padding: 1.6rem 1.6rem 1.6rem 3.6rem;
-    }
-    @include mq(1920) {
-      width: 54.1rem;
-      height: 13.4rem;
-      padding: 2.1rem 2.1rem 2.1rem 4.8rem;
     }
 
     &_text {
@@ -146,10 +172,6 @@
       @include mq(1440) {
         font-size: 3.2rem;
         letter-spacing: -0.096rem;
-      }
-      @include mq(1920) {
-        font-size: 4.3rem;
-        letter-spacing: -0.128rem;
       }
     }
 
@@ -184,9 +206,6 @@
   }
   @include mq(1440) {
     height: 73.5rem;
-  }
-  @include mq(1920) {
-    height: 98.1rem;
   }
 }
 
@@ -260,14 +279,14 @@
       gradientPurple_1440 8s ease infinite;
   }
 
-  @include mq(1920) {
+  /*   @include mq(1920) {
     height: 300rem;
     width: 300rem;
     top: -80rem;
     left: -30rem;
     animation: slideInGradient 1.5s ease forwards,
       gradientPurple_1920 8s ease infinite;
-  }
+  } */
 
   @include mq(2560) {
     top: -110rem;
