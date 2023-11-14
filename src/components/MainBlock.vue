@@ -1079,20 +1079,17 @@ onMounted(async () => {
   animation: slideInVideo 1s ease-out forwards;
 
   @include mq(425) {
-    // margin-top: -48.6rem;
+    margin-top: -48.6rem;
   }
   @include mq(768) {
-    // margin-top: -50.4rem;
+    margin-top: -50.4rem;
   }
 
   @include mq(1024) {
-    // margin-top: -37.7rem;
+    margin-top: -37.7rem;
   }
   @include mq(1440) {
-    // margin-top: -28.1rem;
-    margin-top: 0;
-    position: relative;
-    top: -10rem;
+    margin-top: -28.1rem;
   }
 
   /*   @include mq(1920) {
@@ -1184,12 +1181,12 @@ header {
 
   @include mq(1024) {
     height: 90rem;
-    height: calc(var(--vh, 1vh) * 100); //
+    // position: static;
   }
 
-  @include mq(1920) {
+  /*   @include mq(1920) {
     height: 120rem;
-  }
+  } */
 }
 
 .gradient-group .blue {
