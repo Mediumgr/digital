@@ -2,7 +2,7 @@
   <div v-if="!!status.connection && status.connection === true">
     <div class="success__container">
       <img
-        src="../assets/images/status_good.svg"
+        src="../assets/images/vacancies/status_good.svg"
         alt="status ok"
         class="success__image"
       />
@@ -16,7 +16,7 @@
     <div class="error__container">
       <div class="error__connection">
         <img
-          src="../assets/images/status_bad.svg"
+          src="../assets/images/vacancies/status_bad.svg"
           alt="status Nok"
           class="error__image"
         />
@@ -31,7 +31,7 @@
   <div v-if="status.server.failure">
     <div class="success__container">
       <img
-        src="../assets/images/status_bad.svg"
+        src="../assets/images/vacancies/status_bad.svg"
         alt="status Nok"
         class="success__image"
       />

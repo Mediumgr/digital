@@ -11,7 +11,7 @@
           <header v-show="showNavbar">
             <nav class="navbar">
               <div class="navbar__container">
-                <img src="@/assets/images/logo_1.svg" alt="logo" />
+                <img src="@/assets/images/mainblock/logo_1.svg" alt="logo" />
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@
                     fill="white"
                   />
                 </svg>
-                <img src="@/assets/images/logo_2.svg" alt="logo" />
+                <img src="@/assets/images/mainblock/logo_2.svg" alt="logo" />
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@
                     fill="white"
                   />
                 </svg>
-                <img src="@/assets/images/logo_3.svg" alt="logo" />
+                <img src="@/assets/images/mainblock/logo_3.svg" alt="logo" />
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@
               <div class="menu__links">
                 <div class="menu__burger">
                   <img
-                    src="@/assets/images/burger.png"
+                    src="@/assets/images/mainblock/burger.png"
                     alt="menu"
                     @click="checked()"
                     class="switcher"
@@ -83,17 +83,17 @@
             <ul class="menu__list">
               <span class="section__links-line"></span>
               <li class="section__links-item">
-                <a class="link" target="_blank" href="https://habr.com/"
+                <a class="link" target="_blank" href="https://habr.com/ru/companies/psb/articles/"
                   >Хабр</a
                 >
               </li>
               <li class="section__links-item">
-                <a class="link" target="_blank" href="https://rutube.ru/"
+                <a class="link" target="_blank" href="https://rutube.ru/plst/232091/"
                   >Rutube</a
                 >
               </li>
               <li class="section__links-item">
-                <a class="link" target="_blank" href="https://web.telegram.org/"
+                <a class="link" target="_blank" href="https://t.me/psb_it_team"
                   >Телеграм</a
                 >
               </li>
@@ -139,7 +139,7 @@
       muted
       playsinline
       loop="loop"
-      poster="../assets/images/poster_1.png"
+      poster="../assets/images/mainblock/poster_1.png"
     >
       <source :src="videoSrc" type="video/mp4" />
     </video>
@@ -638,14 +638,14 @@ onMounted(async () => {
     border: 0.1rem solid rgba(255, 255, 255, 0.2);
     border-radius: 5rem;
     background-color: rgba(255, 255, 255, 0.2);
-    background-image: url("../assets/images/arrow_down.svg");
+    background-image: url("../assets/images/mainblock/arrow_down.svg");
     background-position: center center;
     background-repeat: no-repeat;
     transition: opacity 4s ease;
     @include mq(768) {
       width: 6.4rem;
       height: 6.4rem;
-      background-image: url("../assets/images/arrow_down_768.svg");
+      background-image: url("../assets/images/mainblock/arrow_down_768.svg");
     }
   }
 }

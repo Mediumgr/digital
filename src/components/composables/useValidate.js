@@ -1,7 +1,7 @@
 export const useValidate = (options) => {
   const { name, email, tel, file, regExp, errors } = options;
 
-  if (regExp.value.name.test(name.value.text)) {
+  if (regExp.value.name.test(name.value.text.trimRight())) {
     errors.value['name'] = '';
   } else {
     errors.value['name'] = 'error';
