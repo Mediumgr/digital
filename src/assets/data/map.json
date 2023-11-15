@@ -6,6 +6,10 @@
       "id": "moscow",
       "name": "Москва",
       "img": "moscow.jpg",
+      "link": {
+        "text": "Смотреть вакансии",
+        "href": "https://career.habr.com/companies/psb/vacancies"
+      },
       "tabs": [
         {
           "name": "Разработка",
@@ -87,6 +91,10 @@
       "id": "san-petersburg",
       "name": "Санкт-Петербург",
       "img": "san-petersburg.jpg",
+      "link": {
+        "text": "Смотреть вакансии",
+        "href": "https://career.habr.com/companies/psb/vacancies"
+      },
       "tabs": [
         {
           "name": "Разработка",
@@ -119,6 +127,10 @@
       "id": "izhevsk",
       "name": "Ижевск",
       "img": "izhevsk.jpg",
+      "link": {
+        "text": "Смотреть вакансии",
+        "href": "https://career.habr.com/companies/psb/vacancies"
+      },
       "tabs": [
         {
           "name": "Сопровождение",
@@ -141,6 +153,10 @@
       "id": "yaroslavl",
       "name": "Ярославль",
       "img": "yaroslavl.jpg",
+      "link": {
+        "text": "Смотреть вакансии",
+        "href": "https://career.habr.com/companies/psb/vacancies"
+      },
       "tabs": [
         {
           "name": "Сопровождение",
@@ -163,6 +179,10 @@
       "id": "sevastopol",
       "name": "Севастополь",
       "img": "sevastopol.jpg",
+      "link": {
+        "text": "Смотреть вакансии",
+        "href": "https://career.habr.com/companies/psb/vacancies"
+      },
       "tabs": [
         {
           "name": "Разработка",
@@ -195,6 +215,10 @@
       "id": "tolyatti",
       "name": "Тольятти",
       "img": "tolyatti.jpg",
+      "link": {
+        "text": "Смотреть вакансии",
+        "href": "https://career.habr.com/companies/psb/vacancies"
+      },
       "tabs": [
         {
           "name": "Сопровождение",
@@ -217,6 +241,10 @@
       "id": "samara",
       "name": "Самара",
       "img": "samara.jpg",
+      "link": {
+        "text": "Смотреть вакансии",
+        "href": "https://career.habr.com/companies/psb/vacancies"
+      },
       "tabs": [
         {
           "name": "Разработка",

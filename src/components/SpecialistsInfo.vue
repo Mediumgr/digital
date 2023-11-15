@@ -11,20 +11,20 @@
     </p>
   </div>
 
-<!--  <div ref="gradientCanvas" class="gradient-group__canvas">-->
-<!--    <div class="blue"></div>-->
-<!--    <div class="purple"></div>-->
-<!--    <div class="red"></div>-->
-<!--    <div class="yellow"></div>-->
-<!--    <div class="canvas__wrapper">-->
-<!--      <canvas class="canvas" id="canvas"></canvas>-->
-<!--      &lt;!&ndash; <span class="text">Для тех,<br />кто ценит</span> &ndash;&gt;-->
-<!--    </div>-->
-<!--  </div>-->
+  <!--  <div ref="gradientCanvas" class="gradient-group__canvas">-->
+  <!--    <div class="blue"></div>-->
+  <!--    <div class="purple"></div>-->
+  <!--    <div class="red"></div>-->
+  <!--    <div class="yellow"></div>-->
+  <!--    <div class="canvas__wrapper">-->
+  <!--      <canvas class="canvas" id="canvas"></canvas>-->
+  <!--      &lt;!&ndash; <span class="text">Для тех,<br />кто ценит</span> &ndash;&gt;-->
+  <!--    </div>-->
+  <!--  </div>-->
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from "vue";
 
 let number = ref(null);
 let specialists = ref(null);
@@ -246,17 +246,24 @@ let text = ref(null);
 const intersection = () => {
   number.value.style.opacity =
     specialists.value.style.opacity =
-      info.value.style.opacity =
-        text.value.style.opacity =
-          '0';
+    info.value.style.opacity =
+    text.value.style.opacity =
+      "0";
   let options = {
-    rootMargin: '0px 0px -100px 0px',
+    rootMargin: "0px 0px -100px 0px",
   };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const { target, isIntersecting } = entry;
       if (isIntersecting) {
-        target.style.opacity = '1';
+        const info =
+          target.classList.contains("specialists__info_title") ||
+          target.classList.contains("specialists__info_text");
+        if (info) {
+          target.style.opacity = "0.8";
+        } else {
+          target.style.opacity = "1";
+        }
       }
     });
   }, options);
@@ -291,7 +298,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
 .gradient-group__canvas {
   overflow: hidden;
   position: relative;
@@ -338,23 +344,23 @@ onMounted(() => {
 
 .gradient-group__canvas .purple {
   background: radial-gradient(
-      50% 50% at 50% 50%,
-      rgb(143, 20, 186) 0%,
-      rgba(143, 20, 186, 0.99) 11.79%,
-      rgba(143, 20, 186, 0.97) 21.38%,
-      rgba(143, 20, 186, 0.93) 29.12%,
-      rgba(143, 20, 186, 0.88) 35.34%,
-      rgba(143, 20, 186, 0.82) 40.37%,
-      rgba(143, 20, 186, 0.75) 44.56%,
-      rgba(143, 20, 186, 0.67) 48.24%,
-      rgba(143, 20, 186, 0.59) 51.76%,
-      rgba(143, 20, 186, 0.5) 55.44%,
-      rgba(143, 20, 186, 0.41) 59.63%,
-      rgba(143, 20, 186, 0.33) 64.66%,
-      rgba(143, 20, 186, 0.24) 70.88%,
-      rgba(143, 20, 186, 0.15) 78.62%,
-      rgba(143, 20, 186, 0.07) 88.21%,
-      rgba(143, 20, 186, 0) 100%
+    50% 50% at 50% 50%,
+    rgb(143, 20, 186) 0%,
+    rgba(143, 20, 186, 0.99) 11.79%,
+    rgba(143, 20, 186, 0.97) 21.38%,
+    rgba(143, 20, 186, 0.93) 29.12%,
+    rgba(143, 20, 186, 0.88) 35.34%,
+    rgba(143, 20, 186, 0.82) 40.37%,
+    rgba(143, 20, 186, 0.75) 44.56%,
+    rgba(143, 20, 186, 0.67) 48.24%,
+    rgba(143, 20, 186, 0.59) 51.76%,
+    rgba(143, 20, 186, 0.5) 55.44%,
+    rgba(143, 20, 186, 0.41) 59.63%,
+    rgba(143, 20, 186, 0.33) 64.66%,
+    rgba(143, 20, 186, 0.24) 70.88%,
+    rgba(143, 20, 186, 0.15) 78.62%,
+    rgba(143, 20, 186, 0.07) 88.21%,
+    rgba(143, 20, 186, 0) 100%
   );
   border-radius: 13rem;
   position: absolute;
@@ -365,7 +371,7 @@ onMounted(() => {
     top: -40rem;
     left: -40rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_375 8s ease infinite;
+      gradientPurple_375 8s ease infinite;
   }
 
   @include mq(768) {
@@ -374,7 +380,7 @@ onMounted(() => {
     top: -40rem;
     left: -35rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_768 8s ease infinite;
+      gradientPurple_768 8s ease infinite;
   }
 
   @include mq(1024) {
@@ -383,7 +389,7 @@ onMounted(() => {
     top: -70rem;
     left: -35rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_1024 8s ease infinite;
+      gradientPurple_1024 8s ease infinite;
   }
 
   @include mq(1440) {
@@ -392,7 +398,7 @@ onMounted(() => {
     top: -80rem;
     left: -50rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_1440 8s ease infinite;
+      gradientPurple_1440 8s ease infinite;
   }
 
   @include mq(1920) {
@@ -401,36 +407,36 @@ onMounted(() => {
     top: -80rem;
     left: -30rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_1920 8s ease infinite;
+      gradientPurple_1920 8s ease infinite;
   }
 
   @include mq(2560) {
     top: -110rem;
     left: -60rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_2560 8s ease infinite;
+      gradientPurple_2560 8s ease infinite;
   }
 }
 
 .gradient-group__canvas .red {
   background: radial-gradient(
-      50% 50% at 50% 50%,
-      rgb(255, 80, 48) 0%,
-      rgba(254.66, 79.88, 48.43, 0.99) 11.3%,
-      rgba(253.67, 79.55, 49.67, 0.97) 21.16%,
-      rgba(252.1, 79.01, 51.63, 0.93) 29.76%,
-      rgba(250.01, 78.3, 54.24, 0.89) 37.27%,
-      rgba(247.46, 77.43, 57.42, 0.83) 43.87%,
-      rgba(244.53, 76.43, 61.09, 0.76) 49.76%,
-      rgba(241.26, 75.32, 65.17, 0.69) 55.1%,
-      rgba(237.73, 74.11, 69.58, 0.61) 60.08%,
-      rgba(234.01, 72.84, 74.24, 0.52) 64.88%,
-      rgba(230.14, 71.53, 79.07, 0.44) 69.68%,
-      rgba(226.21, 70.18, 83.99, 0.35) 74.66%,
-      rgba(222.26, 68.84, 88.92, 0.26) 80%,
-      rgba(218.37, 67.51, 93.79, 0.17) 85.88%,
-      rgba(214.59, 66.22, 98.51, 0.08) 92.49%,
-      rgba(211, 65, 103, 0) 100%
+    50% 50% at 50% 50%,
+    rgb(255, 80, 48) 0%,
+    rgba(254.66, 79.88, 48.43, 0.99) 11.3%,
+    rgba(253.67, 79.55, 49.67, 0.97) 21.16%,
+    rgba(252.1, 79.01, 51.63, 0.93) 29.76%,
+    rgba(250.01, 78.3, 54.24, 0.89) 37.27%,
+    rgba(247.46, 77.43, 57.42, 0.83) 43.87%,
+    rgba(244.53, 76.43, 61.09, 0.76) 49.76%,
+    rgba(241.26, 75.32, 65.17, 0.69) 55.1%,
+    rgba(237.73, 74.11, 69.58, 0.61) 60.08%,
+    rgba(234.01, 72.84, 74.24, 0.52) 64.88%,
+    rgba(230.14, 71.53, 79.07, 0.44) 69.68%,
+    rgba(226.21, 70.18, 83.99, 0.35) 74.66%,
+    rgba(222.26, 68.84, 88.92, 0.26) 80%,
+    rgba(218.37, 67.51, 93.79, 0.17) 85.88%,
+    rgba(214.59, 66.22, 98.51, 0.08) 92.49%,
+    rgba(211, 65, 103, 0) 100%
   );
   border-radius: 13rem;
   position: absolute;
@@ -441,7 +447,7 @@ onMounted(() => {
     top: -25rem;
     left: -15rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_375 8s ease infinite;
+      gradientRed_375 8s ease infinite;
   }
 
   @include mq(768) {
@@ -450,7 +456,7 @@ onMounted(() => {
     top: -30rem;
     left: 5rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_768 8s ease infinite;
+      gradientRed_768 8s ease infinite;
   }
 
   @include mq(1024) {
@@ -459,14 +465,14 @@ onMounted(() => {
     top: -35rem;
     left: 0;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_1024 8s ease infinite;
+      gradientRed_1024 8s ease infinite;
   }
 
   @include mq(1440) {
     top: -45rem;
     left: 35rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_1440 8s ease infinite;
+      gradientRed_1440 8s ease infinite;
   }
 
   @include mq(1920) {
@@ -475,36 +481,36 @@ onMounted(() => {
     top: -60rem;
     left: 10rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_1920 8s ease infinite;
+      gradientRed_1920 8s ease infinite;
   }
 
   @include mq(2560) {
     top: -70rem;
     left: 80rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientRed_2560 8s ease infinite;
+      gradientRed_2560 8s ease infinite;
   }
 }
 
 .gradient-group__canvas .yellow {
   background: radial-gradient(
-      50% 50% at 50% 50%,
-      rgb(255, 168, 72) 0%,
-      rgba(255, 167.23, 71.79, 0.99) 11.31%,
-      rgba(255, 165.19, 71.23, 0.97) 21.19%,
-      rgba(255, 162, 70.36, 0.93) 29.81%,
-      rgba(255, 157.8, 69.22, 0.88) 37.35%,
-      rgba(255, 152.71, 67.83, 0.83) 44%,
-      rgba(255, 146.84, 66.23, 0.76) 49.92%,
-      rgba(255, 140.33, 64.45, 0.69) 55.29%,
-      rgba(255, 133.3, 62.54, 0.61) 60.3%,
-      rgba(255, 125.88, 60.51, 0.52) 65.12%,
-      rgba(255, 118.18, 58.41, 0.43) 69.92%,
-      rgba(255, 110.34, 56.27, 0.34) 74.89%,
-      rgba(255, 102.47, 54.13, 0.26) 80.21%,
-      rgba(255, 94.71, 52.01, 0.17) 86.05%,
-      rgba(255, 87.18, 49.96, 0.08) 92.59%,
-      rgba(255, 80, 48, 0) 100%
+    50% 50% at 50% 50%,
+    rgb(255, 168, 72) 0%,
+    rgba(255, 167.23, 71.79, 0.99) 11.31%,
+    rgba(255, 165.19, 71.23, 0.97) 21.19%,
+    rgba(255, 162, 70.36, 0.93) 29.81%,
+    rgba(255, 157.8, 69.22, 0.88) 37.35%,
+    rgba(255, 152.71, 67.83, 0.83) 44%,
+    rgba(255, 146.84, 66.23, 0.76) 49.92%,
+    rgba(255, 140.33, 64.45, 0.69) 55.29%,
+    rgba(255, 133.3, 62.54, 0.61) 60.3%,
+    rgba(255, 125.88, 60.51, 0.52) 65.12%,
+    rgba(255, 118.18, 58.41, 0.43) 69.92%,
+    rgba(255, 110.34, 56.27, 0.34) 74.89%,
+    rgba(255, 102.47, 54.13, 0.26) 80.21%,
+    rgba(255, 94.71, 52.01, 0.17) 86.05%,
+    rgba(255, 87.18, 49.96, 0.08) 92.59%,
+    rgba(255, 80, 48, 0) 100%
   );
   border-radius: 13rem;
   position: absolute;
@@ -515,7 +521,7 @@ onMounted(() => {
     top: 40rem;
     left: 18rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_375 8s ease infinite;
+      gradientYellow_375 8s ease infinite;
   }
 
   @include mq(768) {
@@ -524,7 +530,7 @@ onMounted(() => {
     top: 45rem;
     left: 35rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_768 8s ease infinite;
+      gradientYellow_768 8s ease infinite;
   }
 
   @include mq(1024) {
@@ -533,7 +539,7 @@ onMounted(() => {
     top: 35rem;
     left: 55rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_1024 8s ease infinite;
+      gradientYellow_1024 8s ease infinite;
   }
 
   @include mq(1440) {
@@ -542,7 +548,7 @@ onMounted(() => {
     top: 20rem;
     left: 95rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_1440 8s ease infinite;
+      gradientYellow_1440 8s ease infinite;
   }
 
   @include mq(1920) {
@@ -551,14 +557,14 @@ onMounted(() => {
     top: 30rem;
     left: 100rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_1920 8s ease infinite;
+      gradientYellow_1920 8s ease infinite;
   }
 
   @include mq(2560) {
     top: 30rem;
     left: 170rem;
     animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_2560 8s ease infinite;
+      gradientYellow_2560 8s ease infinite;
   }
 }
 
@@ -571,15 +577,15 @@ onMounted(() => {
     margin: 0 auto;
     position: relative;
     background: radial-gradient(
-        54.01% 50.01% at 50% 50%,
-        rgba(248, 248, 248, 0) 33.85%,
-        #f7f7f7 100%
+      54.01% 50.01% at 50% 50%,
+      rgba(248, 248, 248, 0) 33.85%,
+      #f7f7f7 100%
     );
     @include mq(768) {
       background: radial-gradient(
-          38.01% 50.01% at 50% 50%,
-          rgba(248, 248, 248, 0) 33.85%,
-          #f7f7f7 100%
+        38.01% 50.01% at 50% 50%,
+        rgba(248, 248, 248, 0) 33.85%,
+        #f7f7f7 100%
       );
     }
     @include mq(1024) {
@@ -628,34 +634,35 @@ onMounted(() => {
     padding: 0 2rem;
   }
   @include mq(768) {
-    padding: 0 4rem;
-    margin: 12rem 0 8rem;
+    margin: 16rem 0 8rem;
   }
   @include mq(1024) {
-    padding: 0 14.5rem;
-    margin: 12rem 0 20rem;
+    padding: 0;
+    margin: 16rem auto 18rem;
+    width: 100rem;
   }
   @include mq(1440) {
-    padding: 0 21rem;
+    margin: 20rem auto 20rem;
   }
   @include mq(1920) {
-    margin: 12rem auto 26rem;
+    margin: 30rem auto 26rem;
+    width: 133rem;
   }
   @include mq(2056) {
-    padding: 0;
     width: 126rem;
   }
 
   &__number {
     background: var(
-        --Gradient,
-        linear-gradient(86deg, #8e54f5 1.34%, #ff4236 48.48%, #ffb55c 95.63%)
+      --Gradient,
+      linear-gradient(86deg, #8e54f5 1.34%, #ff4236 48.48%, #ffb55c 95.63%)
     );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 4.8rem;
     line-height: 90%;
+    font-weight: 500;
     letter-spacing: -0.288rem;
     text-align: center;
     transition: opacity 2.5s ease;
@@ -667,14 +674,11 @@ onMounted(() => {
       font-size: 15rem;
       letter-spacing: -0.9rem;
     }
-    @include mq(1920) {
-      font-size: 20rem;
-      letter-spacing: -1.2rem;
-    }
   }
 
   &__title {
     font-size: 4.8rem;
+    font-weight: 500;
     line-height: 90%;
     letter-spacing: -0.288rem;
     text-align: center;
@@ -689,11 +693,6 @@ onMounted(() => {
       font-size: 15rem;
       letter-spacing: -0.9rem;
       padding-bottom: 6rem;
-    }
-    @include mq(1920) {
-      font-size: 20rem;
-      letter-spacing: -1.2rem;
-      padding-bottom: 8rem;
     }
   }
 
@@ -717,10 +716,6 @@ onMounted(() => {
         font-size: 3.2rem;
         letter-spacing: -0.096rem;
       }
-      @include mq(1920) {
-        font-size: 4.2rem;
-        letter-spacing: -0.128rem;
-      }
     }
 
     &_text {
@@ -738,10 +733,6 @@ onMounted(() => {
       @include mq(1440) {
         font-size: 3.2rem;
         letter-spacing: -0.096rem;
-      }
-      @include mq(1920) {
-        font-size: 4.2rem;
-        letter-spacing: -0.128rem;
       }
     }
   }

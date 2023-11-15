@@ -11,7 +11,7 @@
           <header v-show="showNavbar">
             <nav class="navbar">
               <div class="navbar__container">
-                <img src="@/assets/images/logo_1.svg" alt="logo" />
+                <img src="@/assets/images/mainblock/logo_1.svg" alt="logo" />
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@
                     fill="white"
                   />
                 </svg>
-                <img src="@/assets/images/logo_2.svg" alt="logo" />
+                <img src="@/assets/images/mainblock/logo_2.svg" alt="logo" />
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@
                     fill="white"
                   />
                 </svg>
-                <img src="@/assets/images/logo_3.svg" alt="logo" />
+                <img src="@/assets/images/mainblock/logo_3.svg" alt="logo" />
                 <svg
                   class="navbar__logo-text"
                   xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@
               <div class="menu__links">
                 <div class="menu__burger">
                   <img
-                    src="@/assets/images/burger.png"
+                    src="@/assets/images/mainblock/burger.png"
                     alt="menu"
                     @click="checked()"
                     class="switcher"
@@ -83,17 +83,23 @@
             <ul class="menu__list">
               <span class="section__links-line"></span>
               <li class="section__links-item">
-                <a class="link" target="_blank" href="https://habr.com/"
+                <a
+                  class="link"
+                  target="_blank"
+                  href="https://habr.com/ru/companies/psb/articles/"
                   >Хабр</a
                 >
               </li>
               <li class="section__links-item">
-                <a class="link" target="_blank" href="https://rutube.ru/"
+                <a
+                  class="link"
+                  target="_blank"
+                  href="https://rutube.ru/plst/232091/"
                   >Rutube</a
                 >
               </li>
               <li class="section__links-item">
-                <a class="link" target="_blank" href="https://web.telegram.org/"
+                <a class="link" target="_blank" href="https://t.me/psb_it_team"
                   >Телеграм</a
                 >
               </li>
@@ -139,7 +145,7 @@
       muted
       playsinline
       loop="loop"
-      poster="../assets/images/poster_1.png"
+      poster="../assets/images/mainblock/poster_1.png"
     >
       <source :src="videoSrc" type="video/mp4" />
     </video>
@@ -349,7 +355,6 @@ const intersectionAnimation = () => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const { target, isIntersecting, intersectionRatio } = entry;
-
       let array = options.threshold;
       if (
         isIntersecting &&
@@ -396,34 +401,6 @@ const intersectionAnimation = () => {
     lastScrollPos = currentScrollPos;
   });
 };
-/*  768px 960 992px 1200px 1400px 1440 1600 */
-/* const calculateTimeAnimation = (clientWidth) => {
-  let nominalMediaQuery = 768;
-  if (clientWidth >= 768 && clientWidth < 1024) {
-    let gap = clientWidth - nominalMediaQuery;
-    if (gap > 0 && !!psbNode.value) {
-      let step = 40;
-      // debugger
-      let interval = Math.floor(gap / step);
-      if (interval >= 1) {
-        let nominalDuration = 2.9;
-        if (clientWidth >= 888) {
-          nominalDuration = 2.7;
-        }
-        if (clientWidth >= 968) {
-          nominalDuration = 2.6;
-        }
-        if (clientWidth >= 1008) {
-          nominalDuration = 2.5;
-        }
-        let duration = +(nominalDuration + Number(`0.${interval}`)).toFixed(1);
-        psbNode.value.style.animation = `animateToRight_768 ${duration}s ease-out forwards`;
-        // psbNode.value.style.animation = `animateToRight_768 ${ 3.1}s ease-out forwards`;
-        console.log("psbNode", psbNode.value.style, interval);
-      }
-    }
-  }
-}; */
 
 onMounted(async () => {
   videoSrc.value = require("@/assets/video/meet.mp4");
@@ -638,14 +615,14 @@ onMounted(async () => {
     border: 0.1rem solid rgba(255, 255, 255, 0.2);
     border-radius: 5rem;
     background-color: rgba(255, 255, 255, 0.2);
-    background-image: url("../assets/images/arrow_down.svg");
+    background-image: url("../assets/images/mainblock/arrow_down.svg");
     background-position: center center;
     background-repeat: no-repeat;
     transition: opacity 4s ease;
     @include mq(768) {
       width: 6.4rem;
       height: 6.4rem;
-      background-image: url("../assets/images/arrow_down_768.svg");
+      background-image: url("../assets/images/mainblock/arrow_down_768.svg");
     }
   }
 }
@@ -711,11 +688,11 @@ onMounted(async () => {
       padding: 8rem 0 0;
     }
 
-    @include mq(1920) {
+    /*   @include mq(1920) {
       width: 128.8rem;
       padding: 10.6rem 0 0;
       height: 28.7rem;
-    }
+    } */
   }
 
   &__counter-psb {
@@ -735,10 +712,10 @@ onMounted(async () => {
       font-size: 15rem;
       top: 13.4rem;
     }
-    @include mq(1920) {
+    /*   @include mq(1920) {
       width: 129rem;
       top: 20rem;
-    }
+    } */
   }
 
   /*  375 425 768px 960 992px 1200px 1400px 1440  1600  1920 2056*/
@@ -794,11 +771,11 @@ onMounted(async () => {
       letter-spacing: -0.9rem;
     }
 
-    @include mq(1920) {
+    /*     @include mq(1920) {
       font-size: 20rem;
       line-height: 90%;
       letter-spacing: -1.2rem;
-    }
+    } */
   }
 
   &__text-lab {
@@ -822,10 +799,10 @@ onMounted(async () => {
       height: 13.6rem;
       width: 84.6rem;
     }
-    @include mq(1920) {
+    /*     @include mq(1920) {
       height: 18rem;
       width: 112.6rem;
-    }
+    } */
   }
 
   &__counter-lab {
@@ -845,11 +822,11 @@ onMounted(async () => {
       font-size: 15rem;
       top: 5.4rem;
     }
-    @include mq(1920) {
+    /*   @include mq(1920) {
       width: 112.7rem;
       font-size: 15rem;
       top: 9.4rem;
-    }
+    } */
   }
   /*  375 425 768px 960 992px 1200px 1400px 1440  1600  1920 2056*/
   &__counter-lab_active {
@@ -898,11 +875,11 @@ onMounted(async () => {
       letter-spacing: -0.9rem;
     }
 
-    @include mq(1920) {
+    /*    @include mq(1920) {
       font-size: 20rem;
       line-height: 90%;
       letter-spacing: -1.2rem;
-    }
+    } */
   }
 
   &__sub-title-lab {
@@ -916,6 +893,7 @@ onMounted(async () => {
     color: var(--color-white);
 
     @include mq(768) {
+      padding-top: 3rem;
       font-size: 2.4rem;
       letter-spacing: -0.048rem;
       padding-bottom: 9rem;
@@ -928,9 +906,10 @@ onMounted(async () => {
     }
 
     @include mq(1920) {
-      font-size: 4.2rem;
+      padding-top: 5rem;
+      /*  font-size: 4.2rem;
       letter-spacing: -0.128rem;
-      padding-bottom: 14.5rem;
+      padding-bottom: 14.5rem; */
     }
   }
 
@@ -1033,11 +1012,11 @@ onMounted(async () => {
           letter-spacing: -0.064rem;
         }
 
-        @include mq(1920) {
+        /*      @include mq(1920) {
           line-height: 140%;
           font-size: 2.1rem;
           letter-spacing: -0.0853rem;
-        }
+        } */
       }
     }
 
@@ -1066,9 +1045,9 @@ onMounted(async () => {
       grid-column-gap: 1rem;
     }
 
-    @include mq(1920) {
+    /*   @include mq(1920) {
       grid-column-gap: 1.3rem;
-    }
+    } */
   }
 }
 
@@ -1088,9 +1067,6 @@ onMounted(async () => {
   }
   @include mq(1440) {
     width: 128rem;
-  }
-  @include mq(1920) {
-    width: 143.5rem;
   }
 }
 
@@ -1116,9 +1092,9 @@ onMounted(async () => {
     margin-top: -28.1rem;
   }
 
-  @include mq(1920) {
+  /*   @include mq(1920) {
     margin-top: -39.1rem;
-  }
+  } */
 
   video {
     object-fit: cover;
@@ -1138,13 +1114,7 @@ onMounted(async () => {
 
     @include mq(1440) {
       width: 128rem;
-      height: 120rem;
-    }
-
-    @include mq(1920) {
-      width: 143.5rem;
-      height: 93.3rem;
-      border-radius: 6.7rem;
+      height: 70rem;
     }
   }
 }
@@ -1171,10 +1141,6 @@ header {
 
   @include mq(1440) {
     padding: 4rem 8rem 0;
-  }
-
-  @include mq(1920) {
-    padding: 5.3rem 10.7rem 0;
   }
 }
 
@@ -1218,12 +1184,9 @@ header {
     // position: static;
   }
 
-  @include mq(1920) {
+  /*   @include mq(1920) {
     height: 120rem;
-  }
-
-  @include mq(2560) {
-  }
+  } */
 }
 
 .gradient-group .blue {

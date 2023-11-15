@@ -232,6 +232,8 @@
     list-style: none;
     transition: opacity 500ms;
     pointer-events: none;
+    padding-left: 0;
+    margin: 0;
 
     ._stack-active & {
       opacity: 1;
