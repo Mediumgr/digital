@@ -149,6 +149,7 @@ const showGallery = (event, code) => {
 
   });
 }
+/*
 const getEventType = (e) => {
 
   const result = {};
@@ -162,7 +163,7 @@ const getEventType = (e) => {
   }
   return result;
 }
-
+*/
 const headerTextAnima = (entries, observer) => {
   entries.forEach((entry) => {
 
@@ -305,57 +306,67 @@ onMounted(async () => {
 
   // Отслеживаем вхождение в блок галерегии
   if (gallery) {
-    let observerGallery = new IntersectionObserver(galleryAnima, {rootMargin: '0px',  threshold: [0.5]});
+    let observerGallery = new IntersectionObserver(galleryAnima, {rootMargin: '0px', threshold: [0.5]});
     observerGallery.observe(gallery);
   }
 
 
-  slider.value = document.querySelectorAll('.life_gallery-items');
+  slider.value = document.querySelector('.life_gallery-items');
 
   let isDown = false;
   let startX;
   let scrollLeft;
 
   if (slider.value) {
-    slider.value.forEach((item) => {
-      item.addEventListener('mousedown', (e) => {
-        isDown = true;
-        item.classList.add('active');
-        startX = e.pageX - item.offsetLeft;
-        scrollLeft = item.scrollLeft;
-      });
-      item.addEventListener('mouseleave', () => {
-        isDown = false;
-        item.classList.remove('active');
-      });
-      item.addEventListener('mouseup', () => {
-        isDown = false;
-        item.classList.remove('active');
-      });
-      item.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - item.offsetLeft;
-        const walk = (x - startX) * 3; //scroll-fast
-        item.scrollLeft = scrollLeft - walk;
-      });
-      item.addEventListener('touchstart', (e) => {
-        isDown = true;
 
-        let ePage = getEventType(e);
-        item.classList.add('active');
-        startX = ePage.pageX - item.offsetLeft;
-        scrollLeft = item.scrollLeft;
-      });
+    slider.value.addEventListener('mousedown', (e) => {
+      slider.value.style.scrollSnapType = 'none';
+      isDown = true;
+      //item.classList.add('active');
+      startX = e.pageX - slider.value.offsetLeft;
+      scrollLeft = slider.value.scrollLeft;
+    });
+    slider.value.addEventListener('mouseleave', () => {
+      isDown = false;
+      slider.value.classList.remove('active');
+    });
+    slider.value.addEventListener('mouseup', () => {
+      slider.value.style.scrollSnapType = ' x mandatory';
+      isDown = false;
+      slider.value.classList.remove('active');
+    });
+    slider.value.addEventListener('mousemove', (e) => {
 
-      item.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.value.offsetLeft;
+      const walk = (x - startX) * 3; //scroll-fast
+      console.log(walk);
+      console.log(scrollLeft);
+      slider.value.scrollLeft = scrollLeft - walk;
 
-        let ePage = getEventType(e);
-        const x = ePage.pageX - item.offsetLeft;
-        const walk = (x - startX) * 2; //scroll-fast
-        item.scrollLeft = scrollLeft - walk;
-      });
-    })
+    });
+    /*
+    item.addEventListener('touchstart', (e) => {
+      isDown = true;
+
+      let ePage = getEventType(e);
+      item.classList.add('active');
+      startX = ePage.pageX - item.offsetLeft;
+      scrollLeft = item.scrollLeft;
+    });
+
+    item.addEventListener('touchmove', (e) => {
+
+      let ePage = getEventType(e);
+      const x = ePage.pageX - item.offsetLeft;
+      const walk = (x - startX) * 2; //scroll-fast
+      item.scrollLeft = scrollLeft - walk;
+    });
+
+     */
+
+
   }
 
 });
@@ -618,6 +629,7 @@ onMounted(async () => {
   box-sizing: border-box;
   opacity: 0;
   transform: translateX(5rem);
+  scroll-snap-align: end;
 }
 
 .life_gallery-item:first-child {
@@ -635,7 +647,6 @@ onMounted(async () => {
 
 .life_gallery-items {
   position: relative;
-  overflow: hidden;
   white-space: nowrap;
   transition: all 0.2s;
   will-change: transform;
@@ -643,12 +654,30 @@ onMounted(async () => {
   cursor: pointer;
 
   border-radius: 2rem;
-  height: 40rem;
+  height: 100%;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 2rem;
   display: none;
+
+
+  grid-auto-flow: column;
+  max-width: 100%;
+  overflow-y: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+}
+
+/* Скрываем scrollbar для Chrome, Safari и Opera */
+.life_gallery-items::-webkit-scrollbar {
+  display: none;
+}
+
+/* Скрываем scrollbar для IE, Edge и Firefox */
+.life_gallery-items {
+  -ms-overflow-style: none;  /* IE и Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .life_gallery {
@@ -875,7 +904,7 @@ onMounted(async () => {
 
   .life_gallery-items {
     border-radius: 2rem;
-    height: 40rem;
+    height: 100%;
     gap: 2rem;
     display: none;
   }
