@@ -64,10 +64,10 @@
                       </li>
                     </ul>
                   </template>
-
-                  <a class="map-cards__link" href="#">Смотреть вакансии</a>
                 </div>
               </template>
+
+              <a class="map-cards__link" :href="city.link.href">{{ city.link.text }}</a>
             </div>
           </div>
         </div>
@@ -166,7 +166,6 @@ function init() {
     }
 
     const currentCardEl = mapContainerEl.querySelector(`[data-id-city="${cityName}"]`)
-    console.log(currentCardEl)
     const cardInnerEl = currentCardEl.querySelector('.map-cards__item-inner')
     const cardContentEl = currentCardEl.querySelector('.js-map-tab')
 
@@ -192,15 +191,15 @@ function init() {
     currentAnimationCard
       .to([currentCardEl, overlayEl], {
         autoAlpha: 1,
-        duration: 1,
+        duration: 0.35,
       })
       .to(currentCardEl, {
-        duration: 0.8,
+        duration: 0.3,
         width: 'auto',
         left: poxCenterX
       })
       .to(currentCardEl, {
-        duration: 0.8,
+        duration: 0.3,
         height: 'auto',
         top: poxCenterY,
         onComplete: () => {
@@ -210,7 +209,7 @@ function init() {
       })
       .to(cardContentEl, {
         autoAlpha: 1,
-        duration: 0.5,
+        duration: 0.25,
       })
 
     console.log(cityName)
@@ -234,7 +233,8 @@ function init() {
 
       if (currentAnimationCard) {
         event.target.parentElement.style.overflow = 'hidden'
-        const newDuration = currentAnimationCard.totalDuration() / 2
+        const newDuration = (currentAnimationCard.totalDuration() / 2.2).toFixed(2)
+        console.log(newDuration)
         currentAnimationCard.totalDuration(newDuration)
         currentAnimationCard.reverse();
 

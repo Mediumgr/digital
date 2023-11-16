@@ -109,7 +109,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { isDesktop, isTablet } from "@/helpers";
-import { gsap } from "@/helpers/gsap";
+import { EASE_FOR_WHO_APPRECIATE, gsap } from "@/helpers/gsap";
 import GradientBG from "@/components/GradientBG.vue";
 
 function svg() {
@@ -159,7 +159,7 @@ function svg() {
 
       gsap.to(point.el, {
         duration: 2.1,
-        ease: "none",
+        ease: EASE_FOR_WHO_APPRECIATE,
         x: newPoints[0],
         y: newPoints[1],
       })
@@ -173,7 +173,7 @@ function svg() {
 
     gsap.to(svgPath, {
       duration: 2.1,
-      ease: "none",
+      ease: EASE_FOR_WHO_APPRECIATE,
       attr: {
         d: st
       }

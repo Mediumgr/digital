@@ -5,6 +5,7 @@
         <video id="background-video" autoplay loop muted playsinline>
           <source src="../assets/video/process/process-b1.mp4" type="video/mp4"/>
         </video>
+        <div class="process_item-overlay50"></div>
         <div class="process_item_video-header">
           <div class="process_item_video-text">Давай работать вместе</div>
           <div class="process_item_video-text2">Как принимаем в команду</div>
@@ -16,7 +17,8 @@
           <div class="process_item_header">Оставь отклик</div>
           <ul class="process_item-ul">
             <li>
-              Посмотри актуальные вакансии на <a class="process_item-href" href="">Хабр Карьере</a> или заполни <a class="process_item-href" href="">анкету</a>
+              Посмотри актуальные вакансии на <a class="process_item-href" href="https://career.habr.com/companies/psb/vacancies">Хабр Карьере</a> или заполни <a
+              @click.stop="scrollTo('vacancy__container', $event)" class="process_item-href" href="#">анкету</a>
               ниже
             </li>
             <li>Дождись нашего звонка</li>
@@ -80,6 +82,7 @@
                 type="video/mp4"
               />
             </video>
+            <div class="process_item-overlay30"></div>
             <p class="process_item_bonuses-video-title">
               Льготные условия<br/>для сотрудников <br/>по продуктам банка
             </p>
@@ -129,7 +132,7 @@
                 </div>
               </div>
               <div class="bonuses_advantages_var2-text">
-                Компенсация билетов<br/>в путешествиях
+                Компенсация билетов в путешествиях
               </div>
             </div>
           </div>
@@ -140,228 +143,112 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 
-let lastDirection = ref('');
+var cards = '';
+var list = '';
 
-const osHasReducedMotion = () => {
-  if (!window.matchMedia) return false;
-  var matchMediaObj = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (matchMediaObj) return matchMediaObj.matches;
-  return false;
-};
-
-const StackCards = function (element) {
-  this.element = element;
-  this.items = this.element.getElementsByClassName('process_item');
-  this.scrollingFn = false;
-  this.scrolling = false;
-  this.opacity = 1;
-  initStackCardsEffect(this);
-  initStackCardsResize(this);
-};
-
-
-function initStackCardsEffect(element) {
-  // use Intersection Observer to trigger animation
-  setStackCards(element); // store cards CSS properties
-  var observer = new IntersectionObserver(stackCardsCallback.bind(element), {
-    threshold: [0, 1],
-  });
-  observer.observe(element.element);
-}
-
-function initStackCardsResize(element) {
-  // detect resize to reset gallery
-  element.element.addEventListener('resize-stack-cards', function () {
-    setStackCards(element);
-    animateStackCards.bind(element);
-  });
-}
-
-function stackCardsCallback(entries) {
-  // Intersection Observer callback
-  if (entries[0].isIntersecting) {
-    if (this.scrollingFn) return; // listener for scroll event already added
-    stackCardsInitEvent(this);
-  } else {
-    if (!this.scrollingFn) return; // listener for scroll event already removed
-    window.removeEventListener('scroll', this.scrollingFn);
-    this.scrollingFn = false;
+const scrollTo = (value, e) => {
+  var element = document.querySelector("."+value);
+  if(element) {
+    e.preventDefault();
+    element.scrollIntoView();
   }
 }
+function moduleAnimation() {
 
-function stackCardsInitEvent(element) {
-  element.scrollingFn = stackCardsScrolling.bind(element);
-  window.addEventListener('scroll', element.scrollingFn);
-}
+  var opacity = '1';
 
-function handleScroll() {
-  if (window.scrollY > this.lastScrollTop || 0) {
-    lastDirection.value = 'down';
-  } else if (window.scrollY < this.lastScrollTop) {
-    lastDirection.value = 'up';
-  }
-  this.lastScrollTop = window.scrollY;
-}
+  var top = list.getBoundingClientRect().top;
+  var height = list.offsetHeight;
+  console.log(height);
+  cards[cards.length - 1].style.transform = 'translateY(60px)';
+  cards.forEach((card, i) => {
 
-function stackCardsScrolling() {
-  if (this.scrolling) return;
-  this.scrolling = true;
-  window.requestAnimationFrame(animateStackCards.bind(this));
-}
+    var cardTop = Math.floor(parseFloat(getComputedStyle(card).getPropertyValue('top')));
+    console.log(cardTop);
+    var height = card.offsetHeight;
+    var scrolling = cardTop - top - i * (height);
 
-function setStackCards(element) {
-  // store wrapper properties
-  element.marginY = getComputedStyle(element.element).getPropertyValue(
-    '--stack-cards-gap'
-  );
-  getIntegerFromProperty(element); // convert element.marginY to integer (px value)
-  element.elementHeight = element.element.offsetHeight;
 
-  // store card properties
-  var cardStyle = getComputedStyle(element.items[0]);
-  element.cardTop = Math.floor(parseFloat(cardStyle.getPropertyValue('top')));
-  element.cardHeight = Math.floor(
-    parseFloat(cardStyle.getPropertyValue('height'))
-  );
+    var scaling = i == cards.length - 1 ? 1 : (height - scrolling * 0.05) / height;
+     scaling = (scaling > 1 ? 1 : scaling);
 
-  // store window property
-  element.windowHeight = window.innerHeight;
+    let ele2 = card.nextElementSibling;
 
-  // reset margin + translate values
-  if (isNaN(element.marginY)) {
-    element.element.style.paddingBottom = '0px';
-  } else {
-    element.element.style.paddingBottom =
-      element.marginY * (element.items.length - 1) + 'px';
-  }
+    const boundings1 = card.getBoundingClientRect();
+    if(ele2) {
+      const boundings2 = ele2.getBoundingClientRect();
 
-  for (var i = 0; i < element.items.length; i++) {
-    if (isNaN(element.marginY)) {
-      element.items[i].style.transform = 'none;';
-    } else {
-      element.items[i].style.transform =
-        'translateY(' + element.marginY * i + 'px)';
+      const card1 = parseInt(boundings1.top);
+      const height1 = parseInt(boundings1.height);
+
+      const top2 = parseInt(boundings2.top);
+
+      const overlap = 1 - (top2 - card1) / height1;
+      console.log('overlap-', overlap);
+
+      card.style.transform = card.style.transform = 'translateY(' + 10 * i + 'px) scale(' + scaling + ')';
+
+      if (overlap >= 0.95) {
+        card.style.setProperty('opacity', opacity);
+        card.style.setProperty('backdrop-filter', 'blur(10px)');
+        card.style.setProperty('-webkit-backdrop-filter', 'blur(10px)');
+
+        card.style.background = 'rgba(255, 255, 255, 0.50)';
+        opacity-= '0.1';
+      }else{
+        card.style.setProperty('opacity', 1);
+        card.style.removeProperty('backdropFilter');
+        card.style.removeProperty('-webkit-backdrop-filter');
+        card.style.removeProperty('background');
+      }
     }
-  }
+
+
+
+
+    /*
+    const scale = clamp((list.scrollTop + i * 72) / 100, 0, 1);
+    const opacity = clamp((list.scrollTop + i * 72) / 60, 0, 1);
+    card.style.transform = `scale(${scale})`;
+    card.style.opacity = `${opacity}`;
+
+     */
+  });
 }
+onMounted(async () => {
 
-function getIntegerFromProperty(element) {
-  var node = document.createElement('div');
-  node.setAttribute(
-    'style',
-    'opacity:0; visbility: hidden;position: absolute; height:' + element.marginY
-  );
-  element.element.appendChild(node);
-  element.marginY = parseInt(getComputedStyle(node).getPropertyValue('height'));
-  element.element.removeChild(node);
-}
+  cards = document.querySelectorAll(".process_item");
+  list = document.querySelector(".process-wrapper");
+  let observerGallery = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
 
-function animateStackCards() {
-  console.log('1-',this.marginY);
-  if (isNaN(this.marginY)) {
-    // --stack-cards-gap not defined - do not trigger the effect
-    this.scrolling = false;
-    return;
-  }
+      // получаем свойства, которые доступны в объекте entry
+      const { target, isIntersecting } = entry;
 
-  var top = this.element.getBoundingClientRect().top;
+      console.log(isIntersecting);
+      if (entry.isIntersecting) {
+        window.addEventListener('scroll', moduleAnimation, true);
+        console.log('if');
+      } else {
+        window.removeEventListener('scroll', moduleAnimation, true);
+        console.log('else');
+      }
+      if (isIntersecting) {
 
-  if (
-    this.cardTop -
-    top +
-    this.element.windowHeight -
-    this.elementHeight -
-    this.cardHeight +
-    this.marginY +
-    this.marginY * this.items.length >
-    0
-  ) {
-    this.scrolling = false;
-    return;
-  }
 
-  let previousElement = '';
-  for (var i = 0; i < this.items.length; i++) {
-    // use only scale
-    var scrolling = this.cardTop - top - i * (this.cardHeight + this.marginY);
+        console.log(target);
 
-    if (scrolling > 0) {
-
-      var scaling = i == this.items.length - 1 ? 1 : (this.cardHeight - scrolling * 0.05) / this.cardHeight;
-
-      if ((previousElement = this.items[i - 1])) {
-
-        var scaleX = this.items[i].getBoundingClientRect().top;
-        var scaleX1 = previousElement.getBoundingClientRect().top;
-
-        let diff = scaleX - scaleX1;
-
-        let opacity = previousElement.style.opacity;
-
-        if (!opacity && diff == this.marginY && lastDirection.value == 'down') {
-          previousElement.style.opacity = this.opacity;
-          previousElement.style.backdropFilter = 'blur(20px)';
-          previousElement.style.background = 'rgba(255, 255, 255, 0.50)';
-          this.opacity -= 0.1;
-        }
-
-        if (opacity && diff == this.marginY && lastDirection.value == 'up') {
-          previousElement.style.removeProperty('opacity');
-          previousElement.style.removeProperty('backdropFilter');
-          previousElement.style.removeProperty('background');
-          this.opacity += 0.1;
-        }
+        // Убираем отслеживание
+        // observer.unobserve(entry.target);
       }
 
-      this.items[i].style.transform = 'translateY(' + this.marginY * i + 'px) scale(' + scaling + ')';
-    } else {
-      this.items[i].style.transform = 'translateY(' + this.marginY * i + 'px)';
-    }
-  }
-
-  this.scrolling = false;
-}
-
-onMounted(async () => {
-  var stackCards = document.getElementsByClassName('process-wrapper'),
-    intersectionObserverSupported =
-      'IntersectionObserver' in window &&
-      'IntersectionObserverEntry' in window &&
-      'intersectionRatio' in window.IntersectionObserverEntry.prototype,
-    reducedMotion = osHasReducedMotion();
-
-  if (
-    stackCards.length > 0 &&
-    intersectionObserverSupported &&
-    !reducedMotion
-  ) {
-    var stackCardsArray = [];
-    for (var i = 0; i < stackCards.length; i++) {
-      (function (i) {
-        stackCardsArray.push(new StackCards(stackCards[i]));
-      })(i);
-    }
-
-    var resizingId = false,
-      customEvent = new CustomEvent('resize-stack-cards');
-
-    window.addEventListener('resize', function () {
-      clearTimeout(resizingId);
-      resizingId = setTimeout(doneResizing, 500);
     });
-  }
+  }, {   rootMargin: "0px",
+    threshold: 0.1, });
+  observerGallery.observe(document.querySelector(".process-wrapper"));
 
-  function doneResizing() {
-    for (var i = 0; i < stackCardsArray.length; i++) {
-      (function (i) {
-        stackCardsArray[i].element.dispatchEvent(customEvent);
-      })(i);
-    }
-  }
-
-  window.addEventListener('scroll', handleScroll);
 });
 </script>
 
@@ -408,6 +295,24 @@ onMounted(async () => {
   width: 100%;
   height: 100%;
   object-position: left;
+}
+
+.process .process_item .process_item-overlay50,
+.process .process_item .process_item-overlay30{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.process .process_item .process_item-overlay50 {
+  background: rgba(0, 0, 0, 0.50);
+}
+
+.process .process_item .process_item-overlay30 {
+  background: rgba(0, 0, 0, 0.30);
 }
 
 .process .process_item_video-header {
@@ -461,9 +366,11 @@ onMounted(async () => {
   padding-bottom: 50%;
   -webkit-transform-origin: center top;
   transform-origin: center top;
+
+  max-height: calc(var(--vh, 1vh) * 90);
 }
 
-.process .process_item-href{
+.process .process_item-href {
   color: #DE745A;
 }
 
@@ -712,7 +619,7 @@ onMounted(async () => {
   align-items: flex-start;
   padding: 4rem 3rem !important;
   position: relative;
-  border-radius: 5rem;
+  border-radius: 4rem;
   overflow: hidden;
 }
 
@@ -1073,11 +980,12 @@ onMounted(async () => {
 
   .process .bonuses_advantages_var1 img {
     position: absolute;
-    width: 29.4rem;
-    height: 26.9rem;
-    top: 0;
-    left: 28.8rem;
     object-fit: cover;
+    right: 0px;
+    top: 0px;
+    height: unset;
+    width: 30rem;
+    left: unset;
   }
 
   .process .bonuses_advantages_var2 {
@@ -1186,52 +1094,52 @@ onMounted(async () => {
   }
 
   .process .process_item {
-    height: 86.6667rem;
+    height: 65rem;
   }
 
   .process .process_item_video-text {
-    font-size: 20rem;
+
     letter-spacing: -1.2rem;
   }
 
   .process .process_item_video-text2 {
-    font-size: 4.16rem;
+
   }
 
   .process .process_item_header-num {
-    font-size: 52rem;
+
   }
 
   .process .process_item_header {
-    font-size: 8.32rem;
+
   }
 
   .process .process_item_description li {
-    font-size: 3.12rem;
+
   }
 
   .process .process_item_join_description li {
-    font-size: 3.12rem;
+
   }
 
   .process .process_item_bonuses-header {
-    font-size: 8.32rem;
+
   }
 
   .process .process_item_bonuses-video-title {
-    font-size: 6.24rem;
+
   }
 
   .process .bonuses_advantages_var1-text {
-    font-size: 4.16rem;
+
   }
 
   .process .bonuses_advantages_var2-text {
-    font-size: 2.08rem;
+
   }
 
   .process .process_item_join_header {
-    font-size: 8.32rem;
+
   }
 
   .process .process_item_join-gradient {
@@ -1256,7 +1164,7 @@ onMounted(async () => {
   }
 
   .process .bonuses_advantages_var1 img {
-    left: 48.8rem;
+    width: 25rem;
   }
 
   .process .bonuses_advantages_var1-background {
@@ -1277,10 +1185,10 @@ onMounted(async () => {
   }
 
   .process .bonuses_advantages_var1 {
-    height: 57.7%;
+    height: calc(59% - 0.5rem);
   }
   .process .bonuses_advantages_var2 {
-    height: 42.3%;
+    height: calc(41% - 0.5rem);
   }
 }
 

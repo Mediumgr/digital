@@ -125,6 +125,7 @@ const showGallery = (event, code) => {
   btn.classList.toggle('life_gallery-btn-active');
 
   let sliderItemsDelay = 0;
+  let sliderItemsDelayFull = 0;
 
   galleryAll.forEach((item) => {
     item.style.display = 'none';
@@ -138,7 +139,17 @@ const showGallery = (event, code) => {
   });
 
   galleryItem.forEach((item) => {
+    item.style.scrollSnapAlign = 'none';
+    sliderItemsDelayFull+= 60;
+  });
 
+  galleryItem.forEach((item) => {
+
+    setTimeout(() => {
+      item.classList.add('galleryItemAnima');
+    }, sliderItemsDelay);
+    sliderItemsDelay += 60;
+    /*
     item.animate({opacity: '1', 'transform': 'translateX(0rem)'}, {
       duration: 500,
       delay: sliderItemsDelay,
@@ -146,9 +157,19 @@ const showGallery = (event, code) => {
       fill: 'forwards'
     });
     sliderItemsDelay += 60;
-
+*/
   });
+
+  setTimeout(() => {
+    galleryItem.forEach((item) => {
+      item.style.scrollSnapAlign = 'start';
+    });
+  }, sliderItemsDelayFull);
+
 }
+
+
+/*
 const getEventType = (e) => {
 
   const result = {};
@@ -162,7 +183,7 @@ const getEventType = (e) => {
   }
   return result;
 }
-
+*/
 const headerTextAnima = (entries, observer) => {
   entries.forEach((entry) => {
 
@@ -305,7 +326,7 @@ onMounted(async () => {
 
   // Отслеживаем вхождение в блок галерегии
   if (gallery) {
-    let observerGallery = new IntersectionObserver(galleryAnima, {rootMargin: '0px',  threshold: [0.5]});
+    let observerGallery = new IntersectionObserver(galleryAnima, {rootMargin: '0px', threshold: [0.5]});
     observerGallery.observe(gallery);
   }
 
@@ -318,7 +339,10 @@ onMounted(async () => {
 
   if (slider.value) {
     slider.value.forEach((item) => {
+
+
       item.addEventListener('mousedown', (e) => {
+        item.style.scrollSnapType = 'none';
         isDown = true;
         item.classList.add('active');
         startX = e.pageX - item.offsetLeft;
@@ -329,38 +353,65 @@ onMounted(async () => {
         item.classList.remove('active');
       });
       item.addEventListener('mouseup', () => {
+        item.style.scrollSnapType = ' x mandatory';
         isDown = false;
         item.classList.remove('active');
       });
       item.addEventListener('mousemove', (e) => {
+
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - item.offsetLeft;
         const walk = (x - startX) * 3; //scroll-fast
+        console.log(walk);
+        console.log(scrollLeft);
         item.scrollLeft = scrollLeft - walk;
-      });
-      item.addEventListener('touchstart', (e) => {
-        isDown = true;
 
-        let ePage = getEventType(e);
-        item.classList.add('active');
-        startX = ePage.pageX - item.offsetLeft;
-        scrollLeft = item.scrollLeft;
       });
+      /*
+    item.addEventListener('touchstart', (e) => {
+      isDown = true;
 
-      item.addEventListener('touchmove', (e) => {
+      let ePage = getEventType(e);
+      item.classList.add('active');
+      startX = ePage.pageX - item.offsetLeft;
+      scrollLeft = item.scrollLeft;
+    });
 
-        let ePage = getEventType(e);
-        const x = ePage.pageX - item.offsetLeft;
-        const walk = (x - startX) * 2; //scroll-fast
-        item.scrollLeft = scrollLeft - walk;
-      });
-    })
+    item.addEventListener('touchmove', (e) => {
+
+      let ePage = getEventType(e);
+      const x = ePage.pageX - item.offsetLeft;
+      const walk = (x - startX) * 2; //scroll-fast
+      item.scrollLeft = scrollLeft - walk;
+    });
+
+     */
+    });
+
   }
 
 });
 </script>
 <style lang="scss" scoped>
+
+@keyframes galleryItemAnimate {
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0rem);
+    opacity: 1;
+  }
+}
+
+.galleryItemAnima {
+  animation-name: galleryItemAnimate;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+}
+
 @keyframes btnActive {
   0% {
     background-color: #ffffff;
@@ -617,13 +668,19 @@ onMounted(async () => {
   justify-content: space-between;
   box-sizing: border-box;
   opacity: 0;
-  transform: translateX(5rem);
+  /*transform: translateX(5rem);*/
+  /*scroll-snap-align: start;*/
 }
 
 .life_gallery-item:first-child {
   background-color: #424ed1;
   padding: 2.8rem;
 }
+
+.life_gallery-item:last-child {
+  padding-right: 2.8rem;
+}
+
 
 .life_gallery-item-bg {
   position: relative;
@@ -635,7 +692,6 @@ onMounted(async () => {
 
 .life_gallery-items {
   position: relative;
-  overflow: hidden;
   white-space: nowrap;
   transition: all 0.2s;
   will-change: transform;
@@ -643,12 +699,31 @@ onMounted(async () => {
   cursor: pointer;
 
   border-radius: 2rem;
-  height: 40rem;
+  height: 100%;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 2rem;
+  gap: 1rem;
   display: none;
+
+
+  grid-auto-flow: column;
+  max-width: 100%;
+  overflow-y: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+
+}
+
+/* Скрываем scrollbar для Chrome, Safari и Opera */
+.life_gallery-items::-webkit-scrollbar {
+  display: none;
+}
+
+/* Скрываем scrollbar для IE, Edge и Firefox */
+.life_gallery-items {
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .life_gallery {
@@ -666,6 +741,7 @@ onMounted(async () => {
 .life_gallery-wrapper {
   min-height: 40rem;
   display: grid;
+  margin-right: -4rem;
 }
 
 .life_messages {
@@ -702,7 +778,7 @@ onMounted(async () => {
   box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: row;
-  padding: 1rem;
+  padding: 0.5rem;
   max-width: 7.5rem;
   position: absolute;
   opacity: 0;
@@ -710,8 +786,8 @@ onMounted(async () => {
 
 .life_messages_loader-element {
   border-radius: 100%;
-  border: 0.5rem solid #d1d1d1;
-  margin: 0.5rem;
+  border: 0.2rem solid #d1d1d1;
+  margin: 0.2rem;
 }
 
 .life_messages_loader-element:nth-child(1) {
@@ -860,6 +936,7 @@ onMounted(async () => {
   .life_gallery-item {
     border-radius: 2rem;
     height: 40rem;
+    min-width: 34.6rem;
     opacity: 0;
   }
 
@@ -875,7 +952,7 @@ onMounted(async () => {
 
   .life_gallery-items {
     border-radius: 2rem;
-    height: 40rem;
+    height: 100%;
     gap: 2rem;
     display: none;
   }
@@ -897,6 +974,25 @@ onMounted(async () => {
   .life {
     padding: 16rem 4rem;
     gap: 8rem;
+  }
+
+  /* -------------------- Лоадер -------------------- */
+  .life_messages_loader {
+    border-radius: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: row;
+    padding: 0.7rem;
+    max-width: 7.5rem;
+    position: absolute;
+    opacity: 0;
+  }
+
+  .life_messages_loader-element {
+    border-radius: 100%;
+    border: 0.3rem solid #d1d1d1;
+    margin: 0.3rem;
   }
 }
 
@@ -987,114 +1083,29 @@ onMounted(async () => {
     line-height: 120%;
     letter-spacing: -0.072rem;
   }
+
+  /* -------------------- Лоадер -------------------- */
+  .life_messages_loader {
+    border-radius: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    max-width: 8rem;
+    position: absolute;
+    opacity: 0;
+  }
+
+  .life_messages_loader-element {
+    border-radius: 100%;
+    border: 0.5rem solid #d1d1d1;
+    margin: 0.5rem;
+  }
 }
 
 @include mq(1920) {
 
-  .life {
-    padding: 26.6667rem 10.6667rem;
-    gap: 13.3333rem;
-  }
-
-  .life_header-text {
-    font-size: 12.5rem;
-    letter-spacing: -1.2rem;
-  }
-
-  .life_messages {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2.77rem;
-  }
-
-  .life_messages-msg {
-    padding: 2.6667rem 4rem;
-    gap: 1.3333rem;
-    font-size: 3.2rem;
-    letter-spacing: -0.096rem;
-  }
-
-  .life_messages-name, .life_messages-time {
-    font-size: 2.1332999999999998rem;
-    line-height: 140%;
-    letter-spacing: -0.0853rem;
-  }
-
-  .life_messages-dialog {
-    width: 100%;
-  }
-
-  .life_messages_left {
-    gap: 2.1rem;
-  }
-  .life_messages_left-list {
-    gap: 1.3rem;
-  }
-  .life_messages_right {
-    gap: 2.1rem;
-  }
-  .life_messages_left-msg {
-    max-width: 86rem;
-  }
-
-  .life_messages-ico {
-    width: 8rem;
-    height: 8rem
-  }
-
-  /* -------------------- Галерея -------------------- */
-  .life_gallery {
-    padding-left: 12.7rem;
-    gap: 2.6670000000000003rem;
-  }
-
-  .life_gallery-btn {
-    font-size: 3.2rem;
-    letter-spacing: -0.096rem;
-    padding: 2.6667rem 5.3332999999999995rem;
-    gap: 1.3333rem;
-
-  }
-
-  .life_gallery-wrapper {
-    min-height: 53.3rem;
-  }
-  .life_gallery-items {
-    min-height: 53.3rem;
-  }
-
-  .life_gallery-item {
-    gap: 2.66rem;
-    max-width: 51rem;
-    min-width: 51rem;
-    min-height: 53.3rem;
-    height: 53.3rem;
-  }
-
-  .life_gallery-item:first-child {
-    padding: 4.5333rem;
-  }
-
-  .life_gallery-item-name {
-    font-size: 3.2rem;
-    letter-spacing: -0.096rem;
-  }
-
-  .life_gallery-item-pos {
-    font-size: 2.1332999999999998rem;
-    line-height: 140%;
-    letter-spacing: -0.0853rem;
-  }
-  .life_gallery-item-desc {
-    font-size: 3.2rem;
-    letter-spacing: -0.096rem;
-  }
-
-  .life_messages-ico {
-    width: 10.6rem;
-    height: 10.6rem
-  }
 }
 
 @include mq(2560) {

@@ -12,7 +12,7 @@
         <div class="education__hero education__hero--corp">
           <video class="education__video" src="@/assets/video/education/pexels-shvets-production-9057681-(720p).mp4"
                  type="video/mp4"
-                 autoplay="" loop="" muted=""></video>
+                 autoplay loop muted playsinline controls="false"></video>
           <div class="education__card-text-wrapper">
             <h3 class="education__card-title heading-h2">
               Корпоративное <br/>
@@ -83,7 +83,7 @@
         <div class="education__hero education__hero--school">
           <video class="education__video" src="@/assets/video/education/pexels-tea-oebel-6804109-(720p).mp4"
                  type="video/mp4"
-                 autoplay="" loop="" muted=""></video>
+                 autoplay loop muted playsinline controls="false"></video>
           <div class="education__card-text-wrapper">
             <h3 class="education__card-title heading-h2">
               Школа <br/>

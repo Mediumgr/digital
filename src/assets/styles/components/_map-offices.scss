@@ -124,6 +124,10 @@
     background-color: var(--white);
     transition: transform 0.3s;
 
+    @include hover() {
+      cursor: pointer;
+    }
+
     @include mq(768) {
       width: 16rem;
       height: 18rem;
