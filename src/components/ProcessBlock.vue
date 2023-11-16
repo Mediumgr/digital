@@ -17,8 +17,8 @@
           <div class="process_item_header">Оставь отклик</div>
           <ul class="process_item-ul">
             <li>
-              Посмотри актуальные вакансии на <a class="process_item-href" href="https://career.habr.com/companies/psb/vacancies">Хабр Карьере</a> или заполни <a
-              @click.stop="scrollTo('vacancy__container', $event)" class="process_item-href" href="#">анкету</a>
+              Посмотри актуальные вакансии на <a class="process_item-href" target="_blank" href="https://career.habr.com/companies/psb/vacancies">Хабр Карьере</a> или заполни <a
+              @click.stop="scrollTo('vacancy__section', $event)" class="process_item-href" href="#">анкету</a>
               ниже
             </li>
             <li>Дождись нашего звонка</li>
@@ -54,8 +54,6 @@
           <div class="process_item_header">Познакомься с командой</div>
           <ul class="process_item-ul">
             <li>Проведем короткую встречу с будущими коллегами</li>
-            <li>Уточним твои впечатления от встречи</li>
-            <li>Расскажем о командах, которые тебе подойдут</li>
           </ul>
         </div>
       </div>
