@@ -26,9 +26,9 @@ export const useSubmit = async (options) => {
     loader.value = true;
     let formData = new FormData();
 
-    formData.append('name', name.value);
-    formData.append('email', email.value);
-    formData.append('phone', tel.value);
+    formData.append('name', name.value.text);
+    formData.append('email', email.value.text);
+    formData.append('phone', tel.value.text);
     formData.append('file', file.value);
 
     let res = await fetch('/upload/', {
