@@ -17,8 +17,8 @@
           <div class="process_item_header">Оставь отклик</div>
           <ul class="process_item-ul">
             <li>
-              Посмотри актуальные вакансии на <a class="process_item-href" href="">Хабр Карьере</a> или заполни <a
-              class="process_item-href" href="">анкету</a>
+              Посмотри актуальные вакансии на <a class="process_item-href" href="https://career.habr.com/companies/psb/vacancies">Хабр Карьере</a> или заполни <a
+              @click.stop="scrollTo('vacancy__container', $event)" class="process_item-href" href="#">анкету</a>
               ниже
             </li>
             <li>Дождись нашего звонка</li>
@@ -148,10 +148,14 @@ import { onMounted } from 'vue';
 var cards = '';
 var list = '';
 
+const scrollTo = (value, e) => {
+  var element = document.querySelector("."+value);
+  if(element) {
+    e.preventDefault();
+    element.scrollIntoView();
+  }
+}
 function moduleAnimation() {
-  console.log(list);
-  console.log('scroll event');
-
 
   var opacity = '1';
 
@@ -187,13 +191,16 @@ function moduleAnimation() {
       card.style.transform = card.style.transform = 'translateY(' + 10 * i + 'px) scale(' + scaling + ')';
 
       if (overlap >= 0.95) {
-        card.style.opacity = opacity;
-        card.style.backdropFilter = 'blur(20px)';
+        card.style.setProperty('opacity', opacity);
+        card.style.setProperty('backdrop-filter', 'blur(10px)');
+        card.style.setProperty('-webkit-backdrop-filter', 'blur(10px)');
+
         card.style.background = 'rgba(255, 255, 255, 0.50)';
         opacity-= '0.1';
       }else{
-        card.style.opacity = '1';
+        card.style.setProperty('opacity', 1);
         card.style.removeProperty('backdropFilter');
+        card.style.removeProperty('-webkit-backdrop-filter');
         card.style.removeProperty('background');
       }
     }
