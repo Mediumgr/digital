@@ -116,15 +116,25 @@
         </div>
 
         <template v-if="showContent">
-          <section class="section__text-psb">
+          <!--  <section class="section__text-psb">
             <p class="section__title-psb" v-show="titlePsb">ПСБ цифровая</p>
             <div class="section__counter-psb" ref="psbNode">
               {{ counterPsb }}
             </div>
+          </section> -->
+          <section class="section__text-psb">
+            <div class="section__title-psb">
+              {{ counterPsb }}
+            </div>
           </section>
-          <section ref="textLab" class="section__text-lab">
+          <!--   <section class="section__text-lab">
             <p class="section__title-lab" v-show="titleLab">лаборатория</p>
             <div class="section__counter-lab" ref="labNode">
+              {{ counterLab }}
+            </div>
+          </section> -->
+          <section class="section__text-lab">
+            <div class="section__title-lab">
               {{ counterLab }}
             </div>
           </section>
@@ -202,6 +212,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+const { shuffle } = require("txt-shuffle");
 
 const videoSrc = ref("");
 const videoPlayer = ref(null);
@@ -221,15 +232,14 @@ const showContent = ref(false);
 const showSubTitle = ref(false);
 const showVideo = ref(false);
 const counterPsb = ref(null);
-const psbNode = ref(null);
-const labNode = ref(null);
+// const psbNode = ref(null);
+// const labNode = ref(null);
 const gradientGroup = ref(null);
 const counterLab = ref(null);
-const titlePsb = ref(false);
-const titleLab = ref(false);
-const textLab = ref(null);
+// const titlePsb = ref(false);
+// const titleLab = ref(false);
 const loadingTime = ref(800);
-let clientWidth = ref(document.documentElement.clientWidth);
+// let clientWidth = ref(document.documentElement.clientWidth);
 
 const scrollTo = (value) => {
   let element;
@@ -267,6 +277,31 @@ const scrollTo = (value) => {
   });
 };
 
+shuffle({
+  text: "ПСБ цифровая",
+  duration: 5,
+  fps: 40,
+  glyphs: "abcdefhiklmnorstuvwxz0123456789",
+  animation: "show",
+  direction: "right",
+  onUpdate: (output) => {
+    counterPsb.value = output;
+  },
+});
+
+shuffle({
+  text: "лаборатория",
+  duration: 5,
+  fps: 40,
+  glyphs: "abcdefhiklmnorstuvwxz0123456789",
+  animation: "show",
+  delay: 0.2,
+  direction: "right",
+  onUpdate: (output) => {
+    counterLab.value = output;
+  },
+});
+
 const changeVideoSource = (chapter) => {
   const source = videoSources.value[chapter];
   videoPlayer.value.pause();
@@ -286,7 +321,7 @@ const close = () => {
   showBlur.value = false;
 };
 
-const generatePsb = () => {
+/* const generatePsb = () => {
   let counterInterval = setInterval(() => {
     const characters = "abcdefhiklmnorstuvwxz0123456789";
     let counter = "";
@@ -301,7 +336,6 @@ const generatePsb = () => {
 
   setTimeout(() => {
     titlePsb.value = true;
-    // calculateTimeAnimation(clientWidth.value);
     psbNode.value.classList.add("section__counter-psb_active");
   }, 2000);
 
@@ -309,32 +343,32 @@ const generatePsb = () => {
     clearInterval(counterInterval);
     psbNode.value.remove();
   }, 4000);
-};
+}; */
 
 const generateLab = (ms) => {
-  let counterInterval = setInterval(() => {
-    const characters = "abcdefhiklmnorstuvwxz0123456789";
-    let counter = "";
-    let length = 0;
-    clientWidth.value < 1920 ? (length = 11) : (length = 12);
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      counter += characters.charAt(randomIndex);
-    }
-    counterLab.value = counter;
-  }, 70);
+  // let counterInterval = setInterval(() => {
+  //   const characters = "abcdefhiklmnorstuvwxz0123456789";
+  //   let counter = "";
+  //   let length = 0;
+  //   clientWidth.value < 1920 ? (length = 11) : (length = 12);
+  //   for (let i = 0; i < length; i++) {
+  //     const randomIndex = Math.floor(Math.random() * characters.length);
+  //     counter += characters.charAt(randomIndex);
+  //   }
+  //   counterLab.value = counter;
+  // }, 70);
 
   setTimeout(() => {
-    titleLab.value = true;
+    // titleLab.value = true;
     showSubTitle.value = true;
     showVideo.value = true;
-    labNode.value.classList.add("section__counter-lab_active");
+    // labNode.value.classList.add("section__counter-lab_active");
   }, 2000 + ms);
 
-  setTimeout(() => {
-    clearInterval(counterInterval);
-    labNode.value.remove();
-  }, 5000);
+  // setTimeout(() => {
+  //   clearInterval(counterInterval);
+  //   labNode.value.remove();
+  // }, 5000);
 };
 
 const contentLoad = (ms) => {
@@ -410,7 +444,7 @@ onMounted(async () => {
   await contentLoad(loadingTime.value);
   showContent.value = true;
 
-  generatePsb();
+  // generatePsb();
   let delay = 450;
   setTimeout(() => {
     generateLab(delay);
@@ -423,13 +457,26 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .wrapper {
   position: absolute;
-  width: 33.5rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.6) 58.51%
+  );
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   @include mq(768) {
-    width: 68.8rem;
+    // width: 68.8rem;
+    top: 5rem;
   }
-  @include mq(1440) {
-    width: 120rem;
-  }
+  // @include mq(1440) {
+  //   width: 120rem;
+  // }
 
   &__arrow {
     animation: moveButton 2s linear infinite;
@@ -438,6 +485,7 @@ onMounted(async () => {
   &__title {
     color: var(--color-white);
     font-size: 4.8rem;
+    font-weight: 500;
     line-height: 90%;
     letter-spacing: -0.288rem;
     padding-bottom: 3rem;
@@ -448,7 +496,11 @@ onMounted(async () => {
       letter-spacing: -0.576rem;
       padding-bottom: 6rem;
     }
+    @include mq(1024) {
+      width: 54rem;
+    }
     @include mq(1440) {
+      width: 83.8rem;
       font-size: 15rem;
       letter-spacing: -0.9rem;
     }
@@ -466,7 +518,8 @@ onMounted(async () => {
       width: 62.6rem;
       grid-template-columns: repeat(3, auto);
       grid-template-rows: 1fr 1fr;
-      height: 19.4rem;
+      // height: 19.4rem;
+      height: 22rem;
       margin: 0 auto 19.5rem;
       grid-template-areas:
         "about projects work"
@@ -487,18 +540,22 @@ onMounted(async () => {
     > button {
       border-radius: 16rem;
       border: 0.2rem solid rgba(255, 255, 255, 0.2);
-      background: transparent;
-      backdrop-filter: blur(0.3rem);
+      background: rgba(255, 255, 255, 0.01);
+      backdrop-filter: blur(0.3rem); /* Стандартное свойство backdrop-filter */
+      -webkit-backdrop-filter: blur(
+        0.3rem
+      ); /* Префикс для браузеров на движке WebKit */
       padding: 1.5rem;
       font-size: 1.8rem;
       line-height: 120%;
       letter-spacing: -0.036rem;
       color: var(--color-white);
       transition: 0.2s;
-
       &:hover {
         background: #424ed1;
         cursor: pointer;
+        border: none;
+        outline: none;
       }
 
       @include mq(768) {
@@ -522,6 +579,7 @@ onMounted(async () => {
     @include mq(768) {
       height: 9rem;
       grid-area: about;
+      justify-self: start;
     }
     @include mq(1440) {
       height: 11.8rem;
@@ -535,15 +593,15 @@ onMounted(async () => {
     position: relative;
     left: -3.9rem;
     @include mq(768) {
+      left: 0.3rem;
       height: 9rem;
-      position: static;
       width: 23.6rem;
       grid-area: projects;
     }
     @include mq(1440) {
       height: 11.8rem;
       width: 35rem;
-      justify-self: center;
+      left: 1.4rem;
     }
   }
 
@@ -555,6 +613,7 @@ onMounted(async () => {
       grid-area: office;
     }
     @include mq(1440) {
+      justify-self: end;
       height: 11.8rem;
     }
   }
@@ -581,11 +640,14 @@ onMounted(async () => {
     position: relative;
     left: 1.6rem;
     @include mq(768) {
+      left: 2rem;
       height: 9rem;
       width: 26rem;
       grid-area: life;
     }
     @include mq(1440) {
+      left: 0;
+      justify-self: center;
       height: 11.8rem;
       width: 38rem;
     }
@@ -595,11 +657,15 @@ onMounted(async () => {
     height: 5.2rem;
     justify-self: center;
     @include mq(768) {
+      position: relative;
+      left: 1rem;
       height: 9rem;
       padding: 3rem;
       grid-area: develop;
     }
     @include mq(1440) {
+      position: relative;
+      left: -2.7rem;
       height: 11.8rem;
     }
   }
@@ -608,21 +674,30 @@ onMounted(async () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 4.8rem;
-    height: 4.8rem;
+    width: 48px;
+    height: 48px;
     margin: 0 auto;
-    padding: 2rem;
-    border: 0.1rem solid rgba(255, 255, 255, 0.2);
+    border: none;
     border-radius: 5rem;
     background-color: rgba(255, 255, 255, 0.2);
-    background-image: url("../assets/images/mainblock/arrow_down.svg");
+    background-image: url("../assets/images/mainblock/ArrowDown.png");
     background-position: center center;
     background-repeat: no-repeat;
     transition: opacity 4s ease;
     @include mq(768) {
-      width: 6.4rem;
-      height: 6.4rem;
-      background-image: url("../assets/images/mainblock/arrow_down_768.svg");
+      width: 54px;
+      height: 54px;
+      background-size: 18px;
+    }
+    @include mq(1440) {
+      width: 64px;
+      height: 64px;
+      background-size: 21px;
+    }
+    @include mq(1920) {
+      width: 76px;
+      height: 76px;
+      background-size: 25px;
     }
   }
 }
@@ -631,9 +706,30 @@ onMounted(async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  animation: slideInFromTop 1200ms ease-out forwards;
-  @include mq(375) {
-    width: 33.5rem;
+  // animation: slideInFromTop 1200ms ease-out forwards;
+  opacity: 0;
+  animation: opacityShow 800ms ease-out forwards;
+  width: 33.5rem;
+
+  @include mq(425) {
+    // width: auto;
+    width: 33.1rem;
+  }
+  @include mq(475) {
+    // width: auto;
+    width: 32.8rem;
+  }
+  @include mq(490) {
+    width: 32.6rem;
+  }
+  @include mq(560) {
+    width: 32.4rem;
+  }
+  @include mq(620) {
+    width: 32.2rem;
+  }
+  @include mq(660) {
+    width: 32rem;
   }
   @include mq(768) {
     width: auto;
@@ -670,11 +766,15 @@ onMounted(async () => {
     position: relative;
     padding: 7rem 0 0;
     color: var(--color-white);
-    margin: 0 auto;
+    // margin: 0 auto;
     overflow: hidden;
+    // letter-spacing: -2.88px;
+    margin: 0 auto;
+    padding-bottom: 5px; //
+
     @include mq(375) {
-      width: 31rem;
-      height: 11.3rem;
+      // width: 31rem;
+      // height: 11.3rem;
     }
 
     @include mq(768) {
@@ -751,15 +851,26 @@ onMounted(async () => {
   }
 
   &__title-psb {
-    font-size: 4.8rem;
+    // font-size: 4.8rem;
+    font-size: 4.7rem;
     line-height: 90%;
-    letter-spacing: -0.288rem;
-    text-align: center;
+    // letter-spacing: -0.288rem;
+    // text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    margin: 0;
-    animation: fadeInText 2100ms ease-out forwards;
+    // overflow: hidden;
 
+    // margin: 0;
+    // animation: fadeInText 2100ms ease-out forwards;
+
+    @include mq(425) {
+      font-size: 4.6rem;
+    }
+    @include mq(590) {
+      font-size: 4.58rem;
+    }
+    @include mq(660) {
+      font-size: 4.54rem;
+    }
     @include mq(768) {
       font-size: 9.6rem;
       letter-spacing: -0.576rem;
@@ -786,7 +897,8 @@ onMounted(async () => {
 
     @include mq(375) {
       height: 4.4rem;
-      width: 27rem;
+      // width: 27rem;
+      width: 29.7rem;
     }
     @include mq(768) {
       height: 8.6rem;
@@ -857,12 +969,12 @@ onMounted(async () => {
   &__title-lab {
     font-size: 4.8rem;
     line-height: 90%;
-    letter-spacing: -0.288rem;
-    text-align: center;
+    // letter-spacing: -0.288rem;
+    // text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    margin: 0;
-    animation: fadeInText 2100ms ease-out forwards;
+    // overflow: hidden;
+    // margin: 0;
+    // animation: fadeInText 2100ms ease-out forwards;
 
     @include mq(768) {
       font-size: 9.6rem;
@@ -943,13 +1055,13 @@ onMounted(async () => {
       align-items: center;
       width: 29.5rem;
       border-radius: 2rem;
-      border: 0.1rem solid rgba(0, 0, 0, 0.2);
-      background: var(--color-white, rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(0, 0, 0, 0.2);
       padding: 1.5rem 2rem;
       margin: 2rem auto 2rem;
       text-align: center;
       cursor: pointer;
-      animation: slideInFromTop 700ms ease-out forwards;
+      opacity: 0;
+      animation: opacityShow 800ms ease-out forwards;
 
       &:hover {
         background: #fff;
@@ -981,7 +1093,7 @@ onMounted(async () => {
       @include mq(768) {
         width: auto;
         background: none;
-        border: 0.1rem solid var(--color-white, rgba(255, 255, 255, 0.2));
+        border: 0.1rem solid rgba(255, 255, 255, 0.2);
         padding: 1rem 2rem;
         margin: 0;
       }
