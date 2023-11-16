@@ -125,6 +125,7 @@ const showGallery = (event, code) => {
   btn.classList.toggle('life_gallery-btn-active');
 
   let sliderItemsDelay = 0;
+  let sliderItemsDelayFull = 0;
 
   galleryAll.forEach((item) => {
     item.style.display = 'none';
@@ -138,7 +139,17 @@ const showGallery = (event, code) => {
   });
 
   galleryItem.forEach((item) => {
+    item.style.scrollSnapAlign = 'none';
+    sliderItemsDelayFull+= 60;
+  });
 
+  galleryItem.forEach((item) => {
+
+    setTimeout(() => {
+      item.classList.add('galleryItemAnima');
+    }, sliderItemsDelay);
+    sliderItemsDelay += 60;
+    /*
     item.animate({opacity: '1', 'transform': 'translateX(0rem)'}, {
       duration: 500,
       delay: sliderItemsDelay,
@@ -146,9 +157,18 @@ const showGallery = (event, code) => {
       fill: 'forwards'
     });
     sliderItemsDelay += 60;
-
+*/
   });
+
+  setTimeout(() => {
+    galleryItem.forEach((item) => {
+      item.style.scrollSnapAlign = 'start';
+    });
+  }, sliderItemsDelayFull);
+
 }
+
+
 /*
 const getEventType = (e) => {
 
@@ -311,42 +331,44 @@ onMounted(async () => {
   }
 
 
-  slider.value = document.querySelector('.life_gallery-items');
+  slider.value = document.querySelectorAll('.life_gallery-items');
 
   let isDown = false;
   let startX;
   let scrollLeft;
 
   if (slider.value) {
+    slider.value.forEach((item) => {
 
-    slider.value.addEventListener('mousedown', (e) => {
-      slider.value.style.scrollSnapType = 'none';
-      isDown = true;
-      //item.classList.add('active');
-      startX = e.pageX - slider.value.offsetLeft;
-      scrollLeft = slider.value.scrollLeft;
-    });
-    slider.value.addEventListener('mouseleave', () => {
-      isDown = false;
-      slider.value.classList.remove('active');
-    });
-    slider.value.addEventListener('mouseup', () => {
-      slider.value.style.scrollSnapType = ' x mandatory';
-      isDown = false;
-      slider.value.classList.remove('active');
-    });
-    slider.value.addEventListener('mousemove', (e) => {
 
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - slider.value.offsetLeft;
-      const walk = (x - startX) * 3; //scroll-fast
-      console.log(walk);
-      console.log(scrollLeft);
-      slider.value.scrollLeft = scrollLeft - walk;
+      item.addEventListener('mousedown', (e) => {
+        item.style.scrollSnapType = 'none';
+        isDown = true;
+        item.classList.add('active');
+        startX = e.pageX - item.offsetLeft;
+        scrollLeft = item.scrollLeft;
+      });
+      item.addEventListener('mouseleave', () => {
+        isDown = false;
+        item.classList.remove('active');
+      });
+      item.addEventListener('mouseup', () => {
+        item.style.scrollSnapType = ' x mandatory';
+        isDown = false;
+        item.classList.remove('active');
+      });
+      item.addEventListener('mousemove', (e) => {
 
-    });
-    /*
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - item.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        console.log(walk);
+        console.log(scrollLeft);
+        item.scrollLeft = scrollLeft - walk;
+
+      });
+      /*
     item.addEventListener('touchstart', (e) => {
       isDown = true;
 
@@ -365,13 +387,31 @@ onMounted(async () => {
     });
 
      */
-
+    });
 
   }
 
 });
 </script>
 <style lang="scss" scoped>
+
+@keyframes galleryItemAnimate {
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0rem);
+    opacity: 1;
+  }
+}
+
+.galleryItemAnima {
+  animation-name: galleryItemAnimate;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+}
+
 @keyframes btnActive {
   0% {
     background-color: #ffffff;
@@ -628,14 +668,19 @@ onMounted(async () => {
   justify-content: space-between;
   box-sizing: border-box;
   opacity: 0;
-  transform: translateX(5rem);
-  scroll-snap-align: end;
+  /*transform: translateX(5rem);*/
+  /*scroll-snap-align: start;*/
 }
 
 .life_gallery-item:first-child {
   background-color: #424ed1;
   padding: 2.8rem;
 }
+
+.life_gallery-item:last-child {
+  padding-right: 2.8rem;
+}
+
 
 .life_gallery-item-bg {
   position: relative;
@@ -658,7 +703,7 @@ onMounted(async () => {
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 2rem;
+  gap: 1rem;
   display: none;
 
 
@@ -667,6 +712,7 @@ onMounted(async () => {
   overflow-y: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
+
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
@@ -676,8 +722,8 @@ onMounted(async () => {
 
 /* Скрываем scrollbar для IE, Edge и Firefox */
 .life_gallery-items {
-  -ms-overflow-style: none;  /* IE и Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .life_gallery {
@@ -695,6 +741,7 @@ onMounted(async () => {
 .life_gallery-wrapper {
   min-height: 40rem;
   display: grid;
+  margin-right: -4rem;
 }
 
 .life_messages {
@@ -889,6 +936,7 @@ onMounted(async () => {
   .life_gallery-item {
     border-radius: 2rem;
     height: 40rem;
+    min-width: 34.6rem;
     opacity: 0;
   }
 
@@ -1058,110 +1106,6 @@ onMounted(async () => {
 
 @include mq(1920) {
 
-  .life {
-    padding: 26.6667rem 10.6667rem;
-    gap: 13.3333rem;
-  }
-
-  .life_header-text {
-    font-size: 12.5rem;
-    letter-spacing: -1.2rem;
-  }
-
-  .life_messages {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2.77rem;
-  }
-
-  .life_messages-msg {
-    padding: 2.6667rem 4rem;
-    gap: 1.3333rem;
-    font-size: 3.2rem;
-    letter-spacing: -0.096rem;
-  }
-
-  .life_messages-name, .life_messages-time {
-    font-size: 2.1332999999999998rem;
-    line-height: 140%;
-    letter-spacing: -0.0853rem;
-  }
-
-  .life_messages-dialog {
-    width: 100%;
-  }
-
-  .life_messages_left {
-    gap: 2.1rem;
-  }
-  .life_messages_left-list {
-    gap: 1.3rem;
-  }
-  .life_messages_right {
-    gap: 2.1rem;
-  }
-  .life_messages_left-msg {
-    max-width: 86rem;
-  }
-
-  .life_messages-ico {
-    width: 8rem;
-    height: 8rem
-  }
-
-  /* -------------------- Галерея -------------------- */
-  .life_gallery {
-    padding-left: 12.7rem;
-    gap: 2.6670000000000003rem;
-  }
-
-  .life_gallery-btn {
-    font-size: 3.2rem;
-    letter-spacing: -0.096rem;
-    padding: 2.6667rem 5.3332999999999995rem;
-    gap: 1.3333rem;
-
-  }
-
-  .life_gallery-wrapper {
-    min-height: 53.3rem;
-  }
-  .life_gallery-items {
-    min-height: 53.3rem;
-  }
-
-  .life_gallery-item {
-    gap: 2.66rem;
-    max-width: 51rem;
-    min-width: 51rem;
-    min-height: 53.3rem;
-    height: 53.3rem;
-  }
-
-  .life_gallery-item:first-child {
-    padding: 4.5333rem;
-  }
-
-  .life_gallery-item-name {
-    font-size: 3.2rem;
-    letter-spacing: -0.096rem;
-  }
-
-  .life_gallery-item-pos {
-    font-size: 2.1332999999999998rem;
-    line-height: 140%;
-    letter-spacing: -0.0853rem;
-  }
-  .life_gallery-item-desc {
-    font-size: 3.2rem;
-    letter-spacing: -0.096rem;
-  }
-
-  .life_messages-ico {
-    width: 10.6rem;
-    height: 10.6rem
-  }
 }
 
 @include mq(2560) {
