@@ -18,7 +18,7 @@
             <img
               class="recommend__button_img"
               alt="Frame"
-              src="../assets/images/arrow_right.svg"
+              src="../assets/images/recommend/arrow_right.svg"
             />
           </a>
         </button>

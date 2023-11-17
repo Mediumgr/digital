@@ -224,12 +224,12 @@ const { shuffle } = require("txt-shuffle");
 const videoSrc = ref("");
 const videoPlayer = ref(null);
 const videoSources = ref({
-  about: "about.mp4",
-  projects: "projects.mp4",
-  office: "office.mp4",
-  working: "working.mp4",
-  life: "life.mp4",
-  develop: "develop.mp4",
+  about: "mainblock/about.mp4",
+  projects: "mainblock/projects.mp4",
+  office: "mainblock/office.mp4",
+  working: "mainblock/working.mp4",
+  life: "mainblock/life.mp4",
+  develop: "mainblock/develop.mp4",
 });
 
 const showBlur = ref(false);
@@ -477,14 +477,14 @@ const intersectionAnimation = () => {
 };
 
 const swipeMenu = () => {
-  let menu = document.querySelector(".section__links");
   let startY = 0;
   let threshold = 20; // Пороговое значение для определения смахивания вниз
 
-  menu.addEventListener("touchstart", function (event) {
+  menuList.value.addEventListener("touchstart", function (event) {
     startY = event.touches[0].clientY;
   });
-  menu.addEventListener("touchmove", function (event) {
+  menuList.value.addEventListener("touchmove", function (event) {
+    event.preventDefault();
     let currentY = event.touches[0].clientY;
     let distance = currentY - startY;
 
@@ -495,7 +495,7 @@ const swipeMenu = () => {
 };
 
 onMounted(async () => {
-  videoSrc.value = require("@/assets/video/meet.mp4");
+  videoSrc.value = require("@/assets/video/mainblock/meet.mp4");
   videoPlayer.value.load();
 
   // showNavbar.value = true;
@@ -595,7 +595,7 @@ onMounted(async () => {
       margin-bottom: 5rem;
     }
     @include mq(810) {
-      margin: 0px auto 7.5rem;
+      margin: 0px auto 5rem;
     }
     @include mq(930) {
       margin: 0 auto 5.5rem;
@@ -607,17 +607,17 @@ onMounted(async () => {
       grid-row-gap: 1.6rem;
       width: auto;
       height: auto;
-      margin-bottom: 13rem;
+      margin-bottom: 7rem;
       grid-template-columns: auto auto auto 24rem;
       grid-template-rows: 1fr 1fr;
       grid-template-areas:
         "about projects work office"
         ". life develop .";
     }
-    @include mq(1920) {
+    /*   @include mq(1920) {
       margin-bottom: 6rem;
     }
-
+ */
     > button {
       border-radius: 16rem;
       border: 0.2rem solid rgba(255, 255, 255, 0.2);
