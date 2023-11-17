@@ -140,7 +140,7 @@ onMounted(() => {
     top: 29rem;
     opacity: 0;
     transition: opacity 1s ease-out;
-
+    font-weight: 500;
     color: #13144b;
     text-align: center;
     font-size: 4.8rem;
