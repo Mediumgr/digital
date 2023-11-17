@@ -15,18 +15,8 @@
           @mouseover="mouseover($event)"
           @mouseleave="mouseleave()"
         >
-          <p
-            class="vacancy__look"
-            @mouseover="mouseover($event)"
-            @mouseleave="mouseleave()"
-          >
-            Посмотреть все вакансии можно здесь
-          </p>
-          <div
-            class="vacancy__bottom"
-            @mouseover="mouseover($event)"
-            @mouseleave="mouseleave()"
-          >
+          <p class="vacancy__look">Посмотреть все вакансии можно здесь</p>
+          <div class="vacancy__bottom">
             <p class="vacancy__text">Хабр Карьера</p>
             <div class="vacancy__arrow"></div>
           </div>
@@ -37,7 +27,7 @@
             v-model.trim="name"
             type="text"
             :error="errors['name']"
-            placeholder="Имя и&nbsp;Фамилия"
+            placeholder="Имя Фамилия"
           >
           </BaseInput>
           <BaseInput
@@ -209,13 +199,14 @@ const removeFile = (event) => {
 
 const mouseover = (event) => {
   if (event.target.classList.contains("vacancy__card")) {
+    clearInterval(interval.value);
     interval.value = setInterval(() => {
       initialBackground.value = false;
       currentIndex.value = (currentIndex.value + 1) % imageURLs.value.length;
-    }, 150);
+    }, 300);
   }
 };
-
+/*  */
 const mouseleave = () => {
   clearInterval(interval.value);
   currentIndex.value = -1;
@@ -578,7 +569,7 @@ onMounted(() => {
       margin-bottom: 20rem;
     }
 
- /*    @include mq(1920) {
+    /*    @include mq(1920) {
       width: 145rem;
       margin-bottom: 26.7rem;
     } */
@@ -605,7 +596,7 @@ onMounted(() => {
       padding: 20rem 0 10rem;
     }
 
-  /*   @include mq(1920) {
+    /*   @include mq(1920) {
       font-size: 20rem;
       letter-spacing: -1.2rem;
       padding: 26.7rem 0 13.3rem;
@@ -634,7 +625,7 @@ onMounted(() => {
       width: 51.4rem;
       margin-bottom: 0;
     }
-/*
+    /*
     @include mq(1920) {
       padding: 5.3rem;
       height: 88.5rem;
@@ -733,7 +724,7 @@ onMounted(() => {
     justify-content: space-between;
   }
 
-/*   @include mq(1920) {
+  /*   @include mq(1920) {
     padding: 5.3rem;
     height: 88.5rem;
     width: 68.5rem;
@@ -758,7 +749,7 @@ onMounted(() => {
       margin-bottom: 2.5rem;
     }
 
-/*     @include mq(1920) {
+    /*     @include mq(1920) {
       font-size: 6.4rem;
       letter-spacing: -0.192rem;
       margin-bottom: 3.5rem;
@@ -786,7 +777,7 @@ onMounted(() => {
     height: 9.4rem;
   }
 
-/*   @include mq(1920) {
+  /*   @include mq(1920) {
     width: 57.9rem;
     height: 12.7rem;
     padding: 2.7rem;
@@ -816,7 +807,7 @@ onMounted(() => {
       letter-spacing: -0.064rem;
     }
 
-/*     @include mq(1920) {
+    /*     @include mq(1920) {
       font-size: 2.1rem;
       letter-spacing: -0.0853rem;
     } */
@@ -841,7 +832,7 @@ onMounted(() => {
       letter-spacing: -0.064rem;
     }
 
- /*    @include mq(1920) {
+    /*    @include mq(1920) {
       font-size: 2.1rem;
       letter-spacing: -0.0853rem;
     } */
@@ -867,7 +858,7 @@ onMounted(() => {
       padding: 0 0 2rem;
     }
 
-/*     @include mq(1920) {
+    /*     @include mq(1920) {
       padding: 0.3rem 0 2.5rem;
       font-size: 2.1rem;
       letter-spacing: -0.0853rem;
