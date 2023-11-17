@@ -1,5 +1,5 @@
 .map-offices {
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   padding: 12rem 2rem;
   background-color: var(--bg-eggplant);
   overflow: hidden;
@@ -357,7 +357,7 @@
     }
 
     &--sevastopol {
-      left: 0;
+      left: -0.1rem;
       bottom: 6.7rem;
 
       @include mq(768) {

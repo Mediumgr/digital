@@ -2,7 +2,7 @@
   z-index: 1;
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   padding: 12rem 1.8rem;
 
   @include mq(768) {

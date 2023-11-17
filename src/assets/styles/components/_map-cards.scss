@@ -4,11 +4,17 @@
   top: 0;
   left: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   min-width: 100%;
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
+
+  @include mq(768) {
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
 
   &__overlay {
     position: absolute;
@@ -24,18 +30,35 @@
   }
 
   &__item {
-    position: fixed;
+    position: absolute;
     z-index: -1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
+    max-width: 60rem;
     margin: 0 auto;
     flex: 0 0 auto;
     opacity: 0;
     border-radius: 2rem;
     overflow: hidden;
+    transition: transform 0.4s;
+
+    @include only-mobile {
+      bottom: 0;
+      left: 0;
+      //display: none;
+      overflow: visible;
+      width: 100%;
+      transform: translateY(130%);
+
+      &._active{
+        transform: translateY(0);
+      }
+    }
 
     @include mq(768) {
+      position: fixed;
       border-radius: 2rem;
     }
 
@@ -66,7 +89,7 @@
     position: absolute;
     z-index: 1;
     top: -4.4rem;
-    right: 0;
+    right: 1rem;
     width: 3.6rem;
     height: 3.6rem;
     padding: 0;
@@ -143,11 +166,11 @@
     background-color: var(--white);
     padding: 2rem;
     opacity: 0;
-    border-bottom-left-radius: 2rem;
-    border-bottom-right-radius: 2rem;
 
     @include mq(768) {
       padding: 4rem;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
     }
 
     @include mq(1200) {

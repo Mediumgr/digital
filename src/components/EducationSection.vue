@@ -10,9 +10,11 @@
     <div class="education__card">
       <div class="js-education-corp">
         <div class="education__hero education__hero--corp">
-          <video class="education__video" src="@/assets/video/education/pexels-shvets-production-9057681-(720p).mp4"
-                 type="video/mp4"
-                 autoplay loop muted playsinline controls="false"></video>
+          <video class="education__video"
+                 autoplay loop muted playsinline>
+            <source type="video/mp4"
+                    src="@/assets/video/education/pexels-shvets-production-9057681-(720p).mp4">
+          </video>
           <div class="education__card-text-wrapper">
             <h3 class="education__card-title heading-h2">
               Корпоративное <br/>
@@ -81,9 +83,10 @@
       </div>
       <div class="education__card js-education-school">
         <div class="education__hero education__hero--school">
-          <video class="education__video" src="@/assets/video/education/pexels-tea-oebel-6804109-(720p).mp4"
-                 type="video/mp4"
-                 autoplay loop muted playsinline controls="false"></video>
+          <video class="education__video" autoplay loop muted playsinline>
+            <source type="video/mp4"
+                    src="@/assets/video/education/pexels-tea-oebel-6804109-(720p).mp4">
+          </video>
           <div class="education__card-text-wrapper">
             <h3 class="education__card-title heading-h2">
               Школа <br/>
@@ -123,9 +126,6 @@
                 <div class="education-card__text">Включает базовый и&nbsp;специализированный курсы по&nbsp;C#/.Net</div>
                 <div class="education-card__text">Разработчик создает программы и&nbsp;сервисы, а&nbsp;еще поддерживает
                   стабильную работу продуктов
-                </div>
-                <div class="education-card__text">Инженер по&nbsp;тестированию (он&nbsp;же QA-тестировщик, или
-                  QA-engineer) продумывает, что и&nbsp;где может сломаться, прогнозирует сбои и&nbsp;находит ошибки
                 </div>
                 <div class="education-card__subtitle heading-h5">За что отвечает разработчик ПО:</div>
                 <ul class="education-card__list">

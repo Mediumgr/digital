@@ -67,7 +67,7 @@
                 </div>
               </template>
 
-              <a class="map-cards__link" :href="city.link.href">{{ city.link.text }}</a>
+              <a class="map-cards__link" target="_blank" :href="city.link.href">{{ city.link.text }}</a>
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { gsap } from '@/helpers/gsap';
-import { getScrollbarWidth, refreshScrollTriggerByElement } from '@/helpers';
+import { getScrollbarWidth, isMobile, refreshScrollTriggerByElement } from '@/helpers';
 
 import mapData from '@/assets/data/map.json';
 import mapPointers from '@/assets/data/map-pointers.json';
@@ -176,41 +176,55 @@ function init() {
     currentAnimationCard && currentAnimationCard.kill()
     currentAnimationCard = gsap.timeline()
 
-    gsap.set(currentCardEl, {
-      left: btnSize.x,
-      top: btnSize.y,
-      width: btnSize.width,
-      height: btnSize.height,
-      zIndex: 4,
-      overflow: 'hidden',
-    })
-
-    const poxCenterX = (window.innerWidth - cardInnerEl.getBoundingClientRect().width) / 2
-    const poxCenterY = (window.innerHeight - cardInnerEl.getBoundingClientRect().height) / 2
-
-    currentAnimationCard
-      .to([currentCardEl, overlayEl], {
+    if (isMobile()) {
+      currentCardEl.classList.add('_active')
+      gsap.set(currentCardEl, {
+        zIndex: 4,
         autoAlpha: 1,
-        duration: 0.35,
       })
-      .to(currentCardEl, {
-        duration: 0.3,
-        width: 'auto',
-        left: poxCenterX
+
+      currentAnimationCard
+        .to([overlayEl, cardContentEl], {
+          autoAlpha: 1,
+          duration: 0.4,
+        })
+    } else {
+      gsap.set(currentCardEl, {
+        left: btnSize.x,
+        top: btnSize.y,
+        width: btnSize.width,
+        height: btnSize.height,
+        zIndex: 4,
+        overflow: 'hidden',
       })
-      .to(currentCardEl, {
-        duration: 0.3,
-        height: 'auto',
-        top: poxCenterY,
-        onComplete: () => {
-          console.log('Complete')
-          currentCardEl.style.overflow = 'visible'
-        }
-      })
-      .to(cardContentEl, {
-        autoAlpha: 1,
-        duration: 0.25,
-      })
+
+      const poxCenterX = (window.innerWidth - cardInnerEl.getBoundingClientRect().width) / 2
+      const poxCenterY = (window.innerHeight - cardInnerEl.getBoundingClientRect().height) / 2
+
+      currentAnimationCard
+        .to([currentCardEl, overlayEl], {
+          autoAlpha: 1,
+          duration: 0.35,
+        })
+        .to(currentCardEl, {
+          duration: 0.3,
+          width: 'auto',
+          left: poxCenterX
+        })
+        .to(currentCardEl, {
+          duration: 0.3,
+          height: 'auto',
+          top: poxCenterY,
+          onComplete: () => {
+            console.log('Complete')
+            currentCardEl.style.overflow = 'visible'
+          }
+        })
+        .to(cardContentEl, {
+          autoAlpha: 1,
+          duration: 0.25,
+        })
+    }
 
     console.log(cityName)
 
@@ -227,19 +241,34 @@ function init() {
   closeButtonsEl.forEach(btn => {
     btn.addEventListener('click', function (event) {
       event.preventDefault();
+
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
       document.body.style.backgroundColor = "";
 
+      const currentCard = event.target.parentElement
+
+      console.log(currentAnimationCard)
+
       if (currentAnimationCard) {
-        event.target.parentElement.style.overflow = 'hidden'
+        !isMobile() && (currentCard.style.overflow = 'hidden')
         const newDuration = (currentAnimationCard.totalDuration() / 2.2).toFixed(2)
         console.log(newDuration)
+
+        currentAnimationCard.totalDuration(newDuration)
         currentAnimationCard.totalDuration(newDuration)
         currentAnimationCard.reverse();
 
+        currentCard.classList.remove('_active')
+
         setTimeout(() => {
           mapCardsContainerEl.style.zIndex = "-11";
+
+          if (isMobile()) {
+            currentCard.style.zIndex = "-4";
+            currentCard.style.visibility = "hidden";
+            // currentCard.style.display = "none";
+          }
         }, newDuration * 1000)
       }
     })

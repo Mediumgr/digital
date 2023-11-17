@@ -5,7 +5,7 @@
   //height: 500rem;
   //background-color: red;
 
-  @include mq(1200) {
+  @include mq(768) {
     gap: 4rem;
   }
 

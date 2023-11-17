@@ -42,7 +42,7 @@ html {
     font-size: calc(10px + 13 * (100vw - 375px) / 447);
   }
 
-  @include mq(769, 1023) {
+  @include mq(768, 1023) {
     font-size: calc(10px + 4 * (100vw - 768px) / 255);
   }
 

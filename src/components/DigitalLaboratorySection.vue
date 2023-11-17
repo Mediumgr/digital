@@ -9,7 +9,7 @@
     <div class="digital-laboratory__text">
       <div class="digital-laboratory__psb">© ПСБ</div>
 
-      <a class="digital-laboratory__link" href="#">
+      <a href="mailto:BIT_communications@psbank.ru"  class="digital-laboratory__link">
         Почта
       </a>
     </div>

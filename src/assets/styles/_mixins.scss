@@ -10,6 +10,12 @@
   }
 }
 
+@mixin only-mobile() {
+    @include mq(0, 767) {
+      @content
+    }
+}
+
 @mixin mqh($from, $to: false) {
   @if $to {
     @media screen and (min-height: $from + 0px) and (max-height: $to + 0px) {
