@@ -671,6 +671,7 @@ onMounted(async () => {
   opacity: 0;
   /*transform: translateX(5rem);*/
   /*scroll-snap-align: start;*/
+  -webkit-scroll-snap-align: start;
 }
 
 .life_gallery-item:first-child {
@@ -716,6 +717,8 @@ onMounted(async () => {
   -webkit-scroll-snap-type: x mandatory;
   -ms-scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+
+  max-width: 100vh;
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
