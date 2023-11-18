@@ -853,6 +853,7 @@ onMounted(async () => {
     // letter-spacing: -2.88px;
     margin: 0 auto;
     padding-bottom: 5px; //
+    // text-align: center;
 
     @include mq(375) {
       // width: 31rem;
@@ -938,12 +939,16 @@ onMounted(async () => {
     line-height: 90%;
     // letter-spacing: -0.288rem;
     // text-align: center;
+    padding-left: 4px; // для Samsung
     white-space: nowrap;
     // overflow: hidden;
 
     // margin: 0;
     // animation: fadeInText 2100ms ease-out forwards;
 
+    @include mq(375) {
+      padding-left: 0;
+    }
     @include mq(425) {
       font-size: 4.6rem;
     }
@@ -976,6 +981,7 @@ onMounted(async () => {
     color: var(--color-white);
     margin: 0 auto;
     overflow: hidden;
+    // text-align: center;
 
     @include mq(375) {
       height: 4.4rem;
@@ -1054,10 +1060,13 @@ onMounted(async () => {
     // letter-spacing: -0.288rem;
     // text-align: center;
     white-space: nowrap;
+    padding-left: 20px; // для Samsung
     // overflow: hidden;
     // margin: 0;
     // animation: fadeInText 2100ms ease-out forwards;
-
+    @include mq(375) {
+      padding-left: 0;
+    }
     @include mq(768) {
       font-size: 9.6rem;
       letter-spacing: -0.576rem;
@@ -1109,6 +1118,7 @@ onMounted(async () => {
 
   &__links {
     position: fixed;
+    width: 100vw;
     z-index: 2;
     bottom: -80rem;
     left: 0;
@@ -1340,6 +1350,8 @@ header {
   right: 0;
   width: 100%;
   height: 100%;
+  padding: 4rem 1rem 0 1rem;
+
   @include mq(375) {
     padding: 4rem 2rem 0 2rem;
   }
@@ -1383,7 +1395,9 @@ header {
   margin: 0 auto;
   width: 100%;
   transition: all 200ms ease-out;
-
+  /*  */
+  height: 81.2rem;
+  /*  */
   @include mq(375) {
     height: 81.2rem;
   }
@@ -1438,7 +1452,14 @@ header {
   );
   border-radius: 13rem;
   position: absolute;
-
+  /*  */
+  height: 130rem;
+  width: 130rem;
+  top: -40rem;
+  left: -40rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientPurple_375 8s ease infinite;
+  /*  */
   @include mq(375) {
     height: 130rem;
     width: 130rem;
@@ -1515,6 +1536,15 @@ header {
   border-radius: 13rem;
   position: absolute;
 
+  /*  */
+  width: 85rem;
+  height: 85rem;
+  top: -25rem;
+  left: -15rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientRed_375 8s ease infinite;
+  /*  */
+
   @include mq(375) {
     width: 85rem;
     height: 85rem;
@@ -1588,6 +1618,14 @@ header {
   );
   border-radius: 13rem;
   position: absolute;
+  /*  */
+  width: 40rem;
+  height: 40rem;
+  top: 40rem;
+  left: 18rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientYellow_375 8s ease infinite;
+  /*  */
 
   @include mq(375) {
     width: 40rem;

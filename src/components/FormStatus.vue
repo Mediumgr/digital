@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!!status.connection && status.connection === true">
+  <div v-if="status.server.failure === false && status.connection === true">
     <div class="success__container">
       <img
         src="../assets/images/vacancies/status_good.svg"
@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div v-if="!!status.connection && status.connection === false">
+  <div v-if="status.server.failure === false && status.connection === false">
     <div class="error__container">
       <div class="error__connection">
         <img
@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <div v-if="status.server.failure">
+  <div v-if="status.server.failure && status.connection === true">
     <div class="success__container">
       <img
         src="../assets/images/vacancies/status_bad.svg"
@@ -44,19 +44,17 @@
 
 <script setup>
 /* eslint-disable */
-import { defineProps } from 'vue';
+import { defineProps } from "vue";
 
 const props = defineProps({
   status: {
     type: Object,
-    default: () => {
-    },
+    default: () => {},
   },
 });
 </script>
 
 <style lang="scss" scoped>
-
 .btn {
   width: 25.5rem;
   padding: 2rem;
@@ -76,8 +74,8 @@ const props = defineProps({
         35.04% 88.6% at 85.5% 50.85%,
         #ff4236 0%,
         rgba(142, 84, 245, 0) 155%
-    ),
-    #424ed1;
+      ),
+      #424ed1;
   }
 
   @include mq(768) {
@@ -160,11 +158,16 @@ const props = defineProps({
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 4rem;
-    row-gap: 4rem;
+    padding: 2rem;
+    row-gap: 2rem;
     border-radius: 2rem;
     background: var(--color-white);
     box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.07);
+
+    @include mq(425) {
+      padding: 4rem;
+      row-gap: 4rem;
+    }
 
     @include mq(1024) {
       row-gap: 6rem;
@@ -173,11 +176,6 @@ const props = defineProps({
     @include mq(1440) {
       height: 66.4rem;
       width: 51.4rem;
-    }
-
-    @include mq(1920) {
-      height: 88.5rem;
-      width: 68.5rem;
     }
   }
 

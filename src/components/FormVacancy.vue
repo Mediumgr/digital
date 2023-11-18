@@ -99,6 +99,7 @@ const status = reactive({
   form: true,
   connection: true,
   server: { failure: false, message: "" },
+  image: [],
 });
 const file = ref({});
 let name = ref({ text: "" });
@@ -225,8 +226,13 @@ const mouseleave = () => {
 
 const backgroundStyle = computed(() => {
   return initialBackground.value === false
-    ? {
+    ? /*   {
         "background-image": `url(${loadedImages.value[currentIndex.value]})`,
+      } */
+      {
+        "background-image": `url(${require(`@/assets/images/vacancies/${
+          imageURLs.value[currentIndex.value]
+        }`)})`,
       }
     : { background: "#424ed1" };
 });
@@ -248,6 +254,24 @@ const preLoadImages = () => {
     })
     .catch((error) => {
       console.error("Ошибка при загрузке изображений:", error);
+    });
+
+  /* загрузка изображения при плохом интернете */
+  let imageName = ref(["status_bad.svg"]);
+  let loadedImage = new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onerror = reject;
+    img.src = `${require(`@/assets/images/vacancies/${imageName.value[0]}`)}`;
+    img.onload = () => resolve(img);
+    console.log("img_vacancy", img);
+  });
+
+  loadedImage
+    .then((img) => {
+      status.image.push(img.src);
+    })
+    .catch((error) => {
+      console.error("Ошибка при загрузке изображения_vacancy:", error);
     });
 };
 
@@ -331,6 +355,12 @@ onMounted(() => {
   );
   border-radius: 13rem;
   position: absolute;
+  height: 130rem;
+  width: 130rem;
+  top: -40rem;
+  left: -40rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientPurple_375 8s ease infinite;
 
   @include mq(375) {
     height: 130rem;
@@ -407,6 +437,12 @@ onMounted(() => {
   );
   border-radius: 13rem;
   position: absolute;
+  width: 85rem;
+  height: 85rem;
+  top: -25rem;
+  left: -15rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientRed_375 8s ease infinite;
 
   @include mq(375) {
     width: 85rem;
@@ -481,6 +517,12 @@ onMounted(() => {
   );
   border-radius: 13rem;
   position: absolute;
+  width: 40rem;
+  height: 40rem;
+  top: 40rem;
+  left: 18rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientYellow_375 8s ease infinite;
 
   @include mq(375) {
     width: 40rem;
@@ -547,9 +589,6 @@ onMounted(() => {
     @include mq(1440) {
       height: 130rem;
     }
-    @include mq(1920) {
-      height: 174rem;
-    }
   }
 
   &__container {
@@ -568,11 +607,6 @@ onMounted(() => {
       width: 110.8rem;
       margin-bottom: 20rem;
     }
-
-    /*    @include mq(1920) {
-      width: 145rem;
-      margin-bottom: 26.7rem;
-    } */
   }
 
   &__title {
@@ -595,12 +629,6 @@ onMounted(() => {
       letter-spacing: -0.9rem;
       padding: 20rem 0 10rem;
     }
-
-    /*   @include mq(1920) {
-      font-size: 20rem;
-      letter-spacing: -1.2rem;
-      padding: 26.7rem 0 13.3rem;
-    } */
   }
 
   &__card {
@@ -625,12 +653,6 @@ onMounted(() => {
       width: 51.4rem;
       margin-bottom: 0;
     }
-    /*
-    @include mq(1920) {
-      padding: 5.3rem;
-      height: 88.5rem;
-      width: 68.5rem;
-    } */
   }
 
   &__look {
@@ -676,6 +698,7 @@ onMounted(() => {
     height: 1.9rem;
     width: 1.9rem;
     background: url("../assets/images/vacancies/arrow_375.svg") no-repeat;
+    background-position: center;
 
     @include mq(768) {
       width: 2.9rem;
@@ -692,12 +715,6 @@ onMounted(() => {
       height: 3.8rem;
       width: 3.8rem;
       background: url("../assets/images/vacancies/arrow.svg") no-repeat;
-    }
-
-    @include mq(1920) {
-      height: 5.1rem;
-      width: 5.1rem;
-      background: url("../assets/images/vacancies/arrow_1920.svg") no-repeat;
     }
   }
 }
@@ -724,12 +741,6 @@ onMounted(() => {
     justify-content: space-between;
   }
 
-  /*   @include mq(1920) {
-    padding: 5.3rem;
-    height: 88.5rem;
-    width: 68.5rem;
-  } */
-
   & .title {
     color: #13144b;
     font-size: 2.4rem;
@@ -748,12 +759,6 @@ onMounted(() => {
       letter-spacing: -0.144rem;
       margin-bottom: 2.5rem;
     }
-
-    /*     @include mq(1920) {
-      font-size: 6.4rem;
-      letter-spacing: -0.192rem;
-      margin-bottom: 3.5rem;
-    } */
   }
 }
 
@@ -776,14 +781,6 @@ onMounted(() => {
     width: 43.4rem;
     height: 9.4rem;
   }
-
-  /*   @include mq(1920) {
-    width: 57.9rem;
-    height: 12.7rem;
-    padding: 2.7rem;
-    border-radius: 2.7rem;
-    border: 0.13rem dashed rgba(19, 20, 75, 0.2);
-  } */
 
   &.active {
     background-color: #f9f9f9;

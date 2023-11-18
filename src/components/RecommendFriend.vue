@@ -242,6 +242,12 @@ const mousemove = (e) => {
   );
   border-radius: 13rem;
   position: absolute;
+  height: 130rem;
+  width: 130rem;
+  top: -40rem;
+  left: -40rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientPurple_375 8s ease infinite;
 
   @include mq(375) {
     height: 130rem;
@@ -318,6 +324,12 @@ const mousemove = (e) => {
   );
   border-radius: 13rem;
   position: absolute;
+  width: 85rem;
+  height: 85rem;
+  top: -25rem;
+  left: -15rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientRed_375 8s ease infinite;
 
   @include mq(375) {
     width: 85rem;
@@ -392,6 +404,12 @@ const mousemove = (e) => {
   );
   border-radius: 13rem;
   position: absolute;
+  width: 40rem;
+  height: 40rem;
+  top: 40rem;
+  left: 18rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientYellow_375 8s ease infinite;
 
   @include mq(375) {
     width: 40rem;
