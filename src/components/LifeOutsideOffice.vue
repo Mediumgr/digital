@@ -334,6 +334,7 @@ onMounted(async () => {
 
   slider.value = document.querySelectorAll('.life_gallery-items');
 
+  /*
   let isDown = false;
   let startX;
   let scrollLeft;
@@ -341,7 +342,7 @@ onMounted(async () => {
   if (slider.value) {
     slider.value.forEach((item) => {
 
-/*
+
       item.addEventListener('mousedown', (e) => {
         item.style.scrollSnapType = 'none';
         isDown = true;
@@ -370,8 +371,8 @@ onMounted(async () => {
 
       });
 
- */
-      /*
+
+
     item.addEventListener('touchstart', (e) => {
       isDown = true;
 
@@ -389,11 +390,11 @@ onMounted(async () => {
       item.scrollLeft = scrollLeft - walk;
     });
 
-     */
+
     });
 
   }
-
+*/
 });
 </script>
 <style lang="scss" scoped>
@@ -675,7 +676,10 @@ onMounted(async () => {
   /*scroll-snap-align: start;*/
   -webkit-scroll-snap-align: start;
 
-  overflow-x: auto;
+  scroll-snap-align: start; /* latest (Chrome 69+) */
+  scroll-snap-coordinate: 0% 0%; /* older (Firefox/IE) */
+  -webkit-scroll-snap-coordinate: 0% 0%; /* older (Safari) */
+
   overflow-scrolling: touch;
   -webkit-overflow-scrolling: touch;
 }
@@ -725,6 +729,15 @@ onMounted(async () => {
 
   overflow-scrolling: touch;
   -webkit-overflow-scrolling: touch;
+
+  overflow: auto;
+
+  scroll-snap-type: x mandatory; /* Chrome Canary */
+  scroll-snap-type: mandatory; /* Firefox */
+  -ms-scroll-snap-type: mandatory; /* IE/Edge */
+  -webkit-scroll-snap-type: mandatory; /* Safari */
+  -webkit-scroll-snap-destination: 0% 0%;
+  -webkit-overflow-scrolling: touch; /* important for iOS */
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
