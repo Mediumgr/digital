@@ -220,12 +220,13 @@ const galleryAnima = (entries, observer) => {
       });
 
 
+      /*
       if (galleryBtn.value.length) {
         setTimeout(() => {
           galleryBtn.value[0].click();
         }, 1000);
       }
-
+*/
       // Убираем отслеживание
       observer.unobserve(entry.target);
     }
@@ -261,35 +262,35 @@ const dialogAnima = (entries, observer) => {
       let msg = target.querySelectorAll('.life_messages_msg-group');
 
       target.animate({opacity: '1'}, {
-        duration: 750,
+        duration: 300,
         iterations: 1,
         delay: timingDialog.value,
         fill: 'forwards'
       });
 
       // Добавляем задержку после появления диалога
-      timingDialog.value += 750;
+      timingDialog.value += 300;
 
       msg.forEach((item) => {
         let loader = item.querySelector('.life_messages_loader');
         let msg = item.querySelector('.life_messages-msg');
 
         loader.animate({opacity: '1'}, {
-          duration: 750,
+          duration: 500,
           iterations: 1,
           delay: timingDialog.value,
           fill: 'forwards'
         });
-        timingDialog.value += 750;
+        timingDialog.value += 500;
         msg.animate({opacity: '1'}, {
-          duration: 750,
+          duration: 500,
           iterations: 1,
           delay: timingDialog.value,
           fill: 'forwards'
         });
 
         // Добавляем задержку после каждого сообщения
-        timingDialog.value += 750;
+        timingDialog.value += 500;
       })
 
       observer.unobserve(target);
@@ -438,7 +439,7 @@ onMounted(async () => {
 .life_header-text {
   color: var(--Eggplant, #13144B);
   text-align: center;
-  font-size: 3rem;
+  font-size: 4.8rem;
   font-style: normal;
   font-weight: 500;
   line-height: 90%;
@@ -712,7 +713,9 @@ onMounted(async () => {
   overflow-y: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-
+  -webkit-scroll-snap-type: x mandatory;
+  -ms-scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
@@ -739,9 +742,9 @@ onMounted(async () => {
 }
 
 .life_gallery-wrapper {
-  min-height: 40rem;
   display: grid;
   margin-right: -4rem;
+  min-height: 30rem;
 }
 
 .life_messages {
@@ -765,7 +768,7 @@ onMounted(async () => {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 12rem 2rem;
+  padding: 0rem 2rem;
   gap: 6rem;
   overflow: hidden;
   display: flex;
@@ -832,7 +835,7 @@ onMounted(async () => {
   }
 
   .life_header-text {
-    font-size: 6rem;
+    font-size: 9.6rem;
     letter-spacing: -0.576rem;
   }
 
@@ -972,7 +975,7 @@ onMounted(async () => {
   }
 
   .life {
-    padding: 16rem 4rem;
+    padding: 0rem 4rem;
     gap: 8rem;
   }
 
@@ -999,12 +1002,12 @@ onMounted(async () => {
 @include mq(1440) {
 
   .life {
-    padding: 20rem 8rem;
+    padding: 0rem 8rem;
     gap: 10rem;
   }
 
   .life_header-text {
-    font-size: 9.3rem;
+    font-size: 15rem;
     letter-spacing: -0.9rem;
   }
 
