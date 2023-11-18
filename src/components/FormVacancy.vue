@@ -240,9 +240,10 @@ const preLoadImages = () => {
   Promise.all(imagePromises)
     .then((images) => {
       images.forEach((img) => {
-        const regex = /^.*\/img\//;
-        const result = img.src.replace(regex, "");
-        loadedImages.value.push(result);
+         const regex = /\/img\/[^/]+\.[a-zA-Z0-9]+$/;
+        // debugger;
+        const result = img.src.match(regex);
+        loadedImages.value.push(result[0]);
       });
     })
     .catch((error) => {
