@@ -679,12 +679,6 @@ onMounted(async () => {
 
 
   scroll-snap-align: start; /* latest (Chrome 69+) */
-  -webkit-scroll-snap-align: start;
-  scroll-snap-coordinate: 0% 0%; /* older (Firefox/IE) */
-  -webkit-scroll-snap-coordinate: 0% 0%; /* older (Safari) */
-
-  overflow-scrolling: touch;
-  -webkit-overflow-scrolling: touch;
 }
 
 .life_gallery-item:first-child {
@@ -727,20 +721,8 @@ onMounted(async () => {
   overflow-y: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  -webkit-scroll-snap-type: x mandatory;
-  -ms-scroll-snap-type: x mandatory;
-
-  overflow-scrolling: touch;
-  -webkit-overflow-scrolling: touch;
-
-  overflow: auto;
-
-  scroll-snap-type: x mandatory; /* Chrome Canary */
   scroll-snap-type: mandatory; /* Firefox */
-  -ms-scroll-snap-type: mandatory; /* IE/Edge */
-  -webkit-scroll-snap-type: mandatory; /* Safari */
-  -webkit-scroll-snap-destination: 0% 0%;
-  -webkit-overflow-scrolling: touch; /* important for iOS */
+  scroll-behavior: smooth;
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
