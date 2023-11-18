@@ -225,7 +225,7 @@ const backgroundStyle = computed(() => {
     : { background: "#424ed1" };
 });
 
-// const loadedImages = ref([]);
+const loadedImages = ref([]);
 const preLoadImages = () => {
   /* загрузка всех изображений для вакансий в кэш браузера */
   const imagePromises = imageURLs.value.map((url) => {
@@ -238,18 +238,16 @@ const preLoadImages = () => {
   });
 
   Promise.all(imagePromises)
-    // .then((images) => {
-    //   images.forEach((img) => {
-    //     const regex = /^.*\/img\//;
-    //     // debugger;
-    //     const result = img.src.replace(regex, "");
-    //     loadedImages.value.push(result);
-    //     console.log("img_vacancy", img);
-    //   });
-    // })
-    // .catch((error) => {
-    //   console.error("Ошибка при загрузке изображений:", error);
-    // });
+    .then((images) => {
+      images.forEach((img) => {
+        const regex = /^.*\/img\//;
+        const result = img.src.replace(regex, "");
+        loadedImages.value.push(result);
+      });
+    })
+    .catch((error) => {
+      console.error("Ошибка при загрузке изображений:", error);
+    });
 
   /* загрузка изображения на случай отсутствия интернета у пользователя */
   new Promise((resolve, reject) => {
