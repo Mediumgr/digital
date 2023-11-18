@@ -56,7 +56,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .btn {
-  width: 25.5rem;
+  width: 100%;
   padding: 2rem;
   border-radius: 2rem;
   outline: none;
@@ -80,13 +80,11 @@ const props = defineProps({
 
   @include mq(768) {
     font-size: 1.6rem;
-    width: 60.8rem;
     line-height: 120%;
     letter-spacing: -0.032rem;
   }
 
   @include mq(1440) {
-    width: 43.4rem;
     line-height: 140%;
     letter-spacing: -0.064rem;
   }
@@ -94,7 +92,6 @@ const props = defineProps({
   @include mq(1920) {
     border-radius: 2.7rem;
     font-size: 2.1rem;
-    width: 57.9rem;
     letter-spacing: -0.08499999999999999rem;
   }
 }
@@ -115,10 +112,6 @@ const props = defineProps({
       height: 66.4rem;
       width: 51.4rem;
       row-gap: 0;
-    }
-    @include mq(1920) {
-      height: 88.5rem;
-      width: 68.5rem;
     }
   }
 

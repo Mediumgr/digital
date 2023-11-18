@@ -10,8 +10,8 @@
         <a
           class="vacancy__card"
           target="_blank"
-          href="https://career.habr.com/companies/psb/vacancies"
           :style="backgroundStyle"
+          href="https://career.habr.com/companies/psb/vacancies"
           @mouseover="mouseover($event)"
           @mouseleave="mouseleave()"
         >
@@ -99,7 +99,6 @@ const status = reactive({
   form: true,
   connection: true,
   server: { failure: false, message: "" },
-  image: [],
 });
 const file = ref({});
 let name = ref({ text: "" });
@@ -128,7 +127,6 @@ let imageURLs = ref([
   "vacancy_12.png",
   "vacancy_13.png",
 ]);
-let loadedImages = ref([]);
 let currentIndex = ref(-1);
 let interval = ref(null);
 let initialBackground = ref(true);
@@ -214,16 +212,6 @@ const mouseleave = () => {
   initialBackground.value = true;
 };
 
-/* const backgroundStyle = computed(() => {
-  return initialBackground.value === false
-    ? {
-        "background-image": `url(${require(`@/assets/images/${
-          imageURLs.value[currentIndex.value]
-        }`)})`,
-      }
-    : { background: "#424ed1" };
-}); */
-
 const backgroundStyle = computed(() => {
   return initialBackground.value === false
     ? /*   {
@@ -237,7 +225,9 @@ const backgroundStyle = computed(() => {
     : { background: "#424ed1" };
 });
 
+const loadedImages = ref([]);
 const preLoadImages = () => {
+  /* загрузка всех изображений для вакансий в кэш браузера */
   const imagePromises = imageURLs.value.map((url) => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -246,33 +236,28 @@ const preLoadImages = () => {
       img.onload = () => resolve(img);
     });
   });
+
   Promise.all(imagePromises)
     .then((images) => {
       images.forEach((img) => {
-        loadedImages.value.push(img.src);
+        const regex = /\/img\/[^/]+\.[a-zA-Z0-9]+$/;
+        // debugger;
+        const result = img.src.match(regex);
+        loadedImages.value.push(result[0]);
+        console.log("img_vacancy", img);
       });
     })
     .catch((error) => {
       console.error("Ошибка при загрузке изображений:", error);
     });
 
-  /* загрузка изображения при плохом интернете */
-  let imageName = ref(["status_bad.svg"]);
-  let loadedImage = new Promise((resolve, reject) => {
+  /* загрузка изображения на случай отсутствия интернета у пользователя */
+  new Promise((resolve, reject) => {
     const img = new Image();
     img.onerror = reject;
-    img.src = `${require(`@/assets/images/vacancies/${imageName.value[0]}`)}`;
+    img.src = `${require(`@/assets/images/vacancies/status_bad.svg`)}`;
     img.onload = () => resolve(img);
-    console.log("img_vacancy", img);
   });
-
-  loadedImage
-    .then((img) => {
-      status.image.push(img.src);
-    })
-    .catch((error) => {
-      console.error("Ошибка при загрузке изображения_vacancy:", error);
-    });
 };
 
 /* drag & drop file */
