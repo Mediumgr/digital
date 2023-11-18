@@ -674,9 +674,10 @@ onMounted(async () => {
   opacity: 0;
   /*transform: translateX(5rem);*/
   /*scroll-snap-align: start;*/
-  -webkit-scroll-snap-align: start;
+
 
   scroll-snap-align: start; /* latest (Chrome 69+) */
+  -webkit-scroll-snap-align: start;
   scroll-snap-coordinate: 0% 0%; /* older (Firefox/IE) */
   -webkit-scroll-snap-coordinate: 0% 0%; /* older (Safari) */
 
