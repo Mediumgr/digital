@@ -160,12 +160,14 @@ const showGallery = (event, code) => {
 */
   });
 
+  console.log(sliderItemsDelayFull);
+  /*
   setTimeout(() => {
     galleryItem.forEach((item) => {
       item.style.scrollSnapAlign = 'start';
     });
   }, sliderItemsDelayFull);
-
+*/
 }
 
 
@@ -743,13 +745,13 @@ onMounted(async () => {
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
 .life_gallery-items::-webkit-scrollbar {
-  display: none;
+ // display: none;
 }
 
 /* Скрываем scrollbar для IE, Edge и Firefox */
 .life_gallery-items {
-  -ms-overflow-style: none; /* IE и Edge */
-  scrollbar-width: none; /* Firefox */
+ // -ms-overflow-style: none; /* IE и Edge */
+ // scrollbar-width: none; /* Firefox */
 }
 
 .life_gallery {
