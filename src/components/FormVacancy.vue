@@ -197,8 +197,8 @@ const removeFile = (event) => {
 };
 
 const mouseover = (event) => {
-  clearInterval(interval.value);
   if (event.target.classList.contains("vacancy__card")) {
+    clearInterval(interval.value);
     interval.value = setInterval(() => {
       initialBackground.value = false;
       currentIndex.value = (currentIndex.value + 1) % imageURLs.value.length;
@@ -240,7 +240,7 @@ const preLoadImages = () => {
   Promise.all(imagePromises)
     .then((images) => {
       images.forEach((img) => {
-         const regex = /\/img\/[^/]+\.[a-zA-Z0-9]+$/;
+        const regex = /\/img\/[^/]+\.[a-zA-Z0-9]+$/;
         // debugger;
         const result = img.src.match(regex);
         loadedImages.value.push(result[0]);
