@@ -341,7 +341,7 @@ onMounted(async () => {
   if (slider.value) {
     slider.value.forEach((item) => {
 
-
+/*
       item.addEventListener('mousedown', (e) => {
         item.style.scrollSnapType = 'none';
         isDown = true;
@@ -369,6 +369,8 @@ onMounted(async () => {
         item.scrollLeft = scrollLeft - walk;
 
       });
+
+ */
       /*
     item.addEventListener('touchstart', (e) => {
       isDown = true;
@@ -672,6 +674,10 @@ onMounted(async () => {
   /*transform: translateX(5rem);*/
   /*scroll-snap-align: start;*/
   -webkit-scroll-snap-align: start;
+
+  overflow-x: auto;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
 }
 
 .life_gallery-item:first-child {
@@ -716,9 +722,9 @@ onMounted(async () => {
   scroll-snap-type: x mandatory;
   -webkit-scroll-snap-type: x mandatory;
   -ms-scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
 
-  max-width: 100vh;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
