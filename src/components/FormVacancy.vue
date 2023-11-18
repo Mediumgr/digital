@@ -198,11 +198,11 @@ const removeFile = (event) => {
 
 const mouseover = (event) => {
   if (event.target.classList.contains("vacancy__card")) {
-    // clearInterval(interval.value);
+    clearInterval(interval.value);
     interval.value = setInterval(() => {
       initialBackground.value = false;
       currentIndex.value = (currentIndex.value + 1) % imageURLs.value.length;
-    }, 300);
+    }, 1000);
   }
 };
 /*  */
