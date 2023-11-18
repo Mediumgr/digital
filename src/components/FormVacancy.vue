@@ -197,8 +197,8 @@ const removeFile = (event) => {
 };
 
 const mouseover = (event) => {
+  clearInterval(interval.value);
   if (event.target.classList.contains("vacancy__card")) {
-    clearInterval(interval.value);
     interval.value = setInterval(() => {
       initialBackground.value = false;
       currentIndex.value = (currentIndex.value + 1) % imageURLs.value.length;
@@ -225,11 +225,12 @@ const backgroundStyle = computed(() => {
     : { background: "#424ed1" };
 });
 
-const loadedImages = ref([]);
+// const loadedImages = ref([]);
 const preLoadImages = () => {
   /* загрузка всех изображений для вакансий в кэш браузера */
-  const imagePromises = imageURLs.value.map((url) => {
-    return new Promise((resolve, reject) => {
+  // const imagePromises =
+  imageURLs.value.forEach((url) => {
+    new Promise((resolve, reject) => {
       const img = new Image();
       img.onerror = reject;
       img.src = `${require(`@/assets/images/vacancies/${url}`)}`;
@@ -237,19 +238,19 @@ const preLoadImages = () => {
     });
   });
 
-  Promise.all(imagePromises)
-    .then((images) => {
-      images.forEach((img) => {
-        const regex = /\/img\/[^/]+\.[a-zA-Z0-9]+$/;
-        // debugger;
-        const result = img.src.match(regex);
-        loadedImages.value.push(result[0]);
-        console.log("img_vacancy", img);
-      });
-    })
-    .catch((error) => {
-      console.error("Ошибка при загрузке изображений:", error);
-    });
+  // Promise.all(imagePromises)
+  //   .then((images) => {
+  //     images.forEach((img) => {
+  //       const regex = /^.*\/img\//;
+  //       // debugger;
+  //       const result = img.src.replace(regex, "");
+  //       loadedImages.value.push(result);
+  //       console.log("img_vacancy", img);
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     console.error("Ошибка при загрузке изображений:", error);
+  //   });
 
   /* загрузка изображения на случай отсутствия интернета у пользователя */
   new Promise((resolve, reject) => {
