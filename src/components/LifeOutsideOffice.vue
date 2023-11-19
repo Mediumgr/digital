@@ -1,36 +1,5 @@
 <template>
   <div class="life">
-    <div class="life_gallery">
-
-      <div class="life_gallery-menu">
-        <div @click="showGallery($event, gallery.code)" class="life_gallery-btn"
-             v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
-          {{ gallery.name }}
-        </div>
-      </div>
-
-      <div class="life_gallery-wrapper">
-        <div :class="['life_gallery-items', 'life_gallery-'+gallery.code]"
-             v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
-          <div class="life_gallery-item" v-for="(item, itemIndex) in gallery.items"
-               v-bind:key="itemIndex">
-            <div v-if="item.avatar && item.name && item.pos" class="life_gallery-item-header">
-              <img class="life_gallery-item-icon"
-                   :src="require(`@/assets/images/life/${item.avatar}`)"/>
-              <div class="life_gallery-item-user">
-                <div class="life_gallery-item-name">{{ item.name }}</div>
-                <div class="life_gallery-item-pos">{{ item.pos }}</div>
-              </div>
-            </div>
-            <div v-if="item.desc" class="life_gallery-item-desc" v-html="item.desc">
-
-            </div>
-            <img v-if="item.img" class="life_gallery-item-bg" alt=""
-                 :src="require(`@/assets/images/life/${item.img}`)"/>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="life_header">
       <div class="life_header-text">Жизнь команды</div>
       <div class="life_header-text">вне офиса</div>
@@ -83,6 +52,37 @@
           <img src="../assets/images/life/avatar-2.png" class="life_messages-ico">
         </div>
       </div>
+      <div class="life_gallery">
+
+        <div class="life_gallery-menu">
+          <div @click="showGallery($event, gallery.code)" class="life_gallery-btn"
+               v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
+            {{ gallery.name }}
+          </div>
+        </div>
+
+        <div class="life_gallery-wrapper">
+          <div :class="['life_gallery-items', 'life_gallery-'+gallery.code]"
+               v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
+            <div class="life_gallery-item" v-for="(item, itemIndex) in gallery.items"
+                 v-bind:key="itemIndex">
+              <div v-if="item.avatar && item.name && item.pos" class="life_gallery-item-header">
+                <img class="life_gallery-item-icon"
+                     :src="require(`@/assets/images/life/${item.avatar}`)"/>
+                <div class="life_gallery-item-user">
+                  <div class="life_gallery-item-name">{{ item.name }}</div>
+                  <div class="life_gallery-item-pos">{{ item.pos }}</div>
+                </div>
+              </div>
+              <div v-if="item.desc" class="life_gallery-item-desc" v-html="item.desc">
+
+              </div>
+              <img v-if="item.img" class="life_gallery-item-bg" alt=""
+                   :src="require(`@/assets/images/life/${item.img}`)"/>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -99,7 +99,7 @@ var timingDialog = ref(0);
 var timingStart = ref(0);
 var galleryBtn = ref([]);
 
-
+/*
 const replayAnimations = (item) => {
   item.getAnimations().forEach((anim) => {
     anim.finish();
@@ -107,6 +107,7 @@ const replayAnimations = (item) => {
     anim.play();
   });
 };
+*/
 
 const showGallery = (event, code) => {
 
@@ -114,6 +115,10 @@ const showGallery = (event, code) => {
   let btn = event.target;
   let gallery = block.value.querySelector('.life_gallery-' + code);
   let galleryItem = gallery.querySelectorAll('.life_gallery-item');
+
+  if (gallery.style.display == 'flex') {
+    return false;
+  }
 
   const btnAll = block.value.querySelectorAll('.life_gallery-btn');
 
@@ -130,45 +135,41 @@ const showGallery = (event, code) => {
 
   galleryAll.forEach((item) => {
     item.style.display = 'none';
+    item.style.scrollSnapType = 'none';
   });
 
   gallery.style.display = 'flex';
 
 
-  document.querySelectorAll('.life_gallery-item').forEach((item) => {
-    replayAnimations(item);
+  galleryItem.forEach((item) => {
+    item.classList.remove('galleryItemAnima');
+    sliderItemsDelayFull += 60;
   });
 
   galleryItem.forEach((item) => {
-    item.style.scrollSnapAlign = 'none';
-    sliderItemsDelayFull+= 60;
-  });
 
-  galleryItem.forEach((item) => {
 
     setTimeout(() => {
       item.classList.add('galleryItemAnima');
     }, sliderItemsDelay);
     sliderItemsDelay += 60;
     /*
-    item.animate({opacity: '1', 'transform': 'translateX(0rem)'}, {
-      duration: 500,
-      delay: sliderItemsDelay,
-      iterations: 1,
-      fill: 'forwards'
-    });
-    sliderItemsDelay += 60;
-*/
+      item.animate({opacity: '1', 'transform': 'translateX(0rem)'}, {
+        duration: 500,
+        delay: sliderItemsDelay,
+        iterations: 1,
+        fill: 'forwards'
+      });
+      sliderItemsDelay += 60;
+  */
   });
 
-  console.log(sliderItemsDelayFull);
-  /*
+
   setTimeout(() => {
-    galleryItem.forEach((item) => {
-      item.style.scrollSnapAlign = 'start';
-    });
-  }, sliderItemsDelayFull);
-*/
+    gallery.style.scrollSnapType = 'x mandatory';
+  }, sliderItemsDelayFull + ((sliderItemsDelayFull / 60) * 30));
+
+
 }
 
 
@@ -216,13 +217,13 @@ const galleryAnima = (entries, observer) => {
 
     if (isIntersecting) {
       console.log(target);
-/*
-      target.animate({opacity: '1'}, {
-        duration: 1000,
-        iterations: 1,
-        fill: 'forwards'
-      });
-*/
+      /*
+            target.animate({opacity: '1'}, {
+              duration: 1000,
+              iterations: 1,
+              fill: 'forwards'
+            });
+      */
 
       /*
       if (galleryBtn.value.length) {
@@ -245,6 +246,10 @@ const dialogAnima = (entries, observer) => {
     const {target, isIntersecting} = entry;
 
     if (isIntersecting) {
+
+      let allMessage = document.querySelectorAll('.life_messages-msg');
+      let lastMessage = allMessage[allMessage.length - 1];
+
 
       /*
       Если пользователь увидел не все сообщения сразу, а остновился на сеередине,
@@ -295,6 +300,19 @@ const dialogAnima = (entries, observer) => {
 
         // Добавляем задержку после каждого сообщения
         timingDialog.value += 500;
+
+        if (msg == lastMessage) {
+          Promise.all(
+            msg.getAnimations({subtree: true}).map((animation) => {return animation.finished}),
+          ).then(() => {
+
+            let menu = block.value.querySelector('.life_gallery-menu');
+            menu.animate({opacity: '1'}, {
+              duration: 500,
+              fill: 'forwards'
+            });
+          });
+        }
       })
 
       observer.unobserve(target);
@@ -338,15 +356,13 @@ onMounted(async () => {
 
   slider.value = document.querySelectorAll('.life_gallery-items');
 
-  /*
+
   let isDown = false;
   let startX;
   let scrollLeft;
 
   if (slider.value) {
     slider.value.forEach((item) => {
-
-
       item.addEventListener('mousedown', (e) => {
         item.style.scrollSnapType = 'none';
         isDown = true;
@@ -368,37 +384,13 @@ onMounted(async () => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - item.offsetLeft;
-        const walk = (x - startX) * 3; //scroll-fast
-        console.log(walk);
-        console.log(scrollLeft);
+        const walk = (x - startX) * 3;
         item.scrollLeft = scrollLeft - walk;
-
       });
-
-
-
-    item.addEventListener('touchstart', (e) => {
-      isDown = true;
-
-      let ePage = getEventType(e);
-      item.classList.add('active');
-      startX = ePage.pageX - item.offsetLeft;
-      scrollLeft = item.scrollLeft;
-    });
-
-    item.addEventListener('touchmove', (e) => {
-
-      let ePage = getEventType(e);
-      const x = ePage.pageX - item.offsetLeft;
-      const walk = (x - startX) * 2; //scroll-fast
-      item.scrollLeft = scrollLeft - walk;
-    });
-
-
     });
 
   }
-*/
+
 });
 </script>
 <style lang="scss" scoped>
@@ -406,10 +398,12 @@ onMounted(async () => {
 @keyframes galleryItemAnimate {
   0% {
     transform: translateX(5rem);
+    -webkit-transform: translateX(5rem);
     opacity: 0;
   }
   100% {
     transform: translateX(0rem);
+    -webkit-transform: translateX(0rem);
     opacity: 1;
   }
 }
@@ -593,6 +587,7 @@ onMounted(async () => {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 1.2rem;
+  opacity: 0;
 }
 
 .life_gallery-btn {
@@ -675,12 +670,9 @@ onMounted(async () => {
   align-items: flex-start;
   justify-content: space-between;
   box-sizing: border-box;
- /* opacity: 0;*/
+  opacity: 0;
   /*transform: translateX(5rem);*/
-  /*scroll-snap-align: start;*/
-
-
-  scroll-snap-align: start; /* latest (Chrome 69+) */
+  scroll-snap-align: start;
 }
 
 .life_gallery-item:first-child {
@@ -715,27 +707,26 @@ onMounted(async () => {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 1rem;
-  display: flex; /*display: none;*/
+  display: none;
 
 
   grid-auto-flow: column;
   max-width: 100%;
   overflow-y: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-snap-type: mandatory; /* Firefox */
-  scroll-behavior: smooth;
+
+  scroll-snap-type: mandatory;
+  /* scroll-snap-type: x mandatory;*/
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
 .life_gallery-items::-webkit-scrollbar {
- // display: none;
+  display: none;
 }
 
 /* Скрываем scrollbar для IE, Edge и Firefox */
 .life_gallery-items {
- // -ms-overflow-style: none; /* IE и Edge */
- // scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .life_gallery {
@@ -747,7 +738,6 @@ onMounted(async () => {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  /*opacity: 0;*/
 }
 
 .life_gallery-wrapper {
@@ -769,7 +759,7 @@ onMounted(async () => {
 }
 
 .life_messages-dialog {
-  /*opacity: 0;*/
+  opacity: 0;
   width: 100%;
 }
 
@@ -793,7 +783,7 @@ onMounted(async () => {
   padding: 0.5rem;
   max-width: 7.5rem;
   position: absolute;
-  /*opacity: 0;*/
+  opacity: 0;
 }
 
 .life_messages_loader-element {
@@ -829,7 +819,7 @@ onMounted(async () => {
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
-  /*opacity: 0;*/
+  opacity: 0;
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 500;
@@ -949,7 +939,7 @@ onMounted(async () => {
     border-radius: 2rem;
     height: 40rem;
     min-width: 34.6rem;
-   /* opacity: 0;*/
+
   }
 
   .life_gallery-item:first-child {
@@ -998,7 +988,7 @@ onMounted(async () => {
     padding: 0.7rem;
     max-width: 7.5rem;
     position: absolute;
-    /*opacity: 0;*/
+    opacity: 0;
   }
 
   .life_messages_loader-element {
@@ -1068,6 +1058,7 @@ onMounted(async () => {
 
   .life_gallery-item {
     min-width: 38.3rem;
+    max-width: 38.3rem;
     height: 40rem;
   }
   .life_gallery-item-icon {
@@ -1106,7 +1097,7 @@ onMounted(async () => {
     padding: 1rem;
     max-width: 8rem;
     position: absolute;
-    /*opacity: 0;*/
+    opacity: 0;
   }
 
   .life_messages_loader-element {
@@ -1127,4 +1118,3 @@ onMounted(async () => {
 }
 
 </style>
-
