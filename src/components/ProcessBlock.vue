@@ -74,9 +74,8 @@
         <div class="process_item_bonuses-header">Какие есть бонусы</div>
         <div class="process_item_bonuses-block">
           <div class="process_item_bonuses-video">
-            <video id="background-video" autoplay loop muted playsinline>
+            <video poster="../assets/images/process/process-bonuses.jpg" id="background-video" autoplay loop muted playsinline>
               <source
-                poster="../assets/images/process/process-bonuses.jpg"
                 src="../assets/video/process/process-bonuses.mp4"
                 type="video/mp4"
               />
