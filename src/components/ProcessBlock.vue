@@ -2,7 +2,7 @@
   <div class="process">
     <div class="process-wrapper">
       <div class="process_item process_item_video show">
-        <video id="background-video" autoplay loop muted playsinline>
+        <video poster="../assets/images/process/process-b1.jpg" id="background-video" autoplay loop muted playsinline>
           <source src="../assets/video/process/process-b1.mp4" type="video/mp4"/>
         </video>
         <div class="process_item-overlay50"></div>
@@ -76,6 +76,7 @@
           <div class="process_item_bonuses-video">
             <video id="background-video" autoplay loop muted playsinline>
               <source
+                poster="../assets/images/process/process-bonuses.jpg"
                 src="../assets/video/process/process-bonuses.mp4"
                 type="video/mp4"
               />
