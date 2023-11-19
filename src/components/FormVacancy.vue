@@ -202,7 +202,7 @@ const mouseover = (event) => {
     interval.value = setInterval(() => {
       initialBackground.value = false;
       currentIndex.value = (currentIndex.value + 1) % imageURLs.value.length;
-    }, 1000);
+    }, 100);
   }
 };
 /*  */
@@ -214,14 +214,14 @@ const mouseleave = () => {
 
 const backgroundStyle = computed(() => {
   return initialBackground.value === false
-    ? /*   {
+    ?   {
         "background-image": `url(${loadedImages.value[currentIndex.value]})`,
-      } */
-      {
+      }
+     /*  {
         "background-image": `url(${require(`@/assets/images/vacancies/${
           imageURLs.value[currentIndex.value]
         }`)})`,
-      }
+      } */
     : { background: "#424ed1" };
 });
 
