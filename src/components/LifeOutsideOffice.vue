@@ -1,5 +1,36 @@
 <template>
   <div class="life">
+    <div class="life_gallery">
+      <!--
+      <div class="life_gallery-menu">
+        <div @click="showGallery($event, gallery.code)" class="life_gallery-btn"
+             v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
+          {{ gallery.name }}
+        </div>
+      </div>
+      -->
+      <div class="life_gallery-wrapper">
+        <div :class="['life_gallery-items', 'life_gallery-'+gallery.code]"
+             v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
+          <div class="life_gallery-item" v-for="(item, itemIndex) in gallery.items"
+               v-bind:key="itemIndex">
+            <div v-if="item.avatar && item.name && item.pos" class="life_gallery-item-header">
+              <img class="life_gallery-item-icon"
+                   :src="require(`@/assets/images/life/${item.avatar}`)"/>
+              <div class="life_gallery-item-user">
+                <div class="life_gallery-item-name">{{ item.name }}</div>
+                <div class="life_gallery-item-pos">{{ item.pos }}</div>
+              </div>
+            </div>
+            <div v-if="item.desc" class="life_gallery-item-desc" v-html="item.desc">
+
+            </div>
+            <img v-if="item.img" class="life_gallery-item-bg" alt=""
+                 :src="require(`@/assets/images/life/${item.img}`)"/>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="life_header">
       <div class="life_header-text">Жизнь команды</div>
       <div class="life_header-text">вне офиса</div>
@@ -50,36 +81,6 @@
             </div>
           </div>
           <img src="../assets/images/life/avatar-2.png" class="life_messages-ico">
-        </div>
-      </div>
-      <div class="life_gallery">
-        <div class="life_gallery-menu">
-          <!--life_gallery-btn-active-->
-          <div @click="showGallery($event, gallery.code)" class="life_gallery-btn"
-               v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
-            {{ gallery.name }}
-          </div>
-        </div>
-        <div class="life_gallery-wrapper">
-          <div :class="['life_gallery-items', 'life_gallery-'+gallery.code]"
-               v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
-            <div class="life_gallery-item" v-for="(item, itemIndex) in gallery.items"
-                 v-bind:key="itemIndex">
-              <div v-if="item.avatar && item.name && item.pos" class="life_gallery-item-header">
-                <img class="life_gallery-item-icon"
-                     :src="require(`@/assets/images/life/${item.avatar}`)"/>
-                <div class="life_gallery-item-user">
-                  <div class="life_gallery-item-name">{{ item.name }}</div>
-                  <div class="life_gallery-item-pos">{{ item.pos }}</div>
-                </div>
-              </div>
-              <div v-if="item.desc" class="life_gallery-item-desc" v-html="item.desc">
-
-              </div>
-              <img v-if="item.img" class="life_gallery-item-bg" alt=""
-                   :src="require(`@/assets/images/life/${item.img}`)"/>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -214,13 +215,14 @@ const galleryAnima = (entries, observer) => {
     const {target, isIntersecting} = entry;
 
     if (isIntersecting) {
-
+      console.log(target);
+/*
       target.animate({opacity: '1'}, {
         duration: 1000,
         iterations: 1,
         fill: 'forwards'
       });
-
+*/
 
       /*
       if (galleryBtn.value.length) {
