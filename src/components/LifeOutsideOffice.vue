@@ -1,14 +1,14 @@
 <template>
   <div class="life">
     <div class="life_gallery">
-      <!--
+
       <div class="life_gallery-menu">
         <div @click="showGallery($event, gallery.code)" class="life_gallery-btn"
              v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
           {{ gallery.name }}
         </div>
       </div>
-      -->
+
       <div class="life_gallery-wrapper">
         <div :class="['life_gallery-items', 'life_gallery-'+gallery.code]"
              v-for="(gallery, galleryIndex) in data.gallery" v-bind:key="galleryIndex">
