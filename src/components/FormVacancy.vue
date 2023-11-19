@@ -202,7 +202,7 @@ const mouseover = (event) => {
     interval.value = setInterval(() => {
       initialBackground.value = false;
       currentIndex.value = (currentIndex.value + 1) % imageURLs.value.length;
-    }, 100);
+    }, 200);
   }
 };
 /*  */
