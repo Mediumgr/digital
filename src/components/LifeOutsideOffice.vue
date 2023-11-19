@@ -673,7 +673,7 @@ onMounted(async () => {
   align-items: flex-start;
   justify-content: space-between;
   box-sizing: border-box;
-  opacity: 0;
+ /* opacity: 0;*/
   /*transform: translateX(5rem);*/
   /*scroll-snap-align: start;*/
 
@@ -713,7 +713,7 @@ onMounted(async () => {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 1rem;
-  display: none;
+  display: flex; /*display: none;*/
 
 
   grid-auto-flow: column;
@@ -745,7 +745,7 @@ onMounted(async () => {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  opacity: 0;
+  /*opacity: 0;*/
 }
 
 .life_gallery-wrapper {
@@ -767,7 +767,7 @@ onMounted(async () => {
 }
 
 .life_messages-dialog {
-  opacity: 0;
+  /*opacity: 0;*/
   width: 100%;
 }
 
@@ -791,7 +791,7 @@ onMounted(async () => {
   padding: 0.5rem;
   max-width: 7.5rem;
   position: absolute;
-  opacity: 0;
+  /*opacity: 0;*/
 }
 
 .life_messages_loader-element {
@@ -827,7 +827,7 @@ onMounted(async () => {
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
-  opacity: 0;
+  /*opacity: 0;*/
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 500;
@@ -947,7 +947,7 @@ onMounted(async () => {
     border-radius: 2rem;
     height: 40rem;
     min-width: 34.6rem;
-    opacity: 0;
+   /* opacity: 0;*/
   }
 
   .life_gallery-item:first-child {
@@ -996,7 +996,7 @@ onMounted(async () => {
     padding: 0.7rem;
     max-width: 7.5rem;
     position: absolute;
-    opacity: 0;
+    /*opacity: 0;*/
   }
 
   .life_messages_loader-element {
@@ -1104,7 +1104,7 @@ onMounted(async () => {
     padding: 1rem;
     max-width: 8rem;
     position: absolute;
-    opacity: 0;
+    /*opacity: 0;*/
   }
 
   .life_messages_loader-element {
