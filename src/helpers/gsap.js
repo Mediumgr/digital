@@ -13,4 +13,4 @@ function scrollTriggerRefresh() {
   ScrollTrigger.refresh();
 }
 
-export { gsap, scrollTriggerRefresh, EASE_FOR_WHO_APPRECIATE }
+export { gsap, scrollTriggerRefresh, EASE_FOR_WHO_APPRECIATE, ScrollTrigger }

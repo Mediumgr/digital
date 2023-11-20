@@ -396,7 +396,7 @@ const generateLab = (ms) => {
     // при добавлении видео (.video__section) на страницу изменятся высота страницы
     setTimeout(()=>{
       scrollTriggerRefresh()
-    },50 )
+    },250 )
 
     // labNode.value.classList.add("section__counter-lab_active");
   }, 2000 + ms);

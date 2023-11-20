@@ -6,7 +6,7 @@ function getScrollbarWidth() {
 
 function refreshScrollTriggerByElement(element) {
   const options = {
-    rootMargin: "150px 0px 150px 0px",
+    rootMargin: "200px 0px 200px 0px",
     // threshold: 1.0,
   };
   const callback = function (entries) {

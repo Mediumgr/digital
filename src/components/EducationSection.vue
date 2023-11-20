@@ -194,8 +194,8 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import { gsap } from "@/helpers/gsap";
-import { refreshScrollTriggerByElement } from "@/helpers";
+import { gsap, ScrollTrigger } from "@/helpers/gsap";
+import { isMobile, refreshScrollTriggerByElement } from "@/helpers";
 
 function init() {
   const educationContainerEl = document.querySelector('.js-education')
@@ -251,7 +251,7 @@ function init() {
 
     gsap.to(educationCorpEl, {
       width: '100%',
-      height: window.innerHeight,
+      height: () => window.innerHeight,
       maxWidth: '100%',
       borderRadius: 0,
       scrollTrigger: {
@@ -311,6 +311,8 @@ function init() {
 
 onMounted(() => {
   init()
+
+  isMobile() && ScrollTrigger.normalizeScroll(true);
 
   console.log('EducationSection')
 });
