@@ -158,7 +158,8 @@
         muted
         playsinline
         loop="loop"
-        poster="../assets/images/mainblock/poster_1.png"
+        :poster="posterSrc"
+        preload="auto"
       >
         <source :src="videoSrc" type="video/mp4" />
       </video>
@@ -222,8 +223,9 @@ import { onMounted, ref } from "vue";
 import { scrollTriggerRefresh } from "@/helpers/gsap";
 const { shuffle } = require("txt-shuffle");
 
-const videoSrc = ref("");
 const videoPlayer = ref(null);
+const posterSrc = ref("");
+const videoSrc = ref(null);
 const videoSources = ref({
   about: "mainblock/about.mp4",
   projects: "mainblock/projects.mp4",
@@ -334,6 +336,7 @@ const changeVideoSource = (chapter) => {
   videoPlayer.value.pause();
   if (source) {
     videoSrc.value = require(`@/assets/video/${source}`);
+    posterSrc.value = require(`@/assets/images/mainblock/${chapter}.jpg`);
     videoPlayer.value.load();
   }
 };
@@ -417,8 +420,10 @@ const intersectionAnimation = () => {
   let content = document.querySelector(".wrapper__content");
   let arrow = document.querySelector(".wrapper__arrow");
 
-  title.style.opacity = content.style.opacity = arrow.style.opacity = "0";
-
+  title.style.display = content.style.display = arrow.style.display = "none";
+  setTimeout(() => {
+    title.style.opacity = content.style.opacity = arrow.style.opacity = "0";
+  }, 0);
   let options = {
     threshold: [0.2, 0.5, 0.6, 0.7, 0.8],
   };
@@ -436,18 +441,32 @@ const intersectionAnimation = () => {
             !target.classList.contains("transformVideo")
           ) {
             target.classList.add("transformVideo");
-            title.style.opacity =
-              content.style.opacity =
-              arrow.style.opacity =
-                "1";
+            setTimeout(() => {
+              title.style.opacity =
+                content.style.opacity =
+                arrow.style.opacity =
+                  "1";
+            }, 0);
+
+            title.style.display =
+              content.style.display =
+              arrow.style.display =
+                "";
             gradientGroup.value.style.opacity = opacity[6];
           }
           if (videoTopPosition.value > 0) {
             target.classList.remove("transformVideo");
-            title.style.opacity =
-              content.style.opacity =
-              arrow.style.opacity =
-                "0";
+            setTimeout(() => {
+              title.style.opacity =
+                content.style.opacity =
+                arrow.style.opacity =
+                  "0";
+            }, 0);
+
+            title.style.display =
+              content.style.display =
+              arrow.style.display =
+                "none";
           }
           if (videoTopPosition.value > 300) {
             gradientGroup.value.style.opacity = opacity[0];
@@ -505,6 +524,7 @@ const swipeMenu = () => {
 
 onMounted(async () => {
   videoSrc.value = require("@/assets/video/mainblock/meet.mp4");
+  posterSrc.value = require("@/assets/images/mainblock/meet.jpg");
   videoPlayer.value.load();
 
   // showNavbar.value = true;
@@ -541,19 +561,13 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
 
-  @include mq(768) {
-    // width: 68.8rem;
-    // top: 5rem;
-  }
-  // @include mq(1440) {
-  //   width: 120rem;
-  // }
   &__arrow {
     cursor: pointer;
     animation: moveButton 2s linear infinite;
   }
 
   &__title {
+    display: grid;
     color: var(--color-white);
     font-size: 4.8rem;
     font-weight: 500;
@@ -562,7 +576,7 @@ onMounted(async () => {
     padding-bottom: 3rem;
     text-align: center;
     transition: opacity 2s ease;
-    transition-delay: 0.5s;
+    transition-delay: 0.3s;
     width: 27rem;
     @include mq(768) {
       font-size: 9.6rem;
@@ -570,9 +584,6 @@ onMounted(async () => {
       padding-bottom: 6rem;
       width: 54rem;
     }
-    /*    @include mq(1024) {
-      width: 54rem;
-    } */
     @include mq(1440) {
       width: 83.8rem;
       font-size: 15rem;
@@ -587,21 +598,24 @@ onMounted(async () => {
     grid-template-rows: 1fr 1fr 1fr;
     height: 17.6rem;
     margin-bottom: 11rem;
-    transition: opacity 2s ease;
-    transition-delay: 0.5s;
+    transition: all 2s ease;
+    transition-delay: 0.3s;
+    @include mq(600) {
+      margin-bottom: 5rem;
+    }
+    @include mq(700) {
+      grid-row-gap: 0.6rem;
+    }
     @include mq(768) {
       width: 62.6rem;
       grid-template-columns: repeat(3, auto);
       grid-template-rows: 1fr 1fr;
-      // height: 19.4rem;
+      grid-row-gap: 0;
       height: 22rem;
       margin: 0 auto 19.5rem;
       grid-template-areas:
         "about projects work"
         "office life develop";
-    }
-    @include mq(600) {
-      margin-bottom: 5rem;
     }
     @include mq(810) {
       margin: 0px auto 5rem;
@@ -623,10 +637,6 @@ onMounted(async () => {
         "about projects work office"
         ". life develop .";
     }
-    /*   @include mq(1920) {
-      margin-bottom: 6rem;
-    }
- */
     > button {
       border-radius: 16rem;
       border: 0.2rem solid rgba(255, 255, 255, 0.2);
@@ -761,12 +771,9 @@ onMounted(async () => {
   }
 
   &__arrow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
     width: 48px;
     height: 48px;
-    margin: 0 auto;
     border: none;
     border-radius: 5rem;
     background-color: rgba(255, 255, 255, 0.2);
@@ -774,7 +781,7 @@ onMounted(async () => {
     background-position: center center;
     background-repeat: no-repeat;
     transition: opacity 2s ease;
-    transition-delay: 0.5s;
+    transition-delay: 0.3s;
     @include mq(768) {
       width: 54px;
       height: 54px;
@@ -797,17 +804,14 @@ onMounted(async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // animation: slideInFromTop 1200ms ease-out forwards;
   opacity: 0;
   animation: opacityShow 800ms ease-out forwards;
   width: 33.5rem;
 
   @include mq(425) {
-    // width: auto;
     width: 33.1rem;
   }
   @include mq(475) {
-    // width: auto;
     width: 32.8rem;
   }
   @include mq(490) {
@@ -857,16 +861,9 @@ onMounted(async () => {
     position: relative;
     padding: 7rem 0 0;
     color: var(--color-white);
-    // margin: 0 auto;
     overflow: hidden;
-    // letter-spacing: -2.88px;
     margin: 0 auto;
-    padding-bottom: 5px; //
-
-    @include mq(375) {
-      // width: 31rem;
-      // height: 11.3rem;
-    }
+    padding-bottom: 5px;
 
     @include mq(768) {
       width: 62rem;
@@ -878,12 +875,6 @@ onMounted(async () => {
       width: 96.8rem;
       padding: 8rem 0 0;
     }
-
-    /*   @include mq(1920) {
-      width: 128.8rem;
-      padding: 10.6rem 0 0;
-      height: 28.7rem;
-    } */
   }
 
   &__counter-psb {
@@ -903,13 +894,8 @@ onMounted(async () => {
       font-size: 15rem;
       top: 13.4rem;
     }
-    /*   @include mq(1920) {
-      width: 129rem;
-      top: 20rem;
-    } */
   }
 
-  /*  375 425 768px 960 992px 1200px 1400px 1440  1600  1920 2056*/
   &__counter-psb_active {
     position: relative;
     right: 0;
@@ -933,8 +919,6 @@ onMounted(async () => {
       top: -8rem;
       animation: animateToRight_1024 3.1s ease-out forwards;
     }
-    /*  @include mq(1600) {
-    } */
     @include mq(1920) {
       top: -8.5rem;
       animation: animateToRight_1920 2.5s ease-out forwards;
@@ -947,12 +931,16 @@ onMounted(async () => {
     line-height: 90%;
     // letter-spacing: -0.288rem;
     // text-align: center;
+    padding-left: 4px; // для Samsung
     white-space: nowrap;
     // overflow: hidden;
 
     // margin: 0;
     // animation: fadeInText 2100ms ease-out forwards;
 
+    @include mq(375) {
+      padding-left: 0;
+    }
     @include mq(425) {
       font-size: 4.6rem;
     }
@@ -972,12 +960,6 @@ onMounted(async () => {
       line-height: 90%;
       letter-spacing: -0.9rem;
     }
-
-    /*     @include mq(1920) {
-      font-size: 20rem;
-      line-height: 90%;
-      letter-spacing: -1.2rem;
-    } */
   }
 
   &__text-lab {
@@ -985,6 +967,7 @@ onMounted(async () => {
     color: var(--color-white);
     margin: 0 auto;
     overflow: hidden;
+    // text-align: center;
 
     @include mq(375) {
       height: 4.4rem;
@@ -1002,10 +985,6 @@ onMounted(async () => {
       height: 13.6rem;
       width: 84.6rem;
     }
-    /*     @include mq(1920) {
-      height: 18rem;
-      width: 112.6rem;
-    } */
   }
 
   &__counter-lab {
@@ -1025,13 +1004,8 @@ onMounted(async () => {
       font-size: 15rem;
       top: 5.4rem;
     }
-    /*   @include mq(1920) {
-      width: 112.7rem;
-      font-size: 15rem;
-      top: 9.4rem;
-    } */
   }
-  /*  375 425 768px 960 992px 1200px 1400px 1440  1600  1920 2056*/
+
   &__counter-lab_active {
     position: relative;
     right: 0;
@@ -1063,10 +1037,13 @@ onMounted(async () => {
     // letter-spacing: -0.288rem;
     // text-align: center;
     white-space: nowrap;
+    padding-left: 20px; // для Samsung
     // overflow: hidden;
     // margin: 0;
     // animation: fadeInText 2100ms ease-out forwards;
-
+    @include mq(375) {
+      padding-left: 0;
+    }
     @include mq(768) {
       font-size: 9.6rem;
       letter-spacing: -0.576rem;
@@ -1077,12 +1054,6 @@ onMounted(async () => {
       line-height: 90%;
       letter-spacing: -0.9rem;
     }
-
-    /*    @include mq(1920) {
-      font-size: 20rem;
-      line-height: 90%;
-      letter-spacing: -1.2rem;
-    } */
   }
 
   &__sub-title-lab {
@@ -1110,14 +1081,12 @@ onMounted(async () => {
 
     @include mq(1920) {
       padding: 4rem 0 10.7rem;
-      /*  font-size: 4.2rem;
-      letter-spacing: -0.128rem;
-      padding-bottom: 14.5rem; */
     }
   }
 
   &__links {
     position: fixed;
+    width: 100vw;
     z-index: 2;
     bottom: -80rem;
     left: 0;
@@ -1214,12 +1183,6 @@ onMounted(async () => {
           line-height: 120%;
           letter-spacing: -0.064rem;
         }
-
-        /*      @include mq(1920) {
-          line-height: 140%;
-          font-size: 2.1rem;
-          letter-spacing: -0.0853rem;
-        } */
       }
     }
 
@@ -1247,10 +1210,6 @@ onMounted(async () => {
       align-content: start;
       grid-column-gap: 1rem;
     }
-
-    /*   @include mq(1920) {
-      grid-column-gap: 1.3rem;
-    } */
   }
 }
 
@@ -1266,10 +1225,6 @@ onMounted(async () => {
   @include mq(768) {
     flex-direction: row;
     justify-content: space-between;
-    // width: 68.8rem;
-  }
-  @include mq(1440) {
-    // width: 128rem;
   }
 }
 
@@ -1349,6 +1304,8 @@ header {
   right: 0;
   width: 100%;
   height: 100%;
+  padding: 4rem 1rem 0 1rem;
+
   @include mq(375) {
     padding: 4rem 2rem 0 2rem;
   }
@@ -1392,7 +1349,7 @@ header {
   margin: 0 auto;
   width: 100%;
   transition: all 200ms ease-out;
-
+  height: 81.2rem;
   @include mq(375) {
     height: 81.2rem;
   }
@@ -1403,15 +1360,10 @@ header {
 
   @include mq(1024) {
     height: 100vh;
-    // position: static;
   }
   @include mq(1250) {
     height: 90rem;
   }
-
-  /*   @include mq(1920) {
-    height: 120rem;
-  } */
 }
 
 .gradient-group .blue {
@@ -1447,7 +1399,12 @@ header {
   );
   border-radius: 13rem;
   position: absolute;
-
+  height: 130rem;
+  width: 130rem;
+  top: -40rem;
+  left: -40rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientPurple_375 8s ease infinite;
   @include mq(375) {
     height: 130rem;
     width: 130rem;
@@ -1523,6 +1480,12 @@ header {
   );
   border-radius: 13rem;
   position: absolute;
+  width: 85rem;
+  height: 85rem;
+  top: -25rem;
+  left: -15rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientRed_375 8s ease infinite;
 
   @include mq(375) {
     width: 85rem;
@@ -1597,6 +1560,12 @@ header {
   );
   border-radius: 13rem;
   position: absolute;
+  width: 40rem;
+  height: 40rem;
+  top: 40rem;
+  left: 18rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientYellow_375 8s ease infinite;
 
   @include mq(375) {
     width: 40rem;
@@ -1652,12 +1621,13 @@ header {
 }
 
 .transformVideo {
-  // transform: scale(1.2, 1.2);
   height: 110vh !important;
   width: 120vw !important;
 }
 
 .videoPlayer {
   transition: all 0.8s ease-out;
+  object-fit: cover;
+  background-size: cover;
 }
 </style>

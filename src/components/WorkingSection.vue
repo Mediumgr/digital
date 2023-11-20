@@ -116,7 +116,7 @@ onMounted(() => {
   position: relative;
   z-index: 1;
   opacity: 0;
-  transition: opacity 1.2s ease;
+  transition: opacity 0.5s ease;
 
   @include mq(768) {
     font-size: 2rem;
@@ -139,7 +139,7 @@ onMounted(() => {
     position: sticky;
     top: 29rem;
     opacity: 0;
-    transition: opacity 1s ease-out;
+    transition: opacity 0.2s ease-out;
     font-weight: 500;
     color: #13144b;
     text-align: center;

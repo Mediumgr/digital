@@ -7,14 +7,36 @@
     <div class="vacancy__section">
       <p class="vacancy__title">Вакансии</p>
       <div class="vacancy__container">
+        <!--    <a
+          class="vacancy__card"
+          target="_blank"
+          :style="backgroundStyle"
+          href="https://career.habr.com/companies/psb/vacancies"
+          @mouseover="mouseover($event)"
+          @mouseleave="mouseleave()"
+        >
+          <p class="vacancy__look">Посмотреть все вакансии можно здесь</p>
+          <div class="vacancy__bottom">
+            <p class="vacancy__text">Хабр Карьера</p>
+            <div class="vacancy__arrow"></div>
+          </div>
+        </a> -->
+
         <a
           class="vacancy__card"
           target="_blank"
           href="https://career.habr.com/companies/psb/vacancies"
-          :style="backgroundStyle"
-          @mouseover="mouseover($event)"
+          @mouseover="mouseover()"
           @mouseleave="mouseleave()"
+          @touchstart="mouseover()"
+          @touchend="mouseleave()"
         >
+          <video v-show="videoShow" autoplay muted playsinline loop="loop">
+            <source
+              src="../assets/video/vacancies/hover.mp4"
+              type="video/mp4"
+            />
+          </video>
           <p class="vacancy__look">Посмотреть все вакансии можно здесь</p>
           <div class="vacancy__bottom">
             <p class="vacancy__text">Хабр Карьера</p>
@@ -76,6 +98,7 @@
             class="resume__btn"
             v-if="!loader"
             @mousemove="mousemove($event)"
+            @touchmove="mousemove($event)"
           >
             <span>Отправить</span>
           </button>
@@ -88,13 +111,14 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, reactive, onMounted } from "vue";
+import { ref, /* computed, */ watch, reactive, onMounted } from "vue";
 import BaseInput from "./BaseElements/BaseInput.vue";
 import FormStatus from "./FormStatus.vue";
 import { useSubmit } from "./composables/useSubmit";
 import { useWatchers } from "./composables/useWatchers";
 
 const loader = ref(false);
+const videoShow = ref(false);
 const status = reactive({
   form: true,
   connection: true,
@@ -112,7 +136,7 @@ let titleNode = ref(null);
 let placeholderNode = ref(null);
 let inputNode = ref("");
 let resumeNode = ref("");
-let imageURLs = ref([
+/* let imageURLs = ref([
   "vacancy_1.png",
   "vacancy_2.png",
   "vacancy_3.png",
@@ -126,11 +150,10 @@ let imageURLs = ref([
   "vacancy_11.png",
   "vacancy_12.png",
   "vacancy_13.png",
-]);
-let loadedImages = ref([]);
-let currentIndex = ref(-1);
-let interval = ref(null);
-let initialBackground = ref(true);
+]); */
+// let currentIndex = ref(-1);
+// let interval = ref(null);
+// let initialBackground = ref(true);
 let errors = ref({});
 
 /* eslint-disable */
@@ -197,58 +220,68 @@ const removeFile = (event) => {
   }
 };
 
-const mouseover = (event) => {
-  if (event.target.classList.contains("vacancy__card")) {
-    clearInterval(interval.value);
+const mouseover = () => {
+  videoShow.value = true;
+  /*   clearInterval(interval.value);
     interval.value = setInterval(() => {
       initialBackground.value = false;
       currentIndex.value = (currentIndex.value + 1) % imageURLs.value.length;
-    }, 300);
-  }
+    }, 200); */
 };
-/*  */
+
 const mouseleave = () => {
-  clearInterval(interval.value);
-  currentIndex.value = -1;
-  initialBackground.value = true;
+  // clearInterval(interval.value);
+  // currentIndex.value = -1;
+  // initialBackground.value = true;
+  videoShow.value = false;
 };
 
-/* const backgroundStyle = computed(() => {
-  return initialBackground.value === false
-    ? {
-        "background-image": `url(${require(`@/assets/images/${
-          imageURLs.value[currentIndex.value]
-        }`)})`,
-      }
-    : { background: "#424ed1" };
-}); */
+// const backgroundStyle = computed(() => {
+//   return initialBackground.value === false
+//     ? /*  {
+//         "background-image": `url(${loadedImages.value[currentIndex.value]})`,
+//       } */
+//       {
+//         "background-image": `url(${require(`@/assets/images/vacancies/${
+//           imageURLs.value[currentIndex.value]
+//         }`)})`,
+//       }
+//     : { background: "#424ed1" };
+// });
 
-const backgroundStyle = computed(() => {
-  return initialBackground.value === false
-    ? {
-        "background-image": `url(${loadedImages.value[currentIndex.value]})`,
-      }
-    : { background: "#424ed1" };
-});
-
+// const loadedImages = ref([]);
 const preLoadImages = () => {
-  const imagePromises = imageURLs.value.map((url) => {
+  /* загрузка всех изображений для вакансий в кэш браузера */
+  /* const imagePromises =  */
+  /*   imageURLs.value.map((url) => {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onerror = reject;
       img.src = `${require(`@/assets/images/vacancies/${url}`)}`;
       img.onload = () => resolve(img);
     });
-  });
-  Promise.all(imagePromises)
+  }); */
+
+  /*   Promise.all(imagePromises)
     .then((images) => {
       images.forEach((img) => {
-        loadedImages.value.push(img.src);
+        const regex = /\/img\/[^/]+\.[a-zA-Z0-9]+$/;
+        // debugger;
+        const result = img.src.match(regex);
+        loadedImages.value.push(result[0]);
       });
     })
     .catch((error) => {
       console.error("Ошибка при загрузке изображений:", error);
-    });
+    }); */
+
+  /* загрузка изображения на случай отсутствия интернета у пользователя */
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onerror = reject;
+    img.src = `${require(`@/assets/images/vacancies/status_bad.svg`)}`;
+    img.onload = () => resolve(img);
+  });
 };
 
 /* drag & drop file */
@@ -331,6 +364,12 @@ onMounted(() => {
   );
   border-radius: 13rem;
   position: absolute;
+  height: 130rem;
+  width: 130rem;
+  top: -40rem;
+  left: -40rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientPurple_375 8s ease infinite;
 
   @include mq(375) {
     height: 130rem;
@@ -407,6 +446,12 @@ onMounted(() => {
   );
   border-radius: 13rem;
   position: absolute;
+  width: 85rem;
+  height: 85rem;
+  top: -25rem;
+  left: -15rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientRed_375 8s ease infinite;
 
   @include mq(375) {
     width: 85rem;
@@ -481,6 +526,12 @@ onMounted(() => {
   );
   border-radius: 13rem;
   position: absolute;
+  width: 40rem;
+  height: 40rem;
+  top: 40rem;
+  left: 18rem;
+  animation: slideInGradient 1.5s ease forwards,
+    gradientYellow_375 8s ease infinite;
 
   @include mq(375) {
     width: 40rem;
@@ -547,9 +598,6 @@ onMounted(() => {
     @include mq(1440) {
       height: 130rem;
     }
-    @include mq(1920) {
-      height: 174rem;
-    }
   }
 
   &__container {
@@ -565,14 +613,8 @@ onMounted(() => {
       justify-content: space-between;
       align-items: center;
       margin: 0 auto;
-      width: 110.8rem;
-      margin-bottom: 20rem;
+      width: 108.8rem;
     }
-
-    /*    @include mq(1920) {
-      width: 145rem;
-      margin-bottom: 26.7rem;
-    } */
   }
 
   &__title {
@@ -595,29 +637,27 @@ onMounted(() => {
       letter-spacing: -0.9rem;
       padding: 20rem 0 10rem;
     }
-
-    /*   @include mq(1920) {
-      font-size: 20rem;
-      letter-spacing: -1.2rem;
-      padding: 26.7rem 0 13.3rem;
-    } */
   }
 
   &__card {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    padding: 2rem;
+    // padding: 2rem;
     border-radius: 2rem;
     height: 25rem;
     margin-bottom: 2rem;
-    background-repeat: no-repeat;
-    background-size: cover;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    position: relative;
+    border-radius: 2rem;
+    overflow: hidden;
+    background: #424ed1;
 
     @include mq(768) {
-      padding: 4rem;
-      height: 40.5rem;
-      margin-bottom: 4rem;
+      height: 38.5rem;
+      width: 68.8rem;
+      margin-bottom: 2rem;
     }
 
     @include mq(1440) {
@@ -625,12 +665,6 @@ onMounted(() => {
       width: 51.4rem;
       margin-bottom: 0;
     }
-    /*
-    @include mq(1920) {
-      padding: 5.3rem;
-      height: 88.5rem;
-      width: 68.5rem;
-    } */
   }
 
   &__look {
@@ -639,14 +673,19 @@ onMounted(() => {
     line-height: 100%;
     letter-spacing: -0.12rem;
 
+    position: absolute;
+    top: 0;
+    padding: 2rem;
+
     @include mq(768) {
       font-size: 4.8rem;
       letter-spacing: -0.096rem;
+      padding: 4rem;
     }
 
     @include mq(1440) {
       font-size: 6.4rem;
-      line-height: 100%;
+      line-height: 94%;
       letter-spacing: -0.256rem;
     }
   }
@@ -655,6 +694,16 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     color: var(--color-white, #fff);
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    align-items: center;
+    padding: 0 2rem 2rem;
+
+    @include mq(768) {
+      padding: 0 4rem 4rem;
+    }
   }
 
   &__text {
@@ -676,6 +725,7 @@ onMounted(() => {
     height: 1.9rem;
     width: 1.9rem;
     background: url("../assets/images/vacancies/arrow_375.svg") no-repeat;
+    background-position: center;
 
     @include mq(768) {
       width: 2.9rem;
@@ -693,15 +743,13 @@ onMounted(() => {
       width: 3.8rem;
       background: url("../assets/images/vacancies/arrow.svg") no-repeat;
     }
-
-    @include mq(1920) {
-      height: 5.1rem;
-      width: 5.1rem;
-      background: url("../assets/images/vacancies/arrow_1920.svg") no-repeat;
-    }
   }
 }
 
+video {
+  object-fit: cover;
+  border-radius: 2rem;
+}
 .form {
   display: flex;
   flex-direction: column;
@@ -724,12 +772,6 @@ onMounted(() => {
     justify-content: space-between;
   }
 
-  /*   @include mq(1920) {
-    padding: 5.3rem;
-    height: 88.5rem;
-    width: 68.5rem;
-  } */
-
   & .title {
     color: #13144b;
     font-size: 2.4rem;
@@ -748,12 +790,6 @@ onMounted(() => {
       letter-spacing: -0.144rem;
       margin-bottom: 2.5rem;
     }
-
-    /*     @include mq(1920) {
-      font-size: 6.4rem;
-      letter-spacing: -0.192rem;
-      margin-bottom: 3.5rem;
-    } */
   }
 }
 
@@ -776,14 +812,6 @@ onMounted(() => {
     width: 43.4rem;
     height: 9.4rem;
   }
-
-  /*   @include mq(1920) {
-    width: 57.9rem;
-    height: 12.7rem;
-    padding: 2.7rem;
-    border-radius: 2.7rem;
-    border: 0.13rem dashed rgba(19, 20, 75, 0.2);
-  } */
 
   &.active {
     background-color: #f9f9f9;

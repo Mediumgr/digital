@@ -91,17 +91,6 @@
     }
 }
 
-@keyframes slideInFromTop {
-    0% {
-        transform: translateY(-24rem);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
 @keyframes opacityShow {
     0% {
         opacity: 0;
