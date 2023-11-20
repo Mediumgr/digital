@@ -10,10 +10,10 @@
     <div class="education__card">
       <div class="js-education-corp">
         <div class="education__hero education__hero--corp js-education-hero-corp">
-          <video class="education__video"
-                 autoplay loop muted playsinline>
+          <video class="education__video" autoplay loop muted playsinline
+                 poster="../assets/images/education/education-corp.jpg">
             <source type="video/mp4"
-                    src="@/assets/video/education/pexels-shvets-production-9057681-(1440p).mp4">
+                    src="../assets/video/education/education-corp-(1080p).mp4">
           </video>
           <div class="education__card-text-wrapper">
             <h3 class="education__card-title heading-h2 js-education-title-corp">
@@ -86,9 +86,10 @@
 
         <div class="education__card js-education-school">
           <div class="education__hero education__hero--school js-education-hero-school">
-            <video class="education__video" autoplay loop muted playsinline>
+            <video class="education__video" autoplay loop muted playsinline
+                   poster="../assets/images/education/education-school.jpg">
               <source type="video/mp4"
-                      src="@/assets/video/education/pexels-tea-oebel-6804109-(1080p).mp4">
+                      src="../assets/video/education/education-school-(1080p).mp4">
             </video>
             <div class="education__card-text-wrapper">
               <h3 class="education__card-title heading-h2 js-education-title-school">
