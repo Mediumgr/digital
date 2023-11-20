@@ -111,12 +111,12 @@ function init() {
   function changeClassesByIndex(centerIndex) {
     //left active
     if (centerIndex - 1 >= 0) {
-      cardsStackWrapperEl[centerIndex - 1]?.classList.add(ACTIVE_LEFT_ClASS)
+      cardsStackWrapperEl[centerIndex - 1] && cardsStackWrapperEl[centerIndex - 1].classList.add(ACTIVE_LEFT_ClASS)
     }
 
     //right active
     if (centerIndex < cardsStackWrapperEl.length) {
-      cardsStackWrapperEl[centerIndex + 1]?.classList.add(ACTIVE_RIGHT_ClASS)
+      cardsStackWrapperEl[centerIndex + 1] &&cardsStackWrapperEl[centerIndex + 1].classList.add(ACTIVE_RIGHT_ClASS)
     }
 
     cardsStackWrapperEl.forEach((item, index) => {
@@ -164,10 +164,10 @@ function init() {
   }
 
   if (isMobile()) {
-    cardsEl[0]?.classList.add(ACTIVE_ClASS)
+    cardsEl[0] && cardsEl[0].classList.add(ACTIVE_ClASS)
     changeClassesByIndex(0)
   } else {
-    cardsEl[1]?.classList.add(ACTIVE_ClASS)
+    cardsEl[1] && cardsEl[1].classList.add(ACTIVE_ClASS)
     changeClassesByIndex(1)
   }
 
