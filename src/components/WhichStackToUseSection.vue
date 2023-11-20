@@ -1,6 +1,5 @@
 <template>
   <section class="which-stack-to-use js-stack-use">
-    <GradientBG/>
 
     <h2 class="which-stack-to-use__title heading-h2" v-html="whichStackToUse.title"></h2>
 
@@ -25,7 +24,6 @@
 <script setup>
 import { onMounted } from 'vue';
 import whichStackToUse from '@/assets/data/which-stack-to-use.json';
-import GradientBG from "@/components/GradientBG.vue";
 import { gsap } from "@/helpers/gsap";
 import { isMobile, refreshScrollTriggerByElement } from "@/helpers";
 

@@ -1,4 +1,5 @@
 <template>
+  <GradientBG />
   <MainBlock />
   <SpecialistsInfo />
   <ForWhoAppreciate />
@@ -26,10 +27,12 @@ import WhichStackToUseSection from "@/components/WhichStackToUseSection.vue";
 import RecommendFriend from "@/components/RecommendFriend.vue";
 import DigitalLaboratorySection from "@/components/DigitalLaboratorySection.vue";
 import ForWhoAppreciate from "@/components/ForWhoAppreciate.vue";
+import GradientBG from "@/components/GradientBG.vue";
 
 export default {
   name: "MainPage",
   components: {
+    GradientBG,
     ForWhoAppreciate,
     MainBlock,
     SpecialistsInfo,

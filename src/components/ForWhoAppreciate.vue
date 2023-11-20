@@ -1,7 +1,5 @@
 <template>
   <section class="for-who-appreciate">
-    <GradientBG />
-
     <div class="for-who-appreciate__wrapper">
       <div class="for-who-appreciate__heading-wrapper">
         <h3 class="for-who-appreciate__heading heading-h3">Для тех,<br>кто ценит</h3>
@@ -110,7 +108,6 @@
 import { onMounted } from 'vue';
 import { isDesktop, isTablet } from "@/helpers";
 import { EASE_FOR_WHO_APPRECIATE, gsap } from "@/helpers/gsap";
-import GradientBG from "@/components/GradientBG.vue";
 
 function svg() {
   const getRangeParams = () => {

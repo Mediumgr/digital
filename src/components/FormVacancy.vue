@@ -1,9 +1,5 @@
 <template>
   <div class="gradient-group__vacancy">
-    <div class="blue"></div>
-    <div class="purple"></div>
-    <div class="red"></div>
-    <div class="yellow"></div>
     <div class="vacancy__section">
       <p class="vacancy__title">Вакансии</p>
       <div class="vacancy__container">
@@ -320,6 +316,31 @@ const mousemove = (e) => {
 };
 
 onMounted(() => {
+
+  let block = document.querySelector('.gradient-group__vacancy');
+
+  window.scrollTo({
+    top: block,
+    // без scrollTriggerRefresh сбивается анимация gsap при прокрутке
+    // при плавной прокрутке (smooth) не работает scrollTriggerRefresh
+    behavior: "instant",
+  });
+
+  console.log(block);
+  let observer1 = new IntersectionObserver((entries) => {
+    let bg = document.querySelector('.gradient');
+    entries.forEach((entry) => {
+
+      bg.style.zIndex = 0;
+      bg.style.opacity = entry.intersectionRatio * 1.5;
+
+    });
+  }, {
+    root: null,
+    threshold: [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+  });
+  observer1.observe(block);
+
   preLoadImages();
 });
 </script>

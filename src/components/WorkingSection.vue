@@ -35,6 +35,7 @@ import { onMounted, ref } from "vue";
 const frame = ref(null);
 const title = ref(null);
 
+/*
 const handleScroll = () => {
   const viewportTop = frame.value.getBoundingClientRect().top;
   if (viewportTop > 400 && viewportTop < 500) {
@@ -45,7 +46,7 @@ const handleScroll = () => {
     title.value.style.opacity = "0";
   }
 };
-
+*/
 const intersection = () => {
   let options = {
     rootMargin: "0px 0px -250px 0px",
@@ -66,7 +67,7 @@ const intersection = () => {
 
 onMounted(() => {
   document.addEventListener("scroll", () => {
-    handleScroll();
+    //handleScroll();
   });
 
   intersection();

@@ -12,7 +12,8 @@
 <style lang="scss" scoped>
 .gradient {
   z-index: -1;
-  position: absolute;
+  position: fixed;
+  opacity: 0;
   top: 0;
   left: 0;
   right: 0;

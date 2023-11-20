@@ -269,7 +269,7 @@ onMounted(async () => {
   position: relative;
   align-items: center;
   flex: 0 0 auto;
-  background-color: rgba(247, 247, 247, 1);
+  /*background-color: rgba(247, 247, 247, 1);*/
   width: 100%;
 }
 

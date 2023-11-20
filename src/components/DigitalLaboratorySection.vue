@@ -1,6 +1,5 @@
 <template>
   <footer class="digital-laboratory">
-    <GradientBG />
 
     <h2 class="digital-laboratory__title heading-h1">
       ПСБ цифровая <br> лаборатория
@@ -17,7 +16,7 @@
 </template>
 
 <script setup>
-import GradientBG from "@/components/GradientBG.vue";
+
 </script>
 
 <style lang="scss" scoped>
