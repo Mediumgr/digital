@@ -158,19 +158,18 @@ function moduleAnimation() {
   var opacity = '1';
 
   var top = list.getBoundingClientRect().top;
-  var height = list.offsetHeight;
-  console.log(height);
+
   cards[cards.length - 1].style.transform = 'translateY(60px)';
   cards.forEach((card, i) => {
 
     var cardTop = Math.floor(parseFloat(getComputedStyle(card).getPropertyValue('top')));
-    console.log(cardTop);
+
     var height = card.offsetHeight;
     var scrolling = cardTop - top - i * (height);
 
 
     var scaling = i == cards.length - 1 ? 1 : (height - scrolling * 0.05) / height;
-     scaling = (scaling > 1 ? 1 : scaling);
+    scaling = (scaling > 1 ? 1 : scaling);
 
     let ele2 = card.nextElementSibling;
 
@@ -184,11 +183,10 @@ function moduleAnimation() {
       const top2 = parseInt(boundings2.top);
 
       const overlap = 1 - (top2 - card1) / height1;
-      console.log('overlap-', overlap);
 
       card.style.transform = card.style.transform = 'translateY(' + 10 * i + 'px) scale(' + scaling + ')';
 
-      if (overlap >= 0.95) {
+      if (overlap >= 0.97) {
         card.style.setProperty('opacity', opacity);
         card.style.setProperty('backdrop-filter', 'blur(10px)');
         card.style.setProperty('-webkit-backdrop-filter', 'blur(10px)');
@@ -203,49 +201,38 @@ function moduleAnimation() {
       }
     }
 
-
-
-
-    /*
-    const scale = clamp((list.scrollTop + i * 72) / 100, 0, 1);
-    const opacity = clamp((list.scrollTop + i * 72) / 60, 0, 1);
-    card.style.transform = `scale(${scale})`;
-    card.style.opacity = `${opacity}`;
-
-     */
   });
 }
 onMounted(async () => {
 
-  cards = document.querySelectorAll(".process_item");
   list = document.querySelector(".process-wrapper");
+  cards = list.querySelectorAll(".process_item");
+
   let observerGallery = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-
       // получаем свойства, которые доступны в объекте entry
-      const { target, isIntersecting } = entry;
+      const {target, isIntersecting} = entry;
 
-      console.log(isIntersecting);
-      if (entry.isIntersecting) {
-        window.addEventListener('scroll', moduleAnimation, true);
-        console.log('if');
-      } else {
-        window.removeEventListener('scroll', moduleAnimation, true);
-        console.log('else');
-      }
+      console.log(target);
+      var scrolled = false;
       if (isIntersecting) {
+        document.addEventListener('scroll', () => {
+          if(!scrolled) {
+            scrolled = true;
+            setTimeout(() => {
+              moduleAnimation();
+              scrolled = false;
+            }, "300");
+          }
+        }, true);
 
-
-        console.log(target);
-
-        // Убираем отслеживание
-        // observer.unobserve(entry.target);
+      } else {
+        document.removeEventListener('scroll', moduleAnimation, true);
       }
-
     });
   }, {   rootMargin: "0px",
     threshold: 0.1, });
-  observerGallery.observe(document.querySelector(".process-wrapper"));
+  observerGallery.observe(list);
 
 });
 </script>
@@ -366,6 +353,8 @@ onMounted(async () => {
   transform-origin: center top;
 
   max-height: calc(var(--vh, 1vh) * 90);
+
+  transition: all .2s linear;
 }
 
 .process .process_item-href {
