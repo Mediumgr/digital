@@ -31,7 +31,7 @@
 @mixin hover($isActive: false) {
   @media (hover: hover) {
     /* when hover is supported */
-    &:hover, {
+    &:hover {
       @content;
     }
   }
