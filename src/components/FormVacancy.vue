@@ -31,7 +31,14 @@
           @touchstart="mouseover()"
           @touchend="mouseleave()"
         >
-          <video v-show="videoShow" autoplay muted playsinline loop="loop">
+          <video
+            v-show="videoShow"
+            autoplay
+            muted
+            playsinline
+            loop="loop"
+            playbackRate="0.5"
+          >
             <source
               src="../assets/video/vacancies/hover.mp4"
               type="video/mp4"
