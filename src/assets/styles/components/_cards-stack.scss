@@ -65,19 +65,24 @@
     overflow: hidden;
     margin: 0 auto;
 
-    &:first-child {
-      overflow: visible;
+    @include hover() {
+      cursor: pointer;
     }
 
     @include mq(1200) {
       width: 9rem;
       height: 40rem;
       transition: width 500ms;
+    }
 
-      &:first-child {
+    &:first-child {
+      overflow: visible;
+
+      @include mq(1200) {
         overflow: hidden;
       }
     }
+
 
     &._stack-active-left {
       @include mq(1200) {

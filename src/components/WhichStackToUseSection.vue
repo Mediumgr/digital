@@ -26,8 +26,8 @@
 import { onMounted } from 'vue';
 import whichStackToUse from '@/assets/data/which-stack-to-use.json';
 import GradientBG from "@/components/GradientBG.vue";
-import { gsap, scrollTriggerRefresh } from "@/helpers/gsap";
-import { refreshScrollTriggerByElement } from "@/helpers";
+import { gsap } from "@/helpers/gsap";
+import { isMobile, refreshScrollTriggerByElement } from "@/helpers";
 
 const CLASS_PREFIX = '_stack-';
 
@@ -163,12 +163,12 @@ function init() {
     return [...element.parentNode.children].indexOf(element)
   }
 
-  let mql = window.matchMedia("(min-width: 1200px)");
-  if (mql.matches) {
-    mql.matches && cardsEl[1]?.classList.add(ACTIVE_ClASS)
-    changeClassesByIndex(1)
+  if (isMobile()) {
+    cardsEl[0]?.classList.add(ACTIVE_ClASS)
+    changeClassesByIndex(0)
   } else {
-    changeClassesByIndex(-1)
+    cardsEl[1]?.classList.add(ACTIVE_ClASS)
+    changeClassesByIndex(1)
   }
 
   cardsStackContainerEl.addEventListener('click', handleClick)
@@ -180,10 +180,6 @@ function init() {
 onMounted(() => {
   init()
   console.log('WhichStackToUseSection')
-
-  setTimeout(() => {
-    scrollTriggerRefresh()
-  }, 150)
 });
 </script>
 

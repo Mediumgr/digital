@@ -219,6 +219,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import { scrollTriggerRefresh } from "@/helpers/gsap";
 const { shuffle } = require("txt-shuffle");
 
 const videoSrc = ref("");
@@ -297,7 +298,9 @@ const scrollTo = (value) => {
   let scrollToElement = offsetElement + window.scrollY;
   window.scrollTo({
     top: scrollToElement,
-    behavior: "smooth",
+    // без scrollTriggerRefresh сбивается анимация gsap при прокрутке
+    // при плавной прокрутке (smooth) не работает scrollTriggerRefresh
+    behavior: "instant",
   });
 };
 
@@ -386,6 +389,12 @@ const generateLab = (ms) => {
     // titleLab.value = true;
     showSubTitle.value = true;
     showVideo.value = true;
+
+    // при добавлении видео (.video__section) на страницу изменятся высота страницы
+    setTimeout(()=>{
+      scrollTriggerRefresh()
+    },50 )
+
     // labNode.value.classList.add("section__counter-lab_active");
   }, 2000 + ms);
 

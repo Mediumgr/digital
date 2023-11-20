@@ -1,4 +1,4 @@
-// import { scrollTriggerRefresh } from "@/helpers/gsap";
+import { scrollTriggerRefresh } from "@/helpers/gsap";
 
 function getScrollbarWidth() {
   return window.innerWidth - document.documentElement.clientWidth;
@@ -6,15 +6,14 @@ function getScrollbarWidth() {
 
 function refreshScrollTriggerByElement(element) {
   const options = {
-    rootMargin: "300px 0px 300px 0px",
+    rootMargin: "150px 0px 150px 0px",
     // threshold: 1.0,
   };
   const callback = function (entries) {
     /* Content excerpted, show below */
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        /* scrollTriggerRefresh блокирует скролл кнопок "давай знакомиться" в компоненте MainBlock */
-        // scrollTriggerRefresh()
+        scrollTriggerRefresh()
         console.log(
           `Refreshing ScrollTrigger on [${Array.from(element.classList).join(
             ","

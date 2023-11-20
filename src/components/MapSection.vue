@@ -39,7 +39,7 @@
               <img class="map-cards__image" :src="require(`@/assets/images/map/${city.img}`)"/>
               <div class="map-cards__name heading-h6">{{ city.name }}</div>
             </div>
-            <div class="map-cards__content js-map-tab">
+            <div class="map-cards__content js-map-tab-content">
               <div class="map-cards__tabs-buttons">
                 <template v-for="(tab, index) in city.tabs" :key="tab.name">
                   <button class="map-cards__tabs-button"
@@ -88,18 +88,18 @@ import mapData from '@/assets/data/map.json';
 import mapPointers from '@/assets/data/map-pointers.json';
 
 let currentAnimationCard = null
+let currentOpenedModal = null
 
 function init() {
   const ACTIVE_TAB_CLASS = '_active'
+
   const mapContainerEl = document.querySelector('.js-map-offices')
   if (!mapContainerEl) {
     return;
   }
 
-  console.log(mapContainerEl)
-
   // TABS
-  const mapTabsContainerEl = Array.from(mapContainerEl.querySelectorAll('.js-map-tab'))
+  const mapTabsContainerEl = Array.from(mapContainerEl.querySelectorAll('.js-map-tab-content'))
   const closeButtonsEl = Array.from(mapContainerEl.querySelectorAll('.js-map-close-btn'))
   const mapPointerContainerEl = mapContainerEl.querySelector('.map-offices__pointers')
 
@@ -153,11 +153,62 @@ function init() {
     btnEl.classList.add(ACTIVE_TAB_CLASS)
 
     containerEl.querySelector(`[data-index-content="${indexActive}"]`).classList.add(ACTIVE_TAB_CLASS)
-
-    console.log("tab handler")
   }
 
-  function clickMapHandler(event) {
+  function escHandler(e) {
+    if ((e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27)) {
+      closeModal()
+    }
+  }
+
+  function hideScrollbar() {
+    document.body.style.paddingRight = `${getScrollbarWidth()}px`;
+    document.body.style.backgroundColor = "var(--bg-eggplant)";
+    document.body.style.overflow = "hidden";
+  }
+
+  function showScrollbar() {
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+    document.body.style.backgroundColor = "";
+  }
+
+  function closeModal(event) {
+    event && event.preventDefault();
+
+    showScrollbar()
+
+    const currentCard = currentOpenedModal || (event && event.target.parentElement)
+
+    if (currentAnimationCard) {
+      !isMobile() && (currentCard.style.overflow = 'hidden')
+      const newDuration = (currentAnimationCard.totalDuration() / 2.2).toFixed(2)
+
+      currentAnimationCard.totalDuration(newDuration)
+      currentAnimationCard.totalDuration(newDuration)
+      currentAnimationCard.reverse();
+
+      currentCard.classList.remove('_active')
+
+      setTimeout(() => {
+        mapCardsContainerEl.style.zIndex = "-11";
+
+        if (isMobile()) {
+          currentCard.style.zIndex = "-4";
+          currentCard.style.visibility = "hidden";
+        }
+
+        if (!isMobile()) {
+          currentCard.style.display = "none";
+        }
+      }, newDuration * 1000)
+    }
+
+    currentOpenedModal = null
+    document.removeEventListener('keydown', escHandler)
+  }
+
+  function showModalMap(event) {
     const btnEl = event.target
     const cityName = btnEl.dataset.cityName
 
@@ -166,8 +217,10 @@ function init() {
     }
 
     const currentCardEl = mapContainerEl.querySelector(`[data-id-city="${cityName}"]`)
+    currentOpenedModal = currentCardEl
+
     const cardInnerEl = currentCardEl.querySelector('.map-cards__item-inner')
-    const cardContentEl = currentCardEl.querySelector('.js-map-tab')
+    const cardContentEl = currentCardEl.querySelector('.js-map-tab-content')
 
     const btnSize = btnEl.getBoundingClientRect()
 
@@ -189,17 +242,29 @@ function init() {
           duration: 0.4,
         })
     } else {
+      // Desktop
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize)
+
+      console.log(btnSize.height)
+
       gsap.set(currentCardEl, {
         left: btnSize.x,
-        top: btnSize.y,
+        top: btnSize.y - rem * 3,
         width: btnSize.width,
-        height: btnSize.height,
+        height: btnSize.height + rem * 3,
         zIndex: 4,
+        display: 'flex',
         overflow: 'hidden',
       })
 
       const poxCenterX = (window.innerWidth - cardInnerEl.getBoundingClientRect().width) / 2
-      const poxCenterY = (window.innerHeight - cardInnerEl.getBoundingClientRect().height) / 2
+      let poxCenterY = (window.innerHeight - cardInnerEl.getBoundingClientRect().height) / 2 - rem * 3
+      if (poxCenterY < 0) {
+        poxCenterY = 0
+      }
+
+      console.log(rem)
+      console.log(`poxCenterY=====`, poxCenterY)
 
       currentAnimationCard
         .to([currentCardEl, overlayEl], {
@@ -207,12 +272,12 @@ function init() {
           duration: 0.35,
         })
         .to(currentCardEl, {
-          duration: 0.3,
+          duration: 0.35,
           width: 'auto',
           left: poxCenterX
         })
         .to(currentCardEl, {
-          duration: 0.3,
+          duration: 0.35,
           height: 'auto',
           top: poxCenterY,
           onComplete: () => {
@@ -223,59 +288,28 @@ function init() {
         .to(cardContentEl, {
           autoAlpha: 1,
           duration: 0.25,
-        })
+        }, "-=0.15")
     }
 
     console.log(cityName)
 
-    document.body.style.paddingRight = `${getScrollbarWidth()}px`;
-    document.body.style.backgroundColor = "var(--bg-eggplant)";
-    document.body.style.overflow = "hidden";
+    hideScrollbar()
+    document.addEventListener('keydown', escHandler);
   }
 
-  console.log("init map")
   mapTabsContainerEl.forEach(tab => {
     tab.addEventListener('click', tabHandler)
   })
 
   closeButtonsEl.forEach(btn => {
-    btn.addEventListener('click', function (event) {
-      event.preventDefault();
-
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-      document.body.style.backgroundColor = "";
-
-      const currentCard = event.target.parentElement
-
-      console.log(currentAnimationCard)
-
-      if (currentAnimationCard) {
-        !isMobile() && (currentCard.style.overflow = 'hidden')
-        const newDuration = (currentAnimationCard.totalDuration() / 2.2).toFixed(2)
-        console.log(newDuration)
-
-        currentAnimationCard.totalDuration(newDuration)
-        currentAnimationCard.totalDuration(newDuration)
-        currentAnimationCard.reverse();
-
-        currentCard.classList.remove('_active')
-
-        setTimeout(() => {
-          mapCardsContainerEl.style.zIndex = "-11";
-
-          if (isMobile()) {
-            currentCard.style.zIndex = "-4";
-            currentCard.style.visibility = "hidden";
-            // currentCard.style.display = "none";
-          }
-        }, newDuration * 1000)
-      }
-    })
+    btn.addEventListener('click', closeModal)
   })
 
+  mapPointerContainerEl.addEventListener('click', showModalMap)
 
-  mapPointerContainerEl.addEventListener('click', clickMapHandler)
+  overlayEl.addEventListener('click', () => {
+    closeModal()
+  })
 
   initializeAnimation()
 

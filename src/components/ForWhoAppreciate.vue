@@ -114,17 +114,17 @@ import GradientBG from "@/components/GradientBG.vue";
 
 function svg() {
   const getRangeParams = () => {
-    let range = 25;
+    let range = 20;
     let increment = 10;
 
     if (isTablet()) {
-      range = 50
+      range = 45
       increment = 15;
     }
 
     if (isDesktop()) {
-      range = 80
-      increment = 25
+      range = 70
+      increment = 20
     }
 
     return { range, increment };
