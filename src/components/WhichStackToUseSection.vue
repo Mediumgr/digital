@@ -116,7 +116,7 @@ function init() {
 
     //right active
     if (centerIndex < cardsStackWrapperEl.length) {
-      cardsStackWrapperEl[centerIndex + 1] &&cardsStackWrapperEl[centerIndex + 1].classList.add(ACTIVE_RIGHT_ClASS)
+      cardsStackWrapperEl[centerIndex + 1] && cardsStackWrapperEl[centerIndex + 1].classList.add(ACTIVE_RIGHT_ClASS)
     }
 
     cardsStackWrapperEl.forEach((item, index) => {
@@ -171,7 +171,11 @@ function init() {
     changeClassesByIndex(1)
   }
 
-  cardsStackContainerEl.addEventListener('click', handleClick)
+  // cardsStackContainerEl.addEventListener('click', handleClick)
+  cardsEl.forEach(card => {
+    const eventType = isMobile() ? 'click' : 'mouseover'
+    card.addEventListener(eventType, handleClick)
+  })
 
   animation()
   refreshScrollTriggerByElement(stackContainerEl)

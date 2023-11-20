@@ -251,7 +251,7 @@ function init() {
 
     gsap.to(educationCorpEl, {
       width: '100%',
-      height: () => window.innerHeight,
+      height: () => window.innerHeight + 110,
       maxWidth: '100%',
       borderRadius: 0,
       scrollTrigger: {
@@ -287,7 +287,7 @@ function init() {
 
     gsap.to(educationSchoolEl, {
       width: '100%',
-      height: () => window.innerHeight,
+      height: () => window.innerHeight + 110,
       maxWidth: '100%',
       borderRadius: 0,
       scrollTrigger: {
@@ -312,7 +312,7 @@ function init() {
 onMounted(() => {
   init()
 
-  isMobile() && ScrollTrigger.normalizeScroll(true);
+  isMobile() && ScrollTrigger.normalizeScroll(false);
 
   console.log('EducationSection')
 });

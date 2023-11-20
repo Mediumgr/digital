@@ -61,7 +61,6 @@
     flex-shrink: 0;
     width: 100%;
     height: 4.7rem;
-    border-radius: 2rem;
     overflow: hidden;
     margin: 0 auto;
 
@@ -73,6 +72,7 @@
       width: 9rem;
       height: 40rem;
       transition: width 500ms;
+      border-radius: 2rem;
     }
 
     &:first-child {
@@ -174,9 +174,7 @@
       right: auto;
       left: 0;
       transform-origin: top;
-      //transform: perspective(60rem) rotateY(28deg) translateX(0);
-      //transform: perspective(76rem) translateY(-0.8rem) rotateX(-39deg) rotateY(0) rotateZ(0);
-      transform: perspective(22rem) translateY(-.8rem) rotateX(-19deg) rotateY(0) rotateZ(0);
+      transform: perspective(17rem) translateY(-0.1rem) rotateX(-19deg) rotateY(0) rotateZ(0);
 
       @include mq(1200) {
         transform-origin: left;
@@ -209,18 +207,33 @@
         height: 40rem;
       }
     }
+
+    ._stack-left &,
+    ._stack-right &,
+    ._stack-active-left &,
+    ._stack-active-right & {
+      @include only-mobile {
+        transition: transform 0s;
+      }
+    }
+
   }
 
   &__name {
     text-align: left !important;
     opacity: 0;
     color: var(--white);
-    transition: opacity 500ms;
+    //transition: opacity 500ms;
     pointer-events: none;
     margin-bottom: 4rem;
 
+    @include mq(1200) {
+      transition: opacity 500ms;
+    }
+
     ._stack-active & {
       opacity: 1;
+      transition: opacity 500ms;
     }
   }
 
