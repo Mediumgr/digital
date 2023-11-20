@@ -445,7 +445,7 @@ const intersectionAnimation = () => {
                 "";
             gradientGroup.value.style.opacity = opacity[6];
           }
-          if (videoTopPosition.value > 0) {
+          /*      if (videoTopPosition.value > 0) {
             target.classList.remove("transformVideo");
             setTimeout(() => {
               title.style.opacity =
@@ -458,7 +458,7 @@ const intersectionAnimation = () => {
               content.style.display =
               arrow.style.display =
                 "none";
-          }
+          } */
           if (videoTopPosition.value > 300) {
             gradientGroup.value.style.opacity = opacity[0];
           } else if (
@@ -517,6 +517,7 @@ onMounted(async () => {
   videoSrc.value = require("@/assets/video/mainblock/meet.mp4");
   posterSrc.value = require("@/assets/images/mainblock/meet.jpg");
   videoPlayer.value.load();
+  videoPlayer.value.play();
 
   // showNavbar.value = true;
   await contentLoad(loadingTime.value);
@@ -1612,13 +1613,13 @@ header {
 }
 
 .transformVideo {
-  height: 110vh !important;
+  height: 105vh !important;
   width: 120vw !important;
 }
 
 .videoPlayer {
-  transition: all 0.8s ease-out;
-  object-fit: cover;
-  background-size: cover;
+  height: auto;
+  width: auto;
+  transition: height 1s ease-in-out, width 1s ease-in-out;
 }
 </style>
