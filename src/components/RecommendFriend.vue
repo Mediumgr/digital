@@ -8,7 +8,11 @@
       <div class="recommend__content">
         <h1 class="recommend__title">Получи 100&nbsp;000&nbsp;₽</h1>
         <p class="recommend__sub-title">Рекомендуй друга в IT</p>
-        <button class="recommend__button" @mousemove="mousemove($event)">
+        <button
+          class="recommend__button"
+          @mousemove="mousemove($event)"
+          @touchmove="mousemove($event)"
+        >
           <a
             href="https://work.psblab.ru/"
             class="recommend__link"

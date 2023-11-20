@@ -1,4 +1,4 @@
-import { useValidate } from "./useValidate";
+import { useValidate } from './useValidate';
 
 export const useSubmit = async (options) => {
   const { name, email, tel, file, regExp, errors, loader, status } = options;
@@ -14,7 +14,7 @@ export const useSubmit = async (options) => {
 
   let isError = false;
   for (let err in errors.value) {
-    if (errors.value[err] === "error") {
+    if (errors.value[err] === 'error') {
       isError = true;
       break;
     }
@@ -24,8 +24,7 @@ export const useSubmit = async (options) => {
     status.connection = true;
 
     loader.value = true;
-
-    /*     let formData = new FormData();
+    let formData = new FormData();
 
     formData.append('name', name.value.text);
     formData.append('email', email.value.text);
@@ -43,13 +42,10 @@ export const useSubmit = async (options) => {
       status.server.failure = true;
       status.server.message = response.message;
       delete status['connection'];
-    } */
-    setTimeout(() => {
-      loader.value = false;
-      status.form = false;
-    }, 2000);
-    // loader.value = false;
-    // status.form = false;
+    }
+
+    loader.value = false;
+    status.form = false;
   }
 };
 

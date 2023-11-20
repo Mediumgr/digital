@@ -7,7 +7,7 @@
     <div class="vacancy__section">
       <p class="vacancy__title">Вакансии</p>
       <div class="vacancy__container">
-        <a
+        <!--    <a
           class="vacancy__card"
           target="_blank"
           :style="backgroundStyle"
@@ -15,6 +15,28 @@
           @mouseover="mouseover($event)"
           @mouseleave="mouseleave()"
         >
+          <p class="vacancy__look">Посмотреть все вакансии можно здесь</p>
+          <div class="vacancy__bottom">
+            <p class="vacancy__text">Хабр Карьера</p>
+            <div class="vacancy__arrow"></div>
+          </div>
+        </a> -->
+
+        <a
+          class="vacancy__card"
+          target="_blank"
+          href="https://career.habr.com/companies/psb/vacancies"
+          @mouseover="mouseover()"
+          @mouseleave="mouseleave()"
+          @touchstart="mouseover()"
+          @touchend="mouseleave()"
+        >
+          <video v-show="videoShow" autoplay muted playsinline loop="loop">
+            <source
+              src="../assets/video/vacancies/hover.mp4"
+              type="video/mp4"
+            />
+          </video>
           <p class="vacancy__look">Посмотреть все вакансии можно здесь</p>
           <div class="vacancy__bottom">
             <p class="vacancy__text">Хабр Карьера</p>
@@ -76,6 +98,7 @@
             class="resume__btn"
             v-if="!loader"
             @mousemove="mousemove($event)"
+            @touchmove="mousemove($event)"
           >
             <span>Отправить</span>
           </button>
@@ -88,13 +111,14 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, reactive, onMounted } from "vue";
+import { ref, /* computed, */ watch, reactive, onMounted } from "vue";
 import BaseInput from "./BaseElements/BaseInput.vue";
 import FormStatus from "./FormStatus.vue";
 import { useSubmit } from "./composables/useSubmit";
 import { useWatchers } from "./composables/useWatchers";
 
 const loader = ref(false);
+const videoShow = ref(false);
 const status = reactive({
   form: true,
   connection: true,
@@ -112,7 +136,7 @@ let titleNode = ref(null);
 let placeholderNode = ref(null);
 let inputNode = ref("");
 let resumeNode = ref("");
-let imageURLs = ref([
+/* let imageURLs = ref([
   "vacancy_1.png",
   "vacancy_2.png",
   "vacancy_3.png",
@@ -126,10 +150,10 @@ let imageURLs = ref([
   "vacancy_11.png",
   "vacancy_12.png",
   "vacancy_13.png",
-]);
-let currentIndex = ref(-1);
-let interval = ref(null);
-let initialBackground = ref(true);
+]); */
+// let currentIndex = ref(-1);
+// let interval = ref(null);
+// let initialBackground = ref(true);
 let errors = ref({});
 
 /* eslint-disable */
@@ -196,48 +220,49 @@ const removeFile = (event) => {
   }
 };
 
-const mouseover = (event) => {
-  if (event.target.classList.contains("vacancy__card")) {
-    clearInterval(interval.value);
+const mouseover = () => {
+  videoShow.value = true;
+  /*   clearInterval(interval.value);
     interval.value = setInterval(() => {
       initialBackground.value = false;
       currentIndex.value = (currentIndex.value + 1) % imageURLs.value.length;
-    }, 200);
-  }
+    }, 200); */
 };
-/*  */
+
 const mouseleave = () => {
-  clearInterval(interval.value);
-  currentIndex.value = -1;
-  initialBackground.value = true;
+  // clearInterval(interval.value);
+  // currentIndex.value = -1;
+  // initialBackground.value = true;
+  videoShow.value = false;
 };
 
-const backgroundStyle = computed(() => {
-  return initialBackground.value === false
-    ?   {
-        "background-image": `url(${loadedImages.value[currentIndex.value]})`,
-      }
-     /*  {
-        "background-image": `url(${require(`@/assets/images/vacancies/${
-          imageURLs.value[currentIndex.value]
-        }`)})`,
-      } */
-    : { background: "#424ed1" };
-});
+// const backgroundStyle = computed(() => {
+//   return initialBackground.value === false
+//     ? /*  {
+//         "background-image": `url(${loadedImages.value[currentIndex.value]})`,
+//       } */
+//       {
+//         "background-image": `url(${require(`@/assets/images/vacancies/${
+//           imageURLs.value[currentIndex.value]
+//         }`)})`,
+//       }
+//     : { background: "#424ed1" };
+// });
 
-const loadedImages = ref([]);
+// const loadedImages = ref([]);
 const preLoadImages = () => {
   /* загрузка всех изображений для вакансий в кэш браузера */
-  const imagePromises = imageURLs.value.map((url) => {
+  /* const imagePromises =  */
+  /*   imageURLs.value.map((url) => {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onerror = reject;
       img.src = `${require(`@/assets/images/vacancies/${url}`)}`;
       img.onload = () => resolve(img);
     });
-  });
+  }); */
 
-  Promise.all(imagePromises)
+  /*   Promise.all(imagePromises)
     .then((images) => {
       images.forEach((img) => {
         const regex = /\/img\/[^/]+\.[a-zA-Z0-9]+$/;
@@ -248,7 +273,7 @@ const preLoadImages = () => {
     })
     .catch((error) => {
       console.error("Ошибка при загрузке изображений:", error);
-    });
+    }); */
 
   /* загрузка изображения на случай отсутствия интернета у пользователя */
   new Promise((resolve, reject) => {
@@ -588,8 +613,7 @@ onMounted(() => {
       justify-content: space-between;
       align-items: center;
       margin: 0 auto;
-      width: 110.8rem;
-      margin-bottom: 20rem;
+      width: 108.8rem;
     }
   }
 
@@ -619,17 +643,21 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    padding: 2rem;
+    // padding: 2rem;
     border-radius: 2rem;
     height: 25rem;
     margin-bottom: 2rem;
-    background-repeat: no-repeat;
-    background-size: cover;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    position: relative;
+    border-radius: 2rem;
+    overflow: hidden;
+    background: #424ed1;
 
     @include mq(768) {
-      padding: 4rem;
-      height: 40.5rem;
-      margin-bottom: 4rem;
+      height: 38.5rem;
+      width: 68.8rem;
+      margin-bottom: 2rem;
     }
 
     @include mq(1440) {
@@ -645,14 +673,19 @@ onMounted(() => {
     line-height: 100%;
     letter-spacing: -0.12rem;
 
+    position: absolute;
+    top: 0;
+    padding: 2rem;
+
     @include mq(768) {
       font-size: 4.8rem;
       letter-spacing: -0.096rem;
+      padding: 4rem;
     }
 
     @include mq(1440) {
       font-size: 6.4rem;
-      line-height: 100%;
+      line-height: 94%;
       letter-spacing: -0.256rem;
     }
   }
@@ -661,6 +694,16 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     color: var(--color-white, #fff);
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    align-items: center;
+    padding: 0 2rem 2rem;
+
+    @include mq(768) {
+      padding: 0 4rem 4rem;
+    }
   }
 
   &__text {
@@ -703,6 +746,10 @@ onMounted(() => {
   }
 }
 
+video {
+  object-fit: cover;
+  border-radius: 2rem;
+}
 .form {
   display: flex;
   flex-direction: column;
