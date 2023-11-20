@@ -311,6 +311,10 @@ const dialogAnima = (entries, observer) => {
               duration: 500,
               fill: 'forwards'
             });
+
+            setTimeout(() => {
+              galleryBtn.value[0].click();
+            }, 600);
           });
         }
       })
