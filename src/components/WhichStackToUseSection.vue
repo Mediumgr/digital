@@ -163,13 +163,8 @@ function init() {
     return [...element.parentNode.children].indexOf(element)
   }
 
-  if (isMobile()) {
-    cardsEl[0] && cardsEl[0].classList.add(ACTIVE_ClASS)
-    changeClassesByIndex(0)
-  } else {
-    cardsEl[1] && cardsEl[1].classList.add(ACTIVE_ClASS)
-    changeClassesByIndex(1)
-  }
+  cardsEl[1] && cardsEl[1].classList.add(ACTIVE_ClASS)
+  changeClassesByIndex(1)
 
   // cardsStackContainerEl.addEventListener('click', handleClick)
   cardsEl.forEach(card => {
