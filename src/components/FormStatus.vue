@@ -24,7 +24,13 @@
           Похоже, проблемы с&nbsp;соединением. Попробуй еще раз
         </p>
       </div>
-      <button class="btn">Отправить еще раз</button>
+      <button
+        class="btn"
+        @mousemove="mousemove($event)"
+        @touchmove="mousemove($event)"
+      >
+        <span @click="$emit('resend')">Отправить еще раз</span>
+      </button>
     </div>
   </div>
 
@@ -44,38 +50,70 @@
 
 <script setup>
 /* eslint-disable */
-import { defineProps } from "vue";
-
+const emit = defineEmits(["resend"]);
 const props = defineProps({
   status: {
     type: Object,
     default: () => {},
   },
 });
+
+const mousemove = (e) => {
+  let btn = document.querySelector(".btn");
+  let x = e.pageX - btn.offsetLeft;
+  let y = e.pageY - btn.offsetTop;
+  btn.style.setProperty("--x", x / 10 + "rem");
+  btn.style.setProperty("--y", y / 1000 + "rem");
+};
 </script>
 
 <style lang="scss" scoped>
 .btn {
   width: 100%;
+  color: var(--color-white);
+  transition: all 200ms ease;
+  position: relative;
+  background: #13144b;
   padding: 2rem;
   border-radius: 2rem;
   outline: none;
   border: none;
-  background-color: #13144b;
-  color: var(--color-white);
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0.1rem 0.1rem 0 rgba(25, 25, 25, 0.25);
   font-size: 1.3rem;
+  line-height: 120%;
   letter-spacing: -0.026000000000000002rem;
   cursor: pointer;
-  transition: background-color 200ms linear;
 
   &:hover {
-    border-radius: 2.7rem;
+    box-shadow: 0 1.1rem 3rem rgba(25, 25, 25, 0.25);
+    background: #424ed1;
+
+    &::before {
+      --size: 70vw;
+    }
+  }
+
+  &::before {
+    --size: 0;
+    content: "";
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
     background: radial-gradient(
-        35.04% 88.6% at 85.5% 50.85%,
+        15% 88.6% at 40.5% 25.85%,
         #ff4236 0%,
         rgba(142, 84, 245, 0) 155%
       ),
       #424ed1;
+    transform: translate(-50%, -50%);
+  }
+
+  & > span {
+    position: relative;
   }
 
   @include mq(768) {
@@ -87,12 +125,6 @@ const props = defineProps({
   @include mq(1440) {
     line-height: 140%;
     letter-spacing: -0.064rem;
-  }
-
-  @include mq(1920) {
-    border-radius: 2.7rem;
-    font-size: 2.1rem;
-    letter-spacing: -0.08499999999999999rem;
   }
 }
 

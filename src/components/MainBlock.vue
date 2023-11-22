@@ -120,25 +120,12 @@
           </ul>
         </div>
       </div>
-
       <template v-if="showContent">
-        <!--  <section class="section__text-psb">
-            <p class="section__title-psb" v-show="titlePsb">ПСБ цифровая</p>
-            <div class="section__counter-psb" ref="psbNode">
-              {{ counterPsb }}
-            </div>
-          </section> -->
         <section class="section__text-psb">
           <div class="section__title-psb">
             {{ counterPsb }}
           </div>
         </section>
-        <!--   <section class="section__text-lab">
-            <p class="section__title-lab" v-show="titleLab">лаборатория</p>
-            <div class="section__counter-lab" ref="labNode">
-              {{ counterLab }}
-            </div>
-          </section> -->
         <section class="section__text-lab">
           <div class="section__title-lab">
             {{ counterLab }}
@@ -234,22 +221,15 @@ const videoSources = ref({
   life: "mainblock/life.mp4",
   develop: "mainblock/develop.mp4",
 });
-
 const showBlur = ref(false);
 const menuList = ref(null);
-// const showNavbar = ref(false);
 const showContent = ref(false);
 const showSubTitle = ref(false);
 const showVideo = ref(false);
 const counterPsb = ref(null);
-// const psbNode = ref(null);
-// const labNode = ref(null);
 const gradientGroup = ref(null);
 const counterLab = ref(null);
-// const titlePsb = ref(false);
-// const titleLab = ref(false);
 const loadingTime = ref(800);
-// let clientWidth = ref(document.documentElement.clientWidth);
 
 const goToPage = (link) => {
   switch (link) {
@@ -354,60 +334,15 @@ const close = () => {
   showBlur.value = false;
 };
 
-/* const generatePsb = () => {
-  let counterInterval = setInterval(() => {
-    const characters = "abcdefhiklmnorstuvwxz0123456789";
-    let counter = "";
-    let length = 0;
-    clientWidth.value < 1920 ? (length = 11) : (length = 15);
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      counter += characters.charAt(randomIndex);
-    }
-    counterPsb.value = counter;
-  }, 70);
-
-  setTimeout(() => {
-    titlePsb.value = true;
-    psbNode.value.classList.add("section__counter-psb_active");
-  }, 2000);
-
-  setTimeout(() => {
-    clearInterval(counterInterval);
-    psbNode.value.remove();
-  }, 4000);
-}; */
-
 const generateLab = (ms) => {
-  // let counterInterval = setInterval(() => {
-  //   const characters = "abcdefhiklmnorstuvwxz0123456789";
-  //   let counter = "";
-  //   let length = 0;
-  //   clientWidth.value < 1920 ? (length = 11) : (length = 12);
-  //   for (let i = 0; i < length; i++) {
-  //     const randomIndex = Math.floor(Math.random() * characters.length);
-  //     counter += characters.charAt(randomIndex);
-  //   }
-  //   counterLab.value = counter;
-  // }, 70);
-
   setTimeout(() => {
-    // titleLab.value = true;
     showSubTitle.value = true;
     showVideo.value = true;
-
     // при добавлении видео (.video__section) на страницу изменятся высота страницы
     setTimeout(() => {
       scrollTriggerRefresh();
     }, 250);
-
-    // labNode.value.classList.add("section__counter-lab_active");
   }, 2000 + ms);
-
-  // setTimeout(() => {
-  //   clearInterval(counterInterval);
-  //   labNode.value.remove();
-  // }, 5000);
 };
 
 const contentLoad = (ms) => {
@@ -435,7 +370,6 @@ const intersectionAnimation = () => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const { target, isIntersecting, intersectionRect } = entry;
-      // console.log("intersectionRect", intersectionRect, "entry", entry);
       if (isIntersecting && intersectionRect.top < 500) {
         window.addEventListener("scroll", () => {
           videoTopPosition.value = target.getBoundingClientRect().top;
@@ -450,27 +384,12 @@ const intersectionAnimation = () => {
                 arrow.style.opacity =
                   "1";
             }, 0);
-
             title.style.display =
               content.style.display =
               arrow.style.display =
                 "";
             gradientGroup.value.style.opacity = opacity[6];
           }
-          /*      if (videoTopPosition.value > 0) {
-            target.classList.remove("transformVideo");
-            setTimeout(() => {
-              title.style.opacity =
-                content.style.opacity =
-                arrow.style.opacity =
-                  "0";
-            }, 0);
-
-            title.style.display =
-              content.style.display =
-              arrow.style.display =
-                "none";
-          } */
           if (videoTopPosition.value > 300) {
             gradientGroup.value.style.opacity = opacity[0];
           } else if (
@@ -499,7 +418,6 @@ const intersectionAnimation = () => {
           ) {
             gradientGroup.value.style.opacity = opacity[5];
           }
-          // console.log("videoTopPosition", videoTopPosition.value);
         });
       }
     });
@@ -529,20 +447,16 @@ onMounted(async () => {
   videoSrc.value = require("@/assets/video/mainblock/meet.mp4");
   posterSrc.value = require("@/assets/images/mainblock/meet.jpg");
   videoPlayer.value.load();
-  videoPlayer.value.play();
 
-  // showNavbar.value = true;
   await contentLoad(loadingTime.value);
   showContent.value = true;
 
-  // generatePsb();
   let delay = 450;
   setTimeout(() => {
     generateLab(delay);
   }, delay);
 
   intersectionAnimation();
-
   swipeMenu();
 });
 </script>
@@ -582,6 +496,7 @@ onMounted(async () => {
     transition: opacity 2s ease;
     transition-delay: 0.3s;
     width: 27rem;
+
     @include mq(768) {
       font-size: 9.6rem;
       letter-spacing: -0.576rem;
@@ -645,23 +560,21 @@ onMounted(async () => {
       border-radius: 16rem;
       border: 0.2rem solid rgba(255, 255, 255, 0.2);
       background: rgba(255, 255, 255, 0.01);
-      backdrop-filter: blur(0.3rem); /* Стандартное свойство backdrop-filter */
-      -webkit-backdrop-filter: blur(
-        0.3rem
-      ); /* Префикс для браузеров на движке WebKit */
+      backdrop-filter: blur(0.3rem);
+      -webkit-backdrop-filter: blur(0.3rem);
       padding: 1.5rem;
       font-size: 1.8rem;
       line-height: 120%;
       letter-spacing: -0.036rem;
       color: var(--color-white);
       transition: 0.2s;
+
       &:hover {
         background: #424ed1;
         cursor: pointer;
         border: none;
         outline: none;
       }
-
       @include mq(768) {
         font-size: 2.4rem;
         line-height: 120%;
@@ -680,6 +593,7 @@ onMounted(async () => {
   &__about {
     height: 5.2rem;
     justify-self: center;
+
     @include mq(768) {
       height: 9rem;
       grid-area: about;
@@ -696,6 +610,7 @@ onMounted(async () => {
     height: 5.2rem;
     position: relative;
     left: -3.9rem;
+
     @include mq(768) {
       left: 0.3rem;
       height: 9rem;
@@ -712,6 +627,7 @@ onMounted(async () => {
   &__office {
     justify-self: center;
     height: 5.2rem;
+
     @include mq(768) {
       height: 9rem;
       grid-area: office;
@@ -726,6 +642,7 @@ onMounted(async () => {
     height: 5.2rem;
     position: relative;
     left: -3.3rem;
+
     @include mq(768) {
       height: 9rem;
       position: static;
@@ -743,6 +660,7 @@ onMounted(async () => {
     height: 5.2rem;
     position: relative;
     left: 1.6rem;
+
     @include mq(768) {
       left: 2rem;
       height: 9rem;
@@ -760,6 +678,7 @@ onMounted(async () => {
   &__develop {
     height: 5.2rem;
     justify-self: center;
+
     @include mq(768) {
       position: relative;
       left: 1rem;
@@ -786,6 +705,7 @@ onMounted(async () => {
     background-repeat: no-repeat;
     transition: opacity 2s ease;
     transition-delay: 0.3s;
+
     @include mq(768) {
       width: 54px;
       height: 54px;
@@ -881,66 +801,11 @@ onMounted(async () => {
     }
   }
 
-  &__counter-psb {
-    position: absolute;
-    left: 0;
-    opacity: 0.6;
-    top: 8.4rem;
-    font-size: 4.8rem;
-    animation: startFeading_psb 1100ms ease-out forwards;
-    @include mq(768) {
-      width: 61.5rem;
-      font-size: 9.6rem;
-      top: 15.9rem;
-    }
-    @include mq(1440) {
-      width: 96.8rem;
-      font-size: 15rem;
-      top: 13.4rem;
-    }
-  }
-
-  &__counter-psb_active {
-    position: relative;
-    right: 0;
-    left: auto;
-
-    @include mq(375) {
-      top: -3rem;
-      animation: animateToRight_375 2.5s ease-out forwards;
-    }
-    @include mq(425) {
-      top: -3rem;
-    }
-    @include mq(768) {
-      top: -5.3rem;
-      animation: animateToRight_768 3.1s ease-out forwards;
-    }
-    @include mq(1024) {
-      animation: animateToRight_1024 5s ease-out forwards;
-    }
-    @include mq(1440) {
-      top: -8rem;
-      animation: animateToRight_1024 3.1s ease-out forwards;
-    }
-    @include mq(1920) {
-      top: -8.5rem;
-      animation: animateToRight_1920 2.5s ease-out forwards;
-    }
-  }
-
   &__title-psb {
-    // font-size: 4.8rem;
     font-size: 4.7rem;
     line-height: 90%;
-    // letter-spacing: -0.288rem;
-    // text-align: center;
     padding-left: 4px; // для Samsung
     white-space: nowrap;
-    // overflow: hidden;
-
-    // margin: 0;
-    // animation: fadeInText 2100ms ease-out forwards;
 
     @include mq(375) {
       padding-left: 0;
@@ -971,11 +836,9 @@ onMounted(async () => {
     color: var(--color-white);
     margin: 0 auto;
     overflow: hidden;
-    // text-align: center;
 
     @include mq(375) {
       height: 4.4rem;
-      // width: 27rem;
       width: 29.7rem;
     }
     @include mq(768) {
@@ -991,60 +854,12 @@ onMounted(async () => {
     }
   }
 
-  &__counter-lab {
-    position: absolute;
-    left: 0;
-    opacity: 0.6;
-    animation: startFeading_lab 1100ms ease-out forwards;
-    top: 1.4rem;
-    font-size: 4.8rem;
-    @include mq(768) {
-      width: 54rem;
-      top: 3.4rem;
-      font-size: 9.6rem;
-    }
-    @include mq(1440) {
-      width: 84.6rem;
-      font-size: 15rem;
-      top: 5.4rem;
-    }
-  }
-
-  &__counter-lab_active {
-    position: relative;
-    right: 0;
-    left: auto;
-    @include mq(375) {
-      top: -3rem;
-      animation: animateToRight_375 2.9s ease-out forwards;
-    }
-    @include mq(768) {
-      top: -5.4rem;
-      animation: animateToRight_768 3.5s ease-out forwards;
-    }
-    @include mq(1024) {
-      animation: animateToRight_1024 5.7s ease-out forwards;
-    }
-    @include mq(1440) {
-      top: -8rem;
-      animation: animateToRight_1024 3.5s ease-out forwards;
-    }
-    @include mq(1920) {
-      top: -9rem;
-      animation: animateToRight_1920 2.9s ease-out forwards;
-    }
-  }
-
   &__title-lab {
     font-size: 4.8rem;
     line-height: 90%;
-    // letter-spacing: -0.288rem;
-    // text-align: center;
     white-space: nowrap;
     padding-left: 20px; // для Samsung
-    // overflow: hidden;
-    // margin: 0;
-    // animation: fadeInText 2100ms ease-out forwards;
+
     @include mq(375) {
       padding-left: 0;
     }
@@ -1052,7 +867,6 @@ onMounted(async () => {
       font-size: 9.6rem;
       letter-spacing: -0.576rem;
     }
-
     @include mq(1440) {
       font-size: 15rem;
       line-height: 90%;
@@ -1090,7 +904,7 @@ onMounted(async () => {
 
   &__links {
     position: fixed;
-    width: 100vw;
+    width: 100%;
     z-index: 2;
     bottom: -80rem;
     left: 0;
@@ -1098,10 +912,6 @@ onMounted(async () => {
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
     transition: all 1s ease-out;
-
-    @include mq(375) {
-      width: 100%;
-    }
 
     @include mq(768) {
       position: static;
@@ -1129,7 +939,6 @@ onMounted(async () => {
 
       &:hover {
         background: #fff;
-
         .link {
           color: #13144b;
           font-weight: 400;
@@ -1141,15 +950,12 @@ onMounted(async () => {
       &:nth-child(2) {
         animation-delay: 500ms;
       }
-
       &:nth-child(3) {
         animation-delay: 600ms;
       }
-
       &:nth-child(4) {
         animation-delay: 700ms;
       }
-
       &:nth-child(5) {
         animation-delay: 800ms;
       }
@@ -1208,6 +1014,7 @@ onMounted(async () => {
 .menu {
   &__list {
     padding: 0;
+
     @include mq(768) {
       display: grid;
       grid-template-columns: repeat(4, auto);
@@ -1222,6 +1029,7 @@ onMounted(async () => {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
+
   @include mq(425) {
     flex-direction: column;
     justify-content: center;
@@ -1354,6 +1162,7 @@ header {
   width: 100%;
   transition: all 200ms ease-out;
   height: 81.2rem;
+
   @include mq(375) {
     height: 81.2rem;
   }

@@ -7,21 +7,6 @@
     <div class="vacancy__section">
       <p class="vacancy__title">Вакансии</p>
       <div class="vacancy__container">
-        <!--    <a
-          class="vacancy__card"
-          target="_blank"
-          :style="backgroundStyle"
-          href="https://career.habr.com/companies/psb/vacancies"
-          @mouseover="mouseover($event)"
-          @mouseleave="mouseleave()"
-        >
-          <p class="vacancy__look">Посмотреть все вакансии можно здесь</p>
-          <div class="vacancy__bottom">
-            <p class="vacancy__text">Хабр Карьера</p>
-            <div class="vacancy__arrow"></div>
-          </div>
-        </a> -->
-
         <a
           class="vacancy__card"
           target="_blank"
@@ -111,14 +96,22 @@
           </button>
           <span class="loader" v-if="loader"></span>
         </form>
-        <FormStatus v-else :status="status"></FormStatus>
+        <FormStatus
+          v-else
+          :status="status"
+          @resend="
+            () => {
+              status.form = true;
+            }
+          "
+        ></FormStatus>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, /* computed, */ watch, reactive, onMounted } from "vue";
+import { ref, watch, reactive, onMounted } from "vue";
 import BaseInput from "./BaseElements/BaseInput.vue";
 import FormStatus from "./FormStatus.vue";
 import { useSubmit } from "./composables/useSubmit";
@@ -143,24 +136,6 @@ let titleNode = ref(null);
 let placeholderNode = ref(null);
 let inputNode = ref("");
 let resumeNode = ref("");
-/* let imageURLs = ref([
-  "vacancy_1.png",
-  "vacancy_2.png",
-  "vacancy_3.png",
-  "vacancy_4.png",
-  "vacancy_5.png",
-  "vacancy_6.png",
-  "vacancy_7.png",
-  "vacancy_8.png",
-  "vacancy_9.png",
-  "vacancy_10.png",
-  "vacancy_11.png",
-  "vacancy_12.png",
-  "vacancy_13.png",
-]); */
-// let currentIndex = ref(-1);
-// let interval = ref(null);
-// let initialBackground = ref(true);
 let errors = ref({});
 
 /* eslint-disable */
@@ -229,25 +204,15 @@ const removeFile = (event) => {
 
 const mouseover = () => {
   videoShow.value = true;
-  /*   clearInterval(interval.value);
-    interval.value = setInterval(() => {
-      initialBackground.value = false;
-      currentIndex.value = (currentIndex.value + 1) % imageURLs.value.length;
-    }, 200); */
 };
 
 const mouseleave = () => {
-  // clearInterval(interval.value);
-  // currentIndex.value = -1;
-  // initialBackground.value = true;
   videoShow.value = false;
 };
 
 // const backgroundStyle = computed(() => {
 //   return initialBackground.value === false
-//     ? /*  {
-//         "background-image": `url(${loadedImages.value[currentIndex.value]})`,
-//       } */
+//     ?
 //       {
 //         "background-image": `url(${require(`@/assets/images/vacancies/${
 //           imageURLs.value[currentIndex.value]
@@ -256,33 +221,8 @@ const mouseleave = () => {
 //     : { background: "#424ed1" };
 // });
 
-// const loadedImages = ref([]);
+/* загрузка изображения на случай отсутствия интернета */
 const preLoadImages = () => {
-  /* загрузка всех изображений для вакансий в кэш браузера */
-  /* const imagePromises =  */
-  /*   imageURLs.value.map((url) => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onerror = reject;
-      img.src = `${require(`@/assets/images/vacancies/${url}`)}`;
-      img.onload = () => resolve(img);
-    });
-  }); */
-
-  /*   Promise.all(imagePromises)
-    .then((images) => {
-      images.forEach((img) => {
-        const regex = /\/img\/[^/]+\.[a-zA-Z0-9]+$/;
-        // debugger;
-        const result = img.src.match(regex);
-        loadedImages.value.push(result[0]);
-      });
-    })
-    .catch((error) => {
-      console.error("Ошибка при загрузке изображений:", error);
-    }); */
-
-  /* загрузка изображения на случай отсутствия интернета у пользователя */
   new Promise((resolve, reject) => {
     const img = new Image();
     img.onerror = reject;
@@ -650,12 +590,9 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    // padding: 2rem;
     border-radius: 2rem;
     height: 25rem;
     margin-bottom: 2rem;
-    // background-repeat: no-repeat;
-    // background-size: cover;
     position: relative;
     border-radius: 2rem;
     overflow: hidden;
@@ -679,7 +616,6 @@ onMounted(() => {
     font-size: 3rem;
     line-height: 100%;
     letter-spacing: -0.12rem;
-
     position: absolute;
     top: 0;
     padding: 2rem;
@@ -701,7 +637,6 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
     color: var(--color-white, #fff);
-
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -721,7 +656,6 @@ onMounted(() => {
     @include mq(768) {
       font-size: 2.4rem;
     }
-
     @include mq(1440) {
       font-size: 3.2rem;
       letter-spacing: -0.096rem;
@@ -739,12 +673,10 @@ onMounted(() => {
       height: 2.9rem;
       background: url("../assets/images/vacancies/arrow_765.svg") no-repeat;
     }
-
     @include mq(1024) {
       height: 3.5rem;
       width: 3.5rem;
     }
-
     @include mq(1440) {
       height: 3.8rem;
       width: 3.8rem;
@@ -771,7 +703,6 @@ video {
     align-items: flex-start;
     padding: 4rem;
   }
-
   @include mq(1440) {
     padding: 4rem;
     height: 66.4rem;
@@ -791,7 +722,6 @@ video {
       letter-spacing: -0.072rem;
       margin-bottom: 3rem;
     }
-
     @include mq(1440) {
       font-size: 4.8rem;
       letter-spacing: -0.144rem;
@@ -812,6 +742,7 @@ video {
   border-radius: 2rem;
   border: 0.1rem dashed rgba(19, 20, 75, 0.2);
   cursor: pointer;
+
   @include mq(768) {
     width: 60.8rem;
   }
@@ -841,11 +772,6 @@ video {
       line-height: 140%;
       letter-spacing: -0.064rem;
     }
-
-    /*     @include mq(1920) {
-      font-size: 2.1rem;
-      letter-spacing: -0.0853rem;
-    } */
   }
 
   &__placeholder {
@@ -866,11 +792,6 @@ video {
       line-height: 140%;
       letter-spacing: -0.064rem;
     }
-
-    /*    @include mq(1920) {
-      font-size: 2.1rem;
-      letter-spacing: -0.0853rem;
-    } */
   }
 
   &__text {
@@ -892,12 +813,6 @@ video {
       letter-spacing: -0.064rem;
       padding: 0 0 2rem;
     }
-
-    /*     @include mq(1920) {
-      padding: 0.3rem 0 2.5rem;
-      font-size: 2.1rem;
-      letter-spacing: -0.0853rem;
-    } */
   }
 
   &__btn {
