@@ -164,7 +164,7 @@ function moduleAnimation() {
   cards.forEach((card, i) => {
 
     var cardTop = Math.floor(parseFloat(getComputedStyle(card).getPropertyValue('top')));
-    console.log(cardTop);
+
     var height = card.offsetHeight;
     var scrolling = cardTop - top - i * (height);
 
@@ -184,7 +184,7 @@ function moduleAnimation() {
       const top2 = parseInt(boundings2.top);
 
       const overlap = 1 - (top2 - card1) / height1;
-      console.log('overlap-', overlap);
+
 
       card.style.transform = card.style.transform = 'translateY(' + 10 * i + 'px) scale(' + scaling + ')';
 
@@ -225,18 +225,17 @@ onMounted(async () => {
       // получаем свойства, которые доступны в объекте entry
       const { target, isIntersecting } = entry;
 
-      console.log(isIntersecting);
+console.log(target);
       if (entry.isIntersecting) {
         window.addEventListener('scroll', moduleAnimation, true);
-        console.log('if');
+
       } else {
         window.removeEventListener('scroll', moduleAnimation, true);
-        console.log('else');
+
       }
       if (isIntersecting) {
 
 
-        console.log(target);
 
         // Убираем отслеживание
         // observer.unobserve(entry.target);
