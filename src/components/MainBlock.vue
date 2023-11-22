@@ -308,10 +308,12 @@ const scrollTo = (value) => {
 
 shuffle({
   text: "ПСБ цифровая",
-  duration: 5,
-  fps: 40,
+  duration: 3,
+  fps: 30,
   glyphs: "abcdefhiklmnorstuvwxz0123456789",
   animation: "show",
+  delay: 0.2,
+  delayResolve: 0.65,
   direction: "right",
   onUpdate: (output) => {
     counterPsb.value = output;
@@ -320,11 +322,12 @@ shuffle({
 
 shuffle({
   text: "лаборатория",
-  duration: 5,
-  fps: 40,
+  duration: 3,
+  fps: 30,
   glyphs: "abcdefhiklmnorstuvwxz0123456789",
   animation: "show",
-  delay: 0.2,
+  delay: 0.4,
+  delayResolve: 0.65,
   direction: "right",
   onUpdate: (output) => {
     counterLab.value = output;
@@ -333,8 +336,8 @@ shuffle({
 
 const changeVideoSource = (chapter) => {
   const source = videoSources.value[chapter];
-  videoPlayer.value.pause();
   if (source) {
+    videoPlayer.value.pause();
     videoSrc.value = require(`@/assets/video/${source}`);
     posterSrc.value = require(`@/assets/images/mainblock/${chapter}.jpg`);
     videoPlayer.value.load();
@@ -394,9 +397,9 @@ const generateLab = (ms) => {
     showVideo.value = true;
 
     // при добавлении видео (.video__section) на страницу изменятся высота страницы
-    setTimeout(()=>{
-      scrollTriggerRefresh()
-    },250 )
+    setTimeout(() => {
+      scrollTriggerRefresh();
+    }, 250);
 
     // labNode.value.classList.add("section__counter-lab_active");
   }, 2000 + ms);
