@@ -143,70 +143,10 @@
 <script setup>
 import { onMounted } from 'vue';
 
-var cards = '';
-var list = '';
-
-const scrollTo = (value, e) => {
-  var element = document.querySelector("."+value);
-  if(element) {
-    e.preventDefault();
-    element.scrollIntoView();
-  }
-}
-function moduleAnimation() {
-
-  var opacity = '1';
-
-  var top = list.getBoundingClientRect().top;
-
-  cards[cards.length - 1].style.transform = 'translateY(60px)';
-  cards.forEach((card, i) => {
-
-    var cardTop = Math.floor(parseFloat(getComputedStyle(card).getPropertyValue('top')));
-
-    var height = card.offsetHeight;
-    var scrolling = cardTop - top - i * (height);
-
-
-    var scaling = i == cards.length - 1 ? 1 : (height - scrolling * 0.05) / height;
-    scaling = (scaling > 1 ? 1 : scaling);
-
-    let ele2 = card.nextElementSibling;
-
-    const boundings1 = card.getBoundingClientRect();
-    if(ele2) {
-      const boundings2 = ele2.getBoundingClientRect();
-
-      const card1 = parseInt(boundings1.top);
-      const height1 = parseInt(boundings1.height);
-
-      const top2 = parseInt(boundings2.top);
-
-      const overlap = 1 - (top2 - card1) / height1;
-
-      card.style.transform = card.style.transform = 'translateY(' + 10 * i + 'px) scale(' + scaling + ')';
-
-      if (overlap >= 0.97) {
-        card.style.setProperty('opacity', opacity);
-        card.style.setProperty('backdrop-filter', 'blur(10px)');
-        card.style.setProperty('-webkit-backdrop-filter', 'blur(10px)');
-
-        card.style.background = 'rgba(255, 255, 255, 0.50)';
-        opacity-= '0.1';
-      }else{
-        card.style.setProperty('opacity', 1);
-        card.style.removeProperty('backdropFilter');
-        card.style.removeProperty('-webkit-backdrop-filter');
-        card.style.removeProperty('background');
-      }
-    }
-
-  });
-}
 onMounted(async () => {
 
-  list = document.querySelector(".process-wrapper");
-  cards = list.querySelectorAll(".process_item");
+  var list = document.querySelector(".process-wrapper");
+  var cards = list.querySelectorAll(".process_item");
 
   let observerGallery = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -214,25 +154,13 @@ onMounted(async () => {
       const {target, isIntersecting} = entry;
 
       console.log(target);
-      var scrolled = false;
-      if (isIntersecting) {
-        document.addEventListener('scroll', () => {
-          if(!scrolled) {
-            scrolled = true;
-            setTimeout(() => {
-              moduleAnimation();
-              scrolled = false;
-            }, "300");
-          }
-        }, true);
-
-      } else {
-        document.removeEventListener('scroll', moduleAnimation, true);
-      }
+      console.log(isIntersecting);
     });
   }, {   rootMargin: "0px",
     threshold: 0.1, });
   observerGallery.observe(list);
+
+  console.log(cards);
 
 });
 </script>
