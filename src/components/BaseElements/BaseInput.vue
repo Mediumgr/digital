@@ -44,7 +44,7 @@ const onInput = (event) => {
   if (type === "tel") {
     let numbers = value.replace(/\D/g, "");
     let length = numbers.length;
-    if (length < 12) {
+    if (length < 12 && event.inputType !== "deleteContentBackward") {
       formattedDigits.value =
         "+7 " +
         numbers.slice(1, 4) +
@@ -58,6 +58,12 @@ const onInput = (event) => {
       emit("update:modelValue", {
         text: formattedDigits.value,
         textLength: numbers.length,
+      });
+    } else if (event.inputType === "deleteContentBackward") {
+      formattedDigits.value = formattedDigits.value.slice(0, -1);
+      emit("update:modelValue", {
+        text: formattedDigits.value,
+        textLength: length,
       });
     } else {
       event.target.value = formattedDigits.value;
@@ -120,11 +126,8 @@ const onBlur = () => {
     letter-spacing: -0.032rem;
   }
   @include mq(1440) {
+    font-size: 1.8rem;
     letter-spacing: -0.064rem;
-  }
-  @include mq(1920) {
-    font-size: 2.1rem;
-    letter-spacing: -0.0853rem;
   }
 }
 
