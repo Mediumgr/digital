@@ -76,14 +76,17 @@ const onInput = (event) => {
 };
 
 const onFocus = () => {
-  input.value.style.border = "0.2rem solid rgba(19, 20, 75, 0.2)";
+  input.value.classList.add("focus");
 };
 const onBlur = () => {
-  input.value.style.border = "";
+  input.value.classList.remove("focus");
 };
 </script>
 
 <style lang="scss" scoped>
+.focus {
+  border: 0.2rem solid rgba(19, 20, 75, 0.2) !important;
+}
 .input {
   color: #13144b;
   font-family: "Onest";

@@ -38,20 +38,20 @@
         <form v-if="status.form" @submit.stop.prevent="submit()" class="form">
           <p class="title">Отправь резюме напрямую</p>
           <BaseInput
-            v-model.trim="name"
+            v-model="name"
             type="text"
             :error="errors['name']"
             placeholder="Имя Фамилия"
           >
           </BaseInput>
           <BaseInput
-            v-model.trim="email"
+            v-model="email"
             type="email"
             :error="errors['email']"
             placeholder="Email"
           ></BaseInput>
           <BaseInput
-            v-model.trim="tel"
+            v-model="tel"
             type="tel"
             :error="errors['tel']"
             placeholder="Телефон"
