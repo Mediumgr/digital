@@ -194,8 +194,8 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import { gsap, ScrollTrigger } from "@/helpers/gsap";
-import { isMobile, refreshScrollTriggerByElement } from "@/helpers";
+import { gsap } from "@/helpers/gsap";
+import { refreshScrollTriggerByElement } from "@/helpers";
 
 function init() {
   const educationContainerEl = document.querySelector('.js-education')
@@ -311,8 +311,7 @@ function init() {
 
 onMounted(() => {
   init()
-
-  isMobile() && ScrollTrigger.normalizeScroll(false);
+  // isMobile() && ScrollTrigger.normalizeScroll(true);
 });
 </script>
 
