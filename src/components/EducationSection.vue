@@ -313,8 +313,6 @@ onMounted(() => {
   init()
 
   isMobile() && ScrollTrigger.normalizeScroll(false);
-
-  console.log('EducationSection')
 });
 </script>
 

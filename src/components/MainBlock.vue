@@ -137,7 +137,7 @@
       </p>
       <div class="substrate" v-if="showBlur" @click="close()"></div>
     </div>
-    <div class="video__section" v-show="showVideo">
+    <div class="video__section" :class="{'video__section--show': showVideo}">
       <video
         ref="videoPlayer"
         class="videoPlayer"
@@ -1046,7 +1046,13 @@ onMounted(async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: slideInVideo 1s ease-out forwards;
+  opacity: 0;
+  visibility: hidden;
+
+  &--show {
+    visibility: visible;
+    animation: slideInVideo 1s ease-out forwards;
+  }
 
   @include mq(425) {
     margin-top: -48.3rem;
