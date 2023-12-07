@@ -27,7 +27,7 @@ import { onMounted } from 'vue';
 import whichStackToUse from '@/assets/data/which-stack-to-use.json';
 import GradientBG from "@/components/GradientBG.vue";
 import { gsap } from "@/helpers/gsap";
-import { isMobile, refreshScrollTriggerByElement } from "@/helpers";
+import { isMobile } from "@/helpers";
 
 const CLASS_PREFIX = '_stack-';
 
@@ -42,7 +42,6 @@ const classes = [
   LEFT_ClASS, RIGHT_ClASS, ACTIVE_ClASS, ACTIVE_LEFT_ClASS, ACTIVE_RIGHT_ClASS
 ]
 
-
 function init() {
   const stackContainerEl = document.querySelector('.js-stack-use');
   if (!stackContainerEl) {
@@ -55,8 +54,8 @@ function init() {
   const cardsStackContainerEl = stackContainerEl.querySelector('.cards-stack')
   const cardsEl = stackContainerEl.querySelectorAll('.cards-stack__wrapper-item');
   const cardsStackWrapperEl = Array.from(stackContainerEl.querySelectorAll('.cards-stack__wrapper-item'))
-  const cardsStackItemEl = Array.from(stackContainerEl.querySelectorAll('.cards-stack__item'))
 
+  // const cardsStackItemEl = Array.from(stackContainerEl.querySelectorAll('.cards-stack__item'))
 
   function animation() {
     // заголовки
@@ -91,11 +90,233 @@ function init() {
     })
   }
 
+  function stackAnimate({ current, left = null, right = null, leftElementsWrapper = [], rightElementsWrapper = [] }) {
+    const duration = 0.3
+    const backgroundColorActive = '#424ed1'
+    const backgroundColorDefault = '#13144b'
+    const currentCard = getCardItems(current)
+
+    console.log(backgroundColorDefault)
+
+    const OPTIONS = isMobile() ? {
+      //mobile options
+      setLeftPositionCard: {
+        // top: '4.7rem',
+        top: 0,
+        bottom: 'auto',
+        transformOrigin: 'top',
+        transformPerspective: '62rem',
+        borderTopLeftRadius: '2rem 3.5rem',
+        borderTopRightRadius: '2rem 3.5rem',
+      },
+      setRightPositionCard: {
+        top: 'auto',
+        bottom: 0,
+        // bottom: '4.7rem',
+        transformOrigin: 'bottom',
+        borderBottomLeftRadius: '2rem 3.5rem',
+        borderBottomRightRadius: '2rem 3.5rem',
+        transformPerspective: '62rem',
+      },
+      currentSize: {
+        height: () => {
+          return currentCard[0].clientHeight
+        },
+        duration,
+      },
+      currentCard: {
+        // y: '-4.7rem',
+        rotateX: 0,
+        backgroundColor: backgroundColorActive,
+        opacity: 1,
+        duration,
+      },
+      leftActiveSize: {
+        height: '5.3rem',
+        duration,
+      },
+      rightActiveSize: {
+        height: '5.3rem',
+        duration,
+      },
+      leftRightOpacityCard: {
+        opacity: 0.8,
+        duration,
+      },
+      leftRightWrapperSize: {
+        height: '4.7rem',
+        duration,
+      },
+      rotateLeftAnimation: {
+        rotateX: -52,
+        backgroundColor: backgroundColorDefault,
+        duration
+      },
+      rotateRightAnimation: {
+        rotateX: 52,
+        backgroundColor: backgroundColorDefault,
+        duration
+      },
+    } : {
+      //desktop options
+      setLeftPositionCard: {
+        left: 0,
+        right: 'auto',
+        transformPerspective: '60rem',
+        transformOrigin: "left",
+      },
+      setRightPositionCard: {
+        left: 'auto',
+        right: 0,
+        transformPerspective: '60rem',
+        transformOrigin: "right",
+      },
+      currentSize: {
+        width: '60rem',
+        duration,
+      },
+      currentCard: {
+        rotateY: 0,
+        backgroundColor: backgroundColorActive,
+        opacity: 1,
+        duration,
+      },
+      leftActiveSize: {
+        width: '15rem',
+        duration,
+      },
+      rightActiveSize: {
+        width: '15rem',
+        duration,
+      },
+      leftRightOpacityCard: {
+        opacity: 0.8,
+        duration,
+      },
+      leftRightWrapperSize: {
+        width: '9rem',
+        duration,
+      },
+      rotateLeftAnimation: {
+        rotateY: 28,
+        backgroundColor: backgroundColorDefault,
+        duration
+      },
+      rotateRightAnimation: {
+        rotateY: -28,
+        backgroundColor: backgroundColorDefault,
+        duration
+      },
+    }
+
+
+    const timeline = gsap.timeline({
+      ease: 'for-who-appreciate',
+      onComplete: () => {
+        console.log('onComplete');
+      },
+      onStart: () => {
+        console.log('onStart');
+      },
+    })
+    window.timeline = timeline
+
+    function getCardItems(wrapper) {
+      let elements = Array.from(wrapper)
+
+      if (wrapper instanceof HTMLElement) {
+        elements = [wrapper]
+      }
+
+      return elements.map((wrapper) => {
+        return wrapper.querySelector('.cards-stack__item')
+      })
+    }
+
+    const setLeftPositionCard = (elements) => {
+      gsap.set(elements, OPTIONS.setLeftPositionCard)
+    }
+    const setRightPositionCard = (elements) => {
+      gsap.set(elements, OPTIONS.setRightPositionCard)
+    }
+
+    const setOpacity = (elements) => {
+      elements.forEach((item, index) => {
+        let opacity = 0.5 - (index) / 10
+        if (opacity < 0.1) {
+          opacity = 0.1
+        }
+
+        timeline.to(item, {
+          opacity: opacity.toString(),
+          duration,
+        }, 0)
+      })
+    }
+
+    const animateRotate = (element, options) => {
+      timeline.to(element, options, 0)
+    }
+
+    const animateLeftRotation = (element) => {
+      animateRotate(element, OPTIONS.rotateLeftAnimation)
+    }
+
+    const animateRightRotation = (element) => {
+      animateRotate(element, OPTIONS.rotateRightAnimation)
+    }
+
+    gsap.set(current, { zIndex: 2 })
+    timeline.to(current, OPTIONS.currentSize, 0)
+
+    isMobile() && gsap.set(currentCard, { borderRadius: '2rem' })
+    timeline.to(currentCard, OPTIONS.currentCard, 0)
+
+    const leftRightWrapActive = [left, right].filter(Boolean)
+    gsap.set(leftRightWrapActive, { zIndex: 1 })
+
+    if (left) {
+      const leftCard = getCardItems(left)
+      setLeftPositionCard(leftCard)
+      animateLeftRotation(leftCard)
+
+      timeline.to(leftCard, OPTIONS.leftRightOpacityCard, 0)
+
+      timeline.to(left, OPTIONS.leftActiveSize, 0)
+    }
+
+    if (right) {
+      const rightCard = getCardItems(right)
+      setRightPositionCard(rightCard)
+      animateRightRotation(rightCard)
+
+      timeline.to(rightCard, OPTIONS.leftRightOpacityCard, 0)
+
+      timeline.to(right, OPTIONS.rightActiveSize, 0)
+    }
+
+    timeline.to([...leftElementsWrapper, ...rightElementsWrapper], OPTIONS.leftRightWrapperSize, 0)
+
+    const leftCards = getCardItems(leftElementsWrapper)
+    if (leftCards.length) {
+      setLeftPositionCard(leftCards)
+      animateLeftRotation(leftCards)
+      setOpacity(leftCards.reverse())
+    }
+
+    const rightCards = getCardItems(rightElementsWrapper)
+    if (rightCards.length) {
+      setRightPositionCard(rightCards)
+      animateRightRotation(rightCards)
+      setOpacity(rightCards)
+    }
+  }
+
   function handleClick(event) {
-    const card = event.target;
+    const card = event.target
 
     if (card.classList.contains('_stack-active')) {
-      return true;
+      return true
     }
 
     const index = getNodeIndex(card)
@@ -109,14 +330,18 @@ function init() {
   }
 
   function changeClassesByIndex(centerIndex) {
+    const current = cardsStackWrapperEl[centerIndex]
+    const left = cardsStackWrapperEl[centerIndex - 1]
+    const right = cardsStackWrapperEl[centerIndex + 1]
+
     //left active
-    if (centerIndex - 1 >= 0) {
-      cardsStackWrapperEl[centerIndex - 1] && cardsStackWrapperEl[centerIndex - 1].classList.add(ACTIVE_LEFT_ClASS)
+    if ((centerIndex - 1 >= 0) && left) {
+      left.classList.add(ACTIVE_LEFT_ClASS)
     }
 
     //right active
-    if (centerIndex < cardsStackWrapperEl.length) {
-      cardsStackWrapperEl[centerIndex + 1] && cardsStackWrapperEl[centerIndex + 1].classList.add(ACTIVE_RIGHT_ClASS)
+    if (centerIndex < cardsStackWrapperEl.length && right) {
+      right.classList.add(ACTIVE_RIGHT_ClASS)
     }
 
     cardsStackWrapperEl.forEach((item, index) => {
@@ -134,30 +359,34 @@ function init() {
     console.log('index::: ', centerIndex)
 
     // правые карточки без активных классов
-    const rightElements = cardsStackWrapperEl.slice(centerIndex + 2)
+    const rightElementsWrapper = cardsStackWrapperEl.slice(centerIndex + 2)
 
     // левые карточки без активных классов
-    const leftElements = centerIndex - 1 > 0 ? cardsStackWrapperEl.slice(0, centerIndex - 1) : []
+    const leftElementsWrapper = centerIndex - 1 > 0 ? cardsStackWrapperEl.slice(0, centerIndex - 1) : []
 
-    cardsStackItemEl.forEach((item) => {
-      item.style.opacity = ''
-    })
 
-    setOpacity(leftElements.reverse())
-    setOpacity(rightElements)
+    // if (isMobile()) {
+    //   cardsStackItemEl.forEach((item) => {
+    //     item.style.opacity = ''
+    //   })
+    //
+    //   setOpacity(leftElementsWrapper.reverse())
+    //   setOpacity(rightElementsWrapper)
+    // } else {
+    stackAnimate({ current, left, right, leftElementsWrapper, rightElementsWrapper })
+    // }
   }
 
-  function setOpacity(array) {
-    array.forEach((item, index) => {
-      let opacity = 0.5 - (index) / 10
-      if (opacity < 0.1) {
-        opacity = 0.1
-      }
-      // console.log(opacity)
-
-      item.querySelector('.cards-stack__item').style.opacity = opacity.toString()
-    })
-  }
+  // function setOpacity(array) {
+  //   array.forEach((item, index) => {
+  //     let opacity = 0.5 - (index) / 10
+  //     if (opacity < 0.1) {
+  //       opacity = 0.1
+  //     }
+  //
+  //     item.querySelector('.cards-stack__item').style.opacity = opacity.toString()
+  //   })
+  // }
 
   function getNodeIndex(element) {
     return [...element.parentNode.children].indexOf(element)
@@ -166,19 +395,18 @@ function init() {
   cardsEl[1] && cardsEl[1].classList.add(ACTIVE_ClASS)
   changeClassesByIndex(1)
 
-  // cardsStackContainerEl.addEventListener('click', handleClick)
   cardsEl.forEach(card => {
     const eventType = isMobile() ? 'click' : 'mouseover'
     card.addEventListener(eventType, handleClick)
   })
 
   animation()
-  refreshScrollTriggerByElement(stackContainerEl)
+  // refreshScrollTriggerByElement(stackContainerEl)
 }
 
 onMounted(() => {
   init()
-  console.log('WhichStackToUseSection')
+  window.gsap = gsap
 });
 </script>
 

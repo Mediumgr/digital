@@ -6,7 +6,6 @@
   border-top: none;
   display: flex;
   flex-direction: column;
-  margin-top: 11.3rem;
 
   @include mq(1200) {
     width: auto;
@@ -25,10 +24,10 @@
     width: 100%;
     padding: 1.4rem 2.3rem;
     color: var(--white);
-    text-align: left !important;
+    text-align: left;
     pointer-events: none;
-    opacity: 0;
-    transition: opacity 500ms;
+    opacity: 1;
+    //transition: opacity 500ms;
 
     @include mq(1200) {
       padding: 3rem 1.1rem;
@@ -63,6 +62,7 @@
     height: 4.7rem;
     overflow: hidden;
     margin: 0 auto;
+    will-change: height;
 
     @include hover() {
       cursor: pointer;
@@ -71,8 +71,8 @@
     @include mq(1200) {
       width: 9rem;
       height: 40rem;
-      transition: width 500ms;
       border-radius: 2rem;
+      will-change: width;
     }
 
     &:first-child {
@@ -83,6 +83,14 @@
       }
     }
 
+    &._stack-active {
+      margin-top: -1px;
+      margin-bottom: -1px;
+
+      @include mq(1200) {
+        margin: 0;
+      }
+    }
 
     &._stack-active-left {
       @include mq(1200) {
@@ -91,8 +99,6 @@
     }
 
     &._stack-active-right {
-      transition: none;
-
       @include mq(1200) {
         width: 17rem;
       }
@@ -121,13 +127,7 @@
     }
 
     &._stack-active {
-      height: auto;
       overflow: visible;
-
-      @include mq(1200) {
-        height: auto;
-        width: 60rem;
-      }
     }
 
     &:not(._stack-active) .cards-stack__item {
@@ -136,28 +136,31 @@
   }
 
   &__item {
-    position: relative;
+    position: absolute;
+    top: 0;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
     align-items: flex-start;
     justify-content: space-between;
     width: 100%;
-    height: 17.1rem;
+    height: auto;
     padding: 3rem;
     border-radius: 2rem;
+    border-top-left-radius: 2rem 3.5rem;
+    border-top-right-radius: 2rem 3.5rem;
     background-color: var(--eggplant);
     opacity: 0.8;
     transform-origin: top;
-    //transform: perspective(60rem)translateY(4.5rem)rotateX(-131deg)rotateY(0)rotateZ(0)
-    transform: perspective(48rem) translateY(4.8rem) rotateX(-131deg) rotateY(0) rotateZ(0);
-    transition: all 500ms, opacity 200ms;
+    transform: perspective(62rem) rotateX(-52deg);
     pointer-events: none;
+    transition: none !important;
+    will-change: transformm, opacity, background;
 
     @include mq(1200) {
       position: absolute;
       top: 0;
-      //left: -51rem;
+      border-radius: 2rem;
       left: auto;
       right: 0;
       width: 60rem;
@@ -167,69 +170,14 @@
       transform-origin: right;
       transform: perspective(60rem) rotateY(-28deg) translateX(0);
     }
-
-    ._stack-left &,
-    ._stack-active-left & {
-      // готовый стиль для левого слайда
-      right: auto;
-      left: 0;
-      transform-origin: top;
-      transform: perspective(17rem) translateY(-0.1rem) rotateX(-19deg) rotateY(0) rotateZ(0);
-
-      @include mq(1200) {
-        transform-origin: left;
-        transform: perspective(60rem) rotateY(28deg) translateX(0);
-      }
-    }
-
-    ._stack-active-right & {
-      //transform-origin: right;
-      //transform: perspective(60rem) rotateY(-28deg) translateX(0);
-      transition: transform 500ms;
-
-      @include mq(1200) {
-        left: -43rem;
-        transform-origin: right;
-        transform: perspective(60rem) rotateY(-28deg) translateX(0);
-      }
-    }
-
-    ._stack-active & {
-      left: 0;
-      z-index: 1;
-      opacity: 1 !important;
-      background-color: var(--accent);
-      transform: none;
-      margin-top: 0;
-      height: auto;
-
-      @include mq(1200) {
-        height: 40rem;
-      }
-    }
-
-    ._stack-left &,
-    ._stack-right &,
-    ._stack-active-left &,
-    ._stack-active-right & {
-      @include only-mobile {
-        transition: transform 0s;
-      }
-    }
-
   }
 
   &__name {
     text-align: left !important;
     opacity: 0;
     color: var(--white);
-    //transition: opacity 500ms;
     pointer-events: none;
     margin-bottom: 4rem;
-
-    @include mq(1200) {
-      transition: opacity 500ms;
-    }
 
     ._stack-active & {
       opacity: 1;
@@ -248,7 +196,6 @@
     width: 100%;
     flex: 0 0 auto;
     list-style: none;
-    transition: opacity 500ms;
     pointer-events: none;
     padding-left: 0;
     margin: 0;
@@ -262,7 +209,7 @@
     display: inline-flex;
     align-items: flex-start;
     gap: 1rem;
-    padding: 0.8rem 1.2rem;
+    padding: 0.3rem 0.7rem;
     position: relative;
     flex: 0 0 auto;
     border-radius: 5rem;
@@ -270,9 +217,12 @@
     color: #fff;
     letter-spacing: -0.08rem;
 
+    @include mq(768) {
+      padding: 0.8rem 1.2rem;
+    }
+
     @include mq(1200) {
       padding: 1rem 1.5rem;
-
     }
   }
 }
