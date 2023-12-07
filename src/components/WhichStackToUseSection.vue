@@ -27,7 +27,7 @@ import { onMounted } from 'vue';
 import whichStackToUse from '@/assets/data/which-stack-to-use.json';
 import GradientBG from "@/components/GradientBG.vue";
 import { gsap } from "@/helpers/gsap";
-import { isMobile } from "@/helpers";
+import { isDesktop } from "@/helpers";
 
 const CLASS_PREFIX = '_stack-';
 
@@ -96,12 +96,9 @@ function init() {
     const backgroundColorDefault = '#13144b'
     const currentCard = getCardItems(current)
 
-    console.log(backgroundColorDefault)
-
-    const OPTIONS = isMobile() ? {
+    const OPTIONS = !isDesktop() ? {
       //mobile options
       setLeftPositionCard: {
-        // top: '4.7rem',
         top: 0,
         bottom: 'auto',
         transformOrigin: 'top',
@@ -112,7 +109,6 @@ function init() {
       setRightPositionCard: {
         top: 'auto',
         bottom: 0,
-        // bottom: '4.7rem',
         transformOrigin: 'bottom',
         borderBottomLeftRadius: '2rem 3.5rem',
         borderBottomRightRadius: '2rem 3.5rem',
@@ -125,7 +121,6 @@ function init() {
         duration,
       },
       currentCard: {
-        // y: '-4.7rem',
         rotateX: 0,
         backgroundColor: backgroundColorActive,
         opacity: 1,
@@ -210,15 +205,7 @@ function init() {
     }
 
 
-    const timeline = gsap.timeline({
-      ease: 'for-who-appreciate',
-      onComplete: () => {
-        console.log('onComplete');
-      },
-      onStart: () => {
-        console.log('onStart');
-      },
-    })
+    const timeline = gsap.timeline({ ease: 'for-who-appreciate' })
     window.timeline = timeline
 
     function getCardItems(wrapper) {
@@ -269,7 +256,7 @@ function init() {
     gsap.set(current, { zIndex: 2 })
     timeline.to(current, OPTIONS.currentSize, 0)
 
-    isMobile() && gsap.set(currentCard, { borderRadius: '2rem' })
+    !isDesktop() && gsap.set(currentCard, { borderRadius: '2rem' })
     timeline.to(currentCard, OPTIONS.currentCard, 0)
 
     const leftRightWrapActive = [left, right].filter(Boolean)
@@ -365,28 +352,8 @@ function init() {
     const leftElementsWrapper = centerIndex - 1 > 0 ? cardsStackWrapperEl.slice(0, centerIndex - 1) : []
 
 
-    // if (isMobile()) {
-    //   cardsStackItemEl.forEach((item) => {
-    //     item.style.opacity = ''
-    //   })
-    //
-    //   setOpacity(leftElementsWrapper.reverse())
-    //   setOpacity(rightElementsWrapper)
-    // } else {
     stackAnimate({ current, left, right, leftElementsWrapper, rightElementsWrapper })
-    // }
   }
-
-  // function setOpacity(array) {
-  //   array.forEach((item, index) => {
-  //     let opacity = 0.5 - (index) / 10
-  //     if (opacity < 0.1) {
-  //       opacity = 0.1
-  //     }
-  //
-  //     item.querySelector('.cards-stack__item').style.opacity = opacity.toString()
-  //   })
-  // }
 
   function getNodeIndex(element) {
     return [...element.parentNode.children].indexOf(element)
@@ -396,7 +363,7 @@ function init() {
   changeClassesByIndex(1)
 
   cardsEl.forEach(card => {
-    const eventType = isMobile() ? 'click' : 'mouseover'
+    const eventType = isDesktop() ?  'mouseover' : 'click'
     card.addEventListener(eventType, handleClick)
   })
 
