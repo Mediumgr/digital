@@ -1,6 +1,6 @@
 .cards-stack {
   width: 100%;
-  max-width: 60rem;
+  max-width: 50rem;
   margin: 0 auto;
   border-bottom: none;
   border-top: none;
@@ -27,7 +27,10 @@
     text-align: left;
     pointer-events: none;
     opacity: 1;
-    //transition: opacity 500ms;
+
+    @include mq(768) {
+      padding: 1.4rem 3.3rem;
+    }
 
     @include mq(1200) {
       padding: 3rem 1.1rem;
