@@ -11,7 +11,7 @@
         <header>
           <nav class="navbar">
             <div class="navbar__container">
-              <img src="@/assets/images/mainblock/logo_1.svg" alt="logo" />
+              <img src="@/assets/images/mainblock/logo_1.svg" alt="logo"/>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -32,7 +32,7 @@
                   fill="white"
                 />
               </svg>
-              <img src="@/assets/images/mainblock/logo_2.svg" alt="logo" />
+              <img src="@/assets/images/mainblock/logo_2.svg" alt="logo"/>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="95"
@@ -47,7 +47,7 @@
                   fill="white"
                 />
               </svg>
-              <img src="@/assets/images/mainblock/logo_3.svg" alt="logo" />
+              <img src="@/assets/images/mainblock/logo_3.svg" alt="logo"/>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="126"
@@ -148,18 +148,11 @@
         :poster="posterSrc"
         preload="auto"
       >
-        <source :src="videoSrc" type="video/mp4" />
+        <source :src="videoSrc" type="video/mp4"/>
       </video>
       <div class="wrapper">
         <h1 class="wrapper__title">Давай знакомиться</h1>
         <div class="wrapper__content">
-          <button
-            class="wrapper__about"
-            @mouseover="changeVideoSource('about')"
-            @click.stop="scrollTo('aboutUs')"
-          >
-            О нас
-          </button>
           <button
             class="wrapper__projects"
             @mouseover="changeVideoSource('projects')"
@@ -179,21 +172,23 @@
             @mouseover="changeVideoSource('working')"
             @click.stop="scrollTo('work')"
           >
-            Работа с нами
+            Этапы найма
           </button>
+
           <button
-            class="wrapper__life"
+            class="wrapper__vacancy"
+            @mouseover="changeVideoSource('about')"
+            @click.stop="scrollTo('vacancy')"
+          >
+            Стать частью команды
+          </button>
+
+          <button
+            class="wrapper__recommend"
             @mouseover="changeVideoSource('life')"
-            @click.stop="scrollTo('life')"
+            @click.stop="scrollTo('recommend')"
           >
-            Жизнь вне офиса
-          </button>
-          <button
-            class="wrapper__develop"
-            @mouseover="changeVideoSource('develop')"
-            @click.stop="scrollTo('education')"
-          >
-            Развитие
+            Привести друга
           </button>
         </div>
         <button
@@ -208,6 +203,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { scrollTriggerRefresh } from "@/helpers/gsap";
+
 const { shuffle } = require("txt-shuffle");
 
 const videoPlayer = ref(null);
@@ -274,6 +270,14 @@ const scrollTo = (value) => {
       break;
     case "aboutUs":
       element = document.querySelector(".specialists__number");
+      offsetElement = element.getBoundingClientRect().top;
+      break;
+    case "vacancy":
+      element = document.querySelector(".vacancy__section");
+      offsetElement = element.getBoundingClientRect().top;
+      break;
+    case "recommend":
+      element = document.querySelector(".recommend__container");
       offsetElement = element.getBoundingClientRect().top;
       break;
   }
@@ -381,13 +385,13 @@ const intersectionAnimation = () => {
             setTimeout(() => {
               title.style.opacity =
                 content.style.opacity =
-                arrow.style.opacity =
-                  "1";
+                  arrow.style.opacity =
+                    "1";
             }, 0);
             title.style.display =
               content.style.display =
-              arrow.style.display =
-                "";
+                arrow.style.display =
+                  "";
             gradientGroup.value.style.opacity = opacity[6];
           }
           if (videoTopPosition.value > 300) {
@@ -470,9 +474,9 @@ onMounted(async () => {
   height: 100%;
   border-radius: 4rem;
   background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.6) 58.51%
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.6) 58.51%
   );
   display: flex;
   justify-content: center;
@@ -511,52 +515,54 @@ onMounted(async () => {
   }
 
   &__content {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 33.5rem;
-    grid-template-columns: 17.7rem auto;
-    grid-template-rows: 1fr 1fr 1fr;
-    height: 17.6rem;
+    //grid-template-columns: 17.7rem auto;
+    //grid-template-rows: 1fr 1fr 1fr;
+    //height: 17.6rem;
+    grid-gap: 1rem;
     margin-bottom: 11rem;
     transition: all 2s ease;
     transition-delay: 0.3s;
+
     @include mq(600) {
       margin-bottom: 5rem;
     }
-    @include mq(700) {
-      grid-row-gap: 0.6rem;
-    }
+
     @include mq(768) {
-      width: 62.6rem;
-      grid-template-columns: repeat(3, auto);
-      grid-template-rows: 1fr 1fr;
-      grid-row-gap: 0;
-      height: 22rem;
+      display: grid;
+      width: 64.6rem;
+      grid-gap: 1.6rem;
       margin: 0 auto 19.5rem;
+      grid-template-columns: 1fr auto auto 1fr;
       grid-template-areas:
-        "about projects work"
-        "office life develop";
+      "work office office projects"
+      "vacancy vacancy recommend recommend"
     }
+
     @include mq(810) {
       margin: 0px auto 5rem;
     }
+
     @include mq(930) {
       margin: 0 auto 5.5rem;
     }
+
     @include mq(1024) {
       margin: 0 auto 19.5rem;
     }
-    @include mq(1440) {
+
+    @include mq(1200) {
       grid-row-gap: 1.6rem;
+      grid-column-gap: 1.6rem;
       width: auto;
       height: auto;
       margin-bottom: 7rem;
-      grid-template-columns: auto auto auto 24rem;
-      grid-template-rows: 1fr 1fr;
-      grid-template-areas:
-        "about projects work office"
-        ". life develop .";
     }
-    > button {
+
+    button {
       border-radius: 16rem;
       border: 0.2rem solid rgba(255, 255, 255, 0.2);
       background: rgba(255, 255, 255, 0.01);
@@ -564,26 +570,28 @@ onMounted(async () => {
       -webkit-backdrop-filter: blur(0.3rem);
       padding: 1.5rem;
       font-size: 1.8rem;
-      line-height: 120%;
+      font-family: Onest, Helvetica, serif;
+      line-height: 100%;
       letter-spacing: -0.036rem;
       color: var(--color-white);
       transition: 0.2s;
+      text-wrap: nowrap;
 
       &:hover {
         background: #424ed1;
         cursor: pointer;
-        border: none;
+        border-color: #424ed1;
         outline: none;
       }
+
       @include mq(768) {
         font-size: 2.4rem;
-        line-height: 120%;
         letter-spacing: -0.048rem;
         padding: 3rem;
       }
-      @include mq(1440) {
+
+      @include mq(1200) {
         font-size: 3.2rem;
-        line-height: 120%;
         letter-spacing: -0.096rem;
         padding: 4rem 6rem;
       }
@@ -591,12 +599,10 @@ onMounted(async () => {
   }
 
   &__about {
-    height: 5.2rem;
     justify-self: center;
+    grid-area: about;
 
     @include mq(768) {
-      height: 9rem;
-      grid-area: about;
       justify-self: start;
     }
     @include mq(1440) {
@@ -605,91 +611,97 @@ onMounted(async () => {
     }
   }
 
-  &__projects {
-    min-width: 16.2rem;
-    height: 5.2rem;
-    position: relative;
-    left: -3.9rem;
+  &__vacancy {
+    justify-self: center;
+    background: #424ed1 !important;
+    border-color: #424ed1 !important;
+    transition: 0.2s;
+    grid-area: vacancy;
+
+    &:hover {
+      opacity: 0.8;
+      outline: none;
+    }
 
     @include mq(768) {
-      left: 0.3rem;
-      height: 9rem;
+      justify-self: start;
+    }
+  }
+
+  &__recommend {
+    background: #424ed1 !important;
+    border-color: #424ed1 !important;
+    transition: 0.2s;
+    grid-area: recommend;
+
+    &:hover {
+      opacity: 0.8;
+      outline: none;
+    }
+  }
+
+  &__projects {
+    min-width: 16.2rem;
+    position: relative;
+    grid-area: projects;
+    //left: -3.9rem;
+
+    @include mq(768) {
+      //left: 0.3rem;
       width: 23.6rem;
-      grid-area: projects;
     }
     @include mq(1440) {
-      height: 11.8rem;
       width: 35rem;
-      left: 1.4rem;
+      //left: 1.4rem;
     }
   }
 
   &__office {
     justify-self: center;
-    height: 5.2rem;
 
     @include mq(768) {
-      height: 9rem;
       grid-area: office;
     }
     @include mq(1440) {
       justify-self: end;
-      height: 11.8rem;
     }
   }
 
   &__work {
-    height: 5.2rem;
+    grid-area: work;
     position: relative;
-    left: -3.3rem;
 
     @include mq(768) {
-      height: 9rem;
       position: static;
-      width: 22.3rem;
-      grid-area: work;
-    }
-    @include mq(1440) {
-      height: 11.8rem;
-      width: 33.3rem;
     }
   }
 
   &__life {
+    grid-area: life;
     min-width: 18rem;
-    height: 5.2rem;
     position: relative;
-    left: 1.6rem;
 
     @include mq(768) {
       left: 2rem;
-      height: 9rem;
       width: 26rem;
-      grid-area: life;
     }
     @include mq(1440) {
       left: 0;
       justify-self: center;
-      height: 11.8rem;
       width: 38rem;
     }
   }
 
   &__develop {
-    height: 5.2rem;
     justify-self: center;
+    grid-area: develop;
 
     @include mq(768) {
       position: relative;
-      left: 1rem;
-      height: 9rem;
       padding: 3rem;
-      grid-area: develop;
     }
     @include mq(1440) {
       position: relative;
-      left: -2.7rem;
-      height: 11.8rem;
     }
   }
 
@@ -939,6 +951,7 @@ onMounted(async () => {
 
       &:hover {
         background: #fff;
+
         .link {
           color: #13144b;
           font-weight: 400;
@@ -950,12 +963,15 @@ onMounted(async () => {
       &:nth-child(2) {
         animation-delay: 500ms;
       }
+
       &:nth-child(3) {
         animation-delay: 600ms;
       }
+
       &:nth-child(4) {
         animation-delay: 700ms;
       }
+
       &:nth-child(5) {
         animation-delay: 800ms;
       }
@@ -1198,23 +1214,23 @@ header {
 
 .gradient-group .purple {
   background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgb(143, 20, 186) 0%,
-    rgba(143, 20, 186, 0.99) 11.79%,
-    rgba(143, 20, 186, 0.97) 21.38%,
-    rgba(143, 20, 186, 0.93) 29.12%,
-    rgba(143, 20, 186, 0.88) 35.34%,
-    rgba(143, 20, 186, 0.82) 40.37%,
-    rgba(143, 20, 186, 0.75) 44.56%,
-    rgba(143, 20, 186, 0.67) 48.24%,
-    rgba(143, 20, 186, 0.59) 51.76%,
-    rgba(143, 20, 186, 0.5) 55.44%,
-    rgba(143, 20, 186, 0.41) 59.63%,
-    rgba(143, 20, 186, 0.33) 64.66%,
-    rgba(143, 20, 186, 0.24) 70.88%,
-    rgba(143, 20, 186, 0.15) 78.62%,
-    rgba(143, 20, 186, 0.07) 88.21%,
-    rgba(143, 20, 186, 0) 100%
+      50% 50% at 50% 50%,
+      rgb(143, 20, 186) 0%,
+      rgba(143, 20, 186, 0.99) 11.79%,
+      rgba(143, 20, 186, 0.97) 21.38%,
+      rgba(143, 20, 186, 0.93) 29.12%,
+      rgba(143, 20, 186, 0.88) 35.34%,
+      rgba(143, 20, 186, 0.82) 40.37%,
+      rgba(143, 20, 186, 0.75) 44.56%,
+      rgba(143, 20, 186, 0.67) 48.24%,
+      rgba(143, 20, 186, 0.59) 51.76%,
+      rgba(143, 20, 186, 0.5) 55.44%,
+      rgba(143, 20, 186, 0.41) 59.63%,
+      rgba(143, 20, 186, 0.33) 64.66%,
+      rgba(143, 20, 186, 0.24) 70.88%,
+      rgba(143, 20, 186, 0.15) 78.62%,
+      rgba(143, 20, 186, 0.07) 88.21%,
+      rgba(143, 20, 186, 0) 100%
   );
   border-radius: 13rem;
   position: absolute;
@@ -1223,14 +1239,14 @@ header {
   top: -40rem;
   left: -40rem;
   animation: slideInGradient 1.5s ease forwards,
-    gradientPurple_375 8s ease infinite;
+  gradientPurple_375 8s ease infinite;
   @include mq(375) {
     height: 130rem;
     width: 130rem;
     top: -40rem;
     left: -40rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_375 8s ease infinite;
+    gradientPurple_375 8s ease infinite;
   }
 
   @include mq(768) {
@@ -1239,7 +1255,7 @@ header {
     top: -40rem;
     left: -35rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_768 8s ease infinite;
+    gradientPurple_768 8s ease infinite;
   }
 
   @include mq(1024) {
@@ -1248,7 +1264,7 @@ header {
     top: -70rem;
     left: -35rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_1024 8s ease infinite;
+    gradientPurple_1024 8s ease infinite;
   }
 
   @include mq(1440) {
@@ -1257,7 +1273,7 @@ header {
     top: -80rem;
     left: -50rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_1440 8s ease infinite;
+    gradientPurple_1440 8s ease infinite;
   }
 
   @include mq(1920) {
@@ -1266,36 +1282,36 @@ header {
     top: -80rem;
     left: -30rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_1920 8s ease infinite;
+    gradientPurple_1920 8s ease infinite;
   }
 
   @include mq(2560) {
     top: -110rem;
     left: -60rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientPurple_2560 8s ease infinite;
+    gradientPurple_2560 8s ease infinite;
   }
 }
 
 .gradient-group .red {
   background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgb(255, 80, 48) 0%,
-    rgba(254.66, 79.88, 48.43, 0.99) 11.3%,
-    rgba(253.67, 79.55, 49.67, 0.97) 21.16%,
-    rgba(252.1, 79.01, 51.63, 0.93) 29.76%,
-    rgba(250.01, 78.3, 54.24, 0.89) 37.27%,
-    rgba(247.46, 77.43, 57.42, 0.83) 43.87%,
-    rgba(244.53, 76.43, 61.09, 0.76) 49.76%,
-    rgba(241.26, 75.32, 65.17, 0.69) 55.1%,
-    rgba(237.73, 74.11, 69.58, 0.61) 60.08%,
-    rgba(234.01, 72.84, 74.24, 0.52) 64.88%,
-    rgba(230.14, 71.53, 79.07, 0.44) 69.68%,
-    rgba(226.21, 70.18, 83.99, 0.35) 74.66%,
-    rgba(222.26, 68.84, 88.92, 0.26) 80%,
-    rgba(218.37, 67.51, 93.79, 0.17) 85.88%,
-    rgba(214.59, 66.22, 98.51, 0.08) 92.49%,
-    rgba(211, 65, 103, 0) 100%
+      50% 50% at 50% 50%,
+      rgb(255, 80, 48) 0%,
+      rgba(254.66, 79.88, 48.43, 0.99) 11.3%,
+      rgba(253.67, 79.55, 49.67, 0.97) 21.16%,
+      rgba(252.1, 79.01, 51.63, 0.93) 29.76%,
+      rgba(250.01, 78.3, 54.24, 0.89) 37.27%,
+      rgba(247.46, 77.43, 57.42, 0.83) 43.87%,
+      rgba(244.53, 76.43, 61.09, 0.76) 49.76%,
+      rgba(241.26, 75.32, 65.17, 0.69) 55.1%,
+      rgba(237.73, 74.11, 69.58, 0.61) 60.08%,
+      rgba(234.01, 72.84, 74.24, 0.52) 64.88%,
+      rgba(230.14, 71.53, 79.07, 0.44) 69.68%,
+      rgba(226.21, 70.18, 83.99, 0.35) 74.66%,
+      rgba(222.26, 68.84, 88.92, 0.26) 80%,
+      rgba(218.37, 67.51, 93.79, 0.17) 85.88%,
+      rgba(214.59, 66.22, 98.51, 0.08) 92.49%,
+      rgba(211, 65, 103, 0) 100%
   );
   border-radius: 13rem;
   position: absolute;
@@ -1304,7 +1320,7 @@ header {
   top: -25rem;
   left: -15rem;
   animation: slideInGradient 1.5s ease forwards,
-    gradientRed_375 8s ease infinite;
+  gradientRed_375 8s ease infinite;
 
   @include mq(375) {
     width: 85rem;
@@ -1312,7 +1328,7 @@ header {
     top: -25rem;
     left: -15rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_375 8s ease infinite;
+    gradientRed_375 8s ease infinite;
   }
 
   @include mq(768) {
@@ -1321,7 +1337,7 @@ header {
     top: -30rem;
     left: 5rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_768 8s ease infinite;
+    gradientRed_768 8s ease infinite;
   }
 
   @include mq(1024) {
@@ -1330,14 +1346,14 @@ header {
     top: -35rem;
     left: 0;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_1024 8s ease infinite;
+    gradientRed_1024 8s ease infinite;
   }
 
   @include mq(1440) {
     top: -45rem;
     left: 35rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_1440 8s ease infinite;
+    gradientRed_1440 8s ease infinite;
   }
 
   @include mq(1920) {
@@ -1346,36 +1362,36 @@ header {
     top: -60rem;
     left: 10rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_1920 8s ease infinite;
+    gradientRed_1920 8s ease infinite;
   }
 
   @include mq(2560) {
     top: -70rem;
     left: 80rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientRed_2560 8s ease infinite;
+    gradientRed_2560 8s ease infinite;
   }
 }
 
 .gradient-group .yellow {
   background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgb(255, 168, 72) 0%,
-    rgba(255, 167.23, 71.79, 0.99) 11.31%,
-    rgba(255, 165.19, 71.23, 0.97) 21.19%,
-    rgba(255, 162, 70.36, 0.93) 29.81%,
-    rgba(255, 157.8, 69.22, 0.88) 37.35%,
-    rgba(255, 152.71, 67.83, 0.83) 44%,
-    rgba(255, 146.84, 66.23, 0.76) 49.92%,
-    rgba(255, 140.33, 64.45, 0.69) 55.29%,
-    rgba(255, 133.3, 62.54, 0.61) 60.3%,
-    rgba(255, 125.88, 60.51, 0.52) 65.12%,
-    rgba(255, 118.18, 58.41, 0.43) 69.92%,
-    rgba(255, 110.34, 56.27, 0.34) 74.89%,
-    rgba(255, 102.47, 54.13, 0.26) 80.21%,
-    rgba(255, 94.71, 52.01, 0.17) 86.05%,
-    rgba(255, 87.18, 49.96, 0.08) 92.59%,
-    rgba(255, 80, 48, 0) 100%
+      50% 50% at 50% 50%,
+      rgb(255, 168, 72) 0%,
+      rgba(255, 167.23, 71.79, 0.99) 11.31%,
+      rgba(255, 165.19, 71.23, 0.97) 21.19%,
+      rgba(255, 162, 70.36, 0.93) 29.81%,
+      rgba(255, 157.8, 69.22, 0.88) 37.35%,
+      rgba(255, 152.71, 67.83, 0.83) 44%,
+      rgba(255, 146.84, 66.23, 0.76) 49.92%,
+      rgba(255, 140.33, 64.45, 0.69) 55.29%,
+      rgba(255, 133.3, 62.54, 0.61) 60.3%,
+      rgba(255, 125.88, 60.51, 0.52) 65.12%,
+      rgba(255, 118.18, 58.41, 0.43) 69.92%,
+      rgba(255, 110.34, 56.27, 0.34) 74.89%,
+      rgba(255, 102.47, 54.13, 0.26) 80.21%,
+      rgba(255, 94.71, 52.01, 0.17) 86.05%,
+      rgba(255, 87.18, 49.96, 0.08) 92.59%,
+      rgba(255, 80, 48, 0) 100%
   );
   border-radius: 13rem;
   position: absolute;
@@ -1384,7 +1400,7 @@ header {
   top: 40rem;
   left: 18rem;
   animation: slideInGradient 1.5s ease forwards,
-    gradientYellow_375 8s ease infinite;
+  gradientYellow_375 8s ease infinite;
 
   @include mq(375) {
     width: 40rem;
@@ -1392,7 +1408,7 @@ header {
     top: 40rem;
     left: 18rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_375 8s ease infinite;
+    gradientYellow_375 8s ease infinite;
   }
 
   @include mq(768) {
@@ -1401,7 +1417,7 @@ header {
     top: 45rem;
     left: 35rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_768 8s ease infinite;
+    gradientYellow_768 8s ease infinite;
   }
 
   @include mq(1024) {
@@ -1410,7 +1426,7 @@ header {
     top: 35rem;
     left: 55rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_1024 8s ease infinite;
+    gradientYellow_1024 8s ease infinite;
   }
 
   @include mq(1440) {
@@ -1419,7 +1435,7 @@ header {
     top: 20rem;
     left: 95rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_1440 8s ease infinite;
+    gradientYellow_1440 8s ease infinite;
   }
 
   @include mq(1920) {
@@ -1428,14 +1444,14 @@ header {
     top: 30rem;
     left: 100rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_1920 8s ease infinite;
+    gradientYellow_1920 8s ease infinite;
   }
 
   @include mq(2560) {
     top: 30rem;
     left: 170rem;
     animation: slideInGradient 1.5s ease forwards,
-      gradientYellow_2560 8s ease infinite;
+    gradientYellow_2560 8s ease infinite;
   }
 }
 
