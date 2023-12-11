@@ -288,7 +288,6 @@ const dialogAnima = (entries, observer) => {
           duration: 500,
           iterations: 1,
           delay: timingDialog.value,
-          fill: 'forwards'
         });
         timingDialog.value += 500;
         msg.animate({opacity: '1'}, {

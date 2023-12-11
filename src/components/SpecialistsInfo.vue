@@ -3,7 +3,7 @@
     <h1 ref="number" class="specialists__number">3000+</h1>
     <h1 ref="specialists" class="specialists__title">специалистов</h1>
     <p ref="info" class="specialists__info_title">
-      С&nbsp;нами ты&nbsp;можешь создавать финтех-сервисы и&nbsp;не&nbsp;только.
+      Мы создаем и совершенствуем сервисы одного из крупнейших банков — ПСБ. Мы работаем над разными проектами, не только в финтехе
     </p>
     <p ref="text" class="specialists__info_text">
       Нашими продуктами пользуются миллионы людей. И&nbsp;нам всегда нужны
