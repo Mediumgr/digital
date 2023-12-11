@@ -171,194 +171,202 @@
 <script setup>
 import { onMounted } from 'vue';
 import { gsap, ScrollTrigger, scrollTriggerRefresh } from "@/helpers/gsap";
+import { isDesktop } from "@/helpers";
 
 function initAnimation() {
   const cardsArray = Array.from(document.querySelectorAll(".process_item_wrapper"))
+  const lastItem = cardsArray[cardsArray.length - 1].querySelector('.process_item')
+  // const card2 = cardsArray[1]
+  // const card3 = cardsArray[2]
+  // const card4 = cardsArray[3]
+  // const card5 = cardsArray[4]
+  // const card6 = cardsArray[5]
+  // const card7 = cardsArray[6]
 
-  const card2 = cardsArray[1]
-  const card3 = cardsArray[2]
-  const card4 = cardsArray[3]
-  const card5 = cardsArray[4]
-  const card6 = cardsArray[5]
-  const card7 = cardsArray[6]
-  ScrollTrigger
   cardsArray.forEach((card, index) => {
-    card
-    index
-    // ScrollTrigger.create({
-    //   trigger: card,
-    //   start: "top-=" + 10 * index + " 10%",
-    //   end: "top bottom",
-    //   endTrigger: ".process_end_element",
-    //   // pin: true,
-    //   // anticipatePin: 1,
-    //   markers: true,
-    //   onEnter: () => {
-    //     if (index < 1) return;
-    //     const previousCards = cardsArray.slice(0, index).reverse()
-    //
-    //     previousCards.forEach((card, idx) => {
-    //       // gsap.to(card, {
-    //       //   opacity: 1 - (idx + 1) / 10,
-    //       //   duration: 0.2
-    //       // })
-    //
-    //       gsap.set(card, {
-    //         opacity: 1 - (idx + 1) / 10,
-    //         // duration: 0.2
-    //       })
-    //     })
-    //   },
-    //   onLeaveBack: () => {
-    //     if (index < 1) return;
-    //     const previousCards = cardsArray.slice(0, index).reverse()
-    //
-    //     previousCards.forEach((card, idx) => {
-    //       // gsap.to(card, {
-    //       //   opacity: 1 - idx / 10,
-    //       //   duration: 0.2
-    //       // })
-    //
-    //       gsap.set(card, {
-    //         opacity: 1 - idx / 10,
-    //       })
-    //
-    //     })
-    //   }
-    // });
+    ScrollTrigger.create({
+      trigger: card,
+      // start: "top-=" + 10 * index + " 10%",
+      start: "top 10%",
+      end: "top bottom",
+      endTrigger: ".process_end_element",
+      // pin: true,
+      // anticipatePin: 1,
+      // markers: true,
+      onEnter: () => {
+        if (index < 1) return;
+        const previousCards = cardsArray.slice(0, index).reverse()
 
-    // if (index !== cardsArray.length - 1) {
-    //   console.log(card.querySelector('.process_item'))
-    //   console.log(8 - index)
-    //   gsap.to(card, {
-    //     scaleX: 1 - 0.02005 * (cardsArray.length - index),
-    //     y: `-=${8 - index}rem`,
-    //     ease: "none",
-    //     immediateRender: true,
-    //     scrollTrigger: {
-    //       trigger: cardsArray[index + 1],
-    //       start: "top bottom",
-    //       end: "bottom bottom",
-    //       // endTrigger: ".process_end_element",
-    //       endTrigger: '.process_end_element',
-    //       scrub: true,
-    //       preventOverlaps: "group1",
-    //       invalidateOnRefresh: true,
-    //       // markers: { indent: 50 },
-    //       id: 'card1'
-    //     }
-    //   });
-    // }
-  });
+        console.log('onEnter')
+        previousCards.forEach((card, idx) => {
+          gsap.to(card, {
+            opacity: 1 - (idx + 1) / 10,
+            duration: 0.15
+          })
+        })
+      },
+      onLeaveBack: () => {
+        if (index < 1) return;
+        const previousCards = cardsArray.slice(0, index).reverse()
 
-  gsap.to('.process_item_1', {
-    scaleX: 1 - 0.02005 * 6,
-    y: `-=12rem`,
-    ease: "none",
-    immediateRender: true,
-    scrollTrigger: {
-      trigger: card2,
-      start: "top bottom",
-      end: "bottom bottom",
-      // endTrigger: ".process_end_element",
-      endTrigger: card7,
-      scrub: true,
-      preventOverlaps: "group1",
-      // invalidateOnRefresh: true,
-      // markers: { indent: 50 },
-      id: 'card1'
+        previousCards.forEach((card, idx) => {
+          gsap.to(card, {
+            opacity: 1 - idx / 10,
+            duration: 0.15
+          })
+        })
+      },
+      onComplete: (self) => {
+        console.log(self)
+      }
+    });
+
+    if (index !== cardsArray.length - 1) {
+      let options = {}
+
+      if (isDesktop()) {
+        options = {
+          scaleX: 1 - (0.02 * (cardsArray.length - (index + 1))),
+          y: `-=${cardsArray.length - index}rem`,
+        }
+      } else {
+        options = {
+          scaleX: 1 - (0.05 * (cardsArray.length - (index + 1))),
+          y: `-=${(cardsArray.length - index)}rem`,
+        }
+
+        if (index === 0) {
+          options.scaleX = 0.65
+        }
+      }
+
+      const item = card.querySelector('.process_item')
+      const itemNext = cardsArray[index + 1].querySelector('.process_item')
+
+      gsap.to(item, {
+        scaleX: options.scaleX,
+        y: options.y,
+        ease: "none",
+        immediateRender: true,
+        scrollTrigger: {
+          trigger: itemNext,
+          start: "top bottom",
+          end: "bottom bottom",
+          endTrigger: lastItem,
+          scrub: true,
+          preventOverlaps: "group1",
+          // markers: { indent: 50 },
+        }
+      });
+
     }
   });
 
-  gsap.to('.process_item_2', {
-    scaleX: 1 - 0.02005 * 5,
-    y: `-=10rem`,
-    ease: "none",
-    // immediateRender: true,
-    scrollTrigger: {
-      trigger: card3,
-      start: "top bottom",
-      end: "bottom bottom",
-      // endTrigger: ".process_end_element",
-      endTrigger: card7,
-      scrub: true,
-      preventOverlaps: "group1",
-      // invalidateOnRefresh: true,
-      // markers: { indent: 50 },
-    }
-  });
-
-  gsap.to('.process_item_3', {
-    scaleX: 1 - 0.02005 * 4,
-    y: `-=8rem`,
-    ease: "none",
-    // immediateRender: true,
-    scrollTrigger: {
-      trigger: card4,
-      start: "top bottom",
-      end: "bottom bottom",
-      // endTrigger: ".process_end_element",
-      endTrigger: card7,
-      scrub: true,
-      preventOverlaps: "group1",
-      // invalidateOnRefresh: true,
-      // markers: { indent: 50 },
-    }
-  });
-
-  gsap.to('.process_item_4', {
-    scaleX: 1 - 0.02005 * 3,
-    y: `-=6rem`,
-    ease: "none",
-    // immediateRender: true,
-    scrollTrigger: {
-      trigger: card5,
-      start: "top bottom",
-      end: "bottom bottom",
-      // endTrigger: ".process_end_element",
-      endTrigger: card7,
-      scrub: true,
-      preventOverlaps: "group1",
-      // invalidateOnRefresh: true,
-      // markers: { indent: 50 },
-    }
-  });
-
-  gsap.to('.process_item_5', {
-    scaleX: 1 - 0.02005 * 2,
-    y: `-=4rem`,
-    ease: "none",
-    // immediateRender: true,
-    scrollTrigger: {
-      trigger: card6,
-      start: "top bottom",
-      end: "bottom bottom",
-      // endTrigger: ".process_end_element",
-      endTrigger: card7,
-      scrub: true,
-      preventOverlaps: "group1",
-      // invalidateOnRefresh: true,
-      // markers: { indent: 50 },
-    }
-  });
-
-  gsap.to('.process_item_6', {
-    scaleX: 1 - 0.02005 * 1,
-    // y: `-=2rem`,
-    ease: "none",
-    // immediateRender: true,
-    scrollTrigger: {
-      trigger: card7,
-      start: "top bottom",
-      end: "bottom bottom",
-      // endTrigger: ".process_end_element",
-      endTrigger: card7,
-      scrub: true,
-      preventOverlaps: "group1",
-      // invalidateOnRefresh: true,
-      // markers: { indent: 50 },
-    }
-  });
+  // gsap.to('.process_item_1', {
+  //   scaleX: 1 - (0.01 * 2 * 6),
+  //   y: `-=7rem`,
+  //   ease: "none",
+  //   immediateRender: true,
+  //   scrollTrigger: {
+  //     trigger: card2,
+  //     start: "top bottom",
+  //     end: "bottom bottom",
+  //     endTrigger: card7,
+  //     scrub: true,
+  //     preventOverlaps: "group1",
+  //     markers: { indent: 50 },
+  //   }
+  // });
+  //
+  // gsap.to('.process_item_2', {
+  //   scaleX: 1 - (0.01 * 2 * 5),
+  //   y: `-=6rem`,
+  //   ease: "none",
+  //   immediateRender: true,
+  //   scrollTrigger: {
+  //     trigger: card3,
+  //     start: "top bottom",
+  //     end: "bottom bottom",
+  //     // endTrigger: ".process_end_element",
+  //     endTrigger: card7,
+  //     scrub: true,
+  //     preventOverlaps: "group1",
+  //     // invalidateOnRefresh: true,
+  //     // markers: { indent: 50 },
+  //   }
+  // });
+  //
+  // gsap.to('.process_item_3', {
+  //   scaleX: 1 - (0.01 * 2 * 4),
+  //   y: `-=5rem`,
+  //   ease: "none",
+  //   immediateRender: true,
+  //   scrollTrigger: {
+  //     trigger: card4,
+  //     start: "top bottom",
+  //     end: "bottom bottom",
+  //     // endTrigger: ".process_end_element",
+  //     endTrigger: card7,
+  //     scrub: true,
+  //     preventOverlaps: "group1",
+  //     // invalidateOnRefresh: true,
+  //     // markers: { indent: 50 },
+  //   }
+  // });
+  //
+  // gsap.to('.process_item_4', {
+  //   scaleX: 1 - (0.01 * 2 * 3),
+  //   y: `-=4rem`,
+  //   ease: "none",
+  //   immediateRender: true,
+  //   scrollTrigger: {
+  //     trigger: card5,
+  //     start: "top bottom",
+  //     end: "bottom bottom",
+  //     // endTrigger: ".process_end_element",
+  //     endTrigger: card7,
+  //     scrub: true,
+  //     preventOverlaps: "group1",
+  //     // invalidateOnRefresh: true,
+  //     // markers: { indent: 50 },
+  //   }
+  // });
+  //
+  // gsap.to('.process_item_5', {
+  //   scaleX: 1 - (0.01 * 2 * 2),
+  //   y: `-=3rem`,
+  //   ease: "none",
+  //   immediateRender: true,
+  //   scrollTrigger: {
+  //     trigger: card6,
+  //     start: "top bottom",
+  //     end: "bottom bottom",
+  //     // endTrigger: ".process_end_element",
+  //     endTrigger: card7,
+  //     scrub: true,
+  //     preventOverlaps: "group1",
+  //     // invalidateOnRefresh: true,
+  //     // markers: { indent: 50 },
+  //   }
+  // });
+  //
+  // gsap.to('.process_item_6', {
+  //   scaleX: 1 - (0.01 * 2 * 1),
+  //   y: `-=2rem`,
+  //   ease: "none",
+  //   immediateRender: true,
+  //   scrollTrigger: {
+  //     trigger: card7,
+  //     start: "top bottom",
+  //     end: "bottom bottom",
+  //     // endTrigger: ".process_end_element",
+  //     endTrigger: card7,
+  //     scrub: true,
+  //     preventOverlaps: "group1",
+  //     // invalidateOnRefresh: true,
+  //     // markers: { indent: 50 },
+  //   }
+  // });
 
 
   scrollTriggerRefresh()
