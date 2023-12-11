@@ -11,7 +11,7 @@
         <header>
           <nav class="navbar">
             <div class="navbar__container">
-              <img src="@/assets/images/mainblock/logo_1.svg" alt="logo" />
+              <img src="@/assets/images/mainblock/logo_1.svg" alt="logo"/>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -32,7 +32,7 @@
                   fill="white"
                 />
               </svg>
-              <img src="@/assets/images/mainblock/logo_2.svg" alt="logo" />
+              <img src="@/assets/images/mainblock/logo_2.svg" alt="logo"/>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="95"
@@ -47,7 +47,7 @@
                   fill="white"
                 />
               </svg>
-              <img src="@/assets/images/mainblock/logo_3.svg" alt="logo" />
+              <img src="@/assets/images/mainblock/logo_3.svg" alt="logo"/>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="126"
@@ -148,36 +148,11 @@
         :poster="posterSrc"
         preload="auto"
       >
-        <source :src="videoSrc" type="video/mp4" />
+        <source :src="videoSrc" type="video/mp4"/>
       </video>
       <div class="wrapper">
         <h1 class="wrapper__title">Давай знакомиться</h1>
         <div class="wrapper__content">
-          <!--
-          <button
-            class="wrapper__about"
-            @mouseover="changeVideoSource('about')"
-            @click.stop="scrollTo('aboutUs')"
-          >
-            О нас
-          </button>
-          -->
-          <button
-            class="wrapper__vacancy"
-            @mouseover="changeVideoSource('about')"
-            @click.stop="scrollTo('vacancy')"
-          >
-            Стать частью команды
-          </button>
-
-          <button
-            class="wrapper__recommend"
-            @mouseover="changeVideoSource('life')"
-            @click.stop="scrollTo('recommend')"
-          >
-            Привести друга
-          </button>
-
           <button
             class="wrapper__projects"
             @mouseover="changeVideoSource('projects')"
@@ -199,24 +174,22 @@
           >
             Этапы найма
           </button>
-          <!--
+
           <button
-            class="wrapper__life"
+            class="wrapper__vacancy"
+            @mouseover="changeVideoSource('about')"
+            @click.stop="scrollTo('vacancy')"
+          >
+            Стать частью команды
+          </button>
+
+          <button
+            class="wrapper__recommend"
             @mouseover="changeVideoSource('life')"
-            @click.stop="scrollTo('life')"
+            @click.stop="scrollTo('recommend')"
           >
-            Жизнь вне офиса
+            Привести друга
           </button>
-          -->
-          <!--
-          <button
-            class="wrapper__develop"
-            @mouseover="changeVideoSource('develop')"
-            @click.stop="scrollTo('education')"
-          >
-            Развитие
-          </button>
-          -->
         </div>
         <button
           class="wrapper__arrow"
@@ -230,6 +203,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { scrollTriggerRefresh } from "@/helpers/gsap";
+
 const { shuffle } = require("txt-shuffle");
 
 const videoPlayer = ref(null);
@@ -541,52 +515,54 @@ onMounted(async () => {
   }
 
   &__content {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 33.5rem;
-    grid-template-columns: 17.7rem auto;
-    grid-template-rows: 1fr 1fr 1fr;
-    height: 17.6rem;
+    //grid-template-columns: 17.7rem auto;
+    //grid-template-rows: 1fr 1fr 1fr;
+    //height: 17.6rem;
+    grid-gap: 1rem;
     margin-bottom: 11rem;
     transition: all 2s ease;
     transition-delay: 0.3s;
+
     @include mq(600) {
       margin-bottom: 5rem;
     }
-    @include mq(700) {
-      grid-row-gap: 0.6rem;
-    }
+
     @include mq(768) {
-      width: 62.6rem;
-      grid-template-columns: repeat(3, auto);
-      grid-template-rows: 1fr 1fr;
-      grid-row-gap: 0;
-      height: 22rem;
+      display: grid;
+      width: 64.6rem;
+      grid-gap: 1.6rem;
       margin: 0 auto 19.5rem;
+      grid-template-columns: 1fr auto auto 1fr;
       grid-template-areas:
-"vacancy . recommend"
-"work projects office"
+      "work office office projects"
+      "vacancy vacancy recommend recommend"
     }
+
     @include mq(810) {
       margin: 0px auto 5rem;
     }
+
     @include mq(930) {
       margin: 0 auto 5.5rem;
     }
+
     @include mq(1024) {
       margin: 0 auto 19.5rem;
     }
-    @include mq(1440) {
+
+    @include mq(1200) {
       grid-row-gap: 1.6rem;
+      grid-column-gap: 1.6rem;
       width: auto;
       height: auto;
       margin-bottom: 7rem;
-      grid-template-columns: auto auto auto;
-      grid-template-rows: 1fr 1fr;
-      grid-template-areas:
-"vacancy . recommend"
-"work projects office"
     }
-    > button {
+
+    button {
       border-radius: 16rem;
       border: 0.2rem solid rgba(255, 255, 255, 0.2);
       background: rgba(255, 255, 255, 0.01);
@@ -594,26 +570,28 @@ onMounted(async () => {
       -webkit-backdrop-filter: blur(0.3rem);
       padding: 1.5rem;
       font-size: 1.8rem;
-      line-height: 120%;
+      font-family: Onest, Helvetica, serif;
+      line-height: 100%;
       letter-spacing: -0.036rem;
       color: var(--color-white);
       transition: 0.2s;
+      text-wrap: nowrap;
 
       &:hover {
         background: #424ed1;
         cursor: pointer;
-        border: none;
+        border-color: #424ed1;
         outline: none;
       }
+
       @include mq(768) {
         font-size: 2.4rem;
-        line-height: 120%;
         letter-spacing: -0.048rem;
         padding: 3rem;
       }
-      @include mq(1440) {
+
+      @include mq(1200) {
         font-size: 3.2rem;
-        line-height: 120%;
         letter-spacing: -0.096rem;
         padding: 4rem 6rem;
       }
@@ -621,12 +599,10 @@ onMounted(async () => {
   }
 
   &__about {
-    height: 5.2rem;
     justify-self: center;
+    grid-area: about;
 
     @include mq(768) {
-      height: 9rem;
-      grid-area: about;
       justify-self: start;
     }
     @include mq(1440) {
@@ -636,118 +612,96 @@ onMounted(async () => {
   }
 
   &__vacancy {
-    height: 5.2rem;
     justify-self: center;
+    background: #424ed1 !important;
+    border-color: #424ed1 !important;
+    transition: 0.2s;
+    grid-area: vacancy;
+
+    &:hover {
+      opacity: 0.8;
+      outline: none;
+    }
 
     @include mq(768) {
-      height: 9rem;
-      grid-area: vacancy;
       justify-self: start;
-    }
-    @include mq(1440) {
-      height: 11.8rem;
     }
   }
 
   &__recommend {
-    height: 5.2rem;
-    justify-self: center;
+    background: #424ed1 !important;
+    border-color: #424ed1 !important;
+    transition: 0.2s;
+    grid-area: recommend;
 
-    @include mq(768) {
-      height: 9rem;
-      grid-area: recommend;
-      justify-self: start;
-    }
-    @include mq(1440) {
-      height: 11.8rem;
+    &:hover {
+      opacity: 0.8;
+      outline: none;
     }
   }
 
   &__projects {
     min-width: 16.2rem;
-    height: 5.2rem;
     position: relative;
-    left: -3.9rem;
+    grid-area: projects;
+    //left: -3.9rem;
 
     @include mq(768) {
-      left: 0.3rem;
-      height: 9rem;
+      //left: 0.3rem;
       width: 23.6rem;
-      grid-area: projects;
     }
     @include mq(1440) {
-      height: 11.8rem;
       width: 35rem;
-      left: 1.4rem;
+      //left: 1.4rem;
     }
   }
 
   &__office {
     justify-self: center;
-    height: 5.2rem;
 
     @include mq(768) {
-      height: 9rem;
       grid-area: office;
     }
     @include mq(1440) {
       justify-self: end;
-      height: 11.8rem;
     }
   }
 
   &__work {
-    height: 5.2rem;
+    grid-area: work;
     position: relative;
-    left: -3.3rem;
 
     @include mq(768) {
-      height: 9rem;
       position: static;
-      width: 22.3rem;
-      grid-area: work;
-    }
-    @include mq(1440) {
-      height: 11.8rem;
-      width: 33.3rem;
     }
   }
 
   &__life {
+    grid-area: life;
     min-width: 18rem;
-    height: 5.2rem;
     position: relative;
-    left: 1.6rem;
 
     @include mq(768) {
       left: 2rem;
-      height: 9rem;
       width: 26rem;
-      grid-area: life;
     }
     @include mq(1440) {
       left: 0;
       justify-self: center;
-      height: 11.8rem;
       width: 38rem;
     }
   }
 
   &__develop {
-    height: 5.2rem;
     justify-self: center;
+    grid-area: develop;
 
     @include mq(768) {
       position: relative;
-      left: 1rem;
-      height: 9rem;
       padding: 3rem;
-      grid-area: develop;
     }
     @include mq(1440) {
       position: relative;
-      left: -2.7rem;
-      height: 11.8rem;
     }
   }
 
@@ -997,6 +951,7 @@ onMounted(async () => {
 
       &:hover {
         background: #fff;
+
         .link {
           color: #13144b;
           font-weight: 400;
@@ -1008,12 +963,15 @@ onMounted(async () => {
       &:nth-child(2) {
         animation-delay: 500ms;
       }
+
       &:nth-child(3) {
         animation-delay: 600ms;
       }
+
       &:nth-child(4) {
         animation-delay: 700ms;
       }
+
       &:nth-child(5) {
         animation-delay: 800ms;
       }
