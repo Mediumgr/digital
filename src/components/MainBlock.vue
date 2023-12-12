@@ -203,6 +203,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { scrollTriggerRefresh } from "@/helpers/gsap";
+import { gsap } from "gsap";
 
 const { shuffle } = require("txt-shuffle");
 
@@ -246,48 +247,37 @@ const goToPage = (link) => {
 
 const scrollTo = (value) => {
   let element;
-  let offsetElement;
+  let offsetTop = 0;
   switch (value) {
     case "life":
       element = document.querySelector(".life_header");
-      offsetElement = element.getBoundingClientRect().top;
       break;
     case "offices":
       element = document.querySelector(".map-offices");
-      offsetElement = element.getBoundingClientRect().top;
       break;
     case "work":
       element = document.querySelector(".process_item.process_item_video");
-      offsetElement = element.getBoundingClientRect().top;
       break;
     case "stack":
       element = document.querySelector(".which-stack-to-use__title");
-      offsetElement = element.getBoundingClientRect().top;
+      offsetTop = 10
       break;
     case "education":
       element = document.querySelector(".education__heading");
-      offsetElement = element.getBoundingClientRect().top;
       break;
     case "aboutUs":
       element = document.querySelector(".specialists__number");
-      offsetElement = element.getBoundingClientRect().top;
       break;
     case "vacancy":
       element = document.querySelector(".vacancy__section");
-      offsetElement = element.getBoundingClientRect().top;
       break;
     case "recommend":
       element = document.querySelector(".recommend__container");
-      offsetElement = element.getBoundingClientRect().top;
+      offsetTop = 40
       break;
   }
-  let scrollToElement = offsetElement + window.scrollY;
-  window.scrollTo({
-    top: scrollToElement,
-    // без scrollTriggerRefresh сбивается анимация gsap при прокрутке
-    // при плавной прокрутке (smooth) не работает scrollTriggerRefresh
-    behavior: "instant",
-  });
+
+  gsap.to(window, { duration: 1, scrollTo: { y: element, offsetY: offsetTop } });
 };
 
 shuffle({

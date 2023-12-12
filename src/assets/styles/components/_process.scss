@@ -125,6 +125,10 @@
     }
   }
 
+  @include mq(1900) {
+    top: 8rem;
+  }
+
   //&:nth-child(6) {
   //  top: 12rem;
   //}
