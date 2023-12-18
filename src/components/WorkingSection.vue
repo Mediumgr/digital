@@ -9,9 +9,11 @@
       <div class="commonStyle working__projects">
         Проекты для оборонно-промышленного комплекса
       </div>
+      <!--
       <div class="commonStyle working__platform">
         Образовательная платформа «Содружество»
       </div>
+      -->
       <div class="commonStyle working__bank">
         Интернет-банк корпоративных клиентов
       </div>
@@ -88,8 +90,7 @@ onMounted(() => {
     grid-template-columns: repeat(2, auto);
     grid-template-areas:
       "support eco"
-      "projects platform"
-      "bank bank"
+      "projects bank"
       "services clients"
       "substitution credits";
   }
@@ -98,7 +99,7 @@ onMounted(() => {
     grid-template-columns: repeat(3, auto);
     grid-template-areas:
       "support eco projects"
-      "platform bank bank"
+      "bank bank bank"
       "services clients clients"
       "substitution credits credits";
   }
@@ -199,7 +200,6 @@ onMounted(() => {
       justify-self: end;
       grid-area: projects;
       position: relative;
-      right: -6rem;
     }
     @include mq(1440) {
       position: static;
@@ -231,7 +231,6 @@ onMounted(() => {
     }
     @include mq(1440) {
       position: relative;
-      right: 1.5rem;
       width: 42.8rem;
     }
   }
