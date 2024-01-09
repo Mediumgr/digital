@@ -37,18 +37,30 @@ import { onMounted, ref } from "vue";
 const frame = ref(null);
 const title = ref(null);
 
-const handleScroll = () => {
-  const viewportTop = frame.value.getBoundingClientRect().top;
-  if (viewportTop > 400 && viewportTop < 500) {
-    title.value.style.opacity = "1";
-  } else if (viewportTop > 300 && viewportTop <= 400) {
-    title.value.style.opacity = "0.4";
-  } else if (viewportTop <= 300) {
-    title.value.style.opacity = "0";
-  }
+const intersectionWrapper = () => {
+  let options = {
+    rootMargin: "0px 0px -50px 0px",
+    threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const { boundingClientRect } = entry;
+      const frameViewportTop = boundingClientRect.top;
+
+      if (frameViewportTop > 500) {
+        title.value.style.opacity = "";
+      } else if (frameViewportTop > 370 && frameViewportTop <= 500) {
+        title.value.style.opacity = "0.4";
+      } else if (frameViewportTop <= 370) {
+        title.value.style.opacity = "0";
+      }
+    });
+  }, options);
+
+  observer.observe(frame.value);
 };
 
-const intersection = () => {
+const intersectionElements = () => {
   let options = {
     rootMargin: "0px 0px -250px 0px",
   };
@@ -67,11 +79,8 @@ const intersection = () => {
 };
 
 onMounted(() => {
-  document.addEventListener("scroll", () => {
-    handleScroll();
-  });
-
-  intersection();
+  intersectionWrapper();
+  intersectionElements();
 });
 </script>
 
@@ -208,7 +217,7 @@ onMounted(() => {
     }
   }
 
-  &__platform {
+/*   &__platform {
     width: 17.7rem;
     @include mq(768) {
       width: 23.1rem;
@@ -220,7 +229,7 @@ onMounted(() => {
       right: -8.5rem;
       width: 41.5rem;
     }
-  }
+  } */
 
   &__bank {
     width: 27.2rem;
