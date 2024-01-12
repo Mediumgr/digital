@@ -24,13 +24,9 @@
           Похоже, проблемы с&nbsp;соединением. Попробуй еще раз
         </p>
       </div>
-      <button
-        class="btn"
-        @mousemove="mousemove($event)"
-        @touchmove="mousemove($event)"
-      >
-        <span @click="$emit('resend')">Отправить еще раз</span>
-      </button>
+      <BaseButton class="btn" @click.stop="$emit('resend')">
+        <span>Отправить еще раз</span>
+      </BaseButton>
     </div>
   </div>
 
@@ -57,14 +53,6 @@ const props = defineProps({
     default: () => {},
   },
 });
-
-const mousemove = (e) => {
-  let btn = document.querySelector(".btn");
-  let x = e.pageX - btn.offsetLeft;
-  let y = e.pageY - btn.offsetTop;
-  btn.style.setProperty("--x", x / 10 + "rem");
-  btn.style.setProperty("--y", y / 1000 + "rem");
-};
 </script>
 
 <style lang="scss" scoped>

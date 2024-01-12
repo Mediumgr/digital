@@ -16,10 +16,6 @@
   </footer>
 </template>
 
-<script setup>
-import GradientBG from "@/components/GradientBG.vue";
-</script>
-
 <style lang="scss" scoped>
 @import "@/assets/styles/components/digital-laboratory";
 </style>

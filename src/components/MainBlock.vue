@@ -122,7 +122,6 @@
 </template>
 
 <script setup>
-import GradientBG from "@/components/GradientBG.vue";
 import { onMounted, ref } from "vue";
 import { scrollTriggerRefresh } from "@/helpers/gsap";
 import { gsap } from "gsap";

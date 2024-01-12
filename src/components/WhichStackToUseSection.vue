@@ -25,7 +25,6 @@
 <script setup>
 import { onMounted } from 'vue';
 import whichStackToUse from '@/assets/data/which-stack-to-use.json';
-import GradientBG from "@/components/GradientBG.vue";
 import { gsap } from "@/helpers/gsap";
 import { isDesktop } from "@/helpers";
 

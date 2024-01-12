@@ -215,7 +215,6 @@
 import { onMounted } from "vue";
 import { isDesktop, isTablet } from "@/helpers";
 import { EASE_FOR_WHO_APPRECIATE, gsap } from "@/helpers/gsap";
-import GradientBG from "@/components/GradientBG.vue";
 
 let svgPath = null;
 let points = [];
