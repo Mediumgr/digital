@@ -3,7 +3,8 @@
     <h1 ref="number" class="specialists__number">3000+</h1>
     <h1 ref="specialists" class="specialists__title">специалистов</h1>
     <p ref="info" class="specialists__info_title">
-      Мы создаем и совершенствуем сервисы одного из крупнейших банков — ПСБ. Мы работаем над разными проектами, не только в финтехе
+      Мы создаем и совершенствуем сервисы одного из крупнейших банков — ПСБ. Мы
+      работаем над разными проектами, не только в финтехе
     </p>
     <p ref="text" class="specialists__info_text">
       Нашими продуктами пользуются миллионы людей. И&nbsp;нам всегда нужны
@@ -21,22 +22,15 @@ let info = ref(null);
 let text = ref(null);
 
 const intersection = () => {
-  number.value.style.opacity = specialists.value.style.opacity = "0";
   let options = {
     rootMargin: "0px 0px -100px 0px",
   };
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const { target, isIntersecting } = entry;
       if (isIntersecting) {
-        const infoNodes =
-          target.classList.contains("specialists__info_title") ||
-          target.classList.contains("specialists__info_text");
-        if (infoNodes) {
-          target.style.opacity = "0.8";
-        } else {
-          target.style.opacity = "1";
-        }
+        target.classList.add("active");
       }
     });
   }, options);
@@ -80,9 +74,6 @@ onMounted(() => {
     margin: 30rem auto 26rem;
     width: 133rem;
   }
-  @include mq(2056) {
-    width: 126rem;
-  }
 
   &__number {
     background: var(
@@ -97,7 +88,13 @@ onMounted(() => {
     font-weight: 500;
     letter-spacing: -0.288rem;
     text-align: center;
+    opacity: 0;
     transition: opacity 2.5s ease;
+
+    &.active {
+      opacity: 1;
+    }
+
     @include mq(768) {
       font-size: 9.6rem;
       letter-spacing: -0.576rem;
@@ -115,7 +112,12 @@ onMounted(() => {
     letter-spacing: -0.288rem;
     text-align: center;
     padding-bottom: 2rem;
+    opacity: 0;
     transition: opacity 2.5s ease;
+    &.active {
+      opacity: 1;
+    }
+
     @include mq(768) {
       font-size: 9.6rem;
       letter-spacing: -0.576rem;
@@ -129,8 +131,6 @@ onMounted(() => {
   }
 
   &__info {
-    opacity: 0;
-
     &_title {
       color: #13144b;
       text-align: center;
@@ -138,7 +138,13 @@ onMounted(() => {
       font-size: 1.8rem;
       line-height: 120%;
       letter-spacing: -0.036rem;
+      opacity: 0;
       transition: opacity 2.5s ease;
+
+      &.active {
+        opacity: 0.8;
+      }
+
       @include mq(768) {
         font-size: 2.4rem;
         letter-spacing: -0.048rem;
@@ -157,7 +163,13 @@ onMounted(() => {
       font-size: 1.8rem;
       line-height: 120%;
       letter-spacing: -0.036rem;
+      opacity: 0;
       transition: opacity 2.5s ease;
+
+      &.active {
+        opacity: 0.8;
+      }
+
       @include mq(768) {
         font-size: 2.4rem;
         letter-spacing: -0.048rem;

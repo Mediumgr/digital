@@ -1,4 +1,11 @@
-> 1%
-last 2 versions
-not dead
+defaults
 not ie 11
+not dead
+not op_mini all
+Chrome >= 84
+Firefox >= 75
+Edge >= 85
+iOS >= 14
+Safari >= 14.1
+Android >= 8
+Opera >= 70

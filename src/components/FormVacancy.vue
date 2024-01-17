@@ -130,10 +130,10 @@ let errors = ref({});
 
 /* eslint-disable */
 const regExp = ref({
-  name: /^[A-Za-zА-Яа-я]+ [A-Za-zА-Яа-я]+(?: [A-Za-zА-Яа-я]+)?$/,
+  name: /^[a-zа-я]+\s[a-zа-я]+(\s[a-zа-я]+)?$/i,
 
-  phone: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
-  email: /^[\w._-]+@\w+\.[a-z]{2,4}$/i,
+  phone: /^((8|\+7)\s)\d{3}[\d\s]{10}$/,
+  email: /^[\w.-]+@([\w-]+\.)+[\w-]+$/i,
 });
 
 const submit = async () =>
@@ -212,7 +212,7 @@ const mouseleave = () => {
 // });
 
 /* загрузка изображения на случай отсутствия интернета */
-const preLoadImages = () => {
+const preLoadImage = () => {
   new Promise((resolve, reject) => {
     const img = new Image();
     img.onerror = reject;
@@ -248,7 +248,7 @@ watch(
 );
 
 onMounted(() => {
-  preLoadImages();
+  preLoadImage();
 });
 </script>
 
@@ -411,6 +411,8 @@ onMounted(() => {
 }
 
 video {
+  height: inherit;
+  width: inherit;
   object-fit: cover;
   border-radius: 2rem;
 }

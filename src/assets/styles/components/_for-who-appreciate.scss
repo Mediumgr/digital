@@ -41,7 +41,7 @@
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 100%;
+    height: 101%; /* для избежания появления горизонтальной линии на разных браузерах нужен +1% к высоте (safari 14.1)*/
     display: flex;
     justify-content: center;
     align-items: center;
