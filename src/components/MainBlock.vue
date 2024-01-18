@@ -1,7 +1,7 @@
 <template>
   <div class="container__header">
     <div class="gradient-group" ref="gradientGroup">
-      <GradientBG />
+      <GradientBG :class="classElement" :animationAction="animationAction" />
     </div>
     <div class="content">
       <div class="content__flex">
@@ -123,6 +123,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import { useGradient } from "./composables/useGradient";
 import { scrollTriggerRefresh } from "@/helpers/gsap";
 import { gsap } from "gsap";
 const { shuffle } = require("txt-shuffle");
@@ -146,6 +147,10 @@ const counterPsb = ref(null);
 const gradientGroup = ref(null);
 const counterLab = ref(null);
 const loadingTime = ref(800);
+let animationAction = ref(false);
+let classElement = ref("gradientHeader");
+
+useGradient({ animationAction, classElement });
 
 const goToPage = (link) => {
   switch (link) {

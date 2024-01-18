@@ -1,6 +1,6 @@
 <template>
   <section class="which-stack-to-use js-stack-use">
-    <GradientBG/>
+    <GradientBG :class="classElement" :animationAction="animationAction" />
 
     <h2 class="which-stack-to-use__title heading-h2" v-html="whichStackToUse.title"></h2>
 
@@ -23,10 +23,16 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import whichStackToUse from '@/assets/data/which-stack-to-use.json';
 import { gsap } from "@/helpers/gsap";
 import { isDesktop } from "@/helpers";
+import { useGradient } from "./composables/useGradient";
+
+let animationAction = ref(false);
+let classElement = ref("gradientWhichStack");
+
+useGradient({ animationAction, classElement });
 
 const CLASS_PREFIX = '_stack-';
 

@@ -1,6 +1,6 @@
 <template>
   <section class="for-who-appreciate">
-    <GradientBG />
+    <GradientBG :class="classElement" :animationAction="animationAction" />
 
     <div class="for-who-appreciate__wrapper">
       <div class="for-who-appreciate__heading-wrapper">
@@ -212,9 +212,15 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { isDesktop, isTablet } from "@/helpers";
 import { EASE_FOR_WHO_APPRECIATE, gsap } from "@/helpers/gsap";
+import { useGradient } from "./composables/useGradient";
+
+let animationAction = ref(false);
+let classElement = ref("gradientAppreciate");
+
+useGradient({ animationAction, classElement });
 
 let svgPath = null;
 let points = [];

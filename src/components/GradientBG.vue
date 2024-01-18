@@ -1,15 +1,48 @@
 <template>
   <div class="gradient">
-    <div class="gradient__blue"></div>
-    <div class="gradient__purple"></div>
-    <div class="gradient__red"></div>
-    <div class="gradient__yellow"></div>
+    <div class="gradient__blue deactivated--animation" ref="blue"></div>
+    <div class="gradient__purple deactivated--animation" ref="purple"></div>
+    <div class="gradient__red deactivated--animation" ref="red"></div>
+    <div class="gradient__yellow deactivated--animation" ref="yellow"></div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, defineProps, watch } from "vue";
+
+const blue = ref(null);
+const purple = ref(null);
+const red = ref(null);
+const yellow = ref(null);
+const references = [blue, purple, red, yellow];
+
+const props = defineProps({
+  animationAction: {
+    type: Boolean,
+    required: false,
+  },
+});
+
+const toggleAnimation = (isTrue) => {
+  references.forEach((reference) => {
+    reference.value.classList[isTrue ? "remove" : "add"](
+      "deactivated--animation"
+    );
+  });
+};
+
+watch(
+  () => props.animationAction,
+  (val) => {
+    toggleAnimation(val);
+  }
+);
+</script>
 
 <style lang="scss" scoped>
+.deactivated--animation {
+  animation-play-state: paused !important;
+}
 .gradient {
   z-index: -1;
   position: absolute;

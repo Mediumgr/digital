@@ -1,7 +1,7 @@
 <template>
   <div class="recommend__container">
     <div class="gradient-group__recommend">
-      <GradientBG />
+      <GradientBG :class="classElement" :animationAction="animationAction" />
       <div class="recommend__content">
         <h1 class="recommend__title">Получи 100&nbsp;000&nbsp;₽</h1>
         <p class="recommend__sub-title">Рекомендуй друга в IT</p>
@@ -23,6 +23,16 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import { useGradient } from "./composables/useGradient";
+
+let animationAction = ref(false);
+let classElement = ref("gradientRecommend");
+
+useGradient({ animationAction, classElement });
+</script>
 
 <style lang="scss" scoped>
 .recommend {

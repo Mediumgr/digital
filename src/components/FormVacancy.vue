@@ -1,6 +1,6 @@
 <template>
   <div class="gradient-group__vacancy">
-    <GradientBG />
+    <GradientBG :class="classElement" :animationAction="animationAction" />
     <div class="vacancy__section">
       <p class="vacancy__title">Вакансии</p>
       <div class="vacancy__container">
@@ -106,6 +106,12 @@ import { ref, watch, reactive, onMounted } from "vue";
 import FormStatus from "./FormStatus.vue";
 import { useSubmit } from "./composables/useSubmit";
 import { useWatchers } from "./composables/useWatchers";
+import { useGradient } from "./composables/useGradient";
+
+let animationAction = ref(false);
+let classElement = ref("gradientVacancy");
+
+useGradient({ animationAction, classElement });
 
 const loader = ref(false);
 const videoShow = ref(false);
