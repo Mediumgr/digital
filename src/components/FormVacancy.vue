@@ -108,7 +108,7 @@ import { useSubmit } from "./composables/useSubmit";
 import { useWatchers } from "./composables/useWatchers";
 import { useGradient } from "./composables/useGradient";
 
-let animationAction = ref(false);
+let animationAction = ref();
 let classElement = ref("gradientVacancy");
 
 useGradient({ animationAction, classElement });

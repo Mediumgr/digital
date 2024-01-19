@@ -21,7 +21,7 @@
 import { ref } from "vue";
 import { useGradient } from "./composables/useGradient";
 
-let animationAction = ref(false);
+let animationAction = ref();
 let classElement = ref("gradientDigitalLab");
 
 useGradient({ animationAction, classElement });

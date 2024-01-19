@@ -147,7 +147,7 @@ const counterPsb = ref(null);
 const gradientGroup = ref(null);
 const counterLab = ref(null);
 const loadingTime = ref(800);
-let animationAction = ref(false);
+let animationAction = ref();
 let classElement = ref("gradientHeader");
 
 useGradient({ animationAction, classElement });

@@ -217,7 +217,7 @@ import { isDesktop, isTablet } from "@/helpers";
 import { EASE_FOR_WHO_APPRECIATE, gsap } from "@/helpers/gsap";
 import { useGradient } from "./composables/useGradient";
 
-let animationAction = ref(false);
+let animationAction = ref();
 let classElement = ref("gradientAppreciate");
 
 useGradient({ animationAction, classElement });

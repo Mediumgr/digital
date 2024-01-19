@@ -29,7 +29,7 @@ import { gsap } from "@/helpers/gsap";
 import { isDesktop } from "@/helpers";
 import { useGradient } from "./composables/useGradient";
 
-let animationAction = ref(false);
+let animationAction = ref();
 let classElement = ref("gradientWhichStack");
 
 useGradient({ animationAction, classElement });

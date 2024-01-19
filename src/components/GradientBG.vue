@@ -1,9 +1,9 @@
 <template>
   <div class="gradient">
-    <div class="gradient__blue deactivated--animation" ref="blue"></div>
-    <div class="gradient__purple deactivated--animation" ref="purple"></div>
-    <div class="gradient__red deactivated--animation" ref="red"></div>
-    <div class="gradient__yellow deactivated--animation" ref="yellow"></div>
+    <div class="gradient__blue" ref="blue"></div>
+    <div class="gradient__purple" ref="purple"></div>
+    <div class="gradient__red" ref="red"></div>
+    <div class="gradient__yellow" ref="yellow"></div>
   </div>
 </template>
 
