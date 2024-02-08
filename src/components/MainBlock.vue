@@ -9,13 +9,13 @@
           <picture>
             <source
               srcset="@/assets/images/mainblock/logo.svg"
-              media="(min-width: 768px)"
+              media="(min-width: 768px) and (max-width: 1919.98px)"
             />
-            <img
-              src="@/assets/images/mainblock/logo-mobile.svg"
-              class="navbar__img"
-              alt="logo"
+            <source
+              srcset="@/assets/images/mainblock/logo_1920.svg"
+              media="(min-width: 1920px)"
             />
+            <img src="@/assets/images/mainblock/logo-mobile.svg" alt="logo" />
           </picture>
           <img
             @click.stop="checked()"
@@ -146,7 +146,6 @@ const showVideo = ref(false);
 const counterPsb = ref(null);
 const gradientGroup = ref(null);
 const counterLab = ref(null);
-const loadingTime = ref(800);
 let animationAction = ref();
 let classElement = ref("gradientHeader");
 
@@ -334,7 +333,7 @@ onMounted(async () => {
   posterSrc.value = require("@/assets/images/mainblock/meet.jpg");
   videoPlayer.value.load();
 
-  await holdOnTimer(loadingTime.value);
+  await holdOnTimer(800);
   showContent.value = true;
 
   let timer = 450;
@@ -545,15 +544,6 @@ onMounted(async () => {
 
 .zeroOpacity {
   opacity: 0;
-}
-
-.navbar__img {
-  width: 14.1rem;
-  height: auto;
-
-  @include mq(768) {
-    width: 17.6rem;
-  }
 }
 
 .container__header {
@@ -852,18 +842,6 @@ onMounted(async () => {
     margin: 0 auto;
     padding: 0;
 
-    @include mq(768) {
-      padding: 2rem 4rem 0;
-    }
-
-    @include mq(1024) {
-      padding: 2rem 16.6rem 0;
-    }
-
-    @include mq(1440) {
-      padding: 4rem 8rem 0;
-    }
-
     @include mq(425) {
       flex-direction: column;
       justify-content: center;
@@ -880,16 +858,6 @@ onMounted(async () => {
     opacity: 0;
     animation: opacityShow 800ms ease-out forwards;
     width: 100%;
-
-    &__img {
-      height: 3.7rem;
-      width: 14.1rem;
-
-      @include mq(768) {
-        width: 17.6rem;
-        height: auto;
-      }
-    }
   }
 }
 
