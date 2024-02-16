@@ -163,7 +163,7 @@ const goToPage = (link) => {
       window.open("https://t.me/psb_it_team", "_blank");
       break;
     case "Email":
-      window.open("mailto:BIT_communications@psbank.ru", "_blank");
+      window.open("mailto:it@psbdigital.ru", "_blank");
       break;
   }
 };

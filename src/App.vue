@@ -1,22 +1,16 @@
 <template>
-  <MainPage></MainPage>
+  <router-view />
 </template>
 
 <script>
-import MainPage from '@/views/MainPage.vue';
-import '@/assets/styles/main.scss';
-import '@/assets/styles/keyframes.css'
+import "@/assets/styles/main.scss";
+import "@/assets/styles/keyframes.css";
 import { heightVH } from "@/helpers";
 
 export default {
-  name: 'App',
-  components: {
-    MainPage,
-  },
+  name: "App",
   mounted() {
-    heightVH()
-  }
+    heightVH();
+  },
 };
 </script>
-
-<style lang="scss"></style>

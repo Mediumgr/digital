@@ -5,19 +5,15 @@
       <div class="recommend__content">
         <h1 class="recommend__title">Получи 100&nbsp;000&nbsp;₽</h1>
         <p class="recommend__sub-title">Рекомендуй друга в IT</p>
-        <BaseButton class="recommend__button">
-          <a
-            href="https://work.psblab.ru/"
-            class="recommend__link"
-            target="_blank"
-          >
+        <BaseButton class="recommend__button" @click.stop="goToPage()">
+          <div class="recommend__wrapper">
             <span class="recommend__button_text">Заполнить заявку</span>
             <img
               class="recommend__button_img"
               alt="Frame"
               src="../assets/images/recommend/arrow_right.svg"
             />
-          </a>
+          </div>
         </BaseButton>
       </div>
     </div>
@@ -32,6 +28,14 @@ let animationAction = ref();
 let classElement = ref("gradientRecommend");
 
 useGradient({ animationAction, classElement });
+
+const goToPage = () => {
+  /* regex исключает любые домены, включая локальные */
+  const regex =
+    /^(https?:\/\/(?:.+\.ru|.+\.com|(?:\d{1,3}\.){3}\d{1,3}|localhost):\d+\/|https?:\/\/.+\.ru\/|https?:\/\/.+\.com\/)/;
+  const params = window.location.href.replace(regex, "");
+  window.open("https://work.psblab.ru/" + `${params}`, "_blank");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -143,7 +147,7 @@ useGradient({ animationAction, classElement });
       transform: translate(-50%, -50%);
     }
 
-    & > .recommend__link {
+    & > .recommend__wrapper {
       position: relative;
     }
 
@@ -178,8 +182,7 @@ useGradient({ animationAction, classElement });
       }
     }
   }
-  &__link {
-    color: var(--color-white);
+  &__wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
