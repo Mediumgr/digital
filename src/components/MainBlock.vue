@@ -960,7 +960,7 @@ onMounted(async () => {
 }
 
 .transformVideo {
-  height: 105vh !important;
+  height: 115vh !important;
   width: 120vw !important;
 }
 

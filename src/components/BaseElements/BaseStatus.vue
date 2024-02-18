@@ -1,8 +1,17 @@
 <template>
-  <div v-if="status.server.failure === false && status.connection === true">
+  <div
+    v-if="status.server.failure === false && status.connection === true"
+    class="response"
+  >
     <div class="success__container">
+      <span
+        v-if="modalSettings.cross"
+        @click.stop="$emit('customEvent', 'close')"
+        class="cross"
+        >&#65794;</span
+      >
       <img
-        src="../assets/images/vacancies/status_good.svg"
+        src="@/assets/images/vacancies/status_good.svg"
         alt="status ok"
         class="success__image"
       />
@@ -16,7 +25,7 @@
     <div class="error__container">
       <div class="error__connection">
         <img
-          src="../assets/images/vacancies/status_bad.svg"
+          src="@/assets/images/vacancies/status_bad.svg"
           alt="status Nok"
           class="error__image"
         />
@@ -24,16 +33,25 @@
           Похоже, проблемы с&nbsp;соединением. Попробуй еще раз
         </p>
       </div>
-      <BaseButton class="btn" @click.stop="$emit('resend')">
+      <BaseButton
+        class="btn"
+        @click.stop="$emit('customEvent', 'changeStatus')"
+      >
         <span>Отправить еще раз</span>
       </BaseButton>
     </div>
   </div>
 
-  <div v-if="status.server.failure && status.connection === true">
+  <div v-if="status.server.failure && status.connection" class="response">
     <div class="success__container">
+      <span
+        v-if="modalSettings.cross"
+        @click.stop="$emit('customEvent', 'close')"
+        class="cross"
+        >&#65794;</span
+      >
       <img
-        src="../assets/images/vacancies/status_bad.svg"
+        src="@/assets/images/vacancies/status_bad.svg"
         alt="status Nok"
         class="success__image"
       />
@@ -45,74 +63,25 @@
 </template>
 
 <script setup>
-/* eslint-disable */
-const emit = defineEmits(["resend"]);
-const props = defineProps({
+import { defineProps, defineEmits } from "vue";
+
+defineEmits(["customEvent"]);
+defineProps({
   status: {
     type: Object,
     default: () => {},
+  },
+  modalSettings: {
+    type: Object,
+    required: false,
   },
 });
 </script>
 
 <style lang="scss" scoped>
 .btn {
-  width: 100%;
-  color: var(--color-white);
-  transition: all 200ms ease;
-  position: relative;
-  background: #13144b;
-  padding: 2rem;
-  border-radius: 2rem;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  box-shadow: 0.1rem 0.1rem 0 rgba(25, 25, 25, 0.25);
-  font-size: 1.3rem;
-  line-height: 120%;
-  letter-spacing: -0.026000000000000002rem;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0 1.1rem 3rem rgba(25, 25, 25, 0.25);
-    background: #424ed1;
-
-    &::before {
-      --size: 70vw;
-    }
-  }
-
-  &::before {
-    --size: 0;
-    content: "";
-    position: absolute;
-    left: var(--x);
-    top: var(--y);
-    width: var(--size);
-    height: var(--size);
-    background: radial-gradient(
-        15% 88.6% at 40.5% 25.85%,
-        #ff4236 0%,
-        rgba(142, 84, 245, 0) 155%
-      ),
-      #424ed1;
-    transform: translate(-50%, -50%);
-  }
-
   & > span {
     position: relative;
-  }
-
-  @include mq(768) {
-    font-size: 1.6rem;
-    line-height: 120%;
-    letter-spacing: -0.032rem;
-  }
-
-  @include mq(1440) {
-    line-height: 140%;
-    letter-spacing: -0.064rem;
   }
 }
 
@@ -165,6 +134,10 @@ const props = defineProps({
   }
 }
 
+.response {
+  position: relative;
+}
+
 .success {
   &__container {
     display: flex;
@@ -189,6 +162,14 @@ const props = defineProps({
     @include mq(1440) {
       height: 66.4rem;
       width: 51.4rem;
+    }
+
+    & .cross {
+      position: absolute;
+      right: 2rem;
+      top: 1rem;
+      font-size: 3rem;
+      cursor: pointer;
     }
   }
 

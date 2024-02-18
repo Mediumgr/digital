@@ -2,15 +2,13 @@
   <router-view />
 </template>
 
-<script>
+<script setup>
+import { onMounted } from "vue";
 import "@/assets/styles/main.scss";
 import "@/assets/styles/keyframes.css";
 import { heightVH } from "@/helpers";
 
-export default {
-  name: "App",
-  mounted() {
-    heightVH();
-  },
-};
+onMounted(() => {
+  heightVH();
+});
 </script>
