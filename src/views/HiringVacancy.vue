@@ -139,7 +139,7 @@
     </Teleport>
     <footer class="footer">
       <div class="footer__logo">&copy; ПСБ</div>
-      <div class="footer__email">Почта</div>
+      <div class="footer__email" @click.stop="goToPage('Email')">Почта</div>
     </footer>
   </div>
 </template>
@@ -700,8 +700,16 @@ header {
   @include mq(1440) {
     padding: 3.5rem calc(50% - 62rem) 3.5rem;
   }
-  &__logo,
+  &__logo {
+    color: #fff;
+    letter-spacing: -0.0853rem;
+    @include mq(1024) {
+      font-size: 2.13rem;
+      line-height: 140%;
+    }
+  }
   &__email {
+    cursor: pointer;
     color: #fff;
     letter-spacing: -0.0853rem;
     @include mq(1024) {

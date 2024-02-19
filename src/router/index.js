@@ -10,7 +10,7 @@ const categories = [
   "qa",
   "net",
   "opensource",
-  "postgree",
+  "postgre",
   "devops",
   "engineerQA",
 ];

@@ -267,7 +267,7 @@
       }
     },
     {
-      "name": "Postgree",
+      "name": "Postgre",
       "data": {
         "title": "Администратор PostgreSQL",
         "requirements": [
