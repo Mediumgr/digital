@@ -21,9 +21,7 @@ categories.forEach((category) => {
     path: `/${category}`,
     name: `${name}`,
     component: () =>
-      import(
-        /*webpackChunkName:"Vacancy"*/ "@/views/HiringVacancy.vue"
-      ),
+      import(/*webpackChunkName:"Vacancy"*/ "@/views/HiringVacancy.vue"),
   });
 });
 
@@ -48,7 +46,7 @@ const getTitle = (routeName) => {
     Net: "Вакансия Net",
     Qa: "Вакансия Старший инженер по тестированию",
     Opensource: "Вакансия Администратор OpenSource",
-    Postgree: "Вакансия Администратор PostgreSQL",
+    Postgre: "Вакансия Администратор PostgreSQL",
     Devops: "Вакансия Devops",
     EngineerQA: "Вакансия Инженер по нагрузочному тестированию",
   }[routeName];
