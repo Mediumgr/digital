@@ -4,7 +4,7 @@ import MainPage from "@/views/MainPage.vue";
 const routes = [{ path: "/", name: "Home", component: MainPage }];
 
 const categories = [
-  "frontend",
+  "front",
   "java",
   "analytic",
   "qa",
@@ -40,7 +40,7 @@ const router = createRouter({
 const getTitle = (routeName) => {
   return {
     Home: "ПСБ цифровая лаборатория",
-    Frontend: "Вакансия Frontend-разработчик",
+    Front: "Вакансия Frontend-разработчик",
     Java: "Вакансия Java-разработчик",
     Analytic: "Вакансия Системный аналитик",
     Net: "Вакансия Net",
