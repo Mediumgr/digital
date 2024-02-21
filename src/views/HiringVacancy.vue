@@ -128,7 +128,9 @@
               @closeModal="toggleModal($event)"
             >
               <template v-slot:cross
-                ><span @click.stop="toggleModal('close')" class="cross">𐄂</span>
+                ><span @click.stop="toggleModal('close')" class="cross"
+                  >&times;</span
+                >
               </template>
             </BaseForm>
           </div>
