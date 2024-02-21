@@ -193,7 +193,7 @@ const goToPage = (link) => {
       window.open("https://rutube.ru/plst/232091", "_blank");
       break;
     case "Telega":
-      window.open("https://t.me/psb_it_team", "_blank");
+      window.open("https://t.me/+gMDxGmWOkgtjMWZi", "_blank");
       break;
     case "Email":
       window.open("mailto:it@psbdigital.ru", "_blank");
