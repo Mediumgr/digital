@@ -4,10 +4,9 @@
     <div class="vacancy__section">
       <p class="vacancy__title">Вакансии</p>
       <div class="vacancy__container">
-        <a
+        <div
           class="vacancy__card"
-          target="_blank"
-          href="https://career.habr.com/companies/psb/vacancies"
+          @click.stop="goToPage()"
           @mouseover="mouseover()"
           @mouseleave="mouseleave()"
           @touchstart="mouseover()"
@@ -28,10 +27,10 @@
           </video>
           <p class="vacancy__look">Посмотреть все вакансии можно здесь</p>
           <div class="vacancy__bottom">
-            <p class="vacancy__text">Хабр Карьера</p>
+            <p class="vacancy__text">Найти работу</p>
             <div class="vacancy__arrow"></div>
           </div>
-        </a>
+        </div>
         <BaseForm />
       </div>
     </div>
@@ -53,6 +52,10 @@ const mouseover = () => {
 };
 const mouseleave = () => {
   videoShow.value = false;
+};
+
+const goToPage = () => {
+  window.open("https://job.psbank.ru/vacancies/it-specialists", "_blank");
 };
 
 // const backgroundStyle = computed(() => {
@@ -151,6 +154,7 @@ onMounted(() => {
     border-radius: 2rem;
     overflow: hidden;
     background: #424ed1;
+    cursor: pointer;
 
     @include mq(768) {
       height: 38.5rem;

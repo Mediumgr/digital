@@ -32,6 +32,9 @@
       padding: 6rem 8rem;
     }
   }
+  &__psb {
+    cursor: pointer;
+  }
 
   &__link {
     color: var(--white);

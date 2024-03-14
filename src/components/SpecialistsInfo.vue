@@ -1,6 +1,6 @@
 <template>
   <div class="specialists">
-    <h1 ref="number" class="specialists__number">3000+</h1>
+    <h1 ref="number" class="specialists__number">4000+</h1>
     <h1 ref="specialists" class="specialists__title">специалистов</h1>
     <p ref="info" class="specialists__info_title">
       Мы создаем и совершенствуем сервисы одного из крупнейших банков — ПСБ. Мы

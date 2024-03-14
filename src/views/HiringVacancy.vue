@@ -138,20 +138,21 @@
       </Transition>
     </Teleport>
     <footer class="footer">
-      <div class="footer__logo">&copy; ПСБ</div>
+      <div class="footer__logo" @click.stop="goToPage('Psb')">&copy; ПСБ</div>
       <div class="footer__email" @click.stop="goToPage('Email')">Почта</div>
     </footer>
   </div>
 </template>
 
 <script setup>
-import { vacancies } from "@/assets/data/vacancies.json";
+import data from "@/assets/data/vacancies.json";
 import { useRoute } from "vue-router";
 import BaseForm from "@/components/BaseElements/BaseForm";
 import { onMounted, ref } from "vue";
 
 const route = useRoute();
 
+const { vacancies } = data;
 const shadow = ref(null);
 const menuList = ref(null);
 const showModal = ref(false);
@@ -200,6 +201,9 @@ const goToPage = (link) => {
       break;
     case "Recommend":
       window.open("https://work.psblab.ru", "_blank");
+      break;
+    case "Psb":
+      window.open("https://www.psbank.ru", "_blank");
       break;
   }
 };
@@ -463,7 +467,7 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   padding: 3rem 2rem 2rem;
   @include mq(768) {
     padding: 5rem 7rem 4rem;
@@ -703,6 +707,7 @@ header {
   &__logo {
     color: #fff;
     letter-spacing: -0.0853rem;
+    cursor: pointer;
     @include mq(1024) {
       font-size: 2.13rem;
       line-height: 140%;

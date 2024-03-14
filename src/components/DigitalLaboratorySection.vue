@@ -3,19 +3,19 @@
     <GradientBG :class="classElement" :animationAction="animationAction" />
 
     <h2 class="digital-laboratory__title heading-h1">
-      ПСБ цифровая <br> лаборатория
+      ПСБ цифровая <br />
+      лаборатория
     </h2>
 
     <div class="digital-laboratory__text">
-      <div class="digital-laboratory__psb">© ПСБ</div>
+      <div class="digital-laboratory__psb" @click.stop="goToPage()">© ПСБ</div>
 
-      <a href="mailto:it@psbdigital.ru"  class="digital-laboratory__link">
+      <a href="mailto:it@psbdigital.ru" class="digital-laboratory__link">
         Почта
       </a>
     </div>
   </footer>
 </template>
-
 
 <script setup>
 import { ref } from "vue";
@@ -25,8 +25,11 @@ let animationAction = ref();
 let classElement = ref("gradientDigitalLab");
 
 useGradient({ animationAction, classElement });
-</script>
 
+const goToPage = () => {
+  window.open("https://www.psbank.ru", "_blank");
+};
+</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/components/digital-laboratory";

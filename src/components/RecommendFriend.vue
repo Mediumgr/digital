@@ -4,7 +4,7 @@
       <GradientBG :class="classElement" :animationAction="animationAction" />
       <div class="recommend__content">
         <h1 class="recommend__title">Получи 100&nbsp;000&nbsp;₽</h1>
-        <p class="recommend__sub-title">Рекомендуй друга в IT</p>
+        <p class="recommend__sub-title">Рекомендуй друга в ИТ</p>
         <BaseButton class="recommend__button" @click.stop="goToPage()">
           <div class="recommend__wrapper">
             <span class="recommend__button_text">Заполнить заявку</span>
